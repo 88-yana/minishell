@@ -1,5 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+OPTIONS = -lreadline
 SRCS_NAME = mandatory/minishell.c \
 	bonus/test.c
 SRCDIR = srcs
@@ -14,7 +15,7 @@ $(OBJDIR):
 	mkdir $(shell find $(SRCDIR) -type d | sed 's/^$(SRCDIR)/$(OBJDIR)/g')
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OPTIONS) $(OBJS) -o $(NAME)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
