@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:56:25 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/15 23:42:02 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/16 01:52:26 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,51 @@ void	handle_parser(t_tree *tree)
 	else if (tree->type == REDIRECTION)
 		handle_redirection(tree);
 }
+
+// \nはなんなのか
+/*
+command_line ::=
+	| sequencial_commands delimiter command_line
+	| (sequencial_commands) delimiter command_line
+	| sequencial_commands
+	| (sequencial_commands)
+
+delimiter ::=
+	"&&"
+	"||"
+
+piped_commands ::=
+	  command "|" piped_commands
+	| command
+
+sequencial_commands ::=
+	  piped_commands delimiter sequencial_commands
+	| piped_commands
+
+command ::=
+	  arguments
+
+arguments ::=
+	  redirection
+	| redirection arguments
+	| string
+	| string arguments
+
+string ::=
+	  expandable <no_space> string
+	| expandable
+	| not_expandable <no_space> string
+	| not_expandable
+	| expandable_quoted <no_space> string
+	| expandable_quoted
+
+redirection ::=
+	  "<" string
+	| ">" string
+	| ">>" string
+	| "<<" string
+*/
+
 
 /*
 command_line ::=
