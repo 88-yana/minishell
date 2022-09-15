@@ -1,8 +1,9 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 OPTIONS = -lreadline
-SRCS_NAME = mandatory/minishell.c \
-	bonus/test.c
+SRCS_NAME = mandatory/main/minishell.c \
+	mandatory/parser/parser.c \
+	mandatory/parser/parser_utils.c
 SRCDIR = srcs
 OBJDIR = objs
 SRCS = $(addprefix $(SRCDIR)/, $(SRCS_NAME))

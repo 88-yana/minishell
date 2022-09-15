@@ -6,32 +6,33 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 00:22:57 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/15 17:53:07 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/15 21:39:59 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"minishell.h"
 
-//int	main(void)
-//{
-//	char	*line;
+int	main(void)
+{
+	t_vars	vars;
 
-//	line = NULL;
-//	while (1)
-//	{
-//		line = readline("minishell > ");
-//		if (line == NULL || strlen(line) == 0)
-//		{
-//			free(line);
-//			break ;
-//		}
-//		printf("line is '%s'\n", line);
-//		add_history(line);
-//		free(line);
-//	}
-//	printf("exit\n");
-//	return (0);
-//}
+	vars.tree = malloc(sizeof(t_tree));
+	vars.tree->type = COMMAND_LINE;
+	vars.tree->line = NULL;
+	while (1)
+	{
+		vars.tree->line = readline("minishell > ");
+		if (vars.tree->line == NULL || strlen(vars.tree->line) == 0)
+		{
+			free(vars.tree->line);
+			break ;
+		}
+		add_history(vars.tree->line);
+		handle_parser(vars.tree);
+		free(vars.tree->line);
+	}
+	return (0);
+}
 
 //int	main(int argc, char **argv, char **envp)
 //{
@@ -39,8 +40,3 @@
 //		execve("/bin/echo", &argv[1], envp);
 //	return (0);
 //}
-
-int	main(void)
-{
-	return (0);
-}

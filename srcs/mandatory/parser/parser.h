@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 00:23:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/13 19:08:18 by yahokari         ###   ########.fr       */
+/*   Created: 2022/09/15 21:00:44 by yahokari          #+#    #+#             */
+/*   Updated: 2022/09/15 21:33:02 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef PARSER_H
+# define PARSER_H
 
 # include	<unistd.h>
 # include	<stdio.h>
@@ -20,31 +20,28 @@
 # include	<readline/readline.h>
 # include	<readline/history.h>
 
-typedef enum e_type {
-	PIPE,
-	COMMAND
-}	t_type;
-
-typedef enum e_com_type {
-	CD,
-	MKDIR,
-	LS
-}	t_com_type;
-
-typedef struct s_command {
-	t_com_type	type;
-	char		*buf;
-	char		*command;
-	char		*option;
-	int			has_opt;
-}	t_command;
+typedef enum e_symbol {
+	COMMAND_LINE,
+	PIPED_COMMANDS,
+	COMMAND,
+	ARGUMENTS,
+	STRING,
+	REDIRECTION
+}	t_symbol;
 
 typedef struct s_tree {
-	t_type			type;
-	t_command		*elem;
-	struct t_tree	*parent;
-	struct t_tree	*left;
-	struct t_tree	*right;
+	t_symbol		type;
+	char			*line;
+	void			*elem;
+	struct s_tree	*parent;
+	struct s_tree	*child_left;
+	struct s_tree	*child_right;
 }	t_tree;
+
+// <-- parser.c -->
+void	handle_parser(t_tree *tree);
+
+// <-- parser_utils.c -->
+t_tree	*talloc(t_symbol symbol);
 
 #endif
