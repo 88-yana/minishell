@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 21:00:44 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/15 21:33:02 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/15 23:25:28 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 typedef enum e_symbol {
 	COMMAND_LINE,
+	SEQUENCIAL_COMMANDS,
 	PIPED_COMMANDS,
 	COMMAND,
 	ARGUMENTS,

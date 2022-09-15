@@ -6,21 +6,41 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:56:25 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/15 22:45:50 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/15 23:42:02 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"parser.h"
 
+void	get_next_token(t_vars *vars)
+{
+	vars->lexer_pos++;
+}
+
+bool	match(char *str, t_vars *vars)
+{
+	if (ft_strcmp(str, lexer[vars->lexer_pos]) == 0)
+		return true;
+	return false;
+}
+
 void	handle_command_line(t_tree *tree)
 {
-	tree->child_left = talloc(PIPED_COMMANDS);
+	tree->child_left = talloc(SEQUENCIAL_COMMANDS);
 	handle_parser(tree->child_left);
 	tree->child_right = NULL;
 }
 
 void	handle_piped_command(t_tree *tree)
 {
+	tree->child_left = talloc(COMMAND);
+	handle_parser(tree->child_left);
+	get_next_token(vars);
+	if (match("|", vars))
+	{
+		tree->child_right = talloc(PIPED_COMMANDS);
+		handle_parse(tree->child_right);
+	}
 	(void)tree;
 }
 
@@ -68,23 +88,20 @@ command_line ::=
 	| sequencial_commands "\n"
 	| (sequencial_commands)
 
-and_commands ::=
-	  command "&&" sequencial_commands
-	  command "&&" (sequencial_commands)
-
-or_commands ::=
-	  command "||" sequencial_commands
-	  command "||" (sequencial_commands)
+delimiter ::=
+	"&&"
+	"||"
 
 piped_commands ::=
 	  command "|" piped_commands
 	| command
 
 sequencial_commands ::=
-	  and_commands
-	| or_commands
+	  piped_commands delimiter sequencial_commands
+	  piped_commands delimiter (sequencial_commands)
+	  (sequencial_commands) delimiter sequencial_commands
+	  (sequencial_commands) delimiter (sequencial_commands)
 	| piped_commands
-
 
 command ::=
 	  arguments
