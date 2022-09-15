@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:56:25 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/15 21:33:25 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/15 22:45:50 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,92 @@ void	handle_parser(t_tree *tree)
 	else if (tree->type == REDIRECTION)
 		handle_redirection(tree);
 }
+
+/*
+command_line ::=
+	  "\n"
+	| sequencial_commands "\n"
+	| (sequencial_commands)
+
+and_commands ::=
+	  command "&&" sequencial_commands
+	  command "&&" (sequencial_commands)
+
+or_commands ::=
+	  command "||" sequencial_commands
+	  command "||" (sequencial_commands)
+
+piped_commands ::=
+	  command "|" piped_commands
+	| command
+
+sequencial_commands ::=
+	  and_commands
+	| or_commands
+	| piped_commands
+
+
+command ::=
+	  arguments
+
+arguments ::=
+	  redirection
+	| redirection arguments
+	| string
+	| string arguments
+
+string ::=
+	  expandable <no_space> string
+	| expandable
+	| not_expandable <no_space> string
+	| not_expandable
+	| expandable_quoted <no_space> string
+	| expandable_quoted
+
+redirection ::=
+	  "<" string
+	| ">" string
+	| ">>" string
+	| "<<" string
+*/
+
+/*
+command_line ::=
+	  "\n"
+	| sequencial_commands delimiter "\n"
+	| sequencial_commands "\n"
+
+delimiter ::=
+	  ";"
+
+sequencial_commands ::=
+	  piped_commands delimiter sequencial_commands
+	| piped_commands
+
+piped_commands ::=
+	  command "|" piped_commands
+	| command
+
+command ::=
+	  arguments
+
+arguments ::=
+	  redirection
+	| redirection arguments
+	| string
+	| string arguments
+
+string ::=
+	  expandable <no_space> string
+	| expandable
+	| not_expandable <no_space> string
+	| not_expandable
+	| expandable_quoted <no_space> string
+	| expandable_quoted
+
+redirection ::=
+	  "<" string
+	| ">" string
+	| ">>" string
+	| "<<" string
+*/
