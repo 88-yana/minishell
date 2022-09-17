@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 17:34:15 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/15 17:45:20 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/16 19:58:28 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,26 @@
 
 //*fd_r 読み込み用ファイルディスクリプタ
 //*fd_w 書き込み用ファイルディスクリプタ
+
+char    *strjoin(char *s1, char *s2)
+{
+    char *str = malloc(sizeof(char) * (strlen(s1) + strlen(s2) + 1));
+
+    size_t i = 0;
+    while (s1[i])
+    {
+        str[i] = s1[i];
+        i++;
+    }
+    size_t j = 0;
+    while (s2[j])
+    {
+        str[i + j] = s2[j];
+        j++;
+    }
+    str[i + j] = '\0';
+    return (str);
+}
 
 int popen2(int *fd_r, int *fd_w) {
 
@@ -60,8 +80,17 @@ int popen2(int *fd_r, int *fd_w) {
 		close(pipe_parent2child[READ]);
 		close(pipe_child2parent[WRITE]);
 
+
+		char *str[] = {"/bin/echo", "42", NULL};
+		char *stt[] = {"/bin/echo", "hello", NULL};
 		// 子プロセスはここで該当プログラムを起動しリターンしない
-		if (execl("./test1", "./test1", NULL) < 0) {
+		if (execv("/bin/echo", str) < 0) {
+			perror("popen2");
+			close(pipe_parent2child[READ]);
+			close(pipe_child2parent[WRITE]);
+			return 1;
+		}
+		if (execv("/bin/echo", stt) < 0) {
 			perror("popen2");
 			close(pipe_parent2child[READ]);
 			close(pipe_child2parent[WRITE]);
@@ -79,7 +108,7 @@ int popen2(int *fd_r, int *fd_w) {
 	return pid;
 }
 
-int main(int argc, char *argv[], char *env) {
+int main(int argc, char *argv[]/* , char *env */) {
 	int fd_r = fileno(stdin);
 	int fd_w = fileno(stdout);
 
@@ -99,10 +128,11 @@ int main(int argc, char *argv[], char *env) {
 		perror("error");
 		return 1;
 	}
-	execv()
 	printf("test2:");
 	fwrite(buf, 1, size, stdout);
+	printf("buf is %s", buf);
 	printf("\n");
 
 	return 0;
 }
+
