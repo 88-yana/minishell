@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 21:00:44 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/15 23:25:28 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/19 20:32:35 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 
 typedef enum e_symbol {
 	COMMAND_LINE,
-	SEQUENCIAL_COMMANDS,
 	PIPED_COMMANDS,
 	COMMAND,
 	ARGUMENTS,
