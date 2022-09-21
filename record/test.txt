@@ -1,0 +1,33 @@
+cat < Makefile < Makefile
+
+cat < Makefile < test.cat
+
+cat | cat | ls
+
+ls | ls | cat
+
+cat | ls | cat
+
+grep all < Makefile
+
+grep all | (cat | ls -l) && ls
+
+cat | (cat | ls -l) && ls
+
+cat | (cat | ls -l && ls)
+
+grep all | (cat && ls -l) && ls
+
+grep all | (cat | ls -l && ls)
+
+ls -l >> test.txt | cat < test.txt | wc -l >> test.txt
+
+ls -l >> test.txt | cat < test.txt | wc -l >> test.txt << EOF
+
+echo "'$PATH'"
+
+echo '"$PATH"'
+
+< Makefile >> test.txt < Makefile cat
+
+< Makefile >> test.txt echo hello < Makefile

@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 17:09:24 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/20 20:41:24 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/20 21:47:17 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	execute_command(char **command)
 {
 	execve(command[0], command, NULL);
+	// execlp(command[0], command[0], NULL);
 }
 
 void	initialize_pipe(t_pipe_fd *pipe_fd)
@@ -135,9 +136,21 @@ void	execute_shell(t_list *list)
 	t_list		*buf;
 	t_comline	*command;
 	size_t		pipes;
+	size_t		i;
 
 	buf = list;
-	execute_piped_command(list);
+	pipes = count_pipes(buf);
+	command = buf->content;
+	if (pipes == 0 && command->type == COMMAND)
+		execute_command(command->cmd);
+	else
+		execute_piped_command(buf);
+	i = 0;
+	while (i <= pipes)
+	{
+		wait(NULL);
+		i++;
+	}
 	// while (buf)
 	// {
 	// 	pipes = count_pipes(buf);

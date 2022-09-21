@@ -1,0 +1,8 @@
+a.out
+command_util.c
+minishell.c
+minishell.h
+redirection.c
+shell.c
+test.txt
+utils.c
