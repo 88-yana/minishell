@@ -1,0 +1,55 @@
+  433  echo <<'END'
+  434  cat <<'END'
+  435  cat <<"END"
+  436  cat <<END
+  437  cat <<\END
+  438  cat <<\END
+  439  cat <<END
+  440  cat <<"END
+END
+END
+$PATH
+"END
+  501  echo -n
+  502  echo -n -n 
+  503  echo -nnnnn
+  504  echo -nnnnnn
+  505  echo -nnnnnna
+ 4799  cat minishell.c 2> t.txt
+ 4800  cat minishell.c 2>> t.txt
+ 4801  cat minishell.c >> t.txt
+ 4802  cat minishell.c 2>> t.txt
+ 4803  ls
+ 4804  rm t.txt
+ 4805  cat minishell.c 2>> t.txt
+ 4806  ls
+ 4807  cat t.txt
+ 4808  cat minishell. 2>> t.txt
+ 4809  cat t.txt
+ 4810  cat minishell. >> t.txt
+ 4811  cat minishell. 1>> t.txt
+ 4812  cat t.txt
+ 4813  cat minishell.c 1>> t.txt
+ 4814  cat t.txt
+ 4815  cat 0< minishell.c
+ 4816  cat < minishell.c
+ bash-3.2$ ls | cd ..
+bash-3.2$ pwd
+/Users/yahokari/Desktop/42cursus/minishell/test/yahokari/main
+bash-3.2$ cd .. | ls
+a.out           command_util.c  minishell.c     minishell.h     redirection.c   shell.c         t.txt           test.txt        utils.c
+bash-3.2$ pwd
+/Users/yahokari/Desktop/42cursus/minishell/test/yahokari/main
+bash-3.2$ cd .. | ls && cd ..
+a.out           command_util.c  minishell.c     minishell.h     redirection.c   shell.c         t.txt           test.txt        utils.c
+bash-3.2$ ls
+a.out   main    test1   test2   test3.c
+bash-3.2$ pwd
+/Users/yahokari/Desktop/42cursus/minishell/test/yahokari
+bash-3.2$ cd main/
+bash-3.2$ ls
+a.out           command_util.c  minishell.c     minishell.h     redirection.c   shell.c         t.txt           test.txt        utils.c
+bash-3.2$ pwd
+/Users/yahokari/Desktop/42cursus/minishell/test/yahokari/main
+bash-3.2$ (cd ..)
+bash-3.2$ pwd

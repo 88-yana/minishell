@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:39:24 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/22 18:55:10 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:01:40 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,29 @@ void	close_fd_parent(t_comline *comline)
 		close(comline->write_fd);
 }
 
-// pipeつなぎの場合は子プロセス それ以外は親プロセス
+void	exec_subshell(t_list *list, t_vars *vars)
+{
+	t_comline	*order;
+	t_list		*next_command;
+	t_comline	*comline;
+
+	order = (t_comline *)list->content;
+	// printf("read: %d, write: %d, next_read: %d\n", order->read_fd, order->write_fd, order->type);
+	next_command = order->shell;
+	// next_command = find_next_piped_commands(order->shell);
+	comline = next_command->content;
+	comline->read_fd = order->read_fd;
+	// while (find_next_piped_commands(next_command))
+	// 	next_command = find_next_piped_commands(order->shell);
+	// comline = next_command->content;
+	comline->write_fd = order->write_fd;
+	comline->next_read_fd = order->next_read_fd;
+	printf("read: %d, write: %d, next_read: %d\n", comline->read_fd, comline->write_fd, comline->next_read_fd);
+	// display_command(next_command);
+	execute_shell(next_command, vars);
+}
+
+// pipeつなぎの場合はbuiltinならば子プロセス それ以外は親プロセス
 void	execute_command(t_list *list, t_vars *vars)
 {
 	pid_t		pid;
@@ -71,7 +93,8 @@ void	execute_command(t_list *list, t_vars *vars)
 
 	order = (t_comline *)list->content;
 	set_fd(list);
-	// printf("read: %d, write: %d, next_read: %d\n", order->read_fd, order->write_fd, order->next_read_fd);
+	// printf("read: %d, write: %d, type: %d\n", order->read_fd, order->write_fd, order->type);
+	// printf("read: %d, write: %d, next_read: %d type: %d\n", order->read_fd, order->write_fd, order->next_read_fd, order->type);
 	pid = fork();
 	if (pid == -1)
 		exit (EXIT_FAILURE);
@@ -79,7 +102,11 @@ void	execute_command(t_list *list, t_vars *vars)
 	{
 		duplicate_output(order);
 		close_fd_child(order);
-		exec_ve(order->cmd, vars);
+		// printf("read: %d, write: %d, type: %d\n", order->read_fd, order->write_fd, order->type);
+		if (order->type == COMMAND)
+			exec_ve(order->cmd, vars);
+		else if (order->type == SHELL)
+			exec_subshell(list, vars);
 	}
 	close_fd_parent(order);
 }
@@ -93,10 +120,9 @@ void	execute_shell(t_list *list, t_vars *vars)
 	while (buf)
 	{
 		order = (t_comline *)buf->content;
-		if (order->type == COMMAND)
+		// printf("read: %d, write: %d, type: %d\n", order->read_fd, order->write_fd, order->type);
+		if (order->type == COMMAND || order->type == SHELL)
 			execute_command(buf, vars);
-		else if (order->type == SHELL)
-			;
 		else if (order->type == PIPE)
 			;
 		else if (order->type == AND || order->type == OR)
@@ -106,16 +132,17 @@ void	execute_shell(t_list *list, t_vars *vars)
 			execute_redirection(buf, vars);
 		buf = buf->next;
 	}
-	int i = 0;
-	while (i < 3)
-	{
-		int wstatus;
-		int status;
-		wait(&wstatus);
-		if (WIFSIGNALED(wstatus) == TRUE)
-			status = 128 + WTERMSIG(wstatus);
-		else
-			status = WEXITSTATUS(wstatus);
-		i++;
-	}
+	// int	i = 0;
+	// while (i < 3)
+	// {
+	// 	wait(NULL);
+	// 	// int	wstatus;
+	// 	// int	status;
+	// 	// wait(&wstatus);
+	// 	// if (WIFSIGNALED(wstatus) == TRUE)
+	// 	// 	status = 128 + WTERMSIG(wstatus);
+	// 	// else
+	// 	// 	status = WEXITSTATUS(wstatus);
+	// 	i++;
+	// }
 }

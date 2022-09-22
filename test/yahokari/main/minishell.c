@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:26:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/22 17:07:42 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/22 21:16:50 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,16 +109,22 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	vars.envp = envp;
-	// command_line = ft_lstnew(make_command(COMMAND, (char *[]){"/bin/ls", "-l", NULL}, NULL, NULL));
-	// ft_lstadd_back(&command_line, ft_lstnew(make_command(PIPE, NULL, NULL, NULL)));
-	// ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/usr/bin/grep", "shell", NULL}, NULL, NULL)));
-	// ft_lstadd_back(&command_line, ft_lstnew(make_command(PIPE, NULL, NULL, NULL)));
+	command_line = ft_lstnew(make_command(COMMAND, (char *[]){"/bin/ls", "-l", NULL}, NULL, NULL));
+	ft_lstadd_back(&command_line, ft_lstnew(make_command(PIPE, NULL, NULL, NULL)));
+	ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/usr/bin/grep", "shell", NULL}, NULL, NULL)));
+	ft_lstadd_back(&command_line, ft_lstnew(make_command(PIPE, NULL, NULL, NULL)));
+	// ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/usr/bin/wc", "-l", NULL}, NULL, NULL)));
+	t_list	*sub = ft_lstnew(make_command(COMMAND, (char *[]){"/bin/wc", "-l", NULL}, NULL, NULL));
+	ft_lstadd_back(&command_line, ft_lstnew(make_command(SHELL, NULL, NULL, sub)));
+	// display_command(command_line);
 	// ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/usr/bin/wc", "-l", NULL}, NULL, NULL)));
 	// ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/bin/cat", NULL}, NULL, NULL)));
-	command_line = ft_lstnew(make_command(COMMAND, (char *[]){"/bin/cat", "minishell.h", NULL}, NULL, NULL));
-	ft_lstadd_back(&command_line, ft_lstnew(make_command(PIPE, NULL, NULL, NULL)));
-	ft_lstadd_back(&command_line, ft_lstnew(make_command(GTGT, NULL, "test.txt", NULL)));
-	ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/bin/cat", NULL}, NULL, NULL)));
+
+	// command_line = ft_lstnew(make_command(COMMAND, (char *[]){"/bin/cat", "minishell.h", NULL}, NULL, NULL));
+	// ft_lstadd_back(&command_line, ft_lstnew(make_command(PIPE, NULL, NULL, NULL)));
+	// ft_lstadd_back(&command_line, ft_lstnew(make_command(GTGT, NULL, "test.txt", NULL)));
+	// ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/bin/cat", NULL}, NULL, NULL)));
+
 	// command_line = ft_lstnew(make_command(LT, NULL, "test.txt", NULL));
 	// ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/bin/cat", "/dev/random", NULL}, NULL, NULL)));
 	// ft_lstadd_back(&command_line, ft_lstnew(make_command(PIPE, NULL, NULL, NULL)));
