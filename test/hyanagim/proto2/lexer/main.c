@@ -37,7 +37,6 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (0);
 	char *filename = ft_strjoin(argv[1], ".txt");
-	printf("%s\n", filename);
 	fd = open(filename, O_RDONLY);
 	i = 0;
 	while (1)
