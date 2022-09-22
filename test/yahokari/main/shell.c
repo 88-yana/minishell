@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:39:24 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/21 21:32:44 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/22 18:55:10 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	close_fd_parent(t_comline *comline)
 		close(comline->write_fd);
 }
 
+// pipeつなぎの場合は子プロセス それ以外は親プロセス
 void	execute_command(t_list *list, t_vars *vars)
 {
 	pid_t		pid;
@@ -73,7 +74,7 @@ void	execute_command(t_list *list, t_vars *vars)
 	// printf("read: %d, write: %d, next_read: %d\n", order->read_fd, order->write_fd, order->next_read_fd);
 	pid = fork();
 	if (pid == -1)
-		exit (1);
+		exit (EXIT_FAILURE);
 	else if (pid == 0)
 	{
 		duplicate_output(order);
@@ -108,7 +109,13 @@ void	execute_shell(t_list *list, t_vars *vars)
 	int i = 0;
 	while (i < 3)
 	{
-		wait(NULL);
+		int wstatus;
+		int status;
+		wait(&wstatus);
+		if (WIFSIGNALED(wstatus) == TRUE)
+			status = 128 + WTERMSIG(wstatus);
+		else
+			status = WEXITSTATUS(wstatus);
 		i++;
 	}
 }
