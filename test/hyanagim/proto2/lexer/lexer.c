@@ -67,7 +67,7 @@ static int	plus_pos(char *str, size_t *i, char c)
 }
 
 
-static size_t	count_size(char **array, char *str, char c)
+static size_t	count_size(char *str, char c)
 {
 	size_t	i;
 	size_t	j;
@@ -96,26 +96,77 @@ static size_t	count_size(char **array, char *str, char c)
 	return (cnt);
 }
 
-static char **split(char *line, size_t size)
+typedef struct s_split
+{
+	char	*line;
+	size_t	pos;
+	size_t	size;
+	char	**array;
+}	t_array;
+
+static void	free_array(t_array *data)
 {
 	size_t	i;
-	size_t	cnt;
+
+	i = 0;
+	while (i < data->pos)
+	{
+		free(data->array[i]);
+	}
+	free(data->array);
+	exit (1);
+}
+
+static void	push_element(t_array *data, size_t i, size_t str_len)
+{
+	(data->array)[data->pos] = malloc(str_len + 1);
+	if (data->array[data->pos] = NULL)
+		free_array(data);
+	printf("%s, %d\n", __FILE__, __LINE__);
+	printf("i is %ld, str_len is %ld\n", i, str_len);
+	printf("sizof %ld, %ld\n", sizeof(data->array), sizeof(data->array[0]));
+	(data->array)[0][0] = 'a';
+	printf("%c\n", data->array[0][0]);
+	// ft_strlcpy(/* data->array[data->pos] */data->array[0], &(data->line[i - str_len]), str_len + 1);
+	printf("%s, %d\n", __FILE__, __LINE__);
+	data->pos++;
+}
+
+static void	push_quote_element(t_array *data, size_t i, char c)
+{
+	size_t	start;
+
+	start = i;
+	plus_pos(data->line, &i, c);
+	if (i - start < 1)
+		return ;
+	data->array[data->pos] = malloc(i - start + 1);
+	if (data->array[data->pos] = NULL)
+		free_array(data);
+	ft_strlcpy(data->array[data->pos], &(data->line[start]), i - start + 1);
+	data->pos++;
+}
+
+
+static void	split_line(t_array *data, char c)
+{
+	size_t	i;
 	size_t	str_len;
 
 	i = 0;
-	cnt = 0;
 	str_len = 0;
 	while (1)
 	{
-		if (str[i] == '"')
-			cnt += plus_pos(str, &i, '"');
-		if (str[i] == '\'')
-			cnt += plus_pos(str, &i, '\'');
-		if ((str[i] == c || str[i] == '\0') && str_len > 0)
-			cnt++;
-		if (str[i] == '\0')
+		printf("%c\n", data->line[i]);
+		if (data->line[i] == '"')
+			push_quote_element(data, i, '"');
+		if (data->line[i] == '\'')
+			push_quote_element(data, i, '\'');
+		if ((data->line[i] == c || data->line[i] == '\0') && str_len > 0)
+			push_element(data, i, str_len);
+		if (data->line[i] == '\0')
 			break ;
-		if (str[i] != c)
+		if (data->line[i] != c)
 			str_len++;
 		else
 			str_len = 0;
@@ -127,16 +178,28 @@ char	**lexer(char *line)
 {
 	char	**temp;
 	size_t	size;
-	char	temp[20][20];
+	// char	temp[20][20];
+	t_array data;
 
 	check_line(line);
 	printf("\nsize is %zu\n", count_size(line, ' '));
-	size = count_size(line, ' ');
-	// temp = malloc(size + 1);
-	// if (temp == NULL)
-	// 	return (NULL);
-	// temp[size] = NULL;
-	
-	// temp = lx_split(line, ' ');
+	data.line = line;
+	data.pos = 0;
+	data.size = count_size(line, ' ');
+	printf("%s, %d\n", __FILE__, __LINE__);
+	data.array = malloc(sizeof(char *) * (data.size + 1));
+	if (data.array == NULL)
+		return (NULL);
+	printf("%s, %d\n", __FILE__, __LINE__);
+	data.array[data.size] = NULL;
+	printf("%s, %d\n", __FILE__, __LINE__);
+	split_line(&data, ' ');
+	printf("%s\n", "dadada");
+	int i = 0;
+	while(/* data.array[i] != NULL */ i < 13)
+	{
+		printf("data is %s\n", data.array[i]);
+		i++;
+	}
 	return (temp);
 }
