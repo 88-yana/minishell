@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:04:06 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/20 20:36:40 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/20 21:12:09 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,15 @@ int	main(void)
 {
 	t_list	*command_line;
 
-	command_line = ft_lstnew(make_command(COMMAND, (char *[]){"/bin/ls", "-l", NULL}, NULL));
+	command_line = ft_lstnew(make_command(COMMAND, (char *[]){"/bin/echo", "hello", NULL}, NULL));
 	ft_lstadd_back(&command_line, ft_lstnew(make_command(PIPE, NULL, NULL)));
-	ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/usr/bin/grep", "main", NULL}, NULL)));
+	ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/bin/echo", "yeah", NULL}, NULL)));
 	ft_lstadd_back(&command_line, ft_lstnew(make_command(PIPE, NULL, NULL)));
-	ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/usr/bin/wc", "-l", NULL}, NULL)));
+	ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/usr/bin/grep", "h", NULL}, NULL)));
+	ft_lstadd_back(&command_line, ft_lstnew(make_command(PIPE, NULL, NULL)));
+	ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/usr/bin/grep", "-p", "h", NULL}, NULL)));
+	// ft_lstadd_back(&command_line, ft_lstnew(make_command(PIPE, NULL, NULL)));
+	// ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/bin/echo", "$?", NULL}, NULL)));
 	// display_command(command_line);
 	// printf("%ld\n", count_pipes(command_line));
 	// t_comline *com = (t_comline *)command_line->content;
