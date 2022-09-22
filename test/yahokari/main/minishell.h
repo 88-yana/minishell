@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 19:57:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/21 21:42:25 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/22 18:49:42 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include	<stdbool.h>
 # include	<string.h>
 # include	<unistd.h>
+# include	<sys/wait.h>
+# include	<sys/types.h>
 # include	<sys/wait.h>
 # include	"../../../libft/libft.h"
 
