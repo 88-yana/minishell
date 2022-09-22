@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 20:21:21 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/22 14:25:47 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:48:11 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,35 @@ static char	**ft_store_str(char *s, char c, char **copy, size_t str_len)
 	during_single_quote = 0;
 	while (1)
 	{
-		if ((s[i] == c || s[i] == '\0' || s[i] == '"' || s[i] == '\'') && str_len > 0)
+		if (s[i] == '\"')
+		{
+			i++;
+			str_len++;
+			while (s[i] != '\"')
+				str_len++;
+			copy[count] = malloc(sizeof(char) * (str_len + 1));
+			if (copy[count] == NULL)
+				return (ft_safe_free(count, copy));
+			ft_strlcpy(copy[count], &s[i - 1], str_len + 1);
+			count++;
+			i += str_len - 1;
+			str_len = 0;
+		}
+		if (s[i] == '\'')
+		{
+			i++;
+			str_len++;
+			while (s[i] != '\'')
+				str_len++;
+			copy[count] = malloc(sizeof(char) * (str_len + 1));
+			if (copy[count] == NULL)
+				return (ft_safe_free(count, copy));
+			ft_strlcpy(copy[count], &s[i - 1], str_len + 1);
+			count++;
+			i += str_len - 1;
+			str_len = 0;
+		}
+		if ((s[i] == c || s[i] == '\0') && str_len > 0)
 		{
 			copy[count] = malloc(sizeof(char) * (str_len + 1));
 			if (copy[count] == NULL)
@@ -77,11 +105,7 @@ static char	**ft_store_str(char *s, char c, char **copy, size_t str_len)
 		}
 		if (s[i] == '\0')
 			break ;
-		if (s[i] == '\"')
-			during_duble_quote = 1 - during_duble_quote;
-		if (s[i] == '\'')
-			during_single_quote = 1 - during_single_quote;
-		if (s[i] != c && !during_duble_quote && !during_single_quote)
+		if (s[i] != c)
 			str_len++;
 		else
 			str_len = 0;
