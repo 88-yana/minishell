@@ -5,29 +5,33 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 17:31:42 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/21 17:32:16 by hyanagim         ###   ########.fr       */
+/*   Created: 2022/04/07 20:21:21 by yahokari          #+#    #+#             */
+/*   Updated: 2022/09/22 14:25:47 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../../../libft/libft.h"
 
-static size_t	ft_count_size(const char *s, char c)
+static size_t	ft_count_size(char *s, char c, size_t count, size_t str_len)
 {
 	size_t	i;
-	size_t	count;
-	size_t	str_len;
+	int		during_duble_quote;
+	int		during_single_quote;
 
 	i = 0;
-	str_len = 0;
-	count = 0;
+	during_duble_quote = 0;
+	during_single_quote = 0;
 	while (1)
 	{
 		if ((s[i] == c || s[i] == '\0') && str_len > 0)
 			count++;
 		if (s[i] == '\0')
 			break ;
-		if (s[i] != c)
+		if (s[i] == '"')
+			during_duble_quote = 1 - during_duble_quote;
+		if (s[i] == '\'')
+			during_single_quote = 1 - during_single_quote;
+		if (s[i] != c && !during_duble_quote && !during_single_quote)
 			str_len++;
 		else
 			str_len = 0;
@@ -50,16 +54,20 @@ static char	**ft_safe_free(size_t count, char **copy)
 	return (NULL);
 }
 
-static char	**ft_store_str(const char *s, char c, char **copy, size_t str_len)
+static char	**ft_store_str(char *s, char c, char **copy, size_t str_len)
 {
 	size_t	i;
 	size_t	count;
+	int		during_duble_quote;
+	int		during_single_quote;
 
 	i = 0;
 	count = 0;
+	during_duble_quote = 0;
+	during_single_quote = 0;
 	while (1)
 	{
-		if ((s[i] == c || s[i] == '\0') && str_len > 0)
+		if ((s[i] == c || s[i] == '\0' || s[i] == '"' || s[i] == '\'') && str_len > 0)
 		{
 			copy[count] = malloc(sizeof(char) * (str_len + 1));
 			if (copy[count] == NULL)
@@ -69,7 +77,11 @@ static char	**ft_store_str(const char *s, char c, char **copy, size_t str_len)
 		}
 		if (s[i] == '\0')
 			break ;
-		if (s[i] != c)
+		if (s[i] == '\"')
+			during_duble_quote = 1 - during_duble_quote;
+		if (s[i] == '\'')
+			during_single_quote = 1 - during_single_quote;
+		if (s[i] != c && !during_duble_quote && !during_single_quote)
 			str_len++;
 		else
 			str_len = 0;
@@ -78,14 +90,14 @@ static char	**ft_store_str(const char *s, char c, char **copy, size_t str_len)
 	return (copy);
 }
 
-char	**lx_split(char const *s, char c)
+char	**lx_split(char *s, char c)
 {
 	char	**copy;
 	size_t	copy_size;
 
 	if (s == NULL)
 		return (NULL);
-	copy_size = ft_count_size(s, c);
+	copy_size = ft_count_size(s, c, 0, 0);
 	copy = ft_calloc(copy_size + 1, sizeof(char *));
 	if (copy == NULL)
 		return (NULL);

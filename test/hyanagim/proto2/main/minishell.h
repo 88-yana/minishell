@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 00:23:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/21 17:23:15 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:41:12 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ size_t		count_pipes(t_list *shell);
 void		display_command(t_list	*command_line);
 
 char	**lexer(char *line);
+char	**lx_split(char *s, char c);
+int		print_error(const char *message);
 #endif
 
 //typedef enum e_com_type {

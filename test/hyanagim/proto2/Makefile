@@ -18,7 +18,7 @@ LIBFT_A = $(LIBFTDIR)/libft.a
 all: $(NAME)
 
 $(NAME):
-	cc lexer/lexer.c main/minishell.c libft.a -lreadline
+	cc lexer/lexer.c lexer/split.c main/minishell.c main/error.c libft.a -lreadline
 $(LIBFT_A):
 	$(MAKE) -C $(LIBFTDIR)
 $(MINILIBX):
