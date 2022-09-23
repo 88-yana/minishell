@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+# include	"../../../../libft/libft.h"
+
 
 // int	print_error(const char *message)
 // {
