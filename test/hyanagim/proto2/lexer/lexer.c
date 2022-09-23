@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/23 21:02:29 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:06:12 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,6 @@ static int	match_quote(char *str, size_t *i, char c)
 		print_error("syntax error\n");
 	return (1);
 }
-
-// typedef struct s_split
-// {
-// 	char	*line;
-// 	size_t	pos;
-// 	size_t	size;
-// 	size_t	dquote;
-// 	size_t	squote;
-// 	char	**array;
-// }	t_array;
 
 void	check_line(char *line)
 {
