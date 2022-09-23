@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/23 16:10:24 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/23 16:17:35 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,14 @@ static int	plus_pos(char *str, size_t *i, char c)
 	return (1);
 }
 
+void	plus_next_quote(char *str, size_t *i, char c)
+{
+	(*i)++;
+	while (str[*i] != '\0' && str[*i] != c)
+		(*i)++;
+	(*i)++;
+}
+
 static size_t	count_size(char *str, char c)
 {
 	size_t	i;
@@ -79,10 +87,14 @@ static size_t	count_size(char *str, char c)
 	str_len = 0;
 	while (1)
 	{
-		if (str[i] == '"')
+		if (str[i] == '"' && str_len == 0)
 			cnt += plus_pos(str, &i, '"');
-		if (str[i] == '\'')
+		if (str[i] == '\'' && str_len == 0)
 			cnt += plus_pos(str, &i, '\'');
+		if (str[i] == '"')
+			plus_next_quote(str, &i, '"');
+		if (str[i] == '\'')
+			plus_next_quote(str, &i, '\'');
 		if ((str[i] == c || str[i] == '\0') && str_len > 0)
 			cnt++;
 		if (str[i] == '\0')
@@ -141,6 +153,8 @@ static void	push_quote_element(t_array *data, size_t *i, char c)
 	data->pos++;
 }
 
+
+
 static void	split_line(t_array *data, char c)
 {
 	size_t	i;
@@ -154,6 +168,10 @@ static void	split_line(t_array *data, char c)
 			push_quote_element(data, &i, '"');
 		if (data->line[i] == '\''&& str_len == 0)
 			push_quote_element(data, &i, '\'');
+		if (data->line[i] == '"')
+			plus_next_quote(data->line, &i, '"');
+		if (data->line[i] == '\'')
+			plus_next_quote(data->line, &i, '\'');
 		if ((data->line[i] == c || data->line[i] == '\0') && str_len > 0)
 			push_element(data, i, str_len);
 		if (data->line[i] == '\0')
