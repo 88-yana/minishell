@@ -59,3 +59,5 @@ cat << end < file
 l"s"
 
 cat <<"END"ls
+
+cat ' '$PATH"H "

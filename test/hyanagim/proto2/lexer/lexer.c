@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/23 21:06:12 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/23 22:31:44 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ static int	match_quote(char *str, size_t *i, char c)
 {
 	(*i)++;
 	while (str[*i] != '\0' && str[*i] != c)
-	{
-		printf("%c", str[*i]);
 		(*i)++;
-	}
 	if (str[*i] != c)
 		print_error("syntax error\n");
 	return (1);
@@ -71,6 +68,9 @@ static int	plus_pos(t_array *data, size_t *i, size_t *str_len, char c);
 
 int	seq_quote(t_array *data, size_t *i, size_t *str_len, char c)
 {
+	int	cnt;
+
+	cnt = 0;
 	change_cnt_quote(data, c);
 	(*i)++;
 	if (data->line[*i] == '\0' || data->line[*i] == ' ')
@@ -156,9 +156,10 @@ static void	free_array(t_array *data)
 	size_t	i;
 
 	i = 0;
-	while (i < data->pos)
+	while (i < data->size)
 	{
 		free(data->array[i]);
+		i++;
 	}
 	free(data->array);
 	exit (1);
@@ -217,25 +218,70 @@ static void	split_line(t_array *data, char c)
 	}
 }
 
-t_array	lexer(char *line)
+static void	delete_quote(char *str)
+{
+	size_t	i;
+
+	if (ft_strchr(str, '$') != NULL)
+		return ;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '"')
+		{
+			ft_strlcpy(&str[i], &str[i + 1], ft_strlen(&str[i]));
+			while (str[i] != '\0' && str[i] != '"')
+				i++;
+			if (str[i] == '\0')
+				break ;
+			ft_strlcpy(&str[i], &str[i + 1], ft_strlen(&str[i]));
+			continue ;
+		}
+		if (str[i] == '\'')
+		{
+			ft_strlcpy(&str[i], &str[i + 1], ft_strlen(&str[i]));
+			while (str[i] != '\0' && str[i] != '\'')
+				i++;
+			if (str[i] == '\0')
+				break ;
+			ft_strlcpy(&str[i], &str[i + 1], ft_strlen(&str[i]));
+			continue ;
+		}
+		i++;
+	}
+}
+
+static void	shape_array(t_array *data)
+{
+	size_t	i;
+
+	i = 0;
+	while (data->array[i] != NULL)
+	{
+		delete_quote(data->array[i]);
+		i++;
+	}
+}
+
+t_array	*lexer(char *line, t_array	*data)
 {
 	char	**temp;
 	size_t	size;
-	t_array	data;
 
 	check_line(line);
-	data.line = line;
-	data.pos = 0;
-	data.dquote = 0;
-	data.squote = 0;
-	data.size = 0;
-	count_size(&data, ' ');
-	data.array = malloc(sizeof(char *) * (data.size + 1));
-	if (data.array == NULL)
-		return (data);
-	data.array[data.size] = NULL;
-	data.dquote = 0;
-	data.squote = 0;
-	split_line(&data, ' ');
+	data->line = line;
+	data->pos = 0;
+	data->dquote = 0;
+	data->squote = 0;
+	data->size = 0;
+	count_size(data, ' ');
+	data->array = malloc(sizeof(char *) * (data->size + 1));
+	if (data->array == NULL)
+		return (NULL);
+	data->array[data->size] = NULL;
+	data->dquote = 0;
+	data->squote = 0;
+	split_line(data, ' ');
+	shape_array(data);
 	return (data);
 }

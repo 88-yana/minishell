@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:49:14 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/23 21:04:37 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/23 22:31:16 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	main(int argc, char **argv)
 	char	**temp;
 	t_array	data;
 
+	t_array *ptr;
 	// fd = open("corner.txt", O_RDONLY);
 	if (argc != 2)
 		return (0);
@@ -55,16 +56,18 @@ int	main(int argc, char **argv)
 		if (line == NULL)
 			break ;
 		printf("%d : %s\n", i + 1, line);
-		data = lexer(line);
-		printf("size is %zu\n", data.size);
+		ptr = lexer(line, &data);
+		if (ptr == NULL)
+			exit(1);
+		printf("size is %zu\n", ptr->size);
 		int j = 0;
-		while(data.array[j] != NULL)
+		while(ptr->array[j] != NULL)
 		{
-
-			printf("data is 『%s』\n", data.array[j]);
+			printf("data is 『%s』\n", ptr->array[j]);
 			j++;
 		}
 		printf("\n");
+		
 		// i = 0;
 		// while (temp[i] != NULL)
 		// {

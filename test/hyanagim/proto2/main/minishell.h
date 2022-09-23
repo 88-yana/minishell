@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 00:23:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/23 20:59:36 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/23 22:29:53 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ t_comline	*make_command(t_type type, char **cmd, t_list *shell);
 size_t		count_pipes(t_list *shell);
 void		display_command(t_list	*command_line);
 
-t_array	lexer(char *line);
 char	**lx_split(char *s, char c);
 int		print_error(const char *message);
+t_array	*lexer(char *line, t_array	*data);
 #endif
 
 //typedef enum e_com_type {
