@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/23 16:45:54 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/23 17:25:34 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	plus_pos(char *str, size_t *i, size_t *str_len, char c)
 	if (str[*i] == c)
 	{
 		(*i)++;
-		if (str[*i] == '\0' || str[*i] == c)
+		if (str[*i] == '\0' || str[*i] == ' ')
 			return (0);
 		// while(str[*i] != '\0' && str[*i] != c)
 		// {
@@ -74,6 +74,34 @@ static int	plus_pos(char *str, size_t *i, size_t *str_len, char c)
 		(*i)++;
 	while (str[*i] != '\0' && str[*i] != ' ')
 		(*i)++;
+	// if (str[(*i) - 1] == '\'')
+	// {
+	// 	size_t j = 0;
+	// 	while (str[(*i) + j] != '\0')
+	// 	{
+	// 		if (str[(*i) + j] == '\'')
+	// 		{
+	// 			(*i) += j + 1;
+	// 			return (1);
+	// 		}
+	// 		j++;
+	// 	}
+		
+	// }
+	// if (str[(*i) - 1] == '"')
+	// {
+	// 	size_t j = 0;
+	// 	while (str[(*i) + j] != '\0')
+	// 	{
+	// 		if (str[(*i) + j] == '"')
+	// 		{
+	// 			(*i) += j + 1;
+	// 			return (1);
+	// 		}
+	// 		j++;
+	// 	}
+		
+	// }
 	return (1);
 }
 
@@ -218,7 +246,7 @@ char	**lexer(char *line)
 	int i = 0;
 	while(data.array[i] != NULL)
 	{
-		printf("data is %s\n", data.array[i]);
+		printf("data is 『%s』\n", data.array[i]);
 		i++;
 	}
 	return (temp);

@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:49:14 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/22 18:58:30 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/23 17:02:04 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int argc, char **argv)
 		line = get_line(fd);
 		if (line == NULL)
 			break ;
-		printf("%d : %s", i, line);
+		printf("%d : %s", i + 1, line);
 		temp = lexer(line);
 		printf("\n");
 		// temp = lexer(line);
