@@ -19,7 +19,10 @@ LIBFT_A = $(LIBFTDIR)/libft.a
 all: $(NAME)
 
 $(NAME):
-	cc -fsanitize=address lexer.c split.c main.c ../main/error.c get_next_line.c get_next_line_utils.c -lreadline libft.a 
+	cc -fsanitize=address lexer.c split.c main.c ../main/error.c get_next_line.c get_next_line_utils.c -lreadline libft.a
+	./a.out correct.txt > test3.txt
+	diff test.txt test3.txt
+	rm test3.txt
 $(LIBFT_A):
 	$(MAKE) -C $(LIBFTDIR)
 $(MINILIBX):
