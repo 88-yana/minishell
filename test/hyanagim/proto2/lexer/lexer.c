@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/23 20:08:04 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/23 20:11:03 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ static int	plus_pos(t_array *data, size_t *i, size_t *str_len, char c)
 			if (data->line[(*i) + j] == '"')
 			{
 				(*i) += j + 1;
-				// printf("i = %zu dq = %zu, sq = %zu\n", *i, data->dquote, data->squote);
 				return (1);
 			}
 			j++;
@@ -123,13 +122,11 @@ static int	plus_pos(t_array *data, size_t *i, size_t *str_len, char c)
 			if (data->line[(*i) + j] == '\'')
 			{
 				(*i) += j + 1;
-				// printf("i = %zu dq = %zu, sq = %zu\n", *i, data->dquote, data->squote);
 				return (1);
 			}
 			j++;
 		}
 	}
-	// printf("i = %zu dq = %zu, sq = %zu\n", *i, data->dquote, data->squote);
 	return (1);
 }
 
@@ -260,9 +257,7 @@ char	**lexer(char *line)
 	data.pos = 0;
 	data.dquote = 0;
 	data.squote = 0;
-	// printf("\nsize is %zu\n", count_size(&data, ' '));
 	data.size = count_size(&data, ' ');
-	// printf("arreeee ee e%zu\n", data.size);
 	data.array = malloc(sizeof(char *) * (data.size + 1));
 	if (data.array == NULL)
 		return (NULL);
