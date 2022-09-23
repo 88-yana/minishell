@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/23 20:11:03 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/23 20:40:41 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,22 @@ void	check_line(char *line)
 	return ;
 }
 
-// typedef struct s_check
-// {
-// 	int		ok_line;
-// 	int		ok_hairetu;
-// 	char	**temp;
-// }	t_check;
+int	find_quote(t_array *data, size_t *i, char c)
+{
+	size_t	j;
+
+	j = 0;
+	while (data->line[(*i) + j] != '\0')
+	{
+		if (data->line[(*i) + j] == c)
+		{
+			(*i) += j + 1;
+			return (1);
+		}
+		j++;
+	}
+	return (0);
+}
 
 static int	plus_pos(t_array *data, size_t *i, size_t *str_len, char c)
 {
@@ -75,13 +85,8 @@ static int	plus_pos(t_array *data, size_t *i, size_t *str_len, char c)
 		(*i)++;
 		if (data->line[*i] == '\0' || data->line[*i] == ' ')
 			return (0);
-		// while(data->line[*i] != '\0' && data->line[*i] != c)
-		// {
-		// 	(*i)++;
-		// 	(*str_len)++;
-		// }
-		// return (1);
-		while (data->line[*i] != '\0' && data->line[*i] != '"' && data->line[*i] != '\'' && data->line[*i] != ' ')
+		while (data->line[*i] != '\0' && data->line[*i] != '"'
+			&& data->line[*i] != '\'' && data->line[*i] != ' ')
 			(*i)++;
 		if (data->line[*i] == '"')
 			plus_pos(data, i, str_len, '"');
@@ -90,9 +95,7 @@ static int	plus_pos(t_array *data, size_t *i, size_t *str_len, char c)
 		return (1);
 	}
 	while (data->line[*i] != '\0' && data->line[*i] != c)
-	{
 		(*i)++;
-	}
 	while (data->line[*i] != '\0' && data->line[*i] != ' ')
 	{
 		if (data->line[*i] == '"')
@@ -102,31 +105,9 @@ static int	plus_pos(t_array *data, size_t *i, size_t *str_len, char c)
 		(*i)++;
 	}
 	if (data->dquote % 2 == 1)
-	{
-		size_t j = 0;
-		while (data->line[(*i) + j] != '\0')
-		{
-			if (data->line[(*i) + j] == '"')
-			{
-				(*i) += j + 1;
-				return (1);
-			}
-			j++;
-		}
-	}
+		return (find_quote(data, i, '"'));
 	if (data->squote % 2 == 1)
-	{
-		size_t j = 0;
-		while (data->line[(*i) + j] != '\0')
-		{
-			if (data->line[(*i) + j] == '\'')
-			{
-				(*i) += j + 1;
-				return (1);
-			}
-			j++;
-		}
-	}
+		return (find_quote(data, i, '\''));
 	return (1);
 }
 
@@ -143,28 +124,29 @@ void	plus_next_quote(char *str, size_t *i, size_t *str_len, char c)
 	(*str_len)++;
 }
 
-static size_t	count_size(t_array *data, char c)
+void	plus_i(t_array *data, size_t *i, size_t *str_len, char c)
+{
+	if (*str_len == 0)
+		data->size += plus_pos(data, i, str_len, c);
+	else
+		plus_next_quote(data->line, i, str_len, c);
+}
+
+static void	count_size(t_array *data, char c)
 {
 	size_t	i;
-	size_t	j;
-	size_t	cnt;
 	size_t	str_len;
 
 	i = 0;
-	cnt = 0;
 	str_len = 0;
 	while (1)
 	{
-		if (data->line[i] == '"' && str_len == 0)
-			cnt += plus_pos(data, &i, &str_len, '"');
-		if (data->line[i] == '\'' && str_len == 0)
-			cnt += plus_pos(data, &i, &str_len, '\'');
 		if (data->line[i] == '"')
-			plus_next_quote(data->line, &i, &str_len, '"');
+			plus_i(data, &i, &str_len, '"');
 		if (data->line[i] == '\'')
-			plus_next_quote(data->line, &i, &str_len, '\'');
+			plus_i(data, &i, &str_len, '\'');
 		if ((data->line[i] == c || data->line[i] == '\0') && str_len > 0)
-			cnt++;
+			data->size++;
 		if (data->line[i] == '\0')
 			break ;
 		if (data->line[i] != c)
@@ -173,9 +155,7 @@ static size_t	count_size(t_array *data, char c)
 			str_len = 0;
 		i++;
 	}
-	return (cnt);
 }
-
 
 static void	free_array(t_array *data)
 {
@@ -197,10 +177,9 @@ static void	push_element(t_array *data, size_t i, size_t str_len)
 		free_array(data);
 	ft_strlcpy(data->array[data->pos], &(data->line[i - str_len]), str_len + 1);
 	data->pos++;
-
 }
 
-static void	push_quote_element(t_array *data, size_t *i, size_t *str_len, char c)
+static void	push_q_element(t_array *data, size_t *i, size_t *str_len, char c)
 {
 	size_t	start;
 
@@ -215,8 +194,6 @@ static void	push_quote_element(t_array *data, size_t *i, size_t *str_len, char c
 	data->pos++;
 }
 
-
-
 static void	split_line(t_array *data, char c)
 {
 	size_t	i;
@@ -227,9 +204,9 @@ static void	split_line(t_array *data, char c)
 	while (1)
 	{
 		if (data->line[i] == '"' && str_len == 0)
-			push_quote_element(data, &i, &str_len, '"');
+			push_q_element(data, &i, &str_len, '"');
 		if (data->line[i] == '\''&& str_len == 0)
-			push_quote_element(data, &i, &str_len, '\'');
+			push_q_element(data, &i, &str_len, '\'');
 		if (data->line[i] == '"')
 			plus_next_quote(data->line, &i, &str_len, '"');
 		if (data->line[i] == '\'')
@@ -250,19 +227,20 @@ char	**lexer(char *line)
 {
 	char	**temp;
 	size_t	size;
-	t_array data;
+	t_array	data;
 
 	check_line(line);
 	data.line = line;
 	data.pos = 0;
 	data.dquote = 0;
 	data.squote = 0;
-	data.size = count_size(&data, ' ');
+	data.size = 0;
+	count_size(&data, ' ');
+	// printf("size is %zu\n", data.size);
 	data.array = malloc(sizeof(char *) * (data.size + 1));
 	if (data.array == NULL)
 		return (NULL);
 	data.array[data.size] = NULL;
-	data.pos = 0;
 	data.dquote = 0;
 	data.squote = 0;
 	split_line(&data, ' ');
