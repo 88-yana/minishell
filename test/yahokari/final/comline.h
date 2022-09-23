@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 19:57:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/23 21:26:21 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:53:15 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 
 # define CHILD 0
 
-// extern int	g_status;
+int	g_status;
 
 // PIPE "|"
 // AND "&&"

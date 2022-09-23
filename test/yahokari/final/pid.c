@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:34:39 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/23 21:16:27 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:52:27 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void	wait_pids(t_list **pids)
 		waitpid(*pid, &status, 0);
 		buf = buf->next;
 	}
-	// if (WIFSIGNALED(status) == TRUE)
-	// 	g_status = 128 + WTERMSIG(status);
-	// else
-	// 	g_status = WEXITSTATUS(status);
+	if (WIFSIGNALED(status) == TRUE)
+		g_status = 128 + WTERMSIG(status);
+	else
+		g_status = WEXITSTATUS(status);
 	pid = NULL; //need modified
 }
 

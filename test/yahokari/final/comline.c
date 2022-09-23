@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/23 21:39:51 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/23 22:03:04 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,23 @@ void	exec_redirection(t_vars *vars, t_list *comline)
 		exec_lt(comline);
 }
 
-void	exec_delimiters(t_vars *vars, t_list *comline, t_list **pids)
+t_list	*exec_delimiters(t_vars *vars, t_list *comline, t_list **pids)
 {
 	t_order	*order;
 	t_list	*next_delimiters;
 
 	wait_pids(pids);
 	order = (t_order *)comline->content;
-	if (order->type == AND || order->type == OR)
+	if ((order->type == AND && g_status == 0)
+		|| (order->type == OR && g_status != 0))
 		;
 	else
 	{
 		next_delimiters = find_next_delimiters(comline);
-		while (comline->next == next_delimiters)
+		while (comline->next != next_delimiters)
 			comline = comline->next;
 	}
+	return (comline);
 }
 
 void	exec_comline(t_vars *vars, t_list *comline)
@@ -73,7 +75,7 @@ void	exec_comline(t_vars *vars, t_list *comline)
 		else if (order->type == PIPE)
 			;
 		else if (order->type == AND || order->type == OR)
-			exec_delimiters(vars, buf, &pids);
+			buf = exec_delimiters(vars, buf, &pids);
 		else if (order->type == GTGT || order->type == GT
 			|| order->type == LT || order->type == LTLT)
 			exec_redirection(vars, buf);
