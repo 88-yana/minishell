@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/23 14:48:56 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/23 16:06:36 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ static int	plus_pos(char *str, size_t *i, char c)
 	if (str[*i] == c)
 	{
 		(*i)++;
-		if (str[*i] == '\0')
+		if (str[*i] == '\0' || str[*i] == c)
 			return (0);
-		return (0);
+		while(str[*i] != '\0' && str[*i] != c)
+			(*i)++;
+		return (1);
 	}
 	while (str[*i] != '\0' && str[*i] != c)
 		(*i)++;
