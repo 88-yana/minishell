@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 19:57:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/23 21:01:15 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:53:15 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 
 # define CHILD 0
 
-// extern int	g_status;
+int	g_status;
 
 // PIPE "|"
 // AND "&&"
@@ -76,7 +76,7 @@ typedef struct s_vars {
 void	exec_comline(t_vars *vars, t_list *comline);
 
 // <-- piped_commands.c -->
-void	exec_command_child(t_vars *vars, t_list *comline, t_list *pids);
+void	exec_command_child(t_vars *vars, t_list *comline, t_list **pids);
 
 // <-- piped_commands_utils.c -->
 void	set_fd(t_list *comline);
@@ -90,12 +90,12 @@ void	exec_gt(t_list *comline);
 void	exec_gtgt(t_list *comline);
 
 // <-- pid.c -->
-void	create_pid_list(t_list *list, pid_t pid);
-void	wait_pids(t_list *pids);
+void	create_pid_list(t_list **list, pid_t pid);
+void	wait_pids(t_list **pids);
 
 // <-- find.c -->
 bool	is_next_type(t_list *comline, t_type type);
-t_list	*find_next_delimiter(t_list *comline);
+t_list	*find_next_delimiters(t_list *comline);
 t_list	*find_nth_piped_commands(t_list *comline, size_t n);
 t_list	*find_last_piped_commands(t_list *comline);
 

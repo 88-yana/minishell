@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:31:32 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/23 20:20:17 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:26:24 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	is_next_type(t_list *comline, t_type type)
 	return (false);
 }
 
-t_list	*find_next_delimiter(t_list *comline)
+t_list	*find_next_delimiters(t_list *comline)
 {
 	t_list	*buf;
 	t_order	*order;
