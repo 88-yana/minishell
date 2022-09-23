@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/23 18:23:32 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/23 20:08:04 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ static int	match_quote(char *str, size_t *i, char c)
 {
 	(*i)++;
 	while (str[*i] != '\0' && str[*i] != c)
+	{
+		printf("%c", str[*i]);
 		(*i)++;
-	if (str[*i] == c)
-		(*i)++;
-	else
+	}
+	if (str[*i] != c)
 		print_error("syntax error\n");
 	return (1);
 }
@@ -42,8 +43,8 @@ void	check_line(char *line)
 	i = 0;
 	while (line[i] != '\0')
 	{
-		if (line[i] == '\"')
-			match_quote(line, &i, '\"');
+		if (line[i] == '"')
+			match_quote(line, &i, '"');
 		if (line[i] == '\'')
 			match_quote(line, &i, '\'');
 		i++;
@@ -100,7 +101,7 @@ static int	plus_pos(t_array *data, size_t *i, size_t *str_len, char c)
 			data->squote++;
 		(*i)++;
 	}
-	if (data->dquote % 2 == 1 && c == '"')
+	if (data->dquote % 2 == 1)
 	{
 		size_t j = 0;
 		while (data->line[(*i) + j] != '\0')
@@ -108,12 +109,13 @@ static int	plus_pos(t_array *data, size_t *i, size_t *str_len, char c)
 			if (data->line[(*i) + j] == '"')
 			{
 				(*i) += j + 1;
+				// printf("i = %zu dq = %zu, sq = %zu\n", *i, data->dquote, data->squote);
 				return (1);
 			}
 			j++;
 		}
 	}
-	if (data->squote % 2 == 1 && c == '\'')
+	if (data->squote % 2 == 1)
 	{
 		size_t j = 0;
 		while (data->line[(*i) + j] != '\0')
@@ -121,11 +123,13 @@ static int	plus_pos(t_array *data, size_t *i, size_t *str_len, char c)
 			if (data->line[(*i) + j] == '\'')
 			{
 				(*i) += j + 1;
+				// printf("i = %zu dq = %zu, sq = %zu\n", *i, data->dquote, data->squote);
 				return (1);
 			}
 			j++;
 		}
 	}
+	// printf("i = %zu dq = %zu, sq = %zu\n", *i, data->dquote, data->squote);
 	return (1);
 }
 
@@ -196,6 +200,7 @@ static void	push_element(t_array *data, size_t i, size_t str_len)
 		free_array(data);
 	ft_strlcpy(data->array[data->pos], &(data->line[i - str_len]), str_len + 1);
 	data->pos++;
+
 }
 
 static void	push_quote_element(t_array *data, size_t *i, size_t *str_len, char c)
@@ -252,17 +257,22 @@ char	**lexer(char *line)
 
 	check_line(line);
 	data.line = line;
-	printf("\nsize is %zu\n", count_size(&data, ' '));
 	data.pos = 0;
 	data.dquote = 0;
 	data.squote = 0;
+	// printf("\nsize is %zu\n", count_size(&data, ' '));
 	data.size = count_size(&data, ' ');
+	// printf("arreeee ee e%zu\n", data.size);
 	data.array = malloc(sizeof(char *) * (data.size + 1));
 	if (data.array == NULL)
 		return (NULL);
 	data.array[data.size] = NULL;
+	data.pos = 0;
+	data.dquote = 0;
+	data.squote = 0;
 	split_line(&data, ' ');
 	int i = 0;
+	printf("size is %zu\n", data.size);
 	while(data.array[i] != NULL)
 	{
 		printf("data is 『%s』\n", data.array[i]);

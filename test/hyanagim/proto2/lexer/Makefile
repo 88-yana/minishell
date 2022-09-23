@@ -1,5 +1,6 @@
 CC = cc
 # CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -fsanitize=address
 
 OBJS_DIR = ./
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
