@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 00:23:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/22 16:41:02 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/23 20:59:36 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,22 @@ typedef struct s_comline {
 // 	int		lexer_pos;
 // }	t_vars;
 
+typedef struct s_split
+{
+	char	*line;
+	size_t	pos;
+	size_t	size;
+	size_t	dquote;
+	size_t	squote;
+	char	**array;
+}	t_array;
+
 void		execute_shell(t_list *list);
 t_comline	*make_command(t_type type, char **cmd, t_list *shell);
 size_t		count_pipes(t_list *shell);
 void		display_command(t_list	*command_line);
 
-char	**lexer(char *line);
+t_array	lexer(char *line);
 char	**lx_split(char *s, char c);
 int		print_error(const char *message);
 #endif

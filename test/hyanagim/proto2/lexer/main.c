@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:49:14 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/23 19:18:59 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:04:37 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,23 @@
 
 // t_check	lexer(char *line);
 
+// typedef struct s_split
+// {
+// 	char	*line;
+// 	size_t	pos;
+// 	size_t	size;
+// 	size_t	dquote;
+// 	size_t	squote;
+// 	char	**array;
+// }	t_array;
+
 int	main(int argc, char **argv)
 {
 	char	*line;
 	int		fd;
 	int		i;
 	char	**temp;
+	t_array	data;
 
 	// fd = open("corner.txt", O_RDONLY);
 	if (argc != 2)
@@ -44,7 +55,15 @@ int	main(int argc, char **argv)
 		if (line == NULL)
 			break ;
 		printf("%d : %s\n", i + 1, line);
-		lexer(line);
+		data = lexer(line);
+		printf("size is %zu\n", data.size);
+		int j = 0;
+		while(data.array[j] != NULL)
+		{
+
+			printf("data is 『%s』\n", data.array[j]);
+			j++;
+		}
 		printf("\n");
 		// i = 0;
 		// while (temp[i] != NULL)
