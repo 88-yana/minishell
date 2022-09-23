@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/23 16:17:35 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/23 16:21:00 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,17 @@ static int	plus_pos(char *str, size_t *i, char c)
 	return (1);
 }
 
-void	plus_next_quote(char *str, size_t *i, char c)
+void	plus_next_quote(char *str, size_t *i, size_t *str_len, char c)
 {
 	(*i)++;
+	(*str_len)++;
 	while (str[*i] != '\0' && str[*i] != c)
+	{
 		(*i)++;
+		(*str_len)++;
+	}
 	(*i)++;
+	(*str_len)++;
 }
 
 static size_t	count_size(char *str, char c)
@@ -92,9 +97,9 @@ static size_t	count_size(char *str, char c)
 		if (str[i] == '\'' && str_len == 0)
 			cnt += plus_pos(str, &i, '\'');
 		if (str[i] == '"')
-			plus_next_quote(str, &i, '"');
+			plus_next_quote(str, &i, &str_len, '"');
 		if (str[i] == '\'')
-			plus_next_quote(str, &i, '\'');
+			plus_next_quote(str, &i, &str_len, '\'');
 		if ((str[i] == c || str[i] == '\0') && str_len > 0)
 			cnt++;
 		if (str[i] == '\0')
@@ -144,7 +149,7 @@ static void	push_quote_element(t_array *data, size_t *i, char c)
 
 	start = *i;
 	plus_pos(data->line, i, c);
-	if (*i - start < 1)
+	if (*i - start <= 2)
 		return ;
 	data->array[data->pos] = malloc(*i - start + 1);
 	if (data->array[data->pos] == NULL)
@@ -169,9 +174,9 @@ static void	split_line(t_array *data, char c)
 		if (data->line[i] == '\''&& str_len == 0)
 			push_quote_element(data, &i, '\'');
 		if (data->line[i] == '"')
-			plus_next_quote(data->line, &i, '"');
+			plus_next_quote(data->line, &i, &str_len, '"');
 		if (data->line[i] == '\'')
-			plus_next_quote(data->line, &i, '\'');
+			plus_next_quote(data->line, &i, &str_len, '\'');
 		if ((data->line[i] == c || data->line[i] == '\0') && str_len > 0)
 			push_element(data, i, str_len);
 		if (data->line[i] == '\0')
