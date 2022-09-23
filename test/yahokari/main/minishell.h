@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 19:57:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/22 18:49:42 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/23 10:57:14 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_vars {
 void	display_command(t_list *command_line);
 bool	is_next_pipe(t_list *list);
 t_list	*find_next_piped_commands(t_list *list);
+t_list	*find_last_commands(t_list *list);
 void	execute_shell(t_list *list, t_vars *vars);
 void	execute_redirection(t_list *list, t_vars *vars);
 

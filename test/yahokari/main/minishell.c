@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:26:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/22 21:16:50 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:22:00 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,9 @@ int	main(int argc, char **argv, char **envp)
 	ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/usr/bin/grep", "shell", NULL}, NULL, NULL)));
 	ft_lstadd_back(&command_line, ft_lstnew(make_command(PIPE, NULL, NULL, NULL)));
 	// ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/usr/bin/wc", "-l", NULL}, NULL, NULL)));
-	t_list	*sub = ft_lstnew(make_command(COMMAND, (char *[]){"/bin/wc", "-l", NULL}, NULL, NULL));
+	t_list	*sub = ft_lstnew(make_command(COMMAND, (char *[]){"/usr/bin/wc", "-l", NULL}, NULL, NULL));
+	ft_lstadd_back(&sub, ft_lstnew(make_command(PIPE, NULL, NULL, NULL)));
+	ft_lstadd_back(&sub, ft_lstnew(make_command(COMMAND, (char *[]){"/usr/bin/grep", "3", NULL}, NULL, NULL)));
 	ft_lstadd_back(&command_line, ft_lstnew(make_command(SHELL, NULL, NULL, sub)));
 	// display_command(command_line);
 	// ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/usr/bin/wc", "-l", NULL}, NULL, NULL)));
@@ -134,4 +136,10 @@ int	main(int argc, char **argv, char **envp)
 	// display_command(command_line);
 	// command_line = ft_lstnew(make_command(COMMAND, (char *[]){"/bin/ls", "-l", NULL}, NULL, NULL));
 	execute_shell(command_line, &vars);
+	// t_list	*next_command = find_last_commands(command_line);
+	// next_command = find_last_commands(((t_comline *)next_command->content)->shell);
+	// display_command(next_command);
+	// t_comline *comline = next_command->content;
+	// printf("read: %d, write: %d, next_read: %d\n", comline->read_fd, comline->write_fd, comline->next_read_fd);
+	// find_last_commands(command_line);
 }

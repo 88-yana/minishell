@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:39:24 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/22 22:01:40 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:22:39 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	exec_subshell(t_list *list, t_vars *vars)
 {
 	t_comline	*order;
 	t_list		*next_command;
+	t_list		*last_command;
 	t_comline	*comline;
 
 	order = (t_comline *)list->content;
@@ -75,12 +76,11 @@ void	exec_subshell(t_list *list, t_vars *vars)
 	// next_command = find_next_piped_commands(order->shell);
 	comline = next_command->content;
 	comline->read_fd = order->read_fd;
-	// while (find_next_piped_commands(next_command))
-	// 	next_command = find_next_piped_commands(order->shell);
-	// comline = next_command->content;
+	// printf("read: %d, write: %d, next_read: %d\n", comline->read_fd, comline->write_fd, comline->next_read_fd);
+	last_command = find_last_commands(next_command);
+	comline = last_command->content;
 	comline->write_fd = order->write_fd;
 	comline->next_read_fd = order->next_read_fd;
-	printf("read: %d, write: %d, next_read: %d\n", comline->read_fd, comline->write_fd, comline->next_read_fd);
 	// display_command(next_command);
 	execute_shell(next_command, vars);
 }
@@ -93,18 +93,22 @@ void	execute_command(t_list *list, t_vars *vars)
 
 	order = (t_comline *)list->content;
 	set_fd(list);
-	// printf("read: %d, write: %d, type: %d\n", order->read_fd, order->write_fd, order->type);
 	// printf("read: %d, write: %d, next_read: %d type: %d\n", order->read_fd, order->write_fd, order->next_read_fd, order->type);
 	pid = fork();
 	if (pid == -1)
 		exit (EXIT_FAILURE);
 	else if (pid == 0)
 	{
-		duplicate_output(order);
-		close_fd_child(order);
+		// printf("1. read: %d, write: %d, next_read: %d\n", order->read_fd, order->write_fd, order->next_read_fd);
+		// duplicate_output(order);
+		// close_fd_child(order);
 		// printf("read: %d, write: %d, type: %d\n", order->read_fd, order->write_fd, order->type);
 		if (order->type == COMMAND)
+		{
+			duplicate_output(order);
+			close_fd_child(order);
 			exec_ve(order->cmd, vars);
+		}
 		else if (order->type == SHELL)
 			exec_subshell(list, vars);
 	}

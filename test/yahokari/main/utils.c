@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:32:10 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/21 21:10:04 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:13:18 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,21 @@ t_list	*find_next_piped_commands(t_list *list)
 			return (buf);
 		buf = buf->next;
 	}
+	return (NULL);
+}
+
+t_list	*find_last_commands(t_list *list)
+{
+	t_list		*buf;
+	t_comline	*order;
+
+	buf = list;
+	if (!buf)
+		return (NULL);
+	while (buf->next)
+		buf = buf->next;
+	order = (t_comline *)buf->content;
+	if (order->type == COMMAND || order->type == SHELL)
+		return (buf);
 	return (NULL);
 }
