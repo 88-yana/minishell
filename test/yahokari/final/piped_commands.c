@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:19:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/23 21:03:12 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:16:34 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ void	exec_subshell(t_list *comline, t_vars *vars)
 	last_order->write_fd = order->write_fd;
 	last_order->next_read_fd = order->next_read_fd;
 	exec_comline(vars, order->shell);
+	exit(0);
 }
 
-void	exec_command_child(t_vars *vars, t_list *comline, t_list *pids)
+void	exec_command_child(t_vars *vars, t_list *comline, t_list **pids)
 {
 	pid_t	pid;
 	t_order	*order;
@@ -56,7 +57,6 @@ void	exec_command_child(t_vars *vars, t_list *comline, t_list *pids)
 		else if (order->type == SUBSHELL)
 			exec_subshell(comline, vars);
 	}
-	printf("%d\n", pid);
 	create_pid_list(pids, pid);
 }
 

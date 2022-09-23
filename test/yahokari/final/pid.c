@@ -6,13 +6,13 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:34:39 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/23 21:02:01 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:16:27 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"comline.h"
 
-void	create_pid_list(t_list *list, pid_t pid)
+void	create_pid_list(t_list **list, pid_t pid)
 {
 	pid_t	*buf;
 
@@ -21,24 +21,23 @@ void	create_pid_list(t_list *list, pid_t pid)
 		return ;
 	*buf = pid;
 	if (list == NULL)
-		list = ft_lstnew(buf);
+		*list = ft_lstnew(buf);
 	else
-		ft_lstadd_back(&list, ft_lstnew(buf));
+		ft_lstadd_back(list, ft_lstnew(buf));
 }
 
-void	wait_pids(t_list *pids)
+void	wait_pids(t_list **pids)
 {
 	t_list	*buf;
 	int		status;
 	int		*pid;
 
-	buf = pids;
+	buf = *pids;
 	if (buf == NULL)
 		return ;
-	while (buf->next)
+	while (buf)
 	{
 		pid = (pid_t *)(buf->content);
-		printf("%d\n", *pid);
 		waitpid(*pid, &status, 0);
 		buf = buf->next;
 	}
