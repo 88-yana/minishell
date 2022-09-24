@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:39:24 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/23 11:22:39 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/23 12:54:02 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,10 @@ void	exec_subshell(t_list *list, t_vars *vars)
 	// next_command = find_next_piped_commands(order->shell);
 	comline = next_command->content;
 	comline->read_fd = order->read_fd;
-	// printf("read: %d, write: %d, next_read: %d\n", comline->read_fd, comline->write_fd, comline->next_read_fd);
 	last_command = find_last_commands(next_command);
 	comline = last_command->content;
 	comline->write_fd = order->write_fd;
 	comline->next_read_fd = order->next_read_fd;
-	// display_command(next_command);
 	execute_shell(next_command, vars);
 }
 
@@ -99,10 +97,6 @@ void	execute_command(t_list *list, t_vars *vars)
 		exit (EXIT_FAILURE);
 	else if (pid == 0)
 	{
-		// printf("1. read: %d, write: %d, next_read: %d\n", order->read_fd, order->write_fd, order->next_read_fd);
-		// duplicate_output(order);
-		// close_fd_child(order);
-		// printf("read: %d, write: %d, type: %d\n", order->read_fd, order->write_fd, order->type);
 		if (order->type == COMMAND)
 		{
 			duplicate_output(order);
@@ -119,8 +113,10 @@ void	execute_shell(t_list *list, t_vars *vars)
 {
 	t_list		*buf;
 	t_comline	*order;
+	int			count;
 
 	buf = list;
+	count = 0;
 	while (buf)
 	{
 		order = (t_comline *)buf->content;
@@ -136,17 +132,17 @@ void	execute_shell(t_list *list, t_vars *vars)
 			execute_redirection(buf, vars);
 		buf = buf->next;
 	}
-	// int	i = 0;
-	// while (i < 3)
-	// {
-	// 	wait(NULL);
-	// 	// int	wstatus;
-	// 	// int	status;
-	// 	// wait(&wstatus);
-	// 	// if (WIFSIGNALED(wstatus) == TRUE)
-	// 	// 	status = 128 + WTERMSIG(wstatus);
-	// 	// else
-	// 	// 	status = WEXITSTATUS(wstatus);
-	// 	i++;
-	// }
+	int	i = 0;
+	while (i < 3)
+	{
+		wait(NULL);
+		// int	wstatus;
+		// int	status;
+		// wait(&wstatus);
+		// if (WIFSIGNALED(wstatus) == TRUE)
+		// 	status = 128 + WTERMSIG(wstatus);
+		// else
+		// 	status = WEXITSTATUS(wstatus);
+		i++;
+	}
 }

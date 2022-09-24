@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 19:57:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/23 10:57:14 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/23 14:05:45 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 
 # define READ 0
 # define WRITE 1
+
+extern int	g_status;
 
 // PIPE "|"
 // AND "&&"
@@ -57,6 +59,7 @@ typedef struct s_comline {
 	int		read_fd;
 	int		write_fd;
 	int		next_read_fd;
+	int		count;
 	char	*file;
 	t_list	*shell;
 }	t_comline;

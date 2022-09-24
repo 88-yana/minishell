@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:34:39 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/23 21:52:27 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/24 17:34:43 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	wait_pids(t_list **pids)
 		g_status = 128 + WTERMSIG(status);
 	else
 		g_status = WEXITSTATUS(status);
-	pid = NULL; //need modified
+	*pids = NULL; //need modified
 }
 
 // int	main(void)

@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 20:10:22 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/23 21:56:03 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/24 17:35:32 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,9 +135,9 @@ int	main(int argc, char **argv, char **envp)
 	// ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/bin/ls", NULL}, NULL, NULL)));
 
 	command_line = ft_lstnew(make_command(COMMAND, (char *[]){"/bin/ls", NULL}, NULL, NULL));
-	ft_lstadd_back(&command_line, ft_lstnew(make_command(AND, NULL, NULL, NULL)));
+	ft_lstadd_back(&command_line, ft_lstnew(make_command(OR, NULL, NULL, NULL)));
 	ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/bin/ls", "-4", NULL}, NULL, NULL)));
-	ft_lstadd_back(&command_line, ft_lstnew(make_command(AND, NULL, NULL, NULL)));
+	ft_lstadd_back(&command_line, ft_lstnew(make_command(OR, NULL, NULL, NULL)));
 	ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/bin/cat", NULL}, NULL, NULL)));
 	ft_lstadd_back(&command_line, ft_lstnew(make_command(PIPE, NULL, NULL, NULL)));
 	ft_lstadd_back(&command_line, ft_lstnew(make_command(COMMAND, (char *[]){"/bin/ls", NULL}, NULL, NULL)));
