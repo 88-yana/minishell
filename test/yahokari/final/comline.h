@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   comline.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 19:57:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/24 17:40:10 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:41:36 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	g_status;
 
 typedef enum e_type {
 	COMMAND,
-	SUBSHELL,
+	SHELL,
 	PIPE,
 	AND,
 	OR,

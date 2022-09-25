@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 00:23:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/25 16:44:04 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/25 18:02:00 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_split
 	size_t	size;
 	size_t	dquote;
 	size_t	squote;
+	size_t	*length;
 	char	**array;
 }	t_array;
 
@@ -97,6 +98,7 @@ typedef struct s_node
 	t_type			type;
 	char			**line;
 	int				*lavel;
+	size_t			*length;
 	size_t			start_pos;
 	size_t			end_pos;
 	size_t			array_size;

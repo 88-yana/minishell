@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/25 17:21:01 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/25 18:10:53 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,28 @@ void	talloc
 //talloc 失敗した時のエラー処理を後で書く
 
 
-void	executer(t_node *p)
+void	executer(t_node *p, t_list *list)
 {
+	if (p->type == COMMAND_LINE)
+	{
+		executer(p->left, list);
+	}
+	if (p->type == DELIMITER)
+	{
+		executer(p->left, list);
+		executer(p->right, list);
+	}
 	if (p->type == subshell)
 	{
-		
+		t_list	*shell;
+		t_list	*command_line;
+		exe(p->left, shell);
+
+		command_line = ft_lstnew(make_command(SHELL, (char *[]){"/bin/ls", NULL}, NULL, shell));
 	}
 }
-
+stringかなんかで，
+p->left が NULL だったら，lstnew して，登りながら，lstadd していく。
 
 
 
@@ -94,10 +108,11 @@ void	executer(t_node *p)
 
 /*
 command_line ::=
-	| piped_commands delimiter command_line
 	| "(" command_line ")" delimiter command_line
 	| "(" command_line ")" "|" command_line
 	| "(" command_line ")"
+	| piped_commands delimiter command_line
+	| piped_commands "|" "(" command_line ")""
 	| piped_commands
 
 パイプの後にかっこがある場合がある。
