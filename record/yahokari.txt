@@ -53,3 +53,9 @@ bash-3.2$ pwd
 /Users/yahokari/Desktop/42cursus/minishell/test/yahokari/main
 bash-3.2$ (cd ..)
 bash-3.2$ pwd
+
+ls -l | grep shell | < minishell.c (wc -l)
+
+ls -l | grep shell | (wc -l) < minishell.c
+
+ls -l | grep shell | (wc -l < minishell.h) < minishell.c
