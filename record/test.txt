@@ -61,3 +61,65 @@ l"s"
 cat <<"END"ls
 
 cat ' '$PATH"H "
+
+(ls) ok
+
+"ls" ok
+
+"(ls)" error
+
+"l"s) error
+
+ls() ??
+
+
+
+
+echo <<'END'
+cat <<'END'
+cat <<"END"
+cat <<END
+cat <<\END
+cat <<\END
+cat <<END
+cat <<"END
+$PATH
+END
+
+echo -n
+echo -n -n 
+echo -nnnnn
+echo -nnnnnn
+echo -nnnnnna
+cat minishell.c 2> t.txt
+cat minishell.c 2>> t.txt
+cat minishell.c >> t.txt
+cat minishell.c 2>> t.txt
+ls
+rm t.txt
+cat minishell.c 2>> t.txt
+ls
+cat t.txt
+cat minishell. 2>> t.txt
+cat t.txt
+cat minishell. >> t.txt
+cat minishell. 1>> t.txt
+cat t.txt
+cat minishell.c 1>> t.txt
+cat t.txt
+cat 0< minishell.c
+cat < minishell.c
+
+ls | cd ..
+
+cd .. | ls
+
+cd .. | ls && cd ..
+
+(cd ..)
+
+cd | ls
+
+(cd) | ls
+
+(cd | ls)

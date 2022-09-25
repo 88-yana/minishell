@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 00:23:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/23 22:29:53 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/25 16:44:04 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,38 @@ typedef struct s_split
 	char	**array;
 }	t_array;
 
+typedef enum e_type {
+	COMMAND_LINE,
+	PIPED_COMMANDS,
+	DELIMITER,
+	COMMAND,
+	ARGUMENTS,
+	REDIRECTION,
+	STRING,
+	EXPANDABLE,
+	NOT_EXPANDABLE,
+	EXPANDABLE_QUOTED,
+	LT,
+	GT,
+	GTGT,
+	LTLT,
+	AND,
+	OR
+}	t_type;
+
+typedef struct s_node
+{
+	t_type			type;
+	char			**line;
+	int				*lavel;
+	size_t			start_pos;
+	size_t			end_pos;
+	size_t			array_size;
+	struct s_node	*left;
+	struct s_node	*right;
+}	t_node;
+
+
 void		execute_shell(t_list *list);
 t_comline	*make_command(t_type type, char **cmd, t_list *shell);
 size_t		count_pipes(t_list *shell);
@@ -80,7 +112,7 @@ void		display_command(t_list	*command_line);
 
 char	**lx_split(char *s, char c);
 int		print_error(const char *message);
-t_array	*lexer(char *line, t_array	*data);
+t_array	*lexer(t_array	*data);
 #endif
 
 //typedef enum e_com_type {

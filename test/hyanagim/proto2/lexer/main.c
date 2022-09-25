@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:49:14 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/23 22:31:16 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/25 13:22:02 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int	main(int argc, char **argv)
 		if (line == NULL)
 			break ;
 		printf("%d : %s\n", i + 1, line);
-		ptr = lexer(line, &data);
+		data.line = line;
+		ptr = lexer(&data);
 		if (ptr == NULL)
 			exit(1);
 		printf("size is %zu\n", ptr->size);
@@ -66,8 +67,10 @@ int	main(int argc, char **argv)
 			printf("data is 『%s』\n", ptr->array[j]);
 			j++;
 		}
-		printf("\n");
+
+		parser(&data);
 		
+		printf("\n");
 		// i = 0;
 		// while (temp[i] != NULL)
 		// {

@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/23 22:31:44 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/25 10:38:03 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,13 +263,12 @@ static void	shape_array(t_array *data)
 	}
 }
 
-t_array	*lexer(char *line, t_array	*data)
+t_array	*lexer(t_array	*data)
 {
 	char	**temp;
 	size_t	size;
 
-	check_line(line);
-	data->line = line;
+	check_line(data->line);
 	data->pos = 0;
 	data->dquote = 0;
 	data->squote = 0;

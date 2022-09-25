@@ -37,3 +37,12 @@ ajsdkfj" slsdakfj "skdfjklj""
 ""dslfkjd'fsj      '"      "
 cat ' '$PATH"H "
 "''"
+"l"s) error
+'   " 'abc"a   bc"
+"ls" ok
+"l"s ok
+"(ls)"
+'   " 'abc"a  ' bc"
+"クオートは消せない"
+(ls heredoc
+(ls) (-l) error
