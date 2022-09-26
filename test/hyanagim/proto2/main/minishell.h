@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 00:23:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/25 18:02:00 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:13:39 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include	<stdlib.h>
 # include	<stdio.h>
+# include	<stdbool.h>
 # include	<string.h>
 # include	<unistd.h>
 # include	<sys/wait.h>
@@ -30,10 +31,31 @@
 // AND "&&"
 // OR "||"
 
+// typedef enum e_type {
+// 	COMMAND,
+// 	SHELL,
+// 	PIPE,
+// 	AND,
+// 	OR
+// }	t_type;
+
 typedef enum e_type {
-	COMMAND,
-	SHELL,
+	COMMAND_LINE,
+	PIPED_LINE,
 	PIPE,
+	DELIMITER,
+	COMMAND,
+	ARGUMENTS,
+	REDIRECTION,
+	STRING,
+	EXPANDABLE,
+	NOT_EXPANDABLE,
+	EXPANDABLE_QUOTED,
+	SUBSHELL,
+	LT,
+	GT,
+	GTGT,
+	LTLT,
 	AND,
 	OR
 }	t_type;
@@ -44,18 +66,19 @@ typedef struct s_pipe_fd {
 	int	next_read_fd;
 }	t_pipe_fd;
 
-typedef struct s_comline {
-	t_type	type;
-	char	**cmd;
-	//パイプなどで繋がれたコマンドをダブルポインタで表示
-	// t_type == COMMAND -> cmd = {"cat Makefile", "wc -l", "NULL"}
-	// t_type != COMMAND -> cmd = NULL
-	t_list	*shell;
-	//sub shellの最初のコマンドのポインタを設定
-	// t_type == SHELL -> shell = &t_command_line
-	// t_type != SHELL -> shell = NULL
-	// struct s_command_line	*next;
-}	t_comline;
+
+// typedef struct s_comline {
+// 	t_type	type;
+// 	char	**cmd;
+// 	//パイプなどで繋がれたコマンドをダブルポインタで表示
+// 	// t_type == COMMAND -> cmd = {"cat Makefile", "wc -l", "NULL"}
+// 	// t_type != COMMAND -> cmd = NULL
+// 	t_list	*shell;
+// 	//sub shellの最初のコマンドのポインタを設定
+// 	// t_type == SHELL -> shell = &t_command_line
+// 	// t_type != SHELL -> shell = NULL
+// 	// struct s_command_line	*next;
+// }	t_comline;
 
 // typedef struct s_vars {
 // 	t_tree	*tree;
@@ -63,6 +86,8 @@ typedef struct s_comline {
 // 	int		lexer_pos;
 // }	t_vars;
 
+
+# include	<stddef.h>
 typedef struct s_split
 {
 	char	*line;
@@ -74,43 +99,27 @@ typedef struct s_split
 	char	**array;
 }	t_array;
 
-typedef enum e_type {
-	COMMAND_LINE,
-	PIPED_COMMANDS,
-	DELIMITER,
-	COMMAND,
-	ARGUMENTS,
-	REDIRECTION,
-	STRING,
-	EXPANDABLE,
-	NOT_EXPANDABLE,
-	EXPANDABLE_QUOTED,
-	LT,
-	GT,
-	GTGT,
-	LTLT,
-	AND,
-	OR
-}	t_type;
 
 typedef struct s_node
 {
 	t_type			type;
 	char			**line;
-	int				*lavel;
-	size_t			*length;
-	size_t			start_pos;
-	size_t			end_pos;
+	int				*ele_is_quoted;
+	size_t			*ele_length;
 	size_t			array_size;
+	size_t			start_pos;
+	size_t			current_pos;
+	size_t			end_pos;
+	bool			include_right;
 	struct s_node	*left;
 	struct s_node	*right;
 }	t_node;
 
 
-void		execute_shell(t_list *list);
-t_comline	*make_command(t_type type, char **cmd, t_list *shell);
-size_t		count_pipes(t_list *shell);
-void		display_command(t_list	*command_line);
+// void		execute_shell(t_list *list);
+// t_comline	*make_command(t_type type, char **cmd, t_list *shell);
+// size_t		count_pipes(t_list *shell);
+// void		display_command(t_list	*command_line);
 
 char	**lx_split(char *s, char c);
 int		print_error(const char *message);

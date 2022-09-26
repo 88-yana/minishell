@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:49:14 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/25 13:22:02 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/26 14:11:39 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int argc, char **argv)
 			j++;
 		}
 
-		parser(&data);
+		// parser(&data);
 		
 		printf("\n");
 		// i = 0;
