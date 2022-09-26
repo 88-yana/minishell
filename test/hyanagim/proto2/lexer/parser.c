@@ -110,8 +110,8 @@ void	parser(t_node *p)
 	}
 	if (p->type == PIPED_LINE)
 	{
-		printf("piled_line %s\n", p->line[p->end_pos]);
-		while (p->line[p->end_pos] != NULL &&
+		// printf("piped_line %s\n", p->line[p->end_pos]);
+		while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos][0]) &&
 			!is_pipe(p->line[p->end_pos]))
 			p->end_pos++;
 		// printf("piled_line %s\n", p->line[p->end_pos]);
@@ -125,14 +125,14 @@ void	parser(t_node *p)
 		if (p->line[p->end_pos] == NULL)
 		{
 			p->end_pos = p->start_pos;
-			p->left = talloc(COMMAND, p);
+			p->left = talloc(ARGUMENTS, p);
 			parser(p->left);
 		}
 	}
 	if (p->type == PIPE)
 	{
 		printf("pipe is %s\n", p->line[p->current_pos]);
-		p->left = talloc(COMMAND, p);
+		p->left = talloc(ARGUMENTS, p);
 		parser(p->left);
 		p->start_pos = p->current_pos + 1;
 		p->end_pos = p->current_pos + 1;
@@ -140,52 +140,75 @@ void	parser(t_node *p)
 		p->right = talloc(PIPED_LINE, p);
 		parser(p->right);
 	}
-	if (p->type == COMMAND)
-	{
-		printf("command is %s\n", p->line[p->end_pos]);
-		p->left = talloc(ARGUMENTS, p);
-		parser(p->left);
-	}
+	// if (p->type == COMMAND)
+	// {
+	// 	// printf("command is %s\n", p->line[p->end_pos]);
+	// 	p->left = talloc(ARGUMENTS, p);
+	// 	parser(p->left);
+	// }
 	if (p->type == ARGUMENTS)
 	{
-		printf("argument is %s\n", p->line[p->end_pos]);
+		//間違っている
+		// printf("argument is %s\n", p->line[p->end_pos]);
 		if (is_redirection(p->line[p->end_pos]))
 		{
 			p->left = talloc(REDIRECTION, p);
 			parser(p->left);
-		}
-		p->end_pos++;
-		if (p->line[p->end_pos] == NULL)
-		{
-			printf("%s\n", "error in redirection");
-			return ;
-		}
-		p->end_pos++;
-		while (p->line[p->end_pos] != NULL &&
-			!is_redirection(p->line[p->end_pos]))
 			p->end_pos++;
-		
-		if (is_redirection(p->line[p->end_pos]))
-		{
-			p->left = talloc(STRING, p);
-			parser(p->left);
-			p->start_pos = p->end_pos;
-			p->include_right = true;
-			p->right = talloc(ARGUMENTS, p);
-			parser(p->right);
+			if (p->line[p->end_pos] == NULL)
+				return ;
+			p->end_pos++;
+			if (p->line[p->end_pos] != NULL)
+			{
+				p->start_pos = p->end_pos;
+				p->include_right = true;
+				p->right = talloc(ARGUMENTS, p);
+				parser(p->right);
+			}
 		}
 		else
 		{
-			if (p->line[p->start_pos] == NULL)
-				return ;
-			p->end_pos = p->start_pos;
-			p->left = talloc(STRING, p);
+			while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) &&
+				!is_bra(p->line[p->end_pos][0]) && !is_pipe(p->line[p->end_pos]) && !is_redirection(p->line[p->end_pos]))
+			p->end_pos++;
+			if (is_redirection(p->line[p->end_pos]))
+			{
+				// if (p->end_pos == p->start_pos) //後で消すかも
+				// 	return ;
+				// printf("171 %s\n", p->line[p->end_pos]);
+				p->current_pos = p->end_pos;
+				p->end_pos = p->start_pos;
+				p->left = talloc(STRING, p);
+				parser(p->left);
+				p->start_pos =	p->current_pos;
+				p->end_pos = p->current_pos;
+				p->include_right = true;
+				p->right = talloc(ARGUMENTS, p);
+				parser(p->right);
+			}
+			else
+			{
+				p->end_pos = p->start_pos;
+				p->left = talloc(STRING, p);
+				parser(p->left);
+			}
 		}
+		
+		// p->start_pos = p->end_pos;
+		
+		// else
+		// {
+		// 	if (p->line[p->start_pos] == NULL)
+		// 		return ;
+		// 	p->end_pos = p->start_pos;
+		// 	printf("184 %s\n", p->line[p->end_pos]);
+		// 	p->left = talloc(STRING, p);
+		// }
 	}
 	if (p->type == REDIRECTION)
 	{
 		p->current_pos = p->end_pos; //redirection
-		printf("redirecition is %s\n", p->line[p->current_pos]);
+		printf("redirecition is %s, including right is %d\n", p->line[p->end_pos], p->include_right);
 		p->end_pos++;
 		if (p->line[p->end_pos] == NULL)
 		{
@@ -193,23 +216,27 @@ void	parser(t_node *p)
 			return ;
 			//ここで，free
 		}
-		p->end_pos++;
-		if (p->line[p->end_pos] != NULL)
-		{
-			p->start_pos = p->current_pos + 2;
-			p->end_pos = p->current_pos + 2;
-			p->right = talloc(STRING, p);
-			parser(p->right);
-		}
+		printf("aim is %s\n", p->line[p->end_pos]);
+		// p->end_pos++;
+		// if (p->line[p->end_pos] != NULL)
+		// {
+		// 	p->start_pos = p->current_pos + 2;
+		// 	p->end_pos = p->current_pos + 2;
+		// 	// printf("204 %s\n", p->line[p->end_pos]);
+		// 	p->right = talloc(STRING, p);
+		// 	parser(p->right);
+		// }
 	}
 	if (p->type == STRING)
 	{
+		// printf("string is %s\n", p->line[p->end_pos]);
 		p->left = talloc(EXPANDABLE, p);
 		parser(p->left);
 		p->end_pos++;
 		if (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos][0])
 			&& !is_pipe(p->line[p->end_pos]) && !is_redirection(p->line[p->end_pos]))
 		{
+			// printf("「string is in if %s」\n", p->line[p->end_pos]);
 			p->start_pos = p->end_pos;
 			p->include_right = true;
 			p->right = talloc(EXPANDABLE, p);
@@ -217,8 +244,15 @@ void	parser(t_node *p)
 		}
 		return ;
 	}
+	if (p->type == EXPANDABLE)
+	{
+		printf("expandable is %s, including right is %d\n", p->line[p->end_pos], p->include_right);
+	}
 	return ;
 }
+
+//""を外した先頭のexpandableコマンドが全部アルファベットっていう考え方か，
+//
 
 t_node	*talloc(t_type type, t_node *parent)
 {
@@ -243,8 +277,8 @@ t_node	*talloc(t_type type, t_node *parent)
 }
 // //talloc 失敗した時のエラー処理を後で書く
 
-// void	executer(t_node *p, t_list *list)
-// {
+void	executer(t_node *p, t_list *list)
+{
 // 	if (p->type == COMMAND_LINE)
 // 	{
 // 		executer(p->left, list);
@@ -262,7 +296,7 @@ t_node	*talloc(t_type type, t_node *parent)
 
 // 		command_line = ft_lstnew(make_command(SHELL, (char *[]){"/bin/ls", NULL}, NULL, shell));
 // 	}
-// }
+}
 // //stringかなんかで，
 // //p->left が NULL だったら，lstnew して，登りながら，lstadd していく。
 
