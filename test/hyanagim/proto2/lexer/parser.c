@@ -202,21 +202,21 @@ void	parser(t_node *p)
 			parser(p->right);
 		}
 	}
-	// if (p->type == STRING)
-	// {
-	// 	p->left = talloc(EXPANDABLE, p);
-	// 	parser(p->left);
-	// 	p->end_pos++;
-	// 	if (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos][0])
-	// 		&& !is_pipe(p->line[p->end_pos]) && !is_redirection(p->line[p->end_pos]))
-	// 	{
-	// 		p->start_pos = p->end_pos;
-	// 		p->include_right = true;
-	// 		p->right = talloc(EXPANDABLE, p);
-	// 	}
-	// 	parser(p->right);
-	// 	return ;
-	// }
+	if (p->type == STRING)
+	{
+		p->left = talloc(EXPANDABLE, p);
+		parser(p->left);
+		p->end_pos++;
+		if (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos][0])
+			&& !is_pipe(p->line[p->end_pos]) && !is_redirection(p->line[p->end_pos]))
+		{
+			p->start_pos = p->end_pos;
+			p->include_right = true;
+			p->right = talloc(EXPANDABLE, p);
+			parser(p->right);
+		}
+		return ;
+	}
 	return ;
 }
 
