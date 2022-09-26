@@ -6,15 +6,47 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:19:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/24 17:34:39 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:21:50 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"comline.h"
 
+void	check_path(char **path, char **command)
+{
+	size_t	i;
+	char	*tmp;
+	char	*buf;
+
+	if (!path || !access(command[0], F_OK))
+		return ;
+	i = 0;
+	while (path[i])
+	{
+		tmp = ft_strjoin(path[i], "/");
+		buf = ft_strjoin(tmp, command[0]);
+		free(tmp);
+		if (!access(buf, F_OK))
+		{
+			command[0] = buf;
+			break ;
+		}
+		free(buf);
+		i++;
+	}
+}
+
 void	exec_command(t_vars *vars, char **command)
 {
-	execve(command[0], command, vars->envp);
+	char	**path;
+	char	**envp;
+
+	path = ft_split(find_env(vars->envs_list, "PATH"), ':');
+	check_path(path, command);
+	free(path);
+	envp = get_envp_from_list(vars->envs_list);
+	execve(command[0], command, envp);
+	free(envp);
 }
 
 void	exec_subshell(t_list *comline, t_vars *vars)
