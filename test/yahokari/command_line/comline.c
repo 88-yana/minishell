@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/24 18:08:22 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/26 21:57:05 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 	close_fd_parent(order);
 }
 
-void	exec_redirection(t_vars *vars, t_list *comline)
+void	exec_redirection(t_list *comline)
 {
 	t_order	*order;
 
@@ -40,7 +40,7 @@ void	exec_redirection(t_vars *vars, t_list *comline)
 		exec_lt(comline);
 }
 
-t_list	*exec_delimiters(t_vars *vars, t_list *comline, t_list **pids)
+t_list	*exec_delimiters(t_list *comline, t_list **pids)
 {
 	t_order	*order;
 	t_list	*next_delimiters;
@@ -75,10 +75,10 @@ void	exec_comline(t_vars *vars, t_list *comline)
 		else if (order->type == PIPE)
 			;
 		else if (order->type == AND || order->type == OR)
-			buf = exec_delimiters(vars, buf, &pids);
+			buf = exec_delimiters(buf, &pids);
 		else if (order->type == GTGT || order->type == GT
 			|| order->type == LT || order->type == LTLT)
-			exec_redirection(vars, buf);
+			exec_redirection(buf);
 		buf = buf->next;
 	}
 	wait_pids(&pids);

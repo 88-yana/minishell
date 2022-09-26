@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   comline.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 19:57:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/25 17:41:36 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:59:29 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include	<sys/types.h>
 # include	<sys/wait.h>
 # include	"../../../libft/libft.h"
+# include	"../main/main.h"
 
 # define ERR -1
 # define NONE -1
@@ -46,7 +47,7 @@ int	g_status;
 
 typedef enum e_type {
 	COMMAND,
-	SHELL,
+	SUBSHELL,
 	PIPE,
 	AND,
 	OR,
@@ -65,12 +66,6 @@ typedef struct s_order {
 	char	*file;
 	t_list	*shell;
 }	t_order;
-
-typedef struct s_vars {
-	t_list	*comline;
-	t_list	*pids;
-	char	**envp;
-}	t_vars;
 
 // <-- comline.c -->
 void	exec_comline(t_vars *vars, t_list *comline);
