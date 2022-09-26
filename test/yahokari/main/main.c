@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 20:10:22 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/26 19:03:26 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/26 21:55:25 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,8 +152,6 @@ int	main(int argc, char **argv, char **envp)
 	while (true)
 	{
 		str = exec_readline();
-		if (str == NULL)
-			continue ;
 		exec_comline(&vars, command_line);
 		free(str);
 	}
