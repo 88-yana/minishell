@@ -251,8 +251,9 @@ void	parser(t_node *p)
 	return ;
 }
 
-//""を外した先頭のexpandableコマンドが全部アルファベットっていう考え方か，
-//
+//""を外した先頭のexpandableコマンドが全部アルファベットだったら，外していい
+// リダイレクションとサブシェルの位置関係はいじれない
+
 
 t_node	*talloc(t_type type, t_node *parent)
 {
@@ -342,7 +343,7 @@ int	main(void)
 command_line ::=
 	| "(" command_line ")" delimiter command_line
 	| "(" command_line ")" "|" command_line
-	| "(" command_line ")"
+	| "(" command_line ")" re
 	| piped_commands delimiter command_line
 	| piped_commands "|" "(" command_line ")"
 	| piped_commands
@@ -350,7 +351,7 @@ command_line ::=
 パイプの後にかっこがある場合がある。
 piped_commands | (command_line) 的な
 ↑これもパイプライン？　no
-
+"(" command_line ")" > text.txt ←これも存在する。
 
 delimiter ::=
 	"&&"
@@ -366,6 +367,7 @@ command ::=
 
 arguments ::=
 	| redirection
+	| redirection arguments
 	| string
 	| string arguments
 
@@ -378,17 +380,19 @@ string ::=
 	| expandable_quoted
 
 redirection ::=
-	| "<" aim arguments
-	| ">" aim arguments
-	| ">>" aim arguments
-	| "<<" aim arguments
+	| "<" aim
+	| ">" aim
+	| ">>" aim
+	| "<<" aim
 */
 
 /*
 command_line ::=
 	| "(" command_line ")" delimiter command_line
 	| "(" command_line ")" "|" command_line
-	| "(" command_line ")"
+	| "(" command_line ")" redirection
+	| "(" command_line ")" redirection delimiter command_line
+	| "(" command_line ")" redirection "|" command_line
 	| piped_commands delimiter command_line
 	| piped_commands "|" "(" command_line ")"
 	| piped_commands
