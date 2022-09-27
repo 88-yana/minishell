@@ -670,6 +670,19 @@ void	cmdjoin(t_list **list)
 	}
 }
 
+void	init_root(t_node *root)
+{
+	root->array_size = 11;
+	root->start_pos = 0;
+	root->current_pos = 0;
+	root->end_pos = 0;
+	root->include_right = 0;
+	root->index = 0;
+	root->parent = NULL;
+	root->left = NULL;
+	root->right = NULL;
+}
+
 int	main(void)
 {
 	t_node	root;
@@ -677,6 +690,8 @@ int	main(void)
 	t_list	**list;
 	t_list	**maked_list;
 	char	**line;
+	char	**array;
+	t_array	data;
 
 	line = malloc(sizeof(char *) * (ARRAY_SIZE + 1));
 	for (int i = 0; i < ARRAY_SIZE + 1; i++)
@@ -709,17 +724,12 @@ int	main(void)
 	// line[9] = "grep";
 	// line[10] = "a";
 	// line[11] = NULL;
-	root.type = COMMAND_LINE;
+	// data.line = ;
+	// array = lexer(&data);
 	root.line = line;
-	root.array_size = 11;
-	root.start_pos = 0;
-	root.current_pos = 0;
-	root.end_pos = 0;
-	root.include_right = 0;
-	root.index = 0;
-	root.parent = NULL;
-	root.left = NULL;
-	root.right = NULL;
+	root.type = COMMAND_LINE;
+	init_root(&root);
+	
 	for (int i = 0; i < ARRAY_SIZE + 1; i++)
 		printf("%s ", line[i]);
 	printf("\n");

@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 17:44:40 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 19:35:38 by yahokari         ###   ########.fr       */
+/*   Created: 2022/09/27 19:19:12 by yahokari          #+#    #+#             */
+/*   Updated: 2022/09/27 19:50:43 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include	"builtin.h"
 
-# include	"../../../libft/libft.h"
+void	exec_pwd(t_vars *vars)
+{
+	t_list	*list;
+	t_envs	*envs;
 
-typedef struct s_vars {
-	t_list	*comline;
-	t_list	*pids;
-	t_list	*envs_list;
-}	t_vars;
-
-# include	"../command_line/comline.h"
-# include	"../readline/readline.h"
-# include	"../env/env.h"
-# include	"../heredoc/heredoc.h"
-# include	"../builtin/builtin.h"
-
-#endif
+	list = vars->envs_list;
+	while (list)
+	{
+		envs = (t_envs *)list->content;
+		if (!ft_strcmp(envs->type, "PWD"))
+		{
+			printf("%s\n", envs->value);
+			break ;
+		}
+		list = list->next;
+	}
+}

@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 17:44:40 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 19:35:38 by yahokari         ###   ########.fr       */
+/*   Created: 2022/09/27 19:20:08 by yahokari          #+#    #+#             */
+/*   Updated: 2022/09/27 19:56:41 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
+# include	<stdlib.h>
+# include	<stdio.h>
+# include	<string.h>
+# include	<unistd.h>
+# include	<sys/wait.h>
+# include	<signal.h>
+# include	<readline/readline.h>
+# include	<readline/history.h>
+# include	<errno.h>
 # include	"../../../libft/libft.h"
-
-typedef struct s_vars {
-	t_list	*comline;
-	t_list	*pids;
-	t_list	*envs_list;
-}	t_vars;
-
+# include	"../main/main.h"
 # include	"../command_line/comline.h"
-# include	"../readline/readline.h"
-# include	"../env/env.h"
-# include	"../heredoc/heredoc.h"
-# include	"../builtin/builtin.h"
+
+void	exec_pwd(t_vars *vars);
+void	exec_exit(void);
 
 #endif

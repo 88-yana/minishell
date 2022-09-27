@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:19:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/26 18:21:50 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/27 19:56:15 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,23 @@ void	exec_command_child(t_vars *vars, t_list *comline, t_list **pids)
 	create_pid_list(pids, pid);
 }
 
-// void	exec_command_parent(void)
-// {
-// 	;
-// }
+void	exec_command_parent(t_vars *vars, t_order *order)
+{
+	char	**cmd;
+
+	cmd = order->cmd;
+	if (!ft_strcmp(cmd[0], "echo"))
+		;
+	else if (!ft_strcmp(cmd[0], "cd"))
+		;
+	else if (!ft_strcmp(cmd[0], "pwd"))
+		exec_pwd(vars);
+	else if (!ft_strcmp(cmd[0], "export"))
+		;
+	else if (!ft_strcmp(cmd[0], "unset"))
+		;
+	else if (!ft_strcmp(cmd[0], "env"))
+		;
+	else if (!ft_strcmp(cmd[0], "exit"))
+		exec_exit();
+}

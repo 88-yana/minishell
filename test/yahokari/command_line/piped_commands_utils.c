@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:22:39 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/23 20:20:23 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/27 17:41:41 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,6 @@ void	close_fd_parent(t_order *order)
 		close(order->read_fd);
 	if (order->write_fd != NONE)
 		close(order->write_fd);
+	if (order->file)
+		unlink(order->file);
 }
