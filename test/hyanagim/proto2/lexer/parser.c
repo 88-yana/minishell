@@ -333,14 +333,13 @@ t_list **realloc_list(t_list **list, t_list *ptr)
 	}
 	new[i] = ptr;
 	new[i + 1] = NULL;
-	printf("exc %p\n", list);
+	// printf("exc %p\n", list);
 	i = 0;
-	while (new[i] != NULL)
-	{
-		printf("new is %s\n", ((t_order *)new[i]->content)->cmd[0]);
-		i++;
-	}
-	printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+	// while (new[i] != NULL)
+	// {
+	// 	printf("new is %s\n", ((t_order *)new[i]->content)->cmd[0]);
+	// 	i++;
+	// }
 	// free(list);
 	return (new);
 }
@@ -371,7 +370,15 @@ t_list	**executer(t_node *p, t_list **list)
 	if (p->type == PIPE)
 	{
 		t_list	**latter;
+		t_list	*ptr;
+		ptr = ft_lstnew(make_command(PIPE, NULL, NULL, NULL));
 		list = executer(p->left, list);
+		printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+		list = realloc_list(list, ptr);
+		printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+		printf("pipe no list %s\n", ((t_order *)list[0]->content)->cmd[0]);
+		printf("pipe no list %s\n", ((t_order *)list[1]->content)->cmd[0]);
+		printf("pipe no list %u\n", ((t_order *)list[2]->content)->type);
 		// add_list(list, PIPE);
 		// executer(p->left, latter);
 		// listjoin(list, latter);
@@ -381,6 +388,10 @@ t_list	**executer(t_node *p, t_list **list)
 		list = executer(p->left, list);
 		if (p->right != NULL)
 			list = executer(p->right, list);
+	}
+	if (p->type == REDIRECTION)
+	{
+
 	}
 	if (p->type == COMMAND)
 	{
@@ -415,18 +426,10 @@ t_list	**executer(t_node *p, t_list **list)
 		// t_list *ft_lstnew(void *content)
 		// printf("exc %p\n", list);
 
-		printf("cmd 0 is %s\n", ((t_order *) list_ptr->content)->cmd[0]);
-		if (list[0] != NULL)
-			printf("list saisyo %s\n", ((t_order *)list[0]->content)->cmd[0]);
+		// printf("cmd 0 is %s\n", ((t_order *) list_ptr->content)->cmd[0]);
+		// if (list[0] != NULL)
+		// 	printf("list saisyo %s\n", ((t_order *)list[0]->content)->cmd[0]);
 		list = realloc_list(list, list_ptr);
-		i = 0;
-		// while (list[i] != NULL)
-		// {
-			// printf("%s\n", list[i]->content->line[list[i]->content->end_pos]);
-		// 	i++;
-		// }
-		
-		// ft_lstadd_back(list, list_ptr);
 	}
 	return (list);
 }
@@ -489,14 +492,23 @@ int	main(void)
 	// printf("content point is %p\n", list[0]->content);
 	// printf("%p\n", list);
 	list = executer(&root, list);
+	printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	int i = 0;
 	// t_list	*list_ptr = ft_lstnew(make_command(COMMAND, root.line, NULL, NULL));
 	// list = realloc_list(list, list_ptr);
-	while (list[i] != NULL)
-	{
-		printf("main %s\n", ((t_order *)list[i]->content)->cmd[0]);
-		i++;
-	}
+	// while (list[i] != NULL)
+	// {
+	// 	// printf("main %s\n", ((t_order *)list[i]->content)->cmd[0]);
+	// 	printf("main %u\n", ((t_order *)list[i]->content)->type);
+	// 	// int j = 0;
+	// 	// while (((t_order *)list[i]->content)->type == COMMAND && ((t_order *)list[i]->content)->cmd[j] != NULL)
+	// 	// {
+	// 	// 	printf(" %s\n", ((t_order *)list[i]->content)->cmd[j]);
+	// 	// 	j++;
+	// 	// }
+		
+	// 	i++;
+	// }
 	return (0);
 }
 
