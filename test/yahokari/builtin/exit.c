@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 17:44:40 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 19:35:38 by yahokari         ###   ########.fr       */
+/*   Created: 2022/09/27 19:53:55 by yahokari          #+#    #+#             */
+/*   Updated: 2022/09/27 20:02:41 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include	"builtin.h"
 
-# include	"../../../libft/libft.h"
-
-typedef struct s_vars {
-	t_list	*comline;
-	t_list	*pids;
-	t_list	*envs_list;
-}	t_vars;
-
-# include	"../command_line/comline.h"
-# include	"../readline/readline.h"
-# include	"../env/env.h"
-# include	"../heredoc/heredoc.h"
-# include	"../builtin/builtin.h"
-
-#endif
+void	exec_exit(void)
+{
+	printf("exit\n");
+	exit(0);
+}

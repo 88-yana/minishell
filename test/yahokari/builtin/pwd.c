@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 00:22:57 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/13 00:44:45 by yahokari         ###   ########.fr       */
+/*   Created: 2022/09/27 19:19:12 by yahokari          #+#    #+#             */
+/*   Updated: 2022/09/27 19:50:43 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../mandatory/minishell.h"
+#include	"builtin.h"
 
-int	do_nothing(void)
+void	exec_pwd(t_vars *vars)
 {
-	return (0);
+	t_list	*list;
+	t_envs	*envs;
+
+	list = vars->envs_list;
+	while (list)
+	{
+		envs = (t_envs *)list->content;
+		if (!ft_strcmp(envs->type, "PWD"))
+		{
+			printf("%s\n", envs->value);
+			break ;
+		}
+		list = list->next;
+	}
 }

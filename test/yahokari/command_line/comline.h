@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 19:57:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 17:41:17 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/27 19:33:33 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	exec_comline(t_vars *vars, t_list *comline);
 
 // <-- piped_commands.c -->
 void	exec_command_child(t_vars *vars, t_list *comline, t_list **pids);
-void	exec_command_parent(void);
+void	exec_command_parent(t_vars *vars, t_order *order);
 
 // <-- piped_commands_utils.c -->
 void	set_fd(t_list *comline);
