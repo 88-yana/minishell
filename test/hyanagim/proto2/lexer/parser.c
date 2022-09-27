@@ -672,6 +672,7 @@ void	cmdjoin(t_list **list)
 
 void	init_root(t_node *root)
 {
+	root->type = COMMAND_LINE;
 	root->array_size = 11;
 	root->start_pos = 0;
 	root->current_pos = 0;
@@ -724,19 +725,21 @@ int	main(void)
 	// line[9] = "grep";
 	// line[10] = "a";
 	// line[11] = NULL;
+
+
 	// data.line = ;
 	// array = lexer(&data);
 	root.line = line;
-	root.type = COMMAND_LINE;
+
+
 	init_root(&root);
-	
 	for (int i = 0; i < ARRAY_SIZE + 1; i++)
 		printf("%s ", line[i]);
 	printf("\n");
 	parser(&root);
-	wood = malloc(sizeof(t_node *) * 2);
-	wood[0] = &root;
-	wood[1] = NULL;
+	// wood = malloc(sizeof(t_node *) * 2);
+	// wood[0] = &root;
+	// wood[1] = NULL;
 	// printf("wood is %s\n", wood[0]->line[0]);
 	// printf("wood is %p\n", wood[1]);
 	/*
@@ -775,6 +778,7 @@ int	main(void)
 		ft_lstadd_back(maked_list, list[i]);
 		i++;
 	}
+
 	display_command(*maked_list);
 	return (0);
 }
