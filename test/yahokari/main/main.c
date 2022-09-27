@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 20:10:22 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 13:37:46 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/27 20:04:25 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	display_command(t_list *command_line)
 	while (buf)
 	{
 		command = (t_order *)buf->content;
+		printf("type is %d\n", command->type);
 		if (command->type == COMMAND)
 		{
 			printf("type: [ %s ] command: [", "command");
@@ -90,6 +91,11 @@ void	display_command(t_list *command_line)
 			printf("type: [ %s ]\n", "shell");
 			printf("---------- inside shell ----------\n");
 			display_command(command->shell);
+		}
+		else if (command->type == GT)
+		{
+			printf("type: [ %s ]", "gt");
+			printf("aim: %s", command->file);
 		}
 		else if (command->type == PIPE)
 			printf("type: [ %s ]\n", "pipe");
