@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 19:57:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 19:33:33 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/27 21:22:52 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,29 +44,6 @@ int	g_status;
 // GT ">"
 // LTLT "<<"
 // LT "<"
-
-typedef enum e_type {
-	COMMAND,
-	SUBSHELL,
-	PIPE,
-	AND,
-	OR,
-	GTGT,
-	GT,
-	LTLT,
-	LT
-}	t_type;
-
-typedef struct s_order {
-	t_type	type;
-	char	**cmd;
-	size_t	pipe_num;
-	int		read_fd;
-	int		write_fd;
-	int		next_read_fd;
-	char	*file;
-	t_list	*shell;
-}	t_order;
 
 // <-- comline.c -->
 void	exec_comline(t_vars *vars, t_list *comline);
