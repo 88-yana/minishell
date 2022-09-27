@@ -321,20 +321,6 @@ t_list **realloc_list(t_list **list, t_list *ptr)
 	size = 0;
 	while (list[size] != NULL)
 		size++;
-	printf("あああああああsize in realoc %zu\n", size);
-	if (size == 3)
-	{
-		i = 0;
-		// while (list[i] != NULL)
-		// {
-		// 	printf("list point in comma %p\n", list[i]);
-		// 	printf("list type in comma %u\n", ((t_order *)list[i]->content)->type);
-		// 	if (((t_order *)list[i]->content)->type == COMMAND)
-		// 		printf("list cmd in comma %s\n", ((t_order *)list[i]->content)->cmd[0]);
-		// 	i++;
-		// }
-		// size--;
-	}
 	new = malloc(sizeof(t_list *) * size + 2);
 	i = 0;
 	while (i < size)
@@ -343,21 +329,8 @@ t_list **realloc_list(t_list **list, t_list *ptr)
 		i++;
 	}
 	
-	printf("?????\n");
-	if (size == 2)
-	{
-		printf("!!!!!!!!!!!!!!!!!!!!!!\n");
-		printf("IN REALLOC %u\n", ((t_order *)ptr->content)->type);
-	}
 	new[i] = ptr;
 	new[i + 1] = NULL;
-	// printf("exc %p\n", list);
-	i = 0;
-	// while (new[i] != NULL)
-	// {
-	// 	printf("new is %s\n", ((t_order *)new[i]->content)->cmd[0]);
-	// 	i++;
-	// }
 	// free(list);
 	return (new);
 }
@@ -378,104 +351,67 @@ t_type	convert_redirection(char *str)
 t_list	**executer(t_node *p, t_list **list)
 {
 	if (p->type == COMMAND_LINE)
-	{
 		list = executer(p->left, list);
+/* 	if (p->type == DELIMITER)
+	{
+		executer(p->left, list);
+		executer(p->right, list);
 	}
-// 	if (p->type == DELIMITER)
-// 	{
-// 		executer(p->left, list);
-// 		executer(p->right, list);
-// 	}
-// 	if (p->type == subshell)
-// 	{
-// 		t_list	*shell;
-// 		t_list	*command_line;
-// 		exe(p->left, shell);
+	if (p->type == subshell)
+	{
+		t_list	*shell;
+		t_list	*command_line;
+		exe(p->left, shell);
 
-// 		command_line = ft_lstnew(make_command(SHELL, (char *[]){"/bin/ls", NULL}, NULL, shell));
-// 	}
+		command_line = ft_lstnew(make_command(SHELL, (char *[]){"/bin/ls", NULL}, NULL, shell));
+	} */
 	if (p->type == PIPED_LINE)
-	{
 		list = executer(p->left, list);
-	}
 
 	if (p->type == PIPE)
 	{
-		t_list	**latter;
+		/* t_list	**latter;
 		latter = malloc(sizeof(t_list *));
-		latter[0] = NULL;
-		t_list	*ptr;
-		ptr = ft_lstnew(make_command(PIPE, NULL, NULL, NULL));
+		latter[0] = NULL; */
+		t_list	*list_ptr;
+		list_ptr = ft_lstnew(make_command(PIPE, NULL, NULL, NULL));
 		list = executer(p->left, list);
-		list = realloc_list(list, ptr);
-		// printf("pipe no list %s\n", ((t_order *)list[0]->content)->cmd[0]);
-		// printf("pipe no list %s\n", ((t_order *)list[1]->content)->cmd[0]);
-		// printf("pipe no list %u\n", ((t_order *)list[2]->content)->type);
-		// add_list(list, PIPE);
-		if (p->right == NULL)
-			printf("NULL!!!!!!!!!!!\n");
-		// executer(p->right, latter);
-		// listjoin(list, latter);
 		int i = 0;
 		while (list[i] != NULL)
-		{
-			// printf("list point in comma %p\n", list[i]);
-			// printf("list type in comma %u\n", ((t_order *)list[i]->content)->type);
-			// if (((t_order *)list[i]->content)->type == COMMAND)
-			// 	printf("list cmd in comma %s\n", ((t_order *)list[i]->content)->cmd[0]);
 			i++;
-		}
-		latter = malloc(sizeof(t_list *) * 1);
+		printf("pipe zen command %d\n", i);
+		list = realloc_list(list, list_ptr);
+		i = 0;
+		while (list[i] != NULL)
+			i++;
+		printf("pipe go command %d\n", i);
+		/* latter = malloc(sizeof(t_list *) * 1);
 		latter[0] = NULL;
-		latter = executer(p->right, latter);
+		latter = executer(p->right, latter); */
+		// listjoin(list, latter);
 	}
 	if (p->type == ARGUMENTS)
 	{
-		int i = 0;
-		while (list[i] != NULL)
-		{
-			// printf("%p\n", list[i]);
-			// printf("argu  %u\n", ((t_order *)list[i]->content)->type);
-			i++;
-		}
-		printf("                                      size in argu first %d\n", i);
 		list = executer(p->left, list);
-		i = 0;
-		while (list[i] != NULL)
-		{
-			// printf("%p\n", list[i]);
-			// printf("argu  %u\n", ((t_order *)list[i]->content)->type);
-			i++;
-		}
-		printf("                                      size in argu left %d\n", i);
 		if (p->right != NULL)
 			list = executer(p->right, list);
-		while (list[i] != NULL)
-		{
-			// printf("%p\n", list[i]);
-			// printf("argu  %u\n", ((t_order *)list[i]->content)->type);
-			i++;
-		}
-		printf("                                        size in argu right %d\n", i);
 	}
 	if (p->type == REDIRECTION)
 	{
-		t_list	*ptr;
+		t_list	*list_ptr;
 		t_type	type;
-		printf("redirection is %s\n", p->line[p->current_pos]);
 		type = convert_redirection(p->line[p->current_pos]);
-		ptr = ft_lstnew(make_command(type, NULL, p->line[p->current_pos + 1], NULL));
-		list = realloc_list(list, ptr);
-		printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+		list_ptr = ft_lstnew(make_command(type, NULL, p->line[p->current_pos + 1], NULL));
 		int i = 0;
 		while (list[i] != NULL)
-		{
-			// printf("rediiii %p\n", list[i]);
 			i++;
-		}
-		printf("size in redir : %d\n", i);
-		int size = i;
+		printf("redire zen command %d\n", i);
+		list = realloc_list(list, list_ptr);
 		i = 0;
+		while (list[i] != NULL)
+			i++;
+		printf("redire go command %d\n", i);
+		/* int i = 0;
 		while (list[i] != NULL && size  == 2)
 		{
 			printf("list point in comma %p\n", list[i]);
@@ -483,7 +419,7 @@ t_list	**executer(t_node *p, t_list **list)
 			if (((t_order *)list[i]->content)->type == COMMAND)
 				printf("list cmd in comma %s\n", ((t_order *)list[i]->content)->cmd[0]);
 			i++;
-		}
+		} */
 	}
 	if (p->type == COMMAND)
 	{
@@ -491,8 +427,6 @@ t_list	**executer(t_node *p, t_list **list)
 		int		i;
 		t_list	*list_ptr;
 
-		printf("string start %s\n", p->line[p->start_pos]);
-		printf("string end %s\n", p->line[p->end_pos]);
 		while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos][0])
 			&& !is_pipe(p->line[p->end_pos]) && !is_redirection(p->line[p->end_pos]))
 			p->end_pos++;
@@ -507,73 +441,17 @@ t_list	**executer(t_node *p, t_list **list)
 				; //後で書く。
 			i++;
 		}
-
 		array[i] = NULL;
-		i = 0;
-		while (array[i] != NULL)
-		{
-			printf("[array i] %s\n", array[i]);
-			i++;
-		}
 		list_ptr = ft_lstnew(make_command(COMMAND, array, NULL, NULL));
-		// t_list *ft_lstnew(void *content)
-		// printf("exc %p\n", list);
-
-		// printf("cmd 0 is %s\n", ((t_order *) list_ptr->content)->cmd[0]);
-		// if (list[0] != NULL)
-		// 	printf("list saisyo %s\n", ((t_order *)list[0]->content)->cmd[0]);
 		i = 0;
 		while (list[i] != NULL)
-		{
-			// printf("list point in comma %p\n", list[i]);
-			// printf("list type in comma %u\n", ((t_order *)list[i]->content)->type);
-			// if (((t_order *)list[i]->content)->type == COMMAND)
-			// 	printf("list cmd in comma %s\n", ((t_order *)list[i]->content)->cmd[0]);
 			i++;
-		}
-		printf("zen zen zen %d\n", i);
-		if (i == 3){
-			printf("parent ksdjfkjsfjadls;fkjsadfj si %p\n", p->parent);
-			printf("parent's type %d\n", p->parent->type);
-		}
+		printf("zen command %d\n", i);
 		list = realloc_list(list, list_ptr);
-		// printf("list in comma %p\n", list[0]);
 		i = 0;
 		while (list[i] != NULL)
-		{
-			// printf("list point in comma %p\n", list[i]);
-			// printf("list type in comma %u\n", ((t_order *)list[i]->content)->type);
-			// if (((t_order *)list[i]->content)->type == COMMAND)
-			// 	printf("list cmd in comma %s\n", ((t_order *)list[i]->content)->cmd[0]);
 			i++;
-		}
-		printf("gogogogogog %d\n", i);
-		printf("size in comma : %d\n", i);
-		int size = i;
-		i = 0;
-		while (list[i] != NULL && p->include_right == false)
-		{
-			printf("list point in comma %p\n", list[i]);
-			printf("list type in comma %u\n", ((t_order *)list[i]->content)->type);
-			if (((t_order *)list[i]->content)->type == COMMAND)
-				printf("list cmd in comma %s\n", ((t_order *)list[i]->content)->cmd[0]);
-			i++;
-		}
-		i = 0;
-		while ( i < 4 && list[i] != NULL && size == 4)
-		{
-			if (i == 2)
-			{
-				i++;
-				continue ;
-			}
-			printf("genninn\n");
-			printf("list point in comma %p\n", list[i]);
-			printf("list type in comma %u\n", ((t_order *)list[i]->content)->type);
-			if (((t_order *)list[i]->content)->type == COMMAND)
-				printf("list cmd in comma %s\n", ((t_order *)list[i]->content)->cmd[0]);
-			i++;
-		}
+		printf("go command %d\n", i);
 	}
 	return (list);
 }
@@ -636,7 +514,6 @@ int	main(void)
 	// printf("content point is %p\n", list[0]->content);
 	// printf("%p\n", list);
 	list = executer(&root, list);
-	printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	int i = 0;
 	// t_list	*list_ptr = ft_lstnew(make_command(COMMAND, root.line, NULL, NULL));
 	// list = realloc_list(list, list_ptr);
@@ -648,7 +525,7 @@ int	main(void)
 			continue;
 		}
 		// printf("main %s\n", ((t_order *)list[i]->content)->cmd[0]);
-		printf("main %u\n", ((t_order *)list[i]->content)->type);
+		printf("main %d, %u\n", i, ((t_order *)list[i]->content)->type);
 		// int j = 0;
 		// while (((t_order *)list[i]->content)->type == COMMAND && ((t_order *)list[i]->content)->cmd[j] != NULL)
 		// {
