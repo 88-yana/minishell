@@ -6,37 +6,29 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 00:22:57 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/26 12:35:53 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/27 20:25:57 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_vars	vars;
+	t_list	*command_line;
+	char	*str;
 
-	vars.tree = malloc(sizeof(t_tree));
-	vars.tree->type = COMMAND_LINE;
-	vars.tree->line = NULL;
-	while (1)
+	(void)argc;
+	(void)argv;
+
+	vars.envs_list = NULL;
+	convert_envp_to_list(&vars, envp);
+	while (true)
 	{
-		vars.tree->line = readline("minishell$ ");
-		if (vars.tree->line == NULL || strlen(vars.tree->line) == 0)
-		{
-			free(vars.tree->line);
-			break ;
-		}
-		add_history(vars.tree->line);
-		handle_parser(vars.tree);
-		free(vars.tree->line);
+		str = exec_readline();
+		check_comline(command_line);
+		exec_comline(&vars, command_line);
+		free(str);
+		break ;
 	}
-	return (0);
 }
-
-//int	main(int argc, char **argv, char **envp)
-//{
-//	if (argc > 1)
-//		execve("/bin/echo", &argv[1], envp);
-//	return (0);
-//}
