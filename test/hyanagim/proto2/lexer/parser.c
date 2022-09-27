@@ -127,8 +127,8 @@ void	parser(t_node *p)
 // 		}
 		if (p->line[p->end_pos] == NULL)
 		{
-			printf("before piped line command line is start %s\n", p->line[p->start_pos]);
-			printf("before piped line command line is end %s\n", p->line[p->end_pos]);
+			// printf("before piped line command line is start %s\n", p->line[p->start_pos]);
+			// printf("before piped line command line is end %s\n", p->line[p->end_pos]);
 			p->end_pos = p->start_pos;
 			p->left = talloc(PIPED_LINE, p);
 			parser(p->left);
@@ -144,16 +144,16 @@ void	parser(t_node *p)
 		{
 			p->current_pos = p->end_pos;
 			p->end_pos = p->start_pos;
-			printf("before piped piped line is start %s\n", p->line[p->start_pos]);
-			printf("before piped piped line is end %s\n", p->line[p->end_pos]);
+			// printf("before piped piped line is start %s\n", p->line[p->start_pos]);
+			// printf("before piped piped line is end %s\n", p->line[p->end_pos]);
 			p->left = talloc(PIPE, p);
 			parser(p->left);
 		}
 		if (p->line[p->end_pos] == NULL)
 		{
 			p->end_pos = p->start_pos;
-			printf("before arguments piped line is start %s\n", p->line[p->start_pos]);
-			printf("before arguments piped line is end %s\n", p->line[p->end_pos]);
+			// printf("before arguments piped line is start %s\n", p->line[p->start_pos]);
+			// printf("before arguments piped line is end %s\n", p->line[p->end_pos]);
 			p->left = talloc(ARGUMENTS, p);
 			parser(p->left);
 		}
@@ -161,8 +161,8 @@ void	parser(t_node *p)
 	if (p->type == PIPE)
 	{
 		printf("pipe is %s\n", p->line[p->current_pos]);
-		printf("before arguments pipe is start %s\n", p->line[p->start_pos]);
-			printf("before arguments pipe is end %s\n", p->line[p->end_pos]);
+		// printf("before arguments pipe is start %s\n", p->line[p->start_pos]);
+			// printf("before arguments pipe is end %s\n", p->line[p->end_pos]);
 		p->left = talloc(ARGUMENTS, p);
 		parser(p->left);
 		p->start_pos = p->current_pos + 1;
@@ -263,7 +263,7 @@ void	parser(t_node *p)
 		printf("string start %s\n", p->line[p->start_pos]);
 		printf("string end %s\n", p->line[p->end_pos]);
 		// printf("string is %s\n", p->line[p->end_pos]);
-		p->left = talloc(EXPANDABLE, p);
+		/* p->left = talloc(EXPANDABLE, p);
 		parser(p->left);
 		p->end_pos++;
 		if (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos][0])
@@ -274,7 +274,7 @@ void	parser(t_node *p)
 			p->include_right = true;
 			p->right = talloc(EXPANDABLE, p);
 			parser(p->right);
-		}
+		} */
 		return ;
 	}
 	if (p->type == EXPANDABLE)
@@ -315,11 +315,18 @@ t_node	*talloc(t_type type, t_node *parent)
 t_list **realloc_list(t_list **list, t_list *ptr)
 {
 	t_list	**new;
+	size_t	size;
 	size_t	i;
 
+	size = 0;
+	while (list[size] != NULL)
+	{
+		size++;
+	}
+
+	new = malloc(sizeof(t_list *) * size + 2);
 	i = 0;
-	new = malloc(sizeof(list) / sizeof(t_list *) + 1);
-	while (i < sizeof(list) / sizeof(t_list *) - 1)
+	while (i < size)
 	{
 		new[i] = list[i];
 		i++;
@@ -327,20 +334,27 @@ t_list **realloc_list(t_list **list, t_list *ptr)
 	new[i] = ptr;
 	new[i + 1] = NULL;
 	printf("exc %p\n", list);
+	i = 0;
+	while (new[i] != NULL)
+	{
+		printf("new is %s\n", ((t_order *)new[i]->content)->cmd[0]);
+		i++;
+	}
+	printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	// free(list);
 	return (new);
 }
 
-void	executer(t_node *p, t_node **wood)
+t_list	**executer(t_node *p, t_list **list)
 {
 	if (p->type == COMMAND_LINE)
 	{
-		executer(p->left, wood);
+		list = executer(p->left, list);
 	}
 // 	if (p->type == DELIMITER)
 // 	{
-// 		executer(p->left, wood);
-// 		executer(p->right, wood);
+// 		executer(p->left, list);
+// 		executer(p->right, list);
 // 	}
 // 	if (p->type == subshell)
 // 	{
@@ -352,28 +366,30 @@ void	executer(t_node *p, t_node **wood)
 // 	}
 	if (p->type == PIPED_LINE)
 	{
-		executer(p->left, wood);
+		list = executer(p->left, list);
 	}
 	if (p->type == PIPE)
 	{
 		t_list	**latter;
-		executer(p->left, wood);
+		list = executer(p->left, list);
 		// add_list(list, PIPE);
 		// executer(p->left, latter);
 		// listjoin(list, latter);
 	}
 	if (p->type == ARGUMENTS)
 	{
-		executer(p->left, wood);
+		list = executer(p->left, list);
 		if (p->right != NULL)
-			executer(p->right, wood);
+			list = executer(p->right, list);
 	}
-	if (p->type == STRING)
+	if (p->type == COMMAND)
 	{
 		char	**array;
 		int		i;
 		t_list	*list_ptr;
 
+		printf("string start %s\n", p->line[p->start_pos]);
+		printf("string end %s\n", p->line[p->end_pos]);
 		while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos][0])
 			&& !is_pipe(p->line[p->end_pos]) && !is_redirection(p->line[p->end_pos]))
 			p->end_pos++;
@@ -381,18 +397,28 @@ void	executer(t_node *p, t_node **wood)
 		if (array == NULL)
 			; //後で書く。
 		i = 0;
-		while (i < p->end_pos - p->start_pos + 1)
+		while (i < p->end_pos - p->start_pos)
 		{
 			array[i] = ft_strdup(p->line[p->start_pos + i]);
 			if (array[i] == NULL)
 				; //後で書く。
 			i++;
 		}
-		
-		// list_ptr = ft_lstnew(make_command(COMMAND, (char *[]){"ls", "-l", NULL}, NULL, NULL));
+		array[i] = NULL;
+		i = 0;
+		while (array[i] != NULL)
+		{
+			printf("array i %s\n", array[i]);
+			i++;
+		}
+		list_ptr = ft_lstnew(make_command(COMMAND, array, NULL, NULL));
 		// t_list *ft_lstnew(void *content)
-		// printf("exc %p\n", wood);
-		// realloc_list(list, list_ptr);
+		// printf("exc %p\n", list);
+
+		printf("cmd 0 is %s\n", ((t_order *) list_ptr->content)->cmd[0]);
+		if (list[0] != NULL)
+			printf("list saisyo %s\n", ((t_order *)list[0]->content)->cmd[0]);
+		list = realloc_list(list, list_ptr);
 		i = 0;
 		// while (list[i] != NULL)
 		// {
@@ -402,7 +428,7 @@ void	executer(t_node *p, t_node **wood)
 		
 		// ft_lstadd_back(list, list_ptr);
 	}
-	// return (wood);
+	return (list);
 }
 // //stringかなんかで，
 // //p->left が NULL だったら，lstnew して，登りながら，lstadd していく。
@@ -456,12 +482,21 @@ int	main(void)
 	list[1] = NULL;
 	printf("%p\n", list[0]);
 	printf("%d\n", ((t_order *)list[0]->content)->type);
-	printf("%s\n", ((t_order *)list[0]->content)->cmd[0]);
 	*/
+	list = malloc(sizeof(t_list *) * 3);
+	list[0] = NULL;
 	// printf("point is %p\n", list[0]);
 	// printf("content point is %p\n", list[0]->content);
 	// printf("%p\n", list);
-	// executer(&root, wood);
+	list = executer(&root, list);
+	int i = 0;
+	// t_list	*list_ptr = ft_lstnew(make_command(COMMAND, root.line, NULL, NULL));
+	// list = realloc_list(list, list_ptr);
+	while (list[i] != NULL)
+	{
+		printf("main %s\n", ((t_order *)list[i]->content)->cmd[0]);
+		i++;
+	}
 	return (0);
 }
 
