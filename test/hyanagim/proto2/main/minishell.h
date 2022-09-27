@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 00:23:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 12:36:01 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/27 19:35:29 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef enum e_type {
 	PIPED_LINE,
 	PIPE,
 	DELIMITER,
-	COMMAND,
 	ARGUMENTS,
 	REDIRECTION,
 	STRING,
@@ -56,6 +55,7 @@ typedef enum e_type {
 	GT,
 	GTGT,
 	LTLT,
+	COMMAND,
 	AND,
 	OR
 }	t_type;
@@ -111,6 +111,7 @@ typedef struct s_node
 	size_t			current_pos;
 	size_t			end_pos;
 	bool			include_right;
+	size_t			index;
 	struct s_node	*parent;
 	struct s_node	*left;
 	struct s_node	*right;

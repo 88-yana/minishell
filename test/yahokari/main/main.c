@@ -5,8 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD
+/*   Created: 2022/09/23 20:10:22 by yahokari          #+#    #+#             */
+/*   Updated: 2022/09/27 20:04:25 by hyanagim         ###   ########.fr       */
+=======
 /*   Created: 2022/09/27 18:10:45 by yahokari          #+#    #+#             */
 /*   Updated: 2022/09/27 20:08:42 by yahokari         ###   ########.fr       */
+>>>>>>> 6b985abe330e13fa4076d1334c17559e8fc2f602
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +80,7 @@ void	display_command(t_list *command_line)
 	while (buf)
 	{
 		command = (t_order *)buf->content;
+		printf("type is %d\n", command->type);
 		if (command->type == COMMAND)
 		{
 			printf("type: [ %s ] command: [", "command");
@@ -91,6 +97,11 @@ void	display_command(t_list *command_line)
 			printf("type: [ %s ]\n", "shell");
 			printf("---------- inside shell ----------\n");
 			display_command(command->shell);
+		}
+		else if (command->type == GT)
+		{
+			printf("type: [ %s ]", "gt");
+			printf("aim: %s", command->file);
 		}
 		else if (command->type == PIPE)
 			printf("type: [ %s ]\n", "pipe");
