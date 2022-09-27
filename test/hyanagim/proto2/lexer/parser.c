@@ -106,7 +106,7 @@ void	parser(t_node *p)
 		while (p->line[p->end_pos] != NULL &&
 			!is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos][0]))
 			p->end_pos++;
-		printf("command line is %s\n", p->line[p->end_pos]);
+		// printf("command line is %s\n", p->line[p->end_pos]);
 // 		if (かっこだったら)
 // 		{
 // 			p->left
@@ -160,7 +160,7 @@ void	parser(t_node *p)
 	}
 	if (p->type == PIPE)
 	{
-		printf("pipe is %s\n", p->line[p->current_pos]);
+		// printf("pipe is %s\n", p->line[p->current_pos]);
 		// printf("before arguments pipe is start %s\n", p->line[p->start_pos]);
 			// printf("before arguments pipe is end %s\n", p->line[p->end_pos]);
 		p->left = talloc(ARGUMENTS, p);
@@ -239,15 +239,15 @@ void	parser(t_node *p)
 	if (p->type == REDIRECTION)
 	{
 		p->current_pos = p->end_pos; //redirection
-		printf("redirecition is %s, including right is %d\n", p->line[p->end_pos], p->include_right);
+		// printf("redirecition is %s, including right is %d\n", p->line[p->end_pos], p->include_right);
 		p->end_pos++;
 		if (p->line[p->end_pos] == NULL)
 		{
-			printf("%s\n", "error in redirection");
+			// printf("%s\n", "error in redirection");
 			return ;
 			//ここで，free
 		}
-		printf("aim is %s\n", p->line[p->end_pos]);
+		// printf("aim is %s\n", p->line[p->end_pos]);
 		// p->end_pos++;
 		// if (p->line[p->end_pos] != NULL)
 		// {
@@ -260,8 +260,8 @@ void	parser(t_node *p)
 	}
 	if (p->type == COMMAND)
 	{
-		printf("string start %s\n", p->line[p->start_pos]);
-		printf("string end %s\n", p->line[p->end_pos]);
+		// printf("string start %s\n", p->line[p->start_pos]);
+		// printf("string end %s\n", p->line[p->end_pos]);
 		// printf("string is %s\n", p->line[p->end_pos]);
 		/* p->left = talloc(EXPANDABLE, p);
 		parser(p->left);
@@ -279,7 +279,7 @@ void	parser(t_node *p)
 	}
 	if (p->type == EXPANDABLE)
 	{
-		printf("expandable is %s, including right is %d\n", p->line[p->end_pos], p->include_right);
+		// printf("expandable is %s, including right is %d\n", p->line[p->end_pos], p->include_right);
 	}
 	return ;
 }
@@ -344,6 +344,19 @@ t_list **realloc_list(t_list **list, t_list *ptr)
 	return (new);
 }
 
+t_type	convert_redirection(char *str)
+{
+	if (ft_strcmp(str, "<") == 0)
+		return (LT);
+	if (ft_strcmp(str, ">") == 0)
+		return (GT);
+	if (ft_strcmp(str, ">>") == 0)
+		return (GTGT);
+	if (ft_strcmp(str, "<<") == 0)
+		return (LTLT);
+	return (COMMAND_LINE);
+}
+
 t_list	**executer(t_node *p, t_list **list)
 {
 	if (p->type == COMMAND_LINE)
@@ -367,31 +380,54 @@ t_list	**executer(t_node *p, t_list **list)
 	{
 		list = executer(p->left, list);
 	}
+
 	if (p->type == PIPE)
 	{
 		t_list	**latter;
+		latter = malloc(sizeof(t_list *));
+		latter[0] = NULL;
 		t_list	*ptr;
 		ptr = ft_lstnew(make_command(PIPE, NULL, NULL, NULL));
 		list = executer(p->left, list);
-		printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 		list = realloc_list(list, ptr);
-		printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
-		printf("pipe no list %s\n", ((t_order *)list[0]->content)->cmd[0]);
-		printf("pipe no list %s\n", ((t_order *)list[1]->content)->cmd[0]);
-		printf("pipe no list %u\n", ((t_order *)list[2]->content)->type);
+		// printf("pipe no list %s\n", ((t_order *)list[0]->content)->cmd[0]);
+		// printf("pipe no list %s\n", ((t_order *)list[1]->content)->cmd[0]);
+		// printf("pipe no list %u\n", ((t_order *)list[2]->content)->type);
 		// add_list(list, PIPE);
-		// executer(p->left, latter);
+		if (p->right == NULL)
+			printf("NULL!!!!!!!!!!!\n");
+		// executer(p->right, latter);
 		// listjoin(list, latter);
 	}
 	if (p->type == ARGUMENTS)
 	{
 		list = executer(p->left, list);
+		int i = 0;
+		// while (list[i] != NULL)
+		// {
+		// 	printf("%p\n", list[i]);
+		// 	printf("argu  %u\n", ((t_order *)list[i]->content)->type);
+		// 	i++;
+		// }
+
 		if (p->right != NULL)
 			list = executer(p->right, list);
 	}
 	if (p->type == REDIRECTION)
 	{
-
+		t_list	*ptr;
+		t_type	type;
+		printf("redirection is %s\n", p->line[p->current_pos]);
+		type = convert_redirection(p->line[p->current_pos]);
+		ptr = ft_lstnew(make_command(type, NULL, p->line[p->current_pos + 1], NULL));
+		list = realloc_list(list, ptr);
+		printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+		int i = 0;
+		// while (list[i] != NULL)
+		// {
+		// 	printf("rediiii %p\n", list[i]);
+		// 	i++;
+		// }
 	}
 	if (p->type == COMMAND)
 	{
@@ -430,6 +466,12 @@ t_list	**executer(t_node *p, t_list **list)
 		// if (list[0] != NULL)
 		// 	printf("list saisyo %s\n", ((t_order *)list[0]->content)->cmd[0]);
 		list = realloc_list(list, list_ptr);
+		// while (list[i] != NULL)
+		// {
+		// 	printf("%p\n", list[i]);
+		// 	printf("comma  %u\n", ((t_order *)list[i]->content)->type);
+		// 	i++;
+		// }
 	}
 	return (list);
 }
@@ -477,8 +519,8 @@ int	main(void)
 	wood = malloc(sizeof(t_node *) * 2);
 	wood[0] = &root;
 	wood[1] = NULL;
-	printf("wood is %s\n", wood[0]->line[0]);
-	printf("wood is %p\n", wood[1]);
+	// printf("wood is %s\n", wood[0]->line[0]);
+	// printf("wood is %p\n", wood[1]);
 	/*
 	list = malloc(sizeof(t_list *) * 2);
 	list[0] = ft_lstnew(make_command(COMMAND, root.line, NULL, NULL));
