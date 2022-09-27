@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 19:57:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/26 17:59:29 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/27 17:41:17 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef enum e_type {
 typedef struct s_order {
 	t_type	type;
 	char	**cmd;
+	size_t	pipe_num;
 	int		read_fd;
 	int		write_fd;
 	int		next_read_fd;
@@ -72,6 +73,7 @@ void	exec_comline(t_vars *vars, t_list *comline);
 
 // <-- piped_commands.c -->
 void	exec_command_child(t_vars *vars, t_list *comline, t_list **pids);
+void	exec_command_parent(void);
 
 // <-- piped_commands_utils.c -->
 void	set_fd(t_list *comline);
@@ -81,6 +83,7 @@ void	close_fd_parent(t_order *order);
 
 // <-- redirection.c -->
 void	exec_lt(t_list *comline);
+void	exec_ltlt(t_list *comline);
 void	exec_gt(t_list *comline);
 void	exec_gtgt(t_list *comline);
 
@@ -93,5 +96,8 @@ bool	is_next_type(t_list *comline, t_type type);
 t_list	*find_next_delimiters(t_list *comline);
 t_list	*find_nth_piped_commands(t_list *comline, size_t n);
 t_list	*find_last_piped_commands(t_list *comline);
+
+// <-- builtin_utils.c -->
+bool	is_builtin(char **cmd);
 
 #endif

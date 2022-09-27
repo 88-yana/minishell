@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 17:44:40 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 10:53:49 by yahokari         ###   ########.fr       */
+/*   Created: 2022/09/27 10:52:02 by yahokari          #+#    #+#             */
+/*   Updated: 2022/09/27 17:51:21 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef HEREDOC_H
+# define HEREDOC_H
 
+# include	<stdlib.h>
+# include	<stdio.h>
+# include	<string.h>
+# include	<unistd.h>
+# include	<sys/wait.h>
+# include	<signal.h>
+# include	<readline/readline.h>
+# include	<readline/history.h>
+# include	<errno.h>
 # include	"../../../libft/libft.h"
-
-typedef struct s_vars {
-	t_list	*comline;
-	t_list	*pids;
-	t_list	*envs_list;
-}	t_vars;
-
+# include	"../main/main.h"
 # include	"../command_line/comline.h"
-# include	"../readline/readline.h"
-# include	"../env/env.h"
-# include	"../heredoc/heredoc.h"
+
+void	check_comline(t_list *comline);
 
 #endif

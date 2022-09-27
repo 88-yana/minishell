@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/26 21:57:05 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/27 17:22:50 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 
 	order = (t_order *)comline->content;
 	set_fd(comline);
-	// if () //builtin and single process
+	// if (order->pipe_num == 0 && !is_next_type(comline, PIPE)
+	// 	&& is_builtin(order->cmd))
 	// 	exec_command_parent();
 	// else
-	exec_command_child(vars, comline, pids);
+		exec_command_child(vars, comline, pids);
 	close_fd_parent(order);
 }
 
@@ -35,7 +36,7 @@ void	exec_redirection(t_list *comline)
 	else if (order->type == GT)
 		exec_gt(comline);
 	else if (order->type == LTLT)
-		;
+		exec_ltlt(comline);
 	else if (order->type == LT)
 		exec_lt(comline);
 }

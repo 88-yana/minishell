@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:19:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/26 18:21:50 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/27 17:21:12 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	exec_command_child(t_vars *vars, t_list *comline, t_list **pids)
 	create_pid_list(pids, pid);
 }
 
-// void	exec_command_parent(void)
-// {
-// 	;
-// }
+void	exec_command_parent(void)
+{
+	return ;
+}
