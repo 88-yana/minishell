@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 00:23:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/26 16:13:39 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/27 12:36:01 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,20 @@ typedef struct s_node
 	size_t			current_pos;
 	size_t			end_pos;
 	bool			include_right;
+	struct s_node	*parent;
 	struct s_node	*left;
 	struct s_node	*right;
 }	t_node;
 
-
+typedef struct s_order {
+	t_type	type;
+	char	**cmd;
+	int		read_fd;
+	int		write_fd;
+	int		next_read_fd;
+	char	*file;
+	t_list	*shell;
+}	t_order;
 // void		execute_shell(t_list *list);
 // t_comline	*make_command(t_type type, char **cmd, t_list *shell);
 // size_t		count_pipes(t_list *shell);

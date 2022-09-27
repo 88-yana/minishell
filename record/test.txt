@@ -125,3 +125,13 @@ cd | ls
 (cd | ls)
 
 1>%2
+
+(echo hello) > text.txt
+
+( echo hello ) > text00.txt
+
+> text01.txt (echo hello) 
+//error
+
+(echo) hello
+//error
