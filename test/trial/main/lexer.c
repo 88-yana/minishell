@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/27 21:23:16 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/27 21:36:24 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"main.h"
+
+int	print_error(const char *message)
+{
+	write(2, "Error\n", ft_strlen("Error\n"));
+	write(2, message, ft_strlen(message));
+	return (1);
+}
 
 static int	match_quote(char *str, size_t *i, char c)
 {

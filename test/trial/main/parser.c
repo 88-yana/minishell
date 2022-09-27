@@ -10,7 +10,8 @@
 // /*                                                                            */
 // /* ************************************************************************** */
 
-#include "../main/minishell.h"
+#include "main.h"
+
 #define ARRAY_SIZE 14
 t_node	*talloc(t_type type, t_node *parent);
 
@@ -28,6 +29,7 @@ t_order	*make_command(t_type type, char **cmd, char *file, t_list *shell)
 		command_line->file = file;
 	else
 		command_line->file = NULL;
+	command_line->pipe_num = -1;
 	command_line->read_fd = -1;
 	command_line->write_fd = -1;
 	command_line->next_read_fd = -1;
@@ -684,14 +686,14 @@ void	init_root(t_node *root)
 	root->right = NULL;
 }
 
-int	main(void)
+t_list	*to_parser(char **array)
 {
 	t_node	root;
 	t_node	**wood;
 	t_list	**list;
-	t_list	**maked_list;
+	t_list	*maked_list;
 	char	**line;
-	char	**array;
+	// char	**array;
 	t_array	data;
 
 	line = malloc(sizeof(char *) * (ARRAY_SIZE + 1));
@@ -729,13 +731,12 @@ int	main(void)
 
 	// data.line = ;
 	// array = lexer(&data);
-	// root.line = array;
-
+	root.line = array;
 
 	init_root(&root);
-	for (int i = 0; i < ARRAY_SIZE + 1; i++)
-		printf("%s ", line[i]);
-	printf("\n");
+	// for (int i = 0; i < ARRAY_SIZE + 1; i++)
+	// 	printf("%s ", root.line[i]);
+	// printf("\n");
 	parser(&root);
 	// wood = malloc(sizeof(t_node *) * 2);
 	// wood[0] = &root;
@@ -771,16 +772,16 @@ int	main(void)
 		i++;
 	}
 	cmdjoin(list);
-	*maked_list = NULL;
-	i = 0;
+	maked_list = list[0];
+	i = 1;
 	while (list[i] != NULL)
 	{
-		ft_lstadd_back(maked_list, list[i]);
+		ft_lstadd_back(&maked_list, list[i]);
 		i++;
 	}
 
-	display_command(*maked_list);
-	return (0);
+	// display_command(maked_list);
+	return (maked_list);
 }
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:20:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 21:22:14 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/27 21:28:40 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include	"../../../libft/libft.h"
 # include	<stddef.h>
 # include	<fcntl.h>
-
+# include	<stdbool.h>
 typedef enum e_type {
 	COMMAND_LINE,
 	PIPED_LINE,
