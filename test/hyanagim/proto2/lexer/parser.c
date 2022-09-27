@@ -588,6 +588,75 @@ void	display_command(t_list *command_line)
 	}
 }
 
+void	listlcpy(t_list **dst, t_list **list, size_t dstsize)
+{
+	size_t	i;
+
+	if (dstsize > 0)
+	{
+		i = 0;
+		while (list[i] && i < dstsize - 1)
+		{
+			dst[i] = list[i];
+			i++;
+		}
+		dst[i] = NULL;
+	}
+}
+
+size_t	arraylen(char **array)
+{
+	size_t	i;
+
+	i = 0;
+	while (array[i] != NULL)
+		i++;
+	return (i);
+}
+
+char	**arrayjoin(char **arr1, char**arr2)
+{
+	size_t	length;
+	size_t	i;
+	size_t	j;
+	char	**new;
+
+	length = arraylen(arr1) + arraylen(arr2) + 1;
+	new = malloc(sizeof(char * ) * length);
+	i = 0;
+	while (arr1[i] != NULL)
+	{
+		new[i] = ft_strdup(arr1[i]);
+		i++;
+	}
+	j = 0;
+	while (arr2[j] != NULL)
+	{
+		new[i + j] =  ft_strdup(arr2[j]);
+		j++;
+	}
+	new[length] = NULL;
+	return (new);
+}
+
+
+void	cmdjoin(t_list **list)
+{
+	size_t i;
+
+	i = 0;
+	while (i < listlen(list) - 1)
+	{
+		if (((t_order *)list[i]->content)->type == COMMAND &&
+			((t_order *)list[i + 1]->content)->type == COMMAND)
+		{
+			((t_order *)list[i]->content)->cmd = arrayjoin(((t_order *)list[i]->content)->cmd, ((t_order *)list[i + 1]->content)->cmd);
+			listlcpy(&(list[i]), &(list[i + 1]), listlen(list));
+		}
+		i++;
+	}
+}
+
 int	main(void)
 {
 	t_node	root;
@@ -675,6 +744,7 @@ int	main(void)
 		// }	
 		i++;
 	}
+	cmdjoin(list);
 	*maked_list = NULL;
 	i = 0;
 	while (list[i] != NULL)
