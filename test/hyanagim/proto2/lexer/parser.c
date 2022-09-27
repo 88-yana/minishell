@@ -11,7 +11,7 @@
 // /* ************************************************************************** */
 
 #include "../main/minishell.h"
-#define ARRAY_SIZE 11
+#define ARRAY_SIZE 14
 t_node	*talloc(t_type type, t_node *parent);
 
 t_order	*make_command(t_type type, char **cmd, char *file, t_list *shell)
@@ -614,6 +614,18 @@ size_t	arraylen(char **array)
 	return (i);
 }
 
+void	display_array(char ** arr)
+{
+	size_t	i;
+
+	i = 0;
+	while (arr[i] != NULL)
+	{
+		printf("%s\n", arr[i]);
+		i++;
+	}
+}
+
 char	**arrayjoin(char **arr1, char**arr2)
 {
 	size_t	length;
@@ -626,16 +638,17 @@ char	**arrayjoin(char **arr1, char**arr2)
 	i = 0;
 	while (arr1[i] != NULL)
 	{
-		new[i] = ft_strdup(arr1[i]);
+		new[i] = arr1[i];
 		i++;
 	}
 	j = 0;
 	while (arr2[j] != NULL)
 	{
-		new[i + j] =  ft_strdup(arr2[j]);
+		new[i + j] = arr2[j];
 		j++;
 	}
 	new[length] = NULL;
+	i = 0;
 	return (new);
 }
 
@@ -651,7 +664,7 @@ void	cmdjoin(t_list **list)
 			((t_order *)list[i + 1]->content)->type == COMMAND)
 		{
 			((t_order *)list[i]->content)->cmd = arrayjoin(((t_order *)list[i]->content)->cmd, ((t_order *)list[i + 1]->content)->cmd);
-			listlcpy(&(list[i]), &(list[i + 1]), listlen(list));
+			listlcpy(&(list[i + 1]), &(list[i + 2]), listlen(list));
 		}
 		i++;
 	}
@@ -669,21 +682,6 @@ int	main(void)
 	for (int i = 0; i < ARRAY_SIZE + 1; i++)
 		line[i] = malloc(sizeof(char) * 10);
 
-	// line[0] = "echo";
-	// line[1] = "hello";
-	// line[2] = ">";
-	// line[3] = "text.txt";
-	// line[4] = "world";
-	// line[5] = "|";
-	// line[6] = "echo";
-	// line[7] = "abc";
-	// line[8] = "def";
-	// line[9] = ">";
-	// line[10] = "text01.txt";
-	// line[11] = "|";
-	// line[12] = "grep";
-	// line[13] = "a";
-	// line[14] = NULL;
 	line[0] = "echo";
 	line[1] = "hello";
 	line[2] = ">";
@@ -692,10 +690,25 @@ int	main(void)
 	line[5] = "|";
 	line[6] = "echo";
 	line[7] = "abc";
-	line[8] = "|";
-	line[9] = "grep";
-	line[10] = "a";
-	line[11] = NULL;
+	line[8] = "def";
+	line[9] = ">";
+	line[10] = "text01.txt";
+	line[11] = "|";
+	line[12] = "grep";
+	line[13] = "a";
+	line[14] = NULL;
+	// line[0] = "echo";
+	// line[1] = "hello";
+	// line[2] = ">";
+	// line[3] = "text.txt";
+	// line[4] = "world";
+	// line[5] = "|";
+	// line[6] = "echo";
+	// line[7] = "abc";
+	// line[8] = "|";
+	// line[9] = "grep";
+	// line[10] = "a";
+	// line[11] = NULL;
 	root.type = COMMAND_LINE;
 	root.line = line;
 	root.array_size = 11;
@@ -735,7 +748,7 @@ int	main(void)
 	while (list[i] != NULL)
 	{
 		// printf("main %s\n", ((t_order *)list[i]->content)->cmd[0]);
-		printf("main %d, %u\n", i, ((t_order *)list[i]->content)->type);
+		// printf("main %d, %u\n", i, ((t_order *)list[i]->content)->type);
 		// int j = 0;
 		// while (((t_order *)list[i]->content)->type == COMMAND && ((t_order *)list[i]->content)->cmd[j] != NULL)
 		// {
