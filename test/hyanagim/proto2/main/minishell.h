@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 00:23:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 19:35:29 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/27 21:20:11 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include	<readline/readline.h>
 # include	<readline/history.h>
 # include	"../../../../libft/libft.h"
-// # include	"../parser/parser.h"
 
 # define READ 0
 # define WRITE 1
@@ -60,11 +59,11 @@ typedef enum e_type {
 	OR
 }	t_type;
 
-typedef struct s_pipe_fd {
-	int	read_fd;
-	int	write_fd;
-	int	next_read_fd;
-}	t_pipe_fd;
+// typedef struct s_pipe_fd {
+// 	int	read_fd;
+// 	int	write_fd;
+// 	int	next_read_fd;
+// }	t_pipe_fd;
 
 
 // typedef struct s_comline {
@@ -126,15 +125,16 @@ typedef struct s_order {
 	char	*file;
 	t_list	*shell;
 }	t_order;
-// void		execute_shell(t_list *list);
-// t_comline	*make_command(t_type type, char **cmd, t_list *shell);
-// size_t		count_pipes(t_list *shell);
-// void		display_command(t_list	*command_line);
 
 char	**lx_split(char *s, char c);
 int		print_error(const char *message);
 t_array	*lexer(t_array	*data);
 #endif
+
+// void		execute_shell(t_list *list);
+// t_comline	*make_command(t_type type, char **cmd, t_list *shell);
+// size_t		count_pipes(t_list *shell);
+// void		display_command(t_list	*command_line);
 
 //typedef enum e_com_type {
 //	CD,
