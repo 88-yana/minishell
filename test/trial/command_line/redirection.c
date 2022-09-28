@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:36:05 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 21:55:46 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/28 12:06:49 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	exec_gt(t_list *comline)
 	t_list	*next_piped_commands;
 
 	order = (t_order *)comline->content;
-	fd = open(order->file, O_WRONLY | O_CREAT, 644);
+	fd = open(order->file, O_WRONLY | O_CREAT, 0644);
 	if (fd == ERR)
 		exit(EXIT_FAILURE);
 	next_piped_commands = find_nth_piped_commands(comline, 1);
@@ -79,7 +79,7 @@ void	exec_gtgt(t_list *comline)
 	t_list	*next_piped_commands;
 
 	order = (t_order *)comline->content;
-	fd = open(order->file, O_WRONLY | O_CREAT | O_APPEND, 644);
+	fd = open(order->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == ERR)
 		exit(EXIT_FAILURE);
 	next_piped_commands = find_nth_piped_commands(comline, 1);

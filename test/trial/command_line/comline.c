@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 21:08:13 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/28 18:15:40 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,25 +58,23 @@ t_list	*exec_delimiters(t_list *comline, t_list **pids)
 
 void	exec_comline(t_vars *vars, t_list *comline)
 {
-	t_list	*buf;
 	t_list	*pids;
 	t_order	*order;
 
 	pids = NULL;
-	buf = comline;
-	while (buf)
+	while (comline)
 	{
-		order = (t_order *)buf->content;
+		order = (t_order *)comline->content;
 		if (order->type == COMMAND || order->type == SUBSHELL)
-			exec_piped_commands(vars, buf, &pids);
+			exec_piped_commands(vars, comline, &pids);
 		else if (order->type == PIPE)
 			;
 		else if (order->type == AND || order->type == OR)
-			buf = exec_delimiters(buf, &pids);
+			comline = exec_delimiters(comline, &pids);
 		else if (order->type == GTGT || order->type == GT
 			|| order->type == LT || order->type == LTLT)
-			exec_redirection(buf);
-		buf = buf->next;
+			exec_redirection(comline);
+		comline = comline->next;
 	}
 	wait_pids(&pids);
 }

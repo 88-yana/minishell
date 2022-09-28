@@ -6,13 +6,80 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 20:57:56 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/28 18:33:30 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_H
 # define STRUCTURE_H
 
+# include	"stdio.h"
+# include	"libft/libft.h"
 
+typedef enum e_type {
+	COMMAND_LINE,
+	PIPED_LINE,
+	PIPE,
+	DELIMITER,
+	ARGUMENTS,
+	REDIRECTION,
+	STRING,
+	EXPANDABLE,
+	NOT_EXPANDABLE,
+	EXPANDABLE_QUOTED,
+	SUBSHELL,
+	LT,
+	GT,
+	GTGT,
+	LTLT,
+	COMMAND,
+	AND,
+	OR
+}	t_type;
+
+typedef struct s_order {
+	t_type	type;
+	char	**cmd;
+	size_t	pipe_num;
+	int		read_fd;
+	int		write_fd;
+	int		next_read_fd;
+	char	*file;
+	t_list	*shell;
+}	t_order;
+
+typedef struct s_split
+{
+	char	*line;
+	size_t	pos;
+	size_t	size;
+	size_t	dquote;
+	size_t	squote;
+	size_t	*length;
+	char	**array;
+}	t_array;
+
+typedef struct s_node
+{
+	t_type			type;
+	char			**line;
+	int				*ele_is_quoted;
+	size_t			*ele_length;
+	size_t			array_size;
+	size_t			start_pos;
+	size_t			current_pos;
+	size_t			end_pos;
+	bool			include_right;
+	size_t			index;
+	struct s_node	*parent;
+	struct s_node	*left;
+	struct s_node	*right;
+}	t_node;
+
+typedef struct s_vars {
+	t_list	*comline;
+	t_list	*pids;
+	t_list	*envs_list;
+}	t_vars;
 
 #endif

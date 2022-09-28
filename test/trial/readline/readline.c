@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 12:36:50 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/26 21:54:49 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/28 18:17:28 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char	*exec_readline(void)
 	str = readline("minishell$ ");
 	if (!str)
 		exit_shell();
+	else if (ft_strlen(str) == 0)
+		return (NULL);
 	add_history(str);
 	return (str);
 }

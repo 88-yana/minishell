@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 18:10:45 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 21:42:36 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/28 18:24:35 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ int	main(int argc, char **argv, char **envp)
 	while (true)
 	{
 		data.line = exec_readline();
+		if (data.line == NULL)
+			continue ;
 		array = lexer(&data);
 		command_line = to_parser(array->array);
-		
 		check_comline(command_line);
 		exec_comline(&vars, command_line);
-		// free(data);
+		free(data.line);
 	}
 }

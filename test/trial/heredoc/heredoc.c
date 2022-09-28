@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 10:51:50 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 17:13:55 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/28 18:28:29 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	get_heredoc(t_list *comline)
 		exit (1);
 	else if (pid == 0)
 		read_heredoc(end, fd);
+	printf("hello");
 	wait(NULL);
 	close(fd);
 }

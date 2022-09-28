@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 19:57:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 21:22:52 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/28 13:28:43 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ int	g_status;
 // LTLT "<<"
 // LT "<"
 
-// <-- comline.c -->
+/*
+comline.c
+*/
 void	exec_comline(t_vars *vars, t_list *comline);
 
 // <-- piped_commands.c -->
