@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 21:20:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 21:28:40 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/28 21:07:05 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ typedef struct s_split
 	char	*line;
 	size_t	pos;
 	size_t	size;
-	size_t	dquote;
-	size_t	squote;
+	size_t	quote[2];
 	size_t	*length;
 	char	**array;
 }	t_array;

@@ -6,12 +6,17 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/28 19:43:31 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/28 22:25:04 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../libft/libft.h"
-#include "../main/minishell.h"
+#include "../../../trial/main/main.h"
+
+#define DUBLEQ '"'
+#define SINGLEQ '\''
+#define DQ 0
+#define SQ 1
 
 static int	match_quote(char *str, size_t *i, char c)
 {
@@ -19,7 +24,7 @@ static int	match_quote(char *str, size_t *i, char c)
 	while (str[*i] != '\0' && str[*i] != c)
 		(*i)++;
 	if (str[*i] != c)
-		print_error("syntax error\n");
+		; //printerror
 	return (1);
 }
 
@@ -30,10 +35,10 @@ void	check_line(char *line)
 	i = 0;
 	while (line[i] != '\0')
 	{
-		if (line[i] == '"')
-			match_quote(line, &i, '"');
-		if (line[i] == '\'')
-			match_quote(line, &i, '\'');
+		if (line[i] == DUBLEQ)
+			match_quote(line, &i, DUBLEQ);
+		if (line[i] == SINGLEQ)
+			match_quote(line, &i, SINGLEQ);
 		i++;
 	}
 	return ;
@@ -56,12 +61,21 @@ int	find_quote(t_array *data, size_t *i, char c)
 	return (0);
 }
 
-void	change_cnt_quote(t_array *data, char c)
+// void	change_cnt_quote(t_array *data, char c)
+// {
+// 	if (c == DUBLEQ)
+// 		data->quote[DQ]++;
+// 	if (c == SINGLEQ)
+// 		data->quote[SQ]++;
+// }
+
+int	bit(char c)
 {
-	if (c == '"')
-		data->dquote++;
-	if (c == '\'')
-		data->squote++;
+	if (c == DUBLEQ)
+		return (DQ);
+	if (c == SINGLEQ)
+		return (SQ);
+	return (2);
 }
 
 static int	plus_pos(t_array *data, size_t *i, size_t *str_len, char c);
@@ -71,37 +85,61 @@ int	seq_quote(t_array *data, size_t *i, size_t *str_len, char c)
 	int	cnt;
 
 	cnt = 0;
-	change_cnt_quote(data, c);
+	(data->quote[bit(c)])++;
 	(*i)++;
 	if (data->line[*i] == '\0' || data->line[*i] == ' ')
 		return (0);
-	while (data->line[*i] != '\0' && data->line[*i] != '"'
-		&& data->line[*i] != '\'' && data->line[*i] != ' ')
+	while (data->line[*i] != '\0' && data->line[*i] != DUBLEQ
+		&& data->line[*i] != SINGLEQ && data->line[*i] != ' ')
 		(*i)++;
-	if (data->line[*i] == '"')
-		plus_pos(data, i, str_len, '"');
-	if (data->line[*i] == '\'')
-		plus_pos(data, i, str_len, '\'');
+	if (data->line[*i] == DUBLEQ)
+		plus_pos(data, i, str_len, DUBLEQ);
+	if (data->line[*i] == SINGLEQ)
+		plus_pos(data, i, str_len, SINGLEQ);
 	return (1);
 }
 
 static int	plus_pos(t_array *data, size_t *i, size_t *str_len, char c)
 {
-	(*i)++;
-	change_cnt_quote(data, c);
-	if (data->line[*i] == c)
-		return (seq_quote(data, i, str_len, c));
-	while (data->line[*i] != '\0' && data->line[*i] != c)
-		(*i)++;
-	while (data->line[*i] != '\0' && data->line[*i] != ' ')
+	while (data->line[*i] == c)
 	{
-		change_cnt_quote(data, data->line[*i]);
 		(*i)++;
+		(data->quote[bit(c)])++;
 	}
-	if (data->dquote % 2 == 1)
-		return (find_quote(data, i, '"'));
-	if (data->squote % 2 == 1)
-		return (find_quote(data, i, '\''));
+	if (str_len == 0 && (data->line[*i] == '\0' || data->line[*i] == ' '))
+		return (0);
+	// if (data->line[*i] == c)
+	// 	return (seq_quote(data, i, str_len, c));
+	while (data->line[*i] != '\0' && data->line[*i] != c)
+	{
+		(*i)++;
+		(data->quote[bit(c)])++;
+	}
+	(*i)++;
+	(data->quote[bit(c)])++;
+	while (data->line[*i] != '\0' && data->line[*i] != DUBLEQ
+		&& data->line[*i] != SINGLEQ && data->line[*i] != ' ')
+	{
+		(*i)++;
+		(data->quote[bit(c)])++;
+	}
+	if (data->line[*i] == '\0')
+		return (1);
+	if (data->line[*i] == ' ')
+		return (1);
+	if (data->line[*i] == DUBLEQ)
+		return (plus_pos(data, i, str_len, c));
+	if (data->line[*i] == SINGLEQ)
+		return (plus_pos(data, i, str_len, c));
+	// while (data->line[*i] != '\0' && data->line[*i] != ' ')
+	// {
+	// 	(data->quote[bit(c)])++;
+	// 	(*i)++;
+	// }
+	// if (data->quote[DQ] % 2 == 1)
+	// 	return (find_quote(data, i, DUBLEQ));
+	// if (data->quote[SQ] % 2 == 1)
+	// 	return (find_quote(data, i, SINGLEQ));
 	return (1);
 }
 
@@ -135,10 +173,10 @@ static void	count_size(t_array *data, char c)
 	str_len = 0;
 	while (1)
 	{
-		if (data->line[i] == '"')
-			plus_i(data, &i, &str_len, '"');
-		if (data->line[i] == '\'')
-			plus_i(data, &i, &str_len, '\'');
+		if (data->line[i] == DUBLEQ)
+			plus_i(data, &i, &str_len, DUBLEQ);
+		if (data->line[i] == SINGLEQ)
+			plus_i(data, &i, &str_len, SINGLEQ);
 		if ((data->line[i] == c || data->line[i] == '\0') && str_len > 0)
 			data->size++;
 		if (data->line[i] == '\0')
@@ -198,14 +236,14 @@ static void	split_line(t_array *data, char c)
 	str_len = 0;
 	while (1)
 	{
-		if (data->line[i] == '"' && str_len == 0)
-			push_q_element(data, &i, &str_len, '"');
-		if (data->line[i] == '\'' && str_len == 0)
-			push_q_element(data, &i, &str_len, '\'');
-		if (data->line[i] == '"')
-			plus_next_quote(data->line, &i, &str_len, '"');
-		if (data->line[i] == '\'')
-			plus_next_quote(data->line, &i, &str_len, '\'');
+		if (data->line[i] == DUBLEQ && str_len == 0)
+			push_q_element(data, &i, &str_len, DUBLEQ);
+		if (data->line[i] == SINGLEQ && str_len == 0)
+			push_q_element(data, &i, &str_len, SINGLEQ);
+		if (data->line[i] == DUBLEQ)
+			plus_next_quote(data->line, &i, &str_len, DUBLEQ);
+		if (data->line[i] == SINGLEQ)
+			plus_next_quote(data->line, &i, &str_len, SINGLEQ);
 		if ((data->line[i] == c || data->line[i] == '\0') && str_len > 0)
 			push_element(data, i, str_len);
 		if (data->line[i] == '\0')
@@ -227,20 +265,20 @@ static void	delete_quote(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '"')
+		if (str[i] == DUBLEQ)
 		{
 			ft_strlcpy(&str[i], &str[i + 1], ft_strlen(&str[i]));
-			while (str[i] != '\0' && str[i] != '"')
+			while (str[i] != '\0' && str[i] != DUBLEQ)
 				i++;
 			if (str[i] == '\0')
 				break ;
 			ft_strlcpy(&str[i], &str[i + 1], ft_strlen(&str[i]));
 			continue ;
 		}
-		if (str[i] == '\'')
+		if (str[i] == SINGLEQ)
 		{
 			ft_strlcpy(&str[i], &str[i + 1], ft_strlen(&str[i]));
-			while (str[i] != '\0' && str[i] != '\'')
+			while (str[i] != '\0' && str[i] != SINGLEQ)
 				i++;
 			if (str[i] == '\0')
 				break ;
@@ -263,23 +301,30 @@ static void	shape_array(t_array *data)
 	}
 }
 
+void	init(t_array *data)
+{
+	data->pos = 0;
+	data->size = 0;
+	data->quote[DQ] = 0;
+	data->quote[SQ] = 0;
+	data->length = NULL;
+	data->array = NULL;
+}
+
 t_array	*lexer(t_array	*data)
 {
 	char	**temp;
 	size_t	size;
 
 	check_line(data->line);
-	data->pos = 0;
-	data->dquote = 0;
-	data->squote = 0;
-	data->size = 0;
+	init(data);
 	count_size(data, ' ');
+	data->quote[DQ] = 0;
+	data->quote[SQ] = 0;
 	data->array = malloc(sizeof(char *) * (data->size + 1));
 	if (data->array == NULL)
 		return (NULL);
 	data->array[data->size] = NULL;
-	data->dquote = 0;
-	data->squote = 0;
 	split_line(data, ' ');
 	shape_array(data);
 	return (data);
