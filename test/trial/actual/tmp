@@ -1,0 +1,13 @@
+minishell$ ls | cat | ls | cat
+Makefile
+actual
+command_line
+diff
+env
+expected
+heredoc
+main
+minishell
+readline
+test.sh
+minishell$ [1A[11Cexit
