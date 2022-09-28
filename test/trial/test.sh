@@ -4,11 +4,11 @@ NC='\033[0m'
 
 function test() {
 	input=$1
-	# expected
-	echo $input | bash 1> ./expected/output
+	# get expected output
+	echo $input | bash 1> ./expected/output 2> ./expected/error
 
-	# actual
-	echo $input | ./minishell 1> ./actual/tmp
+	# get actual output
+	echo $input | ./minishell 1> ./actual/tmp 2> ./actual/error
 	cat ./actual/tmp | grep -v '^minishell\$' > ./actual/output
 
 	diff ./expected/output ./actual/output &> /dev/null
@@ -21,37 +21,35 @@ function test() {
 	fi
 }
 
-# init
-rm -rf expected
-rm -rf actual
-rm -rf diff
 mkdir expected
 mkdir actual
 mkdir diff
 
 # test case
-echo ---------------------------------------
-
+echo '<------------ starting testcase ------------>'
+echo ''
+# basic testcase
+echo '[basic testcase]'
 test 'ls'
 test 'echo hello | wc -l <<a.txt'
 test '/bin/ls'
-test '/bin/ls -a' #ls -lも表示が違うけどできてます
-
-test 'lsc' #this is not existing command
-test ' ' #space
-
+test '/bin/ls -a'
+test 'lsc'
+test ' '
 test 'echo hello'
 test 'echo hello world'
-
 test 'cat main.c'
 
-test 'ls | cat' #pipe
-#test 'tree' #this is not /usr/bin/command (▲)
-#->minishellとbashで挙動が異なって見えるのは単に
-#bashにないから基本的にbuiltinはOK
-#test 'cal' #これもJune<->6の違いなので無視
-
+# pipe case
+echo ''
+echo '[pipe testcase]'
+test 'ls | cat'
 test 'ls | cat | ls'
 test 'ls | cat | ls | cat'
 
-echo ---------------------------------------
+echo ''
+echo '<------------ finished testcase ------------>'
+
+rm -rf expected
+rm -rf actual
+rm -rf diff

@@ -8,7 +8,7 @@ NAME = minishell
 all: $(NAME)
 
 test:
-	bash test.sh
+	@bash test.sh
 
 $(NAME): $(OBJS)
 	$(MAKE) -C ../../libft
