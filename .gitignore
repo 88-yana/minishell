@@ -2,3 +2,4 @@ objs
 a.out
 .DS_Store
 minishell
+*.o

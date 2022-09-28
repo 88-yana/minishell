@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:55:19 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/28 19:58:37 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/28 20:56:51 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ int	main(void)
 			free(line);
 			break ;
 		}
-		printf("line is '%s'\n", line);
+		printf("line is [ %s ]\n", line);
 		add_history(line);
 		data.line = line;
 		ult = lexer(&data);
 		i = 0;
 		while ((ult->array)[i] != NULL)
 		{
-			printf("%s\n", (ult->array)[i]);
+			printf("『%s』\n", (ult->array)[i]);
 			i++;
 		}
 		free(line);

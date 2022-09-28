@@ -20,7 +20,6 @@ all: $(NAME)
 $(NAME):
 	cc lexer/lexer.c lexer/split.c main/minishell.c main/error.c libft.a -lreadline
 	< lexer/correct.txt ./a.out > test2.txt
-	diff test.txt test2.txt
 $(LIBFT_A):
 	$(MAKE) -C $(LIBFTDIR)
 $(MINILIBX):

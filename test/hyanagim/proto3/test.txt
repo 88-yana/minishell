@@ -1,183 +1,146 @@
-1 : abcd
-size is 1
-data is 『abcd』
-
-2 : aaa aaa aa aa aa
-size is 5
-data is 『aaa』
-data is 『aaa』
-data is 『aa』
-data is 『aa』
-data is 『aa』
-
-3 : klsdjf  adlakf""
-size is 2
-data is 『klsdjf』
-data is 『adlakf""』
-
-4 : " "
- size is 1
-data is 『" "』
-
-5 : ksajf "  ' "  lkajf i  kalsj ""asdf "sdf"
-  ' sdfsize is 7
-data is 『ksajf』
-data is 『"  ' "』
-data is 『lkajf』
-data is 『i』
-data is 『kalsj』
-data is 『""asdf』
-data is 『"sdf"』
-
-6 : " " a
- size is 2
-data is 『" "』
-data is 『a』
-
-7 : a " " a
- size is 3
-data is 『a』
-data is 『" "』
-data is 『a』
-
-8 : " abcd" ' a'    ""
- abcd asize is 2
-data is 『" abcd"』
-data is 『' a'』
-
-9 : " ' " ' " '
- '  " size is 2
-data is 『" ' "』
-data is 『' " '』
-
-10 : " 'a" ' " '
- 'a " size is 2
-data is 『" 'a"』
-data is 『' " '』
-
-11 : " abcd" ' a'    ""make
- abcd asize is 3
-data is 『" abcd"』
-data is 『' a'』
-data is 『""make』
-
-12 : "ma"ak a " "
-ma size is 3
-data is 『"ma"ak』
-data is 『a』
-data is 『" "』
-
-13 : ""askfj
-size is 1
-data is 『""askfj』
-
-14 : dslkfj"" klsda"" ""
-size is 2
-data is 『dslkfj""』
-data is 『klsda""』
-
-15 :     abc  " ' "  "  a  a  a "   "  'a'aa " " "  "  "
- '   a  a  a   'a'aa    size is 6
-data is 『abc』
-data is 『" ' "』
-data is 『"  a  a  a "』
-data is 『"  'a'aa "』
-data is 『" "』
-data is 『"  "』
-
-16 :    "         "
-         size is 1
-data is 『"         "』
-
-17 : sadkf" laslkdfj"
- laslkdfjsize is 1
-data is 『sadkf" laslkdfj"』
-
-18 : sjfjlk sakfj ka"     "
-     size is 3
-data is 『sjfjlk』
-data is 『sakfj』
-data is 『ka"     "』
-
-19 : aklsfj lksadfj  ''laskdfj'     '
-     size is 3
-data is 『aklsfj』
-data is 『lksadfj』
-data is 『''laskdfj'     '』
-
-20 : cat ""Makefile"    "main.c
-    size is 2
-data is 『cat』
-data is 『""Makefile"    "main.c』
-
-21 : abcde"     "main.cat
-     size is 1
-data is 『abcde"     "main.cat』
-
-22 : '  'klsjf ' '
-   size is 2
-data is 『'  'klsjf』
-data is 『' '』
-
-23 : ''lkasdjf ' '
- size is 2
-data is 『''lkasdjf』
-data is 『' '』
-
-24 : asdlfkj ""dsjfklj'     '
-     size is 2
-data is 『asdlfkj』
-data is 『""dsjfklj'     '』
-
-25 : ""asfkj""
-size is 1
-data is 『""asfkj""』
-
-26 : """"
-size is 1
-data is 『""""』
-
-27 : ajsdkfj" slsdakfj "skdfjklj""
- slsdakfj size is 1
-data is 『ajsdkfj" slsdakfj "skdfjklj""』
-
-28 : "    "kasjfkjsdflka'asldkfj'
-    asldkfjsize is 1
-data is 『"    "kasjfkjsdflka'asldkfj'』
-
-29 : '    'lkasjfkjskf""
-    size is 1
-data is 『'    'lkasjfkjskf""』
-
-30 : '    'skfjlkj"   kalsdfj"
-       kalsdfjsize is 1
-data is 『'    'skfjlkj"   kalsdfj"』
-
-31 : '    'skfjlkj"     "
-         size is 1
-data is 『'    'skfjlkj"     "』
-
-32 : '    'skfjlk"j     "
-    j     size is 1
-data is 『'    'skfjlk"j     "』
-
-33 : '    'skfjlk"j    alskdfj"
-    j    alskdfjsize is 1
-data is 『'    'skfjlk"j    alskdfj"』
-
-34 : "    "askjfsldfj'  aksfj '    ""
-      aksfj size is 1
-data is 『"    "askjfsldfj'  aksfj '』
-
-35 : "% "lsadfjklj" % "
-%  % size is 1
-data is 『"% "lsadfjklj" % "』
-
-36 : "    "kasdjfklasjf"    "
-        size is 1
-data is 『"    "kasdjfklasjf"    "』
-
-37 : ""dslfkjd'fsj      '"      "
-fsj            size is 1
-data is 『""dslfkjd'fsj      '"      "』
-
+line is [ abcd ]
+『abcd』
+line is [ aaa aaa aa aa aa ]
+『aaa』
+『aaa』
+『aa』
+『aa』
+『aa』
+line is [ klsdjf  adlakf"" ]
+『klsdjf』
+『adlakf』
+line is [ " " ]
+『 』
+line is [ ksajf "  ' "  lkajf i  kalsj ""asdf "sdf" ]
+『ksajf』
+『  ' 』
+『lkajf』
+『i』
+『kalsj』
+『asdf』
+『sdf』
+line is [ " " a ]
+『 』
+『a』
+line is [ a " " a ]
+『a』
+『 』
+『a』
+line is [ " abcd" ' a'    "" ]
+『 abcd』
+『 a』
+line is [ " ' " ' " ' ]
+『 ' 』
+『 " 』
+line is [ " 'a" ' " ' ]
+『 'a』
+『 " 』
+line is [ " abcd" ' a'    ""make ]
+『 abcd』
+『 a』
+『make』
+line is [ "ma"ak a " " ]
+『maak』
+『a』
+『 』
+line is [ ""askfj ]
+『askfj』
+line is [ dslkfj"" klsda"" "" ]
+『dslkfj』
+『klsda』
+line is [     abc  " ' "  "  a  a  a "   "  'a'aa " " "  "  " ]
+『abc』
+『 ' 』
+『  a  a  a 』
+『  'a'aa 』
+『 』
+『  』
+line is [    "         " ]
+『         』
+line is [ sadkf" laslkdfj" ]
+『sadkf laslkdfj』
+line is [ sjfjlk sakfj ka"     " ]
+『sjfjlk』
+『sakfj』
+『ka     』
+line is [ aklsfj lksadfj  ''laskdfj'     ' ]
+『aklsfj』
+『lksadfj』
+『laskdfj     』
+line is [ cat ""Makefile"    "main.c ]
+『cat』
+『Makefile    main.c』
+line is [ abcde"     "main.cat ]
+『abcde     main.cat』
+line is [ '  'klsjf ' ' ]
+『  klsjf』
+『 』
+line is [ ''lkasdjf ' ' ]
+『lkasdjf』
+『 』
+line is [ asdlfkj ""dsjfklj'     ' ]
+『asdlfkj』
+『dsjfklj     』
+line is [ ""asfkj"" ]
+『asfkj』
+line is [ """" ]
+『』
+line is [ ajsdkfj" slsdakfj "skdfjklj"" ]
+『ajsdkfj slsdakfj skdfjklj』
+line is [ "    "kasjfkjsdflka'asldkfj' ]
+『    kasjfkjsdflkaasldkfj』
+line is [ '    'lkasjfkjskf"" ]
+『    lkasjfkjskf』
+line is [ '    'skfjlkj"   kalsdfj" ]
+『    skfjlkj   kalsdfj』
+line is [ '    'skfjlkj"     " ]
+『    skfjlkj     』
+line is [ '    'skfjlk"j     " ]
+『    skfjlkj     』
+line is [ '    'skfjlk"j    alskdfj" ]
+『    skfjlkj    alskdfj』
+line is [ "    "askjfsldfj'  aksfj '    "" ]
+『    askjfsldfj  aksfj 』
+line is [ "% "lsadfjklj" % " ]
+『% lsadfjklj % 』
+line is [ "    "kasdjfklasjf"    " ]
+『    kasdjfklasjf    』
+line is [ ""dslfkjd'fsj      '"      " ]
+『dslfkjdfsj            』
+line is [ cat ' '$PATH"H " ]
+『cat』
+『' '$PATH"H "』
+line is [ "''" ]
+『''』
+line is [ "l"s) error ]
+『ls)』
+『error』
+line is [ '   " 'abc"a   bc" ]
+『   " abca   bc』
+line is [ "ls" ok ]
+『ls』
+『ok』
+line is [ "l"s ok ]
+『ls』
+『ok』
+line is [ "(ls)" ]
+『(ls)』
+line is [ '   " 'abc"a  ' bc" ]
+『   " abca  ' bc』
+line is [ "クオートは消せない" ]
+『クオートは消せない』
+line is [ (ls heredoc ]
+『(ls』
+『heredoc』
+line is [ (ls) (-l) error ]
+『(ls)』
+『(-l)』
+『error』
+line is [ echo '    'skfjlk"j    " "alskdfj" ]
+『echo』
+『    skfjlkj    』
+『alskdfj』
+line is [ echo ' 'skfjlk"j '  'alskdfj" ]
+『echo』
+『 skfjlkj '  'alskdfj』
+exit

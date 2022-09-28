@@ -48,3 +48,4 @@ cat ' '$PATH"H "
 (ls) (-l) error
 echo '    'skfjlk"j    " "alskdfj"
 echo ' 'skfjlk"j '  'alskdfj"
+'    'skfjlk"j    " "alskdfj"

@@ -23,8 +23,8 @@ all: $(NAME)
 $(NAME):
 	cc parser.c lexer.c ../main/error.c get_next_line.c get_next_line_utils.c -lreadline libft.a && ./a.out
 test :
-	cc -fsanitize=address lexer.c split.c main.c ../main/error.c get_next_line.c get_next_line_utils.c -lreadline libft.a
-	./a.out correct.txt > test4.txt
+	cc lexer.c split.c main.c ../main/error.c get_next_line.c get_next_line_utils.c -lreadline libft.a
+	./a.out correct.txt
 $(LIBFT_A):
 	$(MAKE) -C $(LIBFTDIR)
 $(MINILIBX):
