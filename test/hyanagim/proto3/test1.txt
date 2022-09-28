@@ -1,0 +1,139 @@
+line is 'abcd'
+abcd
+line is 'aaa aaa aa aa aa'
+aaa
+aaa
+aa
+aa
+aa
+line is 'klsdjf  adlakf""'
+klsdjf
+adlakf
+line is '" "'
+ 
+line is 'ksajf "  ' "  lkajf i  kalsj ""asdf "sdf"'
+ksajf
+  ' 
+lkajf
+i
+kalsj
+asdf
+sdf
+line is '" " a'
+ 
+a
+line is 'a " " a'
+a
+ 
+a
+line is '" abcd" ' a'    ""'
+ abcd
+ a
+line is '" ' " ' " ''
+ ' 
+ " 
+line is '" 'a" ' " ''
+ 'a
+ " 
+line is '" abcd" ' a'    ""make'
+ abcd
+ a
+make
+line is '"ma"ak a " "'
+maak
+a
+ 
+line is '""askfj'
+askfj
+line is 'dslkfj"" klsda"" ""'
+dslkfj
+klsda
+line is '    abc  " ' "  "  a  a  a "   "  'a'aa " " "  "  "'
+abc
+ ' 
+  a  a  a 
+  'a'aa 
+ 
+  
+line is '   "         "'
+         
+line is 'sadkf" laslkdfj"'
+sadkf laslkdfj
+line is 'sjfjlk sakfj ka"     "'
+sjfjlk
+sakfj
+ka     
+line is 'aklsfj lksadfj  ''laskdfj'     ''
+aklsfj
+lksadfj
+laskdfj     
+line is 'cat ""Makefile"    "main.c'
+cat
+Makefile    main.c
+line is 'abcde"     "main.cat'
+abcde     main.cat
+line is ''  'klsjf ' ''
+  klsjf
+ 
+line is '''lkasdjf ' ''
+lkasdjf
+ 
+line is 'asdlfkj ""dsjfklj'     ''
+asdlfkj
+dsjfklj     
+line is '""asfkj""'
+asfkj
+line is '""""'
+
+line is 'ajsdkfj" slsdakfj "skdfjklj""'
+ajsdkfj slsdakfj skdfjklj
+line is '"    "kasjfkjsdflka'asldkfj''
+    kasjfkjsdflkaasldkfj
+line is ''    'lkasjfkjskf""'
+    lkasjfkjskf
+line is ''    'skfjlkj"   kalsdfj"'
+    skfjlkj   kalsdfj
+line is ''    'skfjlkj"     "'
+    skfjlkj     
+line is ''    'skfjlk"j     "'
+    skfjlkj     
+line is ''    'skfjlk"j    alskdfj"'
+    skfjlkj    alskdfj
+line is '"    "askjfsldfj'  aksfj '    ""'
+    askjfsldfj  aksfj 
+line is '"% "lsadfjklj" % "'
+% lsadfjklj % 
+line is '"    "kasdjfklasjf"    "'
+    kasdjfklasjf    
+line is '""dslfkjd'fsj      '"      "'
+dslfkjdfsj            
+line is 'cat ' '$PATH"H "'
+cat
+' '$PATH"H "
+line is '"''"'
+''
+line is '"l"s) error'
+ls)
+error
+line is ''   " 'abc"a   bc"'
+   " abca   bc
+line is '"ls" ok'
+ls
+ok
+line is '"l"s ok'
+ls
+ok
+line is '"(ls)"'
+(ls)
+line is ''   " 'abc"a  ' bc"'
+   " abca  ' bc
+line is '"クオートは消せない"'
+クオートは消せない
+line is '(ls heredoc'
+(ls
+heredoc
+line is '(ls) (-l) error'
+(ls)
+(-l)
+error
+exit
