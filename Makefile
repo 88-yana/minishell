@@ -1,9 +1,9 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
 OPTIONS = -lreadline
-SRCS_NAME = mandatory/main/minishell.c \
-	mandatory/parser/parser.c \
-	mandatory/parser/parser_utils.c
+SRCS_NAME = mandatory/main/main.c \
+	mandatory/readline/readline.c
 SRCDIR = srcs
 OBJDIR = objs
 SRCS = $(addprefix $(SRCDIR)/, $(SRCS_NAME))
@@ -16,14 +16,15 @@ $(OBJDIR):
 	mkdir $(shell find $(SRCDIR) -type d | sed 's/^$(SRCDIR)/$(OBJDIR)/g')
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OPTIONS) $(OBJS) -o $(NAME)
+	$(MAKE) -C libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OPTIONS) $(OBJS) libft/libft.a -o $(NAME)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
 
 clean:
-	$(RM) $(OBJS)
 	rm -rf $(OBJDIR)
+	$(MAKE) fclean -C ./libft
 
 fclean: clean
 	$(RM) $(NAME)
