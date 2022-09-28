@@ -1,0 +1,1620 @@
+       0
+total 96
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:49 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:49 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:49 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1668  9 28 20:49 test.sh
+-rw-r--r--   1 yahokari  2020      9  9 28 20:50 test.txt
+      14
+total 96
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:49 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:49 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:49 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1668  9 28 20:49 test.sh
+-rw-r--r--   1 yahokari  2020    711  9 28 20:50 test.txt
+       0
+total 96
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:49 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:49 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:49 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1668  9 28 20:49 test.sh
+-rw-r--r--   1 yahokari  2020   1404  9 28 20:50 test.txt
+       0
+total 96
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:49 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:49 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:49 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1668  9 28 20:49 test.sh
+-rw-r--r--   1 yahokari  2020   2115  9 28 20:50 test.txt
+CC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allCC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allhello
+hello
+total 96
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:50 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:50 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:50 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1668  9 28 20:49 test.sh
+-rw-r--r--   1 yahokari  2020   3818  9 28 20:50 test.txt
+     108
+     122
+total 104
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:50 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:50 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:50 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1668  9 28 20:49 test.sh
+-rw-r--r--   1 yahokari  2020   4529  9 28 20:50 test.txt
+       0
+total 104
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:50 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:50 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:50 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1668  9 28 20:49 test.sh
+-rw-r--r--   1 yahokari  2020   5223  9 28 20:50 test.txt
+       0
+total 104
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:50 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:50 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:50 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1668  9 28 20:49 test.sh
+-rw-r--r--   1 yahokari  2020   5935  9 28 20:50 test.txt
+CC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allCC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allhello
+hello
+     216
+total 104
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:50 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:50 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:50 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1670  9 28 20:50 test.sh
+-rw-r--r--   1 yahokari  2020   7648  9 28 20:50 test.txt
+     230
+total 112
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:50 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:50 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:50 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1670  9 28 20:50 test.sh
+-rw-r--r--   1 yahokari  2020   8351  9 28 20:50 test.txt
+       0
+total 112
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:50 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:50 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:50 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1670  9 28 20:50 test.sh
+-rw-r--r--   1 yahokari  2020   9045  9 28 20:50 test.txt
+       0
+total 112
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:50 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:50 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:50 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1670  9 28 20:50 test.sh
+-rw-r--r--   1 yahokari  2020   9757  9 28 20:50 test.txt
+CC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allCC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allhello
+hello
+     324
+total 112
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:50 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:50 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:50 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1678  9 28 20:50 test.sh
+-rw-r--r--   1 yahokari  2020  11461  9 28 20:50 test.txt
+     338
+total 112
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:50 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:50 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:50 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1678  9 28 20:50 test.sh
+-rw-r--r--   1 yahokari  2020  12173  9 28 20:50 test.txt
+       0
+total 120
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:50 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:50 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:50 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1678  9 28 20:50 test.sh
+-rw-r--r--   1 yahokari  2020  12867  9 28 20:50 test.txt
+       0
+total 120
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:50 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:50 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:50 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1678  9 28 20:50 test.sh
+-rw-r--r--   1 yahokari  2020  13579  9 28 20:50 test.txt
+CC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allCC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allhello
+hello
+     432
+total 120
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  15292  9 28 20:50 test.txt
+     446
+total 120
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  15995  9 28 20:51 test.txt
+       0
+total 128
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  16698  9 28 20:51 test.txt
+       0
+total 128
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  17401  9 28 20:51 test.txt
+CC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allCC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allhello
+hello
+     540
+total 128
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  19114  9 28 20:51 test.txt
+     554
+total 128
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  19817  9 28 20:51 test.txt
+       0
+total 136
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  20511  9 28 20:51 test.txt
+       0
+total 136
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  21223  9 28 20:51 test.txt
+CC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allCC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allhello
+hello
+     648
+total 136
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  22927  9 28 20:51 test.txt
+     662
+total 136
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  23630  9 28 20:51 test.txt
+       0
+total 136
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  24342  9 28 20:51 test.txt
+       0
+total 144
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  25045  9 28 20:51 test.txt
+CC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allCC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allhello
+hello
+     756
+total 144
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  26758  9 28 20:51 test.txt
+     770
+total 144
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  27461  9 28 20:51 test.txt
+       0
+total 144
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  28164  9 28 20:51 test.txt
+       0
+total 152
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  28858  9 28 20:51 test.txt
+CC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allCC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allhello
+hello
+     864
+total 152
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  30571  9 28 20:51 test.txt
+     878
+total 152
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  31283  9 28 20:51 test.txt
+       0
+total 152
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  31977  9 28 20:51 test.txt
+       0
+total 152
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:51 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:51 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:51 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  32689  9 28 20:51 test.txt
+CC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allCC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allhello
+hello
+     972
+total 160
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:52 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:52 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:52 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  34402  9 28 20:51 test.txt
+     986
+total 160
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:52 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:52 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:52 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  35105  9 28 20:52 test.txt
+       0
+total 160
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:52 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:52 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:52 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  35799  9 28 20:52 test.txt
+       0
+total 160
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:52 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:52 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:52 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  36511  9 28 20:52 test.txt
+CC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allCC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allhello
+hello
+    1080
+total 168
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:53 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:53 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:53 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  38215  9 28 20:52 test.txt
+    1094
+total 168
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:53 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:53 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:53 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  38918  9 28 20:53 test.txt
+       0
+total 168
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:53 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:53 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:53 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  39621  9 28 20:53 test.txt
+       0
+total 168
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:53 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:53 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:53 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  40333  9 28 20:53 test.txt
+CC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allCC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allhello
+hello
+    1188
+total 176
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:56 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:56 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:56 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  42037  9 28 20:53 test.txt
+    1202
+total 176
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:56 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:56 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:56 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  42740  9 28 20:56 test.txt
+       0
+total 176
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:56 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:56 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:56 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  43443  9 28 20:56 test.txt
+       0
+total 176
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:56 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:56 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:56 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  44155  9 28 20:56 test.txt
+CC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allCC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allhello
+hello
+    1296
+total 184
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:58 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:58 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:58 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  45868  9 28 20:58 test.txt
+    1310
+total 184
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:58 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:58 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:58 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  46562  9 28 20:58 test.txt
+       0
+total 184
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:58 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:58 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:58 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  47265  9 28 20:58 test.txt
+       0
+total 184
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:58 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:58 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:58 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  47968  9 28 20:58 test.txt
+CC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allCC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allhello
+hello
+    1404
+total 192
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:58 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:58 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:58 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  49681  9 28 20:58 test.txt
+    1418
+total 192
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:58 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:58 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:58 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  50393  9 28 20:58 test.txt
+       0
+total 192
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:58 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:58 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:58 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  51087  9 28 20:58 test.txt
+       0
+total 192
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:58 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:58 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:58 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  51799  9 28 20:58 test.txt
+CC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allCC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allhello
+hello
+    1512
+total 200
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:59 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:59 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:59 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  53503  9 28 20:58 test.txt
+    1526
+total 200
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:59 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:59 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:59 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  54215  9 28 20:59 test.txt
+       0
+total 200
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:59 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:59 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:59 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  54909  9 28 20:59 test.txt
+       0
+total 200
+-rw-r--r--   1 yahokari  2020    499  9 28 20:40 Makefile
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:59 actual
+drwxr-xr-x  17 yahokari  2020    578  9 28 20:07 command_line
+drwxr-xr-x   3 yahokari  2020    102  9 28 20:59 diff
+drwxr-xr-x   7 yahokari  2020    238  9 28 20:07 env
+drwxr-xr-x   4 yahokari  2020    136  9 28 20:59 expected
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:10 heredoc
+drwxr-xr-x  10 yahokari  2020    340  9 28 20:07 main
+-rwxr-xr-x   1 yahokari  2020  34748  9 28 20:10 minishell
+drwxr-xr-x   5 yahokari  2020    170  9 28 20:07 readline
+-rw-r--r--   1 yahokari  2020   1680  9 28 20:51 test.sh
+-rw-r--r--   1 yahokari  2020  55621  9 28 20:59 test.txt
+CC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allCC = cc
+CFLAGS = -Wall -Wextra
+RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+SRCS = $(shell find . -type f -mindepth 2 -name *.c)
+OBJS = $(SRCS:%.c=%.o)
+NAME = minishell
+
+all: $(NAME)
+
+test:
+	@bash test.sh
+
+$(NAME): $(OBJS)
+	$(MAKE) -C ../../libft
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) ../../libft/libft.a -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean allhello
+hello
