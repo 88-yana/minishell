@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/28 18:33:30 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/28 21:21:59 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define STRUCTURE_H
 
 # include	"stdio.h"
-# include	"libft/libft.h"
+# include	"stdbool.h"
+# include	"../libft/libft.h"
 
 typedef enum e_type {
 	COMMAND_LINE,

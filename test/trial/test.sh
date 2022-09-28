@@ -39,6 +39,7 @@ test ' '
 test 'echo hello'
 test 'echo hello world'
 test 'cat main.c'
+test 'echo -n hello'
 
 # pipe case
 echo ''

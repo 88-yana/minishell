@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 20:56:08 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/28 21:28:50 by yahokari         ###   ########.fr       */
+/*   Created: 2022/09/28 21:18:45 by yahokari          #+#    #+#             */
+/*   Updated: 2022/09/28 21:33:37 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../include/minishell.h"
+#ifndef READLINE_H
+# define READLINE_H
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_vars	vars;
-	char	*str;
+# include	<stdlib.h>
+# include	<stdio.h>
+# include	<string.h>
+# include	<unistd.h>
+# include	<sys/wait.h>
+# include	<signal.h>
+# include	<readline/readline.h>
+# include	<readline/history.h>
+# include	"../libft/libft.h"
+# include	"structure.h"
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	(void)vars;
-	while (true)
-	{
-		str = read_line_from_prompt();
-		if (!str)
-			continue ;
-		free(str);
-	}
-	return (0);
-}
+char	*read_line_from_prompt(void);
+
+#endif
