@@ -6,13 +6,13 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/29 19:13:42 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/29 19:20:13 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../libft/libft.h"
-#include "../../../trial/main/main.h"
-// #include "../../../../../minishell/include/minishell.h"
+// #include "../../../trial/main/main.h"
+#include "../../../../../minishell/include/minishell.h"
 
 #define DUBLEQ '"'
 #define SINGLEQ '\''
