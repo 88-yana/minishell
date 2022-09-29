@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/28 21:21:59 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:50:29 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,17 @@ typedef struct s_node
 	struct s_node	*right;
 }	t_node;
 
+typedef struct s_envs {
+	char	*type;
+	char	*value;
+}	t_envs;
+
 typedef struct s_vars {
 	t_list	*comline;
 	t_list	*pids;
 	t_list	*envs_list;
 }	t_vars;
+
+extern int g_status;
 
 #endif

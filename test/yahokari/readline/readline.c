@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 12:36:50 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/26 21:54:49 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:22:46 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	exit_shell(void)
 {
 	printf("\e[1A\e[11Cexit\n");
+	// printf("exit");
 	exit(0);
 }
 

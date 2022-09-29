@@ -1,43 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readline.c                                         :+:      :+:    :+:   */
+/*   strjoin_delimiter.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 12:36:50 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/29 18:40:45 by yahokari         ###   ########.fr       */
+/*   Created: 2022/09/29 17:42:28 by yahokari          #+#    #+#             */
+/*   Updated: 2022/09/29 17:46:33 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"readline.h"
+#include	"../../../include/utils.h"
 
-void	exit_shell(void)
+char	*strjoin_delimiter(char *s1, char *s2, char *delimiter)
 {
-	printf("\e[1A\e[11Cexit\n");
-	exit(g_status);
-}
+	char	*buf;
+	char	str;
 
-void	init_prompt(int signal)
-{
-	(void)signal;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-char	*exec_readline(void)
-{
-	char	*str;
-
-	signal(SIGINT, init_prompt);
-	signal(SIGQUIT, SIG_IGN);
-	str = readline("minishell$ ");
-	if (!str)
-		exit_shell();
-	else if (ft_strlen(str) == 0)
+	buf = ft_strjoin(s1, delimiter);
+	if (!buf)
 		return (NULL);
-	add_history(str);
+	str = ft_strjoin(buf, s2);
+	if (!str)
+		return (NULL);
+	free(buf);
 	return (str);
 }
