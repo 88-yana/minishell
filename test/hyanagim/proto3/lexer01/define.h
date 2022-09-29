@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 19:18:11 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/29 19:18:14 by yahokari         ###   ########.fr       */
+/*   Created: 2022/09/27 21:20:54 by yahokari          #+#    #+#             */
+/*   Updated: 2022/09/28 20:45:19 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef DEFINE_H
 # define DEFINE_H
 
-# include	"../../../libft/libft.h"
+# include	"../../../../libft/libft.h"
 # include	<stddef.h>
 # include	<fcntl.h>
 # include	<stdbool.h>
@@ -56,7 +55,8 @@ typedef struct s_split
 	char	*line;
 	size_t	pos;
 	size_t	size;
-	size_t	quote[2];
+	size_t	dquote;
+	size_t	squote;
 	size_t	*length;
 	char	**array;
 }	t_array;
