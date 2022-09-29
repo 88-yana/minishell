@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 18:10:45 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/28 18:24:35 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/29 22:03:23 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"main.h"
+#include	"../lexer/lexer.h"
+
 t_list	*to_parser(char **array);
-t_array	*lexer(t_array	*data);
 
 int	main(int argc, char **argv, char **envp)
 {
