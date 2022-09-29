@@ -1,44 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 19:24:06 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/29 20:02:07 by yahokari         ###   ########.fr       */
+/*   Created: 2022/09/29 21:55:08 by yahokari          #+#    #+#             */
+/*   Updated: 2022/09/29 21:56:22 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../include/env.h"
+#include	"builtin.h"
 
-char	*expand_env(char *str)
+void	exec_pwd(void)
 {
-	size_t	i;
-	size_t	j;
+	char	*cwd;
 
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
-		{
-			i++;
-			if (str[i] == '?')
-				printf("%d", g_status % 256);
-			else
-			{
-				if (ft_isalpha(str[i]) || str[i] == '_')
-				{
-					j = 0;
-					while (ft_isalnum(str[i + j]) || str[i] == '_')
-					{
-						j++;
-					}
-				}
-			}
-		}
-		else
-			printf("%c", str[i]);
-		i++;
-	}
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+		return ;
+	printf("%s\n", cwd);
+	free(cwd);
 }

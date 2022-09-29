@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/29 19:22:21 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/29 21:49:01 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,6 @@ t_array	*lexer(t_array	*data)
 	check_line(data->line);
 	init(data);
 	count_size(data);
-	printf("size is %zu\n", data->size);
 	data->array = malloc(sizeof(char *) * (data->size + 1));
 	if (data->array == NULL)
 		return (NULL);
