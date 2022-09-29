@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/28 22:25:04 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/29 17:00:21 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,36 +101,37 @@ int	seq_quote(t_array *data, size_t *i, size_t *str_len, char c)
 
 static int	plus_pos(t_array *data, size_t *i, size_t *str_len, char c)
 {
-	while (data->line[*i] == c)
-	{
+	// while (data->line[*i] == c)
+	// {
 		(*i)++;
 		(data->quote[bit(c)])++;
-	}
-	if (str_len == 0 && (data->line[*i] == '\0' || data->line[*i] == ' '))
+	// }
+	if (*str_len == 0 && (data->line[*i] == '\0' || data->line[*i] == ' '))
 		return (0);
 	// if (data->line[*i] == c)
 	// 	return (seq_quote(data, i, str_len, c));
 	while (data->line[*i] != '\0' && data->line[*i] != c)
 	{
 		(*i)++;
-		(data->quote[bit(c)])++;
+		// (*str_len)++;
 	}
 	(*i)++;
 	(data->quote[bit(c)])++;
+	// (*str_len)++;
 	while (data->line[*i] != '\0' && data->line[*i] != DUBLEQ
 		&& data->line[*i] != SINGLEQ && data->line[*i] != ' ')
 	{
 		(*i)++;
-		(data->quote[bit(c)])++;
+		// (*str_len)++;
 	}
 	if (data->line[*i] == '\0')
 		return (1);
 	if (data->line[*i] == ' ')
 		return (1);
 	if (data->line[*i] == DUBLEQ)
-		return (plus_pos(data, i, str_len, c));
+		plus_pos(data, i, str_len, DUBLEQ);
 	if (data->line[*i] == SINGLEQ)
-		return (plus_pos(data, i, str_len, c));
+		plus_pos(data, i, str_len, SINGLEQ);
 	// while (data->line[*i] != '\0' && data->line[*i] != ' ')
 	// {
 	// 	(data->quote[bit(c)])++;
@@ -158,10 +159,11 @@ void	plus_next_quote(char *str, size_t *i, size_t *str_len, char c)
 
 void	plus_i(t_array *data, size_t *i, size_t *str_len, char c)
 {
-	if (*str_len == 0)
-		data->size += plus_pos(data, i, str_len, c);
-	else
-		plus_next_quote(data->line, i, str_len, c);
+	// if (*str_len == 0)
+	// 	data->size += plus_pos(data, i, str_len, c);
+	// else
+	// 	plus_next_quote(data->line, i, str_len, c);
+	data->size += plus_pos(data, i, str_len, c);
 }
 
 static void	count_size(t_array *data, char c)
@@ -319,6 +321,7 @@ t_array	*lexer(t_array	*data)
 	check_line(data->line);
 	init(data);
 	count_size(data, ' ');
+	printf("%zu\n", data->size);
 	data->quote[DQ] = 0;
 	data->quote[SQ] = 0;
 	data->array = malloc(sizeof(char *) * (data->size + 1));
@@ -326,6 +329,6 @@ t_array	*lexer(t_array	*data)
 		return (NULL);
 	data->array[data->size] = NULL;
 	split_line(data, ' ');
-	shape_array(data);
+	// shape_array(data);
 	return (data);
 }

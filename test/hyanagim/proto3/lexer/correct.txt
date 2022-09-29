@@ -1,5 +1,8 @@
 abcd
 aaa aaa aa aa aa
+""""
+""""aiuaiu
+"""abc"
 klsdjf  adlakf""
 " "
 ksajf "  ' "  lkajf i  kalsj ""asdf "sdf"
@@ -23,7 +26,6 @@ abcde"     "main.cat
 ''lkasdjf ' '
 asdlfkj ""dsjfklj'     '
 ""asfkj""
-""""
 ajsdkfj" slsdakfj "skdfjklj""
 "    "kasjfkjsdflka'asldkfj'
 '    'lkasjfkjskf""
@@ -31,9 +33,7 @@ ajsdkfj" slsdakfj "skdfjklj""
 '    'skfjlkj"     "
 '    'skfjlk"j     "
 '    'skfjlk"j    alskdfj"
-"    "askjfsldfj'  aksfj '    ""
-"% "lsadfjklj" % "
-"    "kasdjfklasjf"    "
+abc
 ""dslfkjd'fsj      '"      "
 cat ' '$PATH"H "
 "''"
@@ -48,3 +48,6 @@ cat ' '$PATH"H "
 (ls) (-l) error
 echo '    'skfjlk"j    " "alskdfj"
 echo ' 'skfjlk"j '  'alskdfj"
+"% "lsadfjklj" % "
+"    "kasdjfklasjf"    "
+"    "askjfsldfj'  aksfj '    ""
