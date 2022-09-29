@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/28 21:21:59 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/29 17:30:05 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ typedef struct s_split
 	char	*line;
 	size_t	pos;
 	size_t	size;
-	size_t	dquote;
-	size_t	squote;
+	size_t	quote[2];
 	size_t	*length;
 	char	**array;
 }	t_array;
