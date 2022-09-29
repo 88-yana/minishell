@@ -18,9 +18,9 @@ LIBFT_A = $(LIBFTDIR)/libft.a
 all: $(NAME)
 
 $(NAME):
-	cc lexer/lexer.c lexer/split.c main/minishell.c main/error.c libft.a -lreadline
-	< lexer/correct.txt ./a.out > test3.txt
-	diff correct test3.txt
+	cc lexer/lexer.c lexer/malloc_free.c lexer/lexer_check_line.c lexer/split.c main/minishell.c main/error.c libft.a -lreadline
+	< lexer/correct.txt ./a.out > test4.txt
+	diff array.txt test4.txt
 $(LIBFT_A):
 	$(MAKE) -C $(LIBFTDIR)
 $(MINILIBX):

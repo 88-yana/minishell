@@ -787,57 +787,6 @@ int	main(void)
 command_line ::=
 	| "(" command_line ")" delimiter command_line
 	| "(" command_line ")" "|" command_line
-	| "(" command_line ")" re
-	| piped_commands delimiter command_line
-	| piped_commands "|" "(" command_line ")"
-	| piped_commands
-
-パイプの後にかっこがある場合がある。
-piped_commands | (command_line) 的な
-↑これもパイプライン？　no
-"(" command_line ")" > text.txt ←これも存在する。
-
-delimiter ::=
-	"&&"
-	"||"
-
-piped_commands ::=
-	| command "|" piped_commands
-	
-	| command
-
-command ::=
-	| arguments
-
-arguments ::=
-	| redirection
-	| redirection arguments
-	| string
-	| string arguments
-
-string ::=
-	| expandable <no_space> string
-	| expandable
-	| not_expandable <no_space> string
-	| not_expandable
-	| expandable_quoted <no_space> string
-	| expandable_quoted
-
-redirection ::=
-	| "<" aim
-	| ">" aim
-	| ">>" aim
-	| "<<" aim
-	| "<"aim //後でやる。
-	| ">"aim //後でやる。
-	| ">>"aim //
-	| "<<"aim //
-*/
-
-/*
-command_line ::=
-	| "(" command_line ")" delimiter command_line
-	| "(" command_line ")" "|" command_line
 	| "(" command_line ")" redirection
 	| "(" command_line ")" redirection delimiter command_line
 	| "(" command_line ")" redirection "|" command_line
@@ -848,7 +797,7 @@ command_line ::=
 パイプの後にかっこがある場合がある。
 piped_commands | (command_line) 的な
 ↑これもパイプライン？　no
-
+"(" command_line ")" > text.txt ←これも存在する。
 
 delimiter ::=
 	"&&"
@@ -874,8 +823,12 @@ command ::=
 	| expandable_quoted
 
 redirection ::=
-	| "<" command
-	| ">" command
-	| ">>" command
-	| "<<" command
+	| "<" aim
+	| ">" aim
+	| ">>" aim
+	| "<<" aim
+	| "<"aim //後でやる。
+	| ">"aim //後でやる。
+	| ">>"aim //
+	| "<<"aim //
 */

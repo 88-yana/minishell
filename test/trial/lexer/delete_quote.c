@@ -6,12 +6,11 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:49:50 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/29 21:10:16 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/29 21:57:48 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../../minishell/include/minishell.h"
-#include "../../../../../minishell/include/lexer.h"
+#include "lexer.h"
 
 static void	delete_quote(char *str)
 {

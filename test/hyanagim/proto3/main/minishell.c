@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:55:19 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/29 17:58:52 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/29 21:26:18 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	main(void)
 		add_history(line);
 		data.line = line;
 		ult = lexer(&data);
+		if (ult == NULL)
+			continue ;
 		i = 0;
 		while ((ult->array)[i] != NULL)
 		{

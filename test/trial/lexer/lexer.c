@@ -6,13 +6,12 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/29 21:52:03 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/29 21:58:13 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../libft/libft.h"
-#include "../../../trial/main/main.h"
-#include "../../../../../minishell/include/lexer.h"
+
+#include "lexer.h"
 
 void	go_advance(size_t *i, size_t *str_len)
 {
