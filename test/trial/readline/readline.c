@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 12:36:50 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/29 18:40:45 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/09/29 21:32:26 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,40 @@ void	init_prompt(int signal)
 	rl_redisplay();
 }
 
+void	closed(int signal)
+{
+	// close(STDIN_FILENO);
+}
+
+char	*unclosed_pipe(void)
+{
+	char	*str;
+	int		pid;
+
+	pid = fork();
+	if (pid < 0)
+		exit(1);
+	else if (pid == 0)
+	{
+		signal(SIGINT, closed);
+		while (true)
+		{
+			str = readline("> ");
+			if (!str)
+				return (NULL);
+			else if (ft_strlen(str) != 0)
+				break ;
+			free(str);
+		}
+	}
+	wait(NULL);
+	return (str);
+}
+
 char	*exec_readline(void)
 {
 	char	*str;
+	char	*buf;
 
 	signal(SIGINT, init_prompt);
 	signal(SIGQUIT, SIG_IGN);
@@ -39,5 +70,8 @@ char	*exec_readline(void)
 	else if (ft_strlen(str) == 0)
 		return (NULL);
 	add_history(str);
+	// buf = unclosed_pipe();
+	// str = ft_strjoin(str, buf);
+	// printf("%s\n", str);
 	return (str);
 }
