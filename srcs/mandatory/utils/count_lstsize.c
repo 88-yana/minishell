@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   count_lstsize.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 20:56:28 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/29 18:43:37 by yahokari         ###   ########.fr       */
+/*   Created: 2022/09/29 17:51:13 by yahokari          #+#    #+#             */
+/*   Updated: 2022/09/29 17:51:52 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include	"../../../include/utils.h"
 
-# include	<signal.h>
-# include	"stdbool.h"
-# include	"structure.h"
-# include	"../libft/libft.h"
-# include	"readline.h"
+size_t	count_lstsize(t_list *lst)
+{
+	size_t	i;
 
-#endif
+	i = 0;
+	while (!lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}

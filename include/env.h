@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 20:56:28 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/29 18:43:37 by yahokari         ###   ########.fr       */
+/*   Created: 2022/09/29 17:53:00 by yahokari          #+#    #+#             */
+/*   Updated: 2022/09/29 17:55:45 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef ENV_H
+# define ENV_H
 
-# include	<signal.h>
-# include	"stdbool.h"
-# include	"structure.h"
 # include	"../libft/libft.h"
-# include	"readline.h"
+# include	"structure.h"
+# include	"utils.h"
 
 #endif

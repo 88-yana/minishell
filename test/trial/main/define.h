@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 21:20:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/28 21:07:05 by hyanagim         ###   ########.fr       */
+/*   Created: 2022/09/29 19:18:11 by yahokari          #+#    #+#             */
+/*   Updated: 2022/09/29 19:18:14 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef DEFINE_H
 # define DEFINE_H
@@ -17,6 +18,7 @@
 # include	<stddef.h>
 # include	<fcntl.h>
 # include	<stdbool.h>
+
 typedef enum e_type {
 	COMMAND_LINE,
 	PIPED_LINE,
