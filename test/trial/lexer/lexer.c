@@ -6,12 +6,18 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/29 21:58:13 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:09:38 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "lexer.h"
+
+bool	is_separator(char c)
+{
+	if (c == ' ' || c == '\0')
+		return (true);
+	return (false);
+}
 
 void	go_advance(size_t *i, size_t *str_len)
 {
@@ -19,22 +25,22 @@ void	go_advance(size_t *i, size_t *str_len)
 	(*str_len)++;
 }
 
-static int	plus_pos(t_array *data, size_t *i, size_t *str_len, char c)
+static void	plus_pos(t_array *data, size_t *i, size_t *str_len, char c)
 {
 	go_advance(i, str_len);
 	while (data->line[*i] != c)
 		go_advance(i, str_len);
 	go_advance(i, str_len);
-	while (data->line[*i] != '\0' && data->line[*i] != ' '
+	while (!is_separator(data->line[*i])
 		&& data->line[*i] != SINGLEQ && data->line[*i] != DUBLEQ)
 		go_advance(i, str_len);
-	if (data->line[*i] == '\0' || data->line[*i] == ' ')
-		return (1);
+	if (is_separator(data->line[*i]))
+		return ;
 	if (data->line[*i] == DUBLEQ)
 		plus_pos(data, i, str_len, DUBLEQ);
 	if (data->line[*i] == SINGLEQ)
 		plus_pos(data, i, str_len, SINGLEQ);
-	return (1);
+	return ;
 }
 
 static void	push_element(t_array *data, size_t i, size_t len, int type)
@@ -59,7 +65,7 @@ void	split_line(t_array *data, int type)
 			plus_pos(data, &i, &str_len, SINGLEQ);
 		if (type == 1)
 			data->length[data->pos] = str_len + 1;
-		if ((data->line[i] == ' ' || data->line[i] == '\0') && str_len > 0)
+		if (is_separator(data->line[i]) && str_len > 0)
 			push_element(data, i, str_len, type);
 		if (data->line[i] == '\0')
 			break ;
@@ -73,8 +79,6 @@ void	split_line(t_array *data, int type)
 
 t_array	*lexer(t_array	*data)
 {
-	size_t	i;
-
 	if (check_line(data->line) == false)
 		return (NULL);
 	if (malloc_array(data) == NULL)
