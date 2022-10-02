@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   lexer_re.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/02 21:36:40 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/02 21:44:40 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,32 +100,7 @@ t_array	*lexer_re(t_array	*data)
 }
 
 
-#include	"../main.h"
-#include	"../../lexer/lexer.h"
 
-t_list	*to_parser(char **array);
-
-int	main(void)
-{
-	t_array	data;
-	t_array	*array;
-	while (true)
-	{
-		data.line = exec_readline();
-		if (data.line == NULL)
-			continue ;
-		array = lexer_re(&data);
-		if (array == NULL)
-			continue ;
-		
-		int i = 0;
-		while (array->array[i] != NULL)
-		{
-			printf("『%s』\n", array->array[i]);
-			i++;
-		}
-	}
-}
 
 
 //abc<<def<<abcabcabc>>bbbeeebbb>>bbb"eeeggg<<"aaa<<bbbcc<cc
