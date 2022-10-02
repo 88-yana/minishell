@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   divide_redirect.c                                  :+:      :+:    :+:   */
+/*   bool.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/02 17:00:02 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/02 18:47:57 by hyanagim         ###   ########.fr       */
+/*   Created: 2022/09/30 17:11:40 by hyanagim          #+#    #+#             */
+/*   Updated: 2022/10/02 21:36:29 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "divide_quote.h"
 
-// char	**partite(char *str)
-// {
-// 	char	**ret;
-// 	bool	is_quote;
-// }
-
-// t_list	*divide_redirect(char **array)
-// {
-// 	size_t	i;
-// 	char	**redirections;
-
-// 	i = 0;
-// 	while (array[i] != NULL)
-// 	{
-// 		if (find_redirection(array[i]))
-// 		{
-// 			redirections = partite(array[i]);
-// 			combine_array(array, redirections, i);
-// 		}
-// 		i++;
-// 	}
-// }
+bool	is_separator_re(char c, char d)
+{
+	if ((c == '<' && d == '<') || d == '\0')
+		return (true);
+	if ((c == '>' && d == '>') || d == '\0')
+		return (true);
+	return (false);
+}
