@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 19:57:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/01 17:16:07 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/02 17:22:13 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include	<sys/wait.h>
 # include	"../../../libft/libft.h"
 # include	"../main/main.h"
+# include	"../env/env.h"
 
 # define ERR -1
 # define NONE -1

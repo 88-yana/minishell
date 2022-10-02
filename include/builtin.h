@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 21:55:22 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/01 16:50:51 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/02 21:49:01 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,8 @@
 
 # include	"../libft/libft.h"
 # include	"structure.h"
+
+bool	is_builtin(char **cmd);
+void	exec_builtin(t_list *envs_list, char **cmd);
 
 #endif
