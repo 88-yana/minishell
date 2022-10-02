@@ -135,3 +135,5 @@ cd | ls
 
 (echo) hello
 //error
+
+echo >>> text.txt

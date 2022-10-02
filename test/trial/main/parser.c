@@ -11,6 +11,7 @@
 // /* ************************************************************************** */
 
 #include "main.h"
+#include "parser.h"
 
 #define ARRAY_SIZE 14
 t_node	*talloc(t_type type, t_node *parent);
@@ -79,10 +80,18 @@ bool	is_redirection(char *str)
 		return (true);
 	if (ft_strcmp(str, "<<") == 0)
 		return (true);
+	if (str[0] ==  '<')
+		return (true);
+	if (str[0] ==  '>')
+		return (true);
+	if (ft_strcmp(str, ">>") == 0)
+		return (true);
+	if (ft_strcmp(str, "<<") == 0)
+		return (true);
 	return (false);
 }
 
-void	parser(t_node *p)
+void	parser(t_node *p, bool *failed_flag)
 {
 	if (p->type == COMMAND_LINE)
 	{
@@ -133,7 +142,7 @@ void	parser(t_node *p)
 			// printf("before piped line command line is end %s\n", p->line[p->end_pos]);
 			p->end_pos = p->start_pos;
 			p->left = talloc(PIPED_LINE, p);
-			parser(p->left);
+			parser(p->left, failed_flag);
 		}
 	}
 	if (p->type == PIPED_LINE)
@@ -149,7 +158,7 @@ void	parser(t_node *p)
 			// printf("before piped piped line is start %s\n", p->line[p->start_pos]);
 			// printf("before piped piped line is end %s\n", p->line[p->end_pos]);
 			p->left = talloc(PIPE, p);
-			parser(p->left);
+			parser(p->left, failed_flag);
 		}
 		if (p->line[p->end_pos] == NULL)
 		{
@@ -157,7 +166,7 @@ void	parser(t_node *p)
 			// printf("before arguments piped line is start %s\n", p->line[p->start_pos]);
 			// printf("before arguments piped line is end %s\n", p->line[p->end_pos]);
 			p->left = talloc(ARGUMENTS, p);
-			parser(p->left);
+			parser(p->left, failed_flag);
 		}
 	}
 	if (p->type == PIPE)
@@ -166,27 +175,29 @@ void	parser(t_node *p)
 		// printf("before arguments pipe is start %s\n", p->line[p->start_pos]);
 			// printf("before arguments pipe is end %s\n", p->line[p->end_pos]);
 		p->left = talloc(ARGUMENTS, p);
-		parser(p->left);
+		parser(p->left, failed_flag);
 		p->start_pos = p->current_pos + 1;
 		p->end_pos = p->current_pos + 1;
 		p->include_right = true;
 		p->right = talloc(PIPED_LINE, p);
-		parser(p->right);
+		parser(p->right, failed_flag);
 	}
 	// if (p->type == COMMAND)
 	// {
 	// 	// printf("command is %s\n", p->line[p->end_pos]);
 	// 	p->left = talloc(ARGUMENTS, p);
-	// 	parser(p->left);
+	// 	parser(p->left, failed_flag);
 	// }
 	if (p->type == ARGUMENTS)
 	{
+		printf("%s\n", p->line[p->end_pos]);
 		//間違っている
 		// printf("argument is %s\n", p->line[p->end_pos]);
+
 		if (is_redirection(p->line[p->end_pos]))
 		{
 			p->left = talloc(REDIRECTION, p);
-			parser(p->left);
+			parser(p->left, failed_flag);
 			p->end_pos++;
 			if (p->line[p->end_pos] == NULL)
 				return ;
@@ -196,7 +207,7 @@ void	parser(t_node *p)
 				p->start_pos = p->end_pos;
 				p->include_right = true;
 				p->right = talloc(ARGUMENTS, p);
-				parser(p->right);
+				parser(p->right, failed_flag);
 			}
 		}
 		else
@@ -212,18 +223,18 @@ void	parser(t_node *p)
 				p->current_pos = p->end_pos;
 				p->end_pos = p->start_pos;
 				p->left = talloc(COMMAND, p);
-				parser(p->left);
+				parser(p->left, failed_flag);
 				p->start_pos =	p->current_pos;
 				p->end_pos = p->current_pos;
 				p->include_right = true;
 				p->right = talloc(ARGUMENTS, p);
-				parser(p->right);
+				parser(p->right, failed_flag);
 			}
 			else
 			{
 				p->end_pos = p->start_pos;
 				p->left = talloc(COMMAND, p);
-				parser(p->left);
+				parser(p->left, failed_flag);
 			}
 		}
 		
@@ -245,7 +256,7 @@ void	parser(t_node *p)
 		p->end_pos++;
 		if (p->line[p->end_pos] == NULL)
 		{
-			// printf("%s\n", "error in redirection");
+			printf("%s\n", "error in redirection");
 			return ;
 			//ここで，free
 		}
@@ -257,7 +268,7 @@ void	parser(t_node *p)
 		// 	p->end_pos = p->current_pos + 2;
 		// 	// printf("204 %s\n", p->line[p->end_pos]);
 		// 	p->right = talloc(COMMAND, p);
-		// 	parser(p->right);
+		// 	parser(p->right, failed_flag);
 		// }
 	}
 	if (p->type == COMMAND)
@@ -266,7 +277,7 @@ void	parser(t_node *p)
 		// printf("string end %s\n", p->line[p->end_pos]);
 		// printf("string is %s\n", p->line[p->end_pos]);
 		/* p->left = talloc(EXPANDABLE, p);
-		parser(p->left);
+		parser(p->left, failed_flag);
 		p->end_pos++;
 		if (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos][0])
 			&& !is_pipe(p->line[p->end_pos]) && !is_redirection(p->line[p->end_pos]))
@@ -275,13 +286,9 @@ void	parser(t_node *p)
 			p->start_pos = p->end_pos;
 			p->include_right = true;
 			p->right = talloc(EXPANDABLE, p);
-			parser(p->right);
+			parser(p->right, failed_flag);
 		} */
 		return ;
-	}
-	if (p->type == EXPANDABLE)
-	{
-		// printf("expandable is %s, including right is %d\n", p->line[p->end_pos], p->include_right);
 	}
 	return ;
 }
@@ -521,7 +528,7 @@ t_list	**executer(t_node *p, t_list **list)
 	if (p->type == COMMAND)
 	{
 		char	**array;
-		int		i;
+		size_t	i;
 		t_list	*list_ptr;
 		while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos][0])
 			&& !is_pipe(p->line[p->end_pos]) && !is_redirection(p->line[p->end_pos]))
@@ -686,58 +693,47 @@ void	init_root(t_node *root)
 	root->right = NULL;
 }
 
+bool	check_array_redirect(char **array)
+{
+	size_t	i;
+
+	i = 0;
+	while (array[i] != NULL)
+	{
+		if (check_arguments(array[i]) == false)
+		{
+			ft_putendl_fd("syntax error unexpected token", 2);
+			return (false);
+		}
+		i++;
+	}
+	return (true);
+}
+
 t_list	*to_parser(char **array)
 {
 	t_node	root;
-	t_node	**wood;
+	// t_node	**wood;
 	t_list	**list;
 	t_list	*maked_list;
-	char	**line;
+	// char	**line;
 	// char	**array;
-	t_array	data;
+	// t_array	data;
+	bool	failed_flag;
 
-	line = malloc(sizeof(char *) * (ARRAY_SIZE + 1));
-	for (int i = 0; i < ARRAY_SIZE + 1; i++)
-		line[i] = malloc(sizeof(char) * 10);
-
-	line[0] = "echo";
-	line[1] = "hello";
-	line[2] = ">";
-	line[3] = "text.txt";
-	line[4] = "world";
-	line[5] = "|";
-	line[6] = "echo";
-	line[7] = "abc";
-	line[8] = "def";
-	line[9] = ">";
-	line[10] = "text01.txt";
-	line[11] = "|";
-	line[12] = "grep";
-	line[13] = "a";
-	line[14] = NULL;
-	// line[0] = "echo";
-	// line[1] = "hello";
-	// line[2] = ">";
-	// line[3] = "text.txt";
-	// line[4] = "world";
-	// line[5] = "|";
-	// line[6] = "echo";
-	// line[7] = "abc";
-	// line[8] = "|";
-	// line[9] = "grep";
-	// line[10] = "a";
-	// line[11] = NULL;
-
-
-	// data.line = ;
-	// array = lexer(&data);
 	root.line = array;
-
+	failed_flag = false;
 	init_root(&root);
 	// for (int i = 0; i < ARRAY_SIZE + 1; i++)
 	// 	printf("%s ", root.line[i]);
 	// printf("\n");
-	parser(&root);
+	
+	if (check_array_redirect(array) == false)
+		return (NULL);
+	// divide_redirect(array);
+	parser(&root, &failed_flag);
+	if (failed_flag)
+		return (NULL);
 	// wood = malloc(sizeof(t_node *) * 2);
 	// wood[0] = &root;
 	// wood[1] = NULL;
@@ -780,60 +776,9 @@ t_list	*to_parser(char **array)
 		i++;
 	}
 
-	// display_command(maked_list);
+	display_command(maked_list);
 	return (maked_list);
 }
-
-/*
-command_line ::=
-	| "(" command_line ")" delimiter command_line
-	| "(" command_line ")" "|" command_line
-	| "(" command_line ")" re
-	| piped_commands delimiter command_line
-	| piped_commands "|" "(" command_line ")"
-	| piped_commands
-
-パイプの後にかっこがある場合がある。
-piped_commands | (command_line) 的な
-↑これもパイプライン？　no
-"(" command_line ")" > text.txt ←これも存在する。
-
-delimiter ::=
-	"&&"
-	"||"
-
-piped_commands ::=
-	| command "|" piped_commands
-	
-	| command
-
-command ::=
-	| arguments
-
-arguments ::=
-	| redirection
-	| redirection arguments
-	| string
-	| string arguments
-
-string ::=
-	| expandable <no_space> string
-	| expandable
-	| not_expandable <no_space> string
-	| not_expandable
-	| expandable_quoted <no_space> string
-	| expandable_quoted
-
-redirection ::=
-	| "<" aim
-	| ">" aim
-	| ">>" aim
-	| "<<" aim
-	| "<"aim //後でやる。
-	| ">"aim //後でやる。
-	| ">>"aim //
-	| "<<"aim //
-*/
 
 /*
 command_line ::=
@@ -849,7 +794,7 @@ command_line ::=
 パイプの後にかっこがある場合がある。
 piped_commands | (command_line) 的な
 ↑これもパイプライン？　no
-
+"(" command_line ")" > text.txt ←これも存在する。
 
 delimiter ::=
 	"&&"
@@ -875,8 +820,12 @@ command ::=
 	| expandable_quoted
 
 redirection ::=
-	| "<" command
-	| ">" command
-	| ">>" command
-	| "<<" command
+	| < aim
+	| >  aim
+	| >>  aim
+	| <<  aim
+	| <aim //後でやる。
+	| >aim //後でやる。
+	| >>aim //
+	| <<aim //
 */

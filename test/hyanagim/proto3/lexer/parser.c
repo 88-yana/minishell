@@ -783,6 +783,69 @@ int	main(void)
 	return (0);
 }
 
+t_list	*to_parser(char **array)
+{
+	t_node	root;
+	t_node	**wood;
+	t_list	**list;
+	t_list	*maked_list;
+	char	**line;
+	// char	**array;
+	t_array	data;
+
+	root.line = array;
+
+	init_root(&root);
+	// for (int i = 0; i < ARRAY_SIZE + 1; i++)
+	// 	printf("%s ", root.line[i]);
+	// printf("\n");
+	parser(&root);
+	// wood = malloc(sizeof(t_node *) * 2);
+	// wood[0] = &root;
+	// wood[1] = NULL;
+	// printf("wood is %s\n", wood[0]->line[0]);
+	// printf("wood is %p\n", wood[1]);
+	/*
+	list = malloc(sizeof(t_list *) * 2);
+	list[0] = ft_lstnew(make_command(COMMAND, root.line, NULL, NULL));
+	list[1] = NULL;
+	printf("%p\n", list[0]);
+	printf("%d\n", ((t_order *)list[0]->content)->type);
+	*/
+	list = malloc(sizeof(t_list *) * 1);
+	list[0] = NULL;
+	// printf("point is %p\n", list[0]);
+	// printf("content point is %p\n", list[0]->content);
+	// printf("%p\n", list);
+	list = executer(&root, list);
+	int i = 0;
+	// t_list	*list_ptr = ft_lstnew(make_command(COMMAND, root.line, NULL, NULL));
+	// list = realloc_list(list, list_ptr);
+	while (list[i] != NULL)
+	{
+		// printf("main %s\n", ((t_order *)list[i]->content)->cmd[0]);
+		// printf("main %d, %u\n", i, ((t_order *)list[i]->content)->type);
+		// int j = 0;
+		// while (((t_order *)list[i]->content)->type == COMMAND && ((t_order *)list[i]->content)->cmd[j] != NULL)
+		// {
+		// 	printf(" %s\n", ((t_order *)list[i]->content)->cmd[j]);
+		// 	j++;
+		// }	
+		i++;
+	}
+	cmdjoin(list);
+	maked_list = list[0];
+	i = 1;
+	while (list[i] != NULL)
+	{
+		ft_lstadd_back(&maked_list, list[i]);
+		i++;
+	}
+
+	// display_command(maked_list);
+	return (maked_list);
+}
+
 /*
 command_line ::=
 	| "(" command_line ")" delimiter command_line
@@ -823,12 +886,12 @@ command ::=
 	| expandable_quoted
 
 redirection ::=
-	| "<" aim
-	| ">" aim
-	| ">>" aim
-	| "<<" aim
-	| "<"aim //後でやる。
-	| ">"aim //後でやる。
-	| ">>"aim //
-	| "<<"aim //
+	| < aim
+	| >  aim
+	| >>  aim
+	| <<  aim
+	| <aim //後でやる。
+	| >aim //後でやる。
+	| >>aim //
+	| <<aim //
 */

@@ -1,0 +1,8 @@
+ls
+echo
+/bin/ls
+/bin/ls -a
+echo hello
+echo hello world
+cat main.c
+echo -n hello
