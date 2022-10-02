@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 21:55:22 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/01 16:50:51 by yahokari         ###   ########.fr       */
+/*   Created: 2022/10/01 17:00:24 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/01 17:02:49 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include	"../../../include/builtin.h"
 
-# include	"../libft/libft.h"
-# include	"structure.h"
-
-#endif
+void	exec_export(t_vars *vars, char **cmd)
+{
+	if (ft_strcmp(cmd[0], "pwd"))
+		return ;
+	
+}
