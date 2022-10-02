@@ -190,11 +190,6 @@ void	parser(t_node *p, bool *failed_flag)
 	// }
 	if (p->type == ARGUMENTS)
 	{
-		if (check_arguments(p->line[p->end_pos]) == false)
-		{
-			*failed_flag = true;
-			return ;
-		}
 		printf("%s\n", p->line[p->end_pos]);
 		//間違っている
 		// printf("argument is %s\n", p->line[p->end_pos]);
@@ -698,6 +693,23 @@ void	init_root(t_node *root)
 	root->right = NULL;
 }
 
+bool	check_array_redirect(char **array)
+{
+	size_t	i;
+
+	i = 0;
+	while (array[i] != NULL)
+	{
+		if (check_arguments(array[i]) == false)
+		{
+			ft_putendl_fd("syntax error unexpected token", 2);
+			return (false);
+		}
+		i++;
+	}
+	return (true);
+}
+
 t_list	*to_parser(char **array)
 {
 	t_node	root;
@@ -715,6 +727,10 @@ t_list	*to_parser(char **array)
 	// for (int i = 0; i < ARRAY_SIZE + 1; i++)
 	// 	printf("%s ", root.line[i]);
 	// printf("\n");
+	
+	if (check_array_redirect(array) == false)
+		return (NULL);
+	// divide_redirect(array);
 	parser(&root, &failed_flag);
 	if (failed_flag)
 		return (NULL);
