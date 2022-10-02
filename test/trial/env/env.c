@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:32:35 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/29 17:50:58 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/02 18:16:32 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ t_envs	*get_envs(char *str)
 {
 	t_envs	*envs;
 	char	*equal_address;
-	size_t	len;
 
 	envs = malloc(sizeof(t_envs));
 	if (!envs)
 		return (NULL);
 	equal_address = ft_strchr(str, '=');
-	len = ft_strlen(str);
 	envs->type = ft_substr(str, 0, equal_address - str);
 	envs->value = ft_strdup(equal_address + 1);
 	return (envs);

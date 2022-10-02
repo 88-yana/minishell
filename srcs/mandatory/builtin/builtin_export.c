@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 17:00:24 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/01 17:02:49 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/02 21:46:50 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exec_export(t_vars *vars, char **cmd)
 {
-	if (ft_strcmp(cmd[0], "pwd"))
+	if (ft_strcmp(cmd[0], "export"))
 		return ;
 	
 }
