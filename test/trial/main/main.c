@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 18:10:45 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/29 22:03:23 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/02 16:26:04 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ int	main(int argc, char **argv, char **envp)
 		if (data.line == NULL)
 			continue ;
 		array = lexer(&data);
+		if (array == NULL)
+			continue ;
 		command_line = to_parser(array->array);
+		if (command_line == NULL)
+			continue ;
 		check_comline(command_line);
 		exec_comline(&vars, command_line);
 		free(data.line);

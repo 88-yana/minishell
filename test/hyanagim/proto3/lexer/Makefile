@@ -21,7 +21,7 @@ all: $(NAME)
 # $(NAME):
 # 	cc -fsanitize=address lexer.c split.c main.c ../main/error.c get_next_line.c get_next_line_utils.c -lreadline libft.a
 $(NAME):
-	cc parser.c lexer.c ../main/error.c get_next_line.c get_next_line_utils.c -lreadline libft.a && ./a.out
+	cc parser.c lexer.c lexer_check_line.c malloc_free.c ../main/error.c get_next_line.c get_next_line_utils.c -lreadline libft.a && ./a.out
 test :
 	cc lexer.c split.c main.c ../main/error.c get_next_line.c get_next_line_utils.c -lreadline libft.a
 	./a.out correct.txt

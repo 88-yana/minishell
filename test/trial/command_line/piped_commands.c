@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piped_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:19:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 21:07:34 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/02 16:32:22 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	exec_command(t_vars *vars, char **command)
 	free(path);
 	envp = get_envp_from_list(vars->envs_list);
 	execve(command[0], command, envp);
-	free(envp);
+	exit(EXIT_FAILURE);
 }
 
 void	exec_subshell(t_list *comline, t_vars *vars)
