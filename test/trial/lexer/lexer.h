@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:59:21 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/03 14:00:08 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/03 21:34:53 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ t_array	*malloc_array(t_array *data);
 t_array	*lexer(t_array	*data);
 bool	is_separator(char c);
 void	go_advance(size_t *i, size_t *str_len);
+void	plus_pos(t_array *data, size_t *i, size_t *str_len, char c);
 #endif

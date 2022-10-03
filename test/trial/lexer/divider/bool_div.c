@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bool_re.c                                          :+:      :+:    :+:   */
+/*   bool_div.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 17:11:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/03 17:55:23 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/03 19:35:29 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "divide_quote.h"
+#include "divide.h"
 
 bool	is_separator_div(char c)
 {
@@ -23,5 +23,19 @@ bool	is_separator_div(char c)
 	if (c == '(')
 		return (true);
 	if (c == ')')
-		return (false);
+		return (true);
+	return (false);
+}
+
+bool	is_sep(char c)
+{
+	if (c == '<')
+		return (true);
+	if (c == '>')
+		return (true);
+	if (c == '(')
+		return (true);
+	if (c == ')')
+		return (true);
+	return (false);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "divide_quote.h"
+#include "divide.h"
 #include "../../lexer/lexer.h"
 
 static void	plus_pos_div(t_array *data, size_t *i, size_t *str_len, char c)
@@ -19,10 +19,10 @@ static void	plus_pos_div(t_array *data, size_t *i, size_t *str_len, char c)
 	while (data->line[*i] != c)
 		go_advance(i, str_len);
 	go_advance(i, str_len);
-	while (!is_separator_div(data->line[*i], data->line[*i + 1])
+	while (!is_separator_div(data->line[*i])
 		&& data->line[*i] != SINGLEQ && data->line[*i] != DUBLEQ)
 		go_advance(i, str_len);
-	if (is_separator_div(data->line[*i], data->line[*i + 1]))
+	if (is_separator_div(data->line[*i]))
 		return ;
 	if (data->line[*i] == DUBLEQ)
 		plus_pos_div(data, i, str_len, DUBLEQ);
@@ -33,23 +33,31 @@ static void	plus_pos_div(t_array *data, size_t *i, size_t *str_len, char c)
 
 static void	push_element_div(t_array *data, size_t i, size_t len, int type)
 {
-	if (ft_strlen(data->line) > 1 && data->line[i + 1] == '\0')
-		if (is_separator_div(data->line[i - 1], data->line[i]))
-			return ;
+	if (data->line[i] == '\0' && is_separator_div(data->line[i - 1]))
+		return ;
+	if (ft_strcmp(data->line, "<<") == 0 || ft_strcmp(data->line, ">>") == 0)
+	{
+		if (type == 2 && data->pos == 0)
+			ft_strlcpy(data->array[data->pos], data->line, 3);
+		data->pos = 1;
+		return ;
+	}
 	if (type == 2)
 	{
-		if (data->line[i + 1] == '\0')
-			ft_strlcpy(data->array[data->pos], &(data->line[i - len]), len + 2);
+		if (data->line[i] == '\0')
+			ft_strlcpy(data->array[data->pos], &(data->line[i - len]), len + 1);
 		else if (i == 0)
-			ft_strlcpy(data->array[data->pos], &(data->line[i]), 3);
+			ft_strlcpy(data->array[data->pos], &(data->line[i]), 2);
 		else
 		{
 			ft_strlcpy(data->array[data->pos], &(data->line[i - len]), len + 1);
-			ft_strlcpy(data->array[data->pos + 1], &(data->line[i]), 3);
+			ft_strlcpy(data->array[data->pos + 1], &(data->line[i]), 2);
 		}
 	}
-	if (data->line[i + 1] == '\0')
-			data->pos++;
+	if (data->line[i] == '\0')
+	{
+		data->pos++;
+	}
 	else if (i == 0)
 		data->pos++;
 	else
@@ -71,15 +79,14 @@ void	split_line_div(t_array *data, int type)
 			plus_pos_div(data, &i, &str_len, SINGLEQ);
 		if (type == 1)
 			data->length[data->pos] = str_len + 1;
-		if (is_separator_div(data->line[i], data->line[i + 1]))
+		if (is_separator_div(data->line[i]))
 		{
 			push_element_div(data, i, str_len, type);
 			str_len = 0;
-			i++;
 		}
 		else
 			str_len++;
-		if (data->line[i + 1] == '\0')
+		if (data->line[i] == '\0')
 			break ;
 		i++;
 	}
@@ -95,5 +102,32 @@ char	**lexer_div(t_array	*data)
 	split_line_div(data, 2);
 	return (data->array);
 }
+
+// int	main(void)
+// {
+// 	t_array	data;
+// 	char	**array;
+// 	size_t	i;
+
+// 	while (true)
+// 	{
+// 		data.line = exec_readline();
+// 		if (data.line == NULL)
+// 			continue ;
+// 		array = lexer_div(&data);
+// 		if (array == NULL)
+// 			continue ;
+// 		array = delete_brank(array);
+// 		i = 0;
+// 		while (array[i] != NULL)
+// 		{
+// 			printf("「%s」\n", array[i]);
+// 			if (array[i][0] == '\0')
+// 				printf("%s\n", "空白");
+// 			i++;
+// 		}
+// 	}
+// 	return (0);
+// }
 
 //abc<<def<<abcabcabc>>bbbeeebbb>>bbb"eeeggg<<"aaa<<bbbcc<cc
