@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:59:21 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/02 21:42:15 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:04:38 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ t_array	*malloc_element_re(t_array *data);
 t_array	*malloc_array_re(t_array *data);
 t_array	*lexer_re(t_array	*data);
 bool	is_separator_re(char c, char d);
+size_t	arraylen(char **array);
 #endif

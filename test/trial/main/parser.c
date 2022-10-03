@@ -613,15 +613,6 @@ void	listlcpy(t_list **dst, t_list **list, size_t dstsize)
 	}
 }
 
-size_t	arraylen(char **array)
-{
-	size_t	i;
-
-	i = 0;
-	while (array[i] != NULL)
-		i++;
-	return (i);
-}
 
 void	display_array(char ** arr)
 {
