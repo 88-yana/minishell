@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc_free.c                                      :+:      :+:    :+:   */
+/*   malloc_free_re.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 21:41:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/02 21:36:43 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/03 17:58:19 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	free_array(t_array *data)
 	free(data->array);
 }
 
-t_array	*malloc_array_re(t_array *data)
+t_array	*malloc_array_div(t_array *data)
 {
 	data->pos = 0;
 	split_line_re(data, 0);
@@ -42,12 +42,12 @@ t_array	*malloc_array_re(t_array *data)
 	return (data);
 }
 
-t_array	*malloc_element_re(t_array *data)
+t_array	*malloc_element_div(t_array *data)
 {
 	size_t	i;
 
 	data->pos = 0;
-	split_line_re(data, 1);
+	split_line_div(data, 1);
 	i = 0;
 	while (i < data->pos)
 	{

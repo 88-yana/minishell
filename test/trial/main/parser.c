@@ -190,7 +190,7 @@ void	parser(t_node *p, bool *failed_flag)
 	// }
 	if (p->type == ARGUMENTS)
 	{
-		printf("%s\n", p->line[p->end_pos]);
+		// printf("%s\n", p->line[p->end_pos]);
 		//間違っている
 		// printf("argument is %s\n", p->line[p->end_pos]);
 
@@ -625,33 +625,6 @@ void	display_array(char ** arr)
 		i++;
 	}
 }
-
-char	**arrayjoin(char **arr1, char**arr2)
-{
-	size_t	length;
-	size_t	i;
-	size_t	j;
-	char	**new;
-
-	length = arraylen(arr1) + arraylen(arr2) + 1;
-	new = malloc(sizeof(char * ) * length);
-	i = 0;
-	while (arr1[i] != NULL)
-	{
-		new[i] = arr1[i];
-		i++;
-	}
-	j = 0;
-	while (arr2[j] != NULL)
-	{
-		new[i + j] = arr2[j];
-		j++;
-	}
-	new[length] = NULL;
-	i = 0;
-	return (new);
-}
-
 
 void	cmdjoin(t_list **list)
 {
