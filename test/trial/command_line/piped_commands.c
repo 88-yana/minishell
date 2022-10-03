@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:57:18 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/02 21:57:22 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:28:09 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ void	exec_command(t_vars *vars, char **command)
 	char	**path;
 	char	**envp;
 
+	if (is_builtin(command))
+	{
+		exec_builtin(vars->envs_list, command);
+		exit(g_status);
+	}
 	path = ft_split(find_env(vars->envs_list, "PATH"), ':');
 	check_path(path, command);
 	free(path);

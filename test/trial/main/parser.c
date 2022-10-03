@@ -190,7 +190,7 @@ void	parser(t_node *p, bool *failed_flag)
 	// }
 	if (p->type == ARGUMENTS)
 	{
-		printf("%s\n", p->line[p->end_pos]);
+		// printf("%s\n", p->line[p->end_pos]);
 		//間違っている
 		// printf("argument is %s\n", p->line[p->end_pos]);
 
@@ -776,7 +776,7 @@ t_list	*to_parser(char **array)
 		i++;
 	}
 
-	display_command(maked_list);
+	// display_command(maked_list);
 	return (maked_list);
 }
 

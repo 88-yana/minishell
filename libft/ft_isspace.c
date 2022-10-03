@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 17:53:00 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/29 17:55:45 by yahokari         ###   ########.fr       */
+/*   Created: 2022/10/03 17:00:49 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/03 17:02:08 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#include	"libft.h"
 
-# include	"../libft/libft.h"
-# include	"structure.h"
-# include	"utils.h"
-
-#endif
+int	ft_isspace(int c)
+{
+	return (c == '\t' || c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r' || c == ' ');
+}

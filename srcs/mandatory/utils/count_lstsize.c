@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:51:13 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/29 17:51:52 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/03 18:56:26 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	count_lstsize(t_list *lst)
 	size_t	i;
 
 	i = 0;
-	while (!lst)
+	while (lst)
 	{
 		lst = lst->next;
 		i++;

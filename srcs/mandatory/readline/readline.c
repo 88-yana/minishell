@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 21:17:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/29 21:54:49 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/03 15:45:00 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	init_prompt(int signal)
 
 static void	exit_shell(void)
 {
-	printf("\e[1A\e[11Cexit\n");
+	printf("exit\n");
+	// printf("\e[1A\e[11Cexit\n");
 	system("leaks minishell");
 	exit(g_status);
 }

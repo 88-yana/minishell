@@ -6,13 +6,29 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:56:08 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/29 19:13:06 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/03 19:29:56 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../include/minishell.h"
 
 g_status = 0;
+
+static void	test(t_vars *vars, char *str)
+{
+	size_t	i;
+	char	**cmd;
+
+	cmd = ft_split(str, ' ');
+	exec_builtin(vars->envs, cmd);
+	i = 0;
+	while (cmd[i])
+	{
+		free(cmd[i]);
+		i++;
+	}
+	free(cmd);
+}
 
 static void	init_setup(void)
 {
@@ -26,11 +42,14 @@ static void	minishell(char **envp)
 	char	*str;
 
 	init_setup();
+	convert_envp_to_list(&vars, envp);
+	// char **tmp = get_envp_from_list(vars.envs);
 	while (true)
 	{
 		str = read_line_from_prompt();
 		if (!str)
 			continue ;
+		test(&vars, str);
 		free(str);
 	}
 }

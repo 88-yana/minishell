@@ -1,46 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   convert_types.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 17:52:25 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/29 18:17:40 by yahokari         ###   ########.fr       */
+/*   Created: 2022/10/03 16:33:09 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/03 19:09:03 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../include/env.h"
+#include	"../../../include/envs.h"
 
-t_envs	*get_envs(char *str)
+void	convert_envp_to_list(t_vars *vars, char **envp)
 {
-	t_envs	*envs;
-	char	*equal_address;
+	size_t	i;
 
-	envs = malloc(sizeof(t_envs));
-	if (!envs)
-		return (NULL);
-	equal_address = ft_strchr(str, '=');
-	envs->type = substr_size_t(str, 0, equal_address - str);
-	envs->value = ft_strdup(equal_address + 1);
-	if (!envs->type || !envs->value)
-		return (NULL);
-	return (envs);
-}
-
-void	create_envs_list(t_list **list, char *str)
-{
-	t_envs	*envs;
-	t_list	*new_list;
-
-	envs = get_envs(str);
-	new_list = ft_lstnew(envs);
-	if (!new_list)
+	vars->envs = NULL;
+	if (envp == NULL)
 		return ;
-	if (list == NULL)
-		*list = new_list;
-	else
-		ft_lstadd_back(list, new_list);
+	i = 0;
+	while (envp[i])
+	{
+		create_envs_list(&vars->envs, envp[i]);
+		i++;
+	}
 }
 
 char	**get_envp_from_list(t_list *list)
@@ -66,21 +50,4 @@ char	**get_envp_from_list(t_list *list)
 	}
 	envp[i] = NULL;
 	return (envp);
-}
-
-void	convert_envp_to_list(t_vars *vars, char **envp)
-{
-	size_t	i;
-
-	if (envp == NULL)
-	{
-		vars->envs_list = NULL;
-		return ;
-	}
-	i = 0;
-	while (envp[i])
-	{
-		create_envs_list(&vars->envs_list, envp[i]);
-		i++;
-	}
 }
