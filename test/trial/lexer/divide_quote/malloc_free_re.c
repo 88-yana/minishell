@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc_free.c                                      :+:      :+:    :+:   */
+/*   malloc_free_re.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 21:41:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/03 17:59:35 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/03 17:59:16 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "divide_quote.h"
 
-void	free_array(t_array *data)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < data->pos)
-	{
-		free(data->array[i]);
-		i++;
-	}
-	free(data->array);
-}
-
-t_array	*malloc_array(t_array *data)
+t_array	*malloc_array_re(t_array *data)
 {
 	data->pos = 0;
-	split_line(data, 0);
+	split_line_re(data, 0);
 	data->array = malloc(sizeof(char *) * (data->pos + 1));
 	data->length = malloc(sizeof(size_t) * data->pos);
 	if (data->array == NULL || data->length == NULL)
@@ -42,12 +29,12 @@ t_array	*malloc_array(t_array *data)
 	return (data);
 }
 
-t_array	*malloc_element(t_array *data)
+t_array	*malloc_element_re(t_array *data)
 {
 	size_t	i;
 
 	data->pos = 0;
-	split_line(data, 1);
+	split_line_re(data, 1);
 	i = 0;
 	while (i < data->pos)
 	{

@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:59:21 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/02 21:42:15 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/03 17:59:22 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ bool	check_line_re(char *line);
 void	split_line_re(t_array *data, int type);
 t_array	*malloc_element_re(t_array *data);
 t_array	*malloc_array_re(t_array *data);
-t_array	*lexer_re(t_array	*data);
+char	**lexer_re(t_array	*data);
 bool	is_separator_re(char c, char d);
+size_t	arraylen(char **array);
+char	**arrayjoin(char **arr1, char**arr2);
+void	free_array(t_array *data);
 #endif

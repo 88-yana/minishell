@@ -6,27 +6,22 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/02 21:44:40 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/03 21:40:00 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "divide_quote.h"
-
-static void	go_advance_re(size_t *i, size_t *str_len)
-{
-	(*i)++;
-	(*str_len)++;
-}
+#include "../../lexer/lexer.h"
 
 static void	plus_pos_re(t_array *data, size_t *i, size_t *str_len, char c)
 {
-	go_advance_re(i, str_len);
+	go_advance(i, str_len);
 	while (data->line[*i] != c)
-		go_advance_re(i, str_len);
-	go_advance_re(i, str_len);
+		go_advance(i, str_len);
+	go_advance(i, str_len);
 	while (!is_separator_re(data->line[*i], data->line[*i + 1])
 		&& data->line[*i] != SINGLEQ && data->line[*i] != DUBLEQ)
-		go_advance_re(i, str_len);
+		go_advance(i, str_len);
 	if (is_separator_re(data->line[*i], data->line[*i + 1]))
 		return ;
 	if (data->line[*i] == DUBLEQ)
@@ -38,6 +33,9 @@ static void	plus_pos_re(t_array *data, size_t *i, size_t *str_len, char c)
 
 static void	push_element_re(t_array *data, size_t i, size_t len, int type)
 {
+	if (ft_strlen(data->line) > 1 && data->line[i + 1] == '\0')
+		if (is_separator_re(data->line[i - 1], data->line[i]))
+			return ;
 	if (type == 2)
 	{
 		if (data->line[i + 1] == '\0')
@@ -51,7 +49,7 @@ static void	push_element_re(t_array *data, size_t i, size_t len, int type)
 		}
 	}
 	if (data->line[i + 1] == '\0')
-		data->pos++;
+			data->pos++;
 	else if (i == 0)
 		data->pos++;
 	else
@@ -74,21 +72,20 @@ void	split_line_re(t_array *data, int type)
 		if (type == 1)
 			data->length[data->pos] = str_len + 1;
 		if (is_separator_re(data->line[i], data->line[i + 1]))
-			push_element_re(data, i, str_len, type);
-		if (data->line[i + 1] == '\0')
-			break ;
-		if (!is_separator_re(data->line[i], data->line[i + 1]))
-			str_len++;
-		else
 		{
+			push_element_re(data, i, str_len, type);
 			str_len = 0;
 			i++;
 		}
+		else
+			str_len++;
+		if (data->line[i + 1] == '\0')
+			break ;
 		i++;
 	}
 }
 
-t_array	*lexer_re(t_array	*data)
+char	**lexer_re(t_array	*data)
 {
 	if (malloc_array_re(data) == NULL)
 		return (NULL);
@@ -96,11 +93,7 @@ t_array	*lexer_re(t_array	*data)
 		return (NULL);
 	data->pos = 0;
 	split_line_re(data, 2);
-	return (data);
+	return (data->array);
 }
-
-
-
-
 
 //abc<<def<<abcabcabc>>bbbeeebbb>>bbb"eeeggg<<"aaa<<bbbcc<cc

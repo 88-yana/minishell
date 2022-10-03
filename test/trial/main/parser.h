@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:51:33 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/02 16:09:17 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:29:42 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,6 @@ t_array	*malloc_array(t_array *data);
 t_array	*lexer(t_array	*data);
 bool	is_separator(char c);
 bool	check_arguments(char *str);
+size_t	arraylen(char **array);
+char	**arrayjoin(char **arr1, char**arr2);
 #endif
