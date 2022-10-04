@@ -1,1 +1,5 @@
+<<<<<<< HEAD
+/Users/yahokari/Desktop/42cursus/minishell/test/trial
+=======
 hello
+>>>>>>> 7627e2d9da62b57d91cb325d907dea9d1e07a262

@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:46:59 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/02 21:56:00 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/03 21:22:51 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,20 @@ bool	is_builtin(char **cmd)
 		return (false);
 }
 
-void	exec_builtin(t_list *envs_list, char **cmd)
+void	exec_builtin(t_list *list, char **cmd)
 {
 	if (!ft_strcmp(cmd[0], "echo"))
-		;
+		exec_echo(cmd);
 	else if (!ft_strcmp(cmd[0], "cd"))
-		;
-	if (!ft_strcmp(cmd[0], "pwd"))
+		exec_cd(list, cmd);
+	else if (!ft_strcmp(cmd[0], "pwd"))
 		exec_pwd(cmd);
 	else if (!ft_strcmp(cmd[0], "export"))
-		exec_export(envs_list, cmd);
+		exec_export(list, cmd);
 	else if (!ft_strcmp(cmd[0], "unset"))
 		;
 	else if (!ft_strcmp(cmd[0], "env"))
-		exec_env(envs_list, cmd);
+		;
 	else if (!ft_strcmp(cmd[0], "exit"))
 		exec_exit(cmd);
 }

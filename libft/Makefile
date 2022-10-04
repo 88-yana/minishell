@@ -6,7 +6,7 @@
 #    By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/19 23:46:47 by yahokari          #+#    #+#              #
-#    Updated: 2022/08/13 20:02:08 by yahokari         ###   ########.fr        #
+#    Updated: 2022/10/03 17:03:19 by yahokari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS = ft_atoi.c \
 	ft_isdigit.c \
 	ft_islower.c \
 	ft_isprint.c \
+	ft_isspace.c \
 	ft_isupper.c \
 	ft_itoa.c \
 	ft_memchr.c \

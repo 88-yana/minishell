@@ -740,7 +740,7 @@ t_list	*to_parser(char **array)
 		i++;
 	}
 
-	display_command(maked_list);
+	// display_command(maked_list);
 	return (maked_list);
 }
 

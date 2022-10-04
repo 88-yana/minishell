@@ -1,9 +1,20 @@
 CC = cc
 CFLAGS =
-RLFLAGS = -I $(shell brew --prefix readline)/include -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+RLFLAGS = -I $(shell brew --prefix readline)/include -L$(shell brew --prefix readline)/lib -lreadline -lhistory
 OPTIONS = -lreadline
 SRCS_NAME = mandatory/main/main.c \
-	mandatory/readline/readline.c
+	mandatory/readline/readline.c \
+	mandatory/builtin/builtin.c \
+	mandatory/builtin/builtin_pwd.c \
+	mandatory/builtin/builtin_cd.c \
+	mandatory/builtin/builtin_echo.c \
+	mandatory/builtin/builtin_export.c \
+	mandatory/builtin/builtin_exit.c \
+	mandatory/envs/convert_types.c \
+	mandatory/envs/envs_utils.c \
+	mandatory/utils/count_lstsize.c \
+	mandatory/utils/strjoin_delimiter.c \
+	mandatory/utils/substr_size_t.c
 SRCDIR = srcs
 OBJDIR = objs
 SRCS = $(addprefix $(SRCDIR)/, $(SRCS_NAME))

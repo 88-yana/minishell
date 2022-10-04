@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 21:14:38 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/29 18:10:43 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/03 18:36:59 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include	"../../../include/utils.h"
 
 static size_t	ft_calloc_size(char const *s, size_t start, size_t len)
 {

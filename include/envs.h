@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   envs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 20:56:28 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/03 18:30:57 by yahokari         ###   ########.fr       */
+/*   Created: 2022/09/29 17:53:00 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/03 21:03:04 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef ENVS_H
+# define ENVS_H
 
-# include	<signal.h>
-# include	"stdbool.h"
-# include	"structure.h"
 # include	"../libft/libft.h"
-# include	"readline.h"
-# include	"builtin.h"
-# include	"envs.h"
+# include	"structure.h"
+# include	"utils.h"
+
+t_list	*find_envs(t_list *list, char *to_find);
+bool	create_envs_list(t_list **list, char *str);
+void	convert_envp_to_list(t_vars *vars, char **envp);
+char	**get_envp_from_list(t_list *list);
 
 #endif

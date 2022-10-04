@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:11:28 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/02 21:43:06 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/03 13:09:20 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	exec_export_with_no_args(t_list *envs_list)
 	while (envs_list)
 	{
 		envs = (t_envs *)envs_list->content;
+		// if (envs->value[0] == '\0)
 		printf("declare -x %s=\"%s\"\n", envs->type, envs->value);
 		envs_list = envs_list->next;
 	}
@@ -215,16 +216,16 @@ void	exec_env(t_list *envs_list, char **cmd)
 {
 	t_envs	*envs;
 
-	if (ft_strcmp(cmd[0], "env"))
-		return ;
+	// printf("hello\n");
 	if (cmd[1] != NULL)
 	{
-		printf("env: %s: No such file or directory\n", cmd[1]);
+		printf("env: %s: No such file or directory\n", 2);
 		return ;
 	}
 	while (envs_list)
 	{
 		envs = (t_envs *)envs_list->content;
+		// ft_putstr_fd("hello\n", STDOUT_FILENO);
 		printf("%s=%s\n", envs->type, envs->value);
 		envs_list = envs_list->next;
 	}
@@ -252,6 +253,8 @@ void	exec_builtin(t_list *envs_list, char **cmd)
 		exec_env(envs_list, cmd);
 	else if (!ft_strcmp(cmd[0], "exit"))
 		exec_exit(cmd);
+	else if (!ft_strcmp(cmd[0], "cd"))
+		exec_cd(envs_list, cmd);
 }
 
 bool	is_builtin(char **cmd)
@@ -260,9 +263,9 @@ bool	is_builtin(char **cmd)
 		return (false);
 	// if (!ft_strcmp(cmd[0], "echo"))
 	// 	return (true);
-	// else if (!ft_strcmp(cmd[0], "cd"))
-	// 	return (true);
 	if (!ft_strcmp(cmd[0], "pwd"))
+		return (true);
+	else if (!ft_strcmp(cmd[0], "cd"))
 		return (true);
 	else if (!ft_strcmp(cmd[0], "export"))
 		return (true);
