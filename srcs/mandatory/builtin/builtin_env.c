@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 21:55:22 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/04 21:23:37 by yahokari         ###   ########.fr       */
+/*   Created: 2022/10/04 21:19:47 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/04 21:26:59 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include	"../../../include/builtin.h"
 
-# include	"../libft/libft.h"
-# include	"structure.h"
-# include	"envs.h"
+void	exec_env(t_list *list, char **cmd)
+{
+	t_envs	*envs;
 
-bool	is_builtin(char **cmd);
-void	exec_builtin(t_list *envs_list, char **cmd);
-void	exec_echo(char **cmd);
-void	exec_env(t_list *list, char **cmd);
-void	exec_cd(t_list *list, char **cmd);
-void	exec_pwd(char **cmd);
-void	exec_export(t_list *list, char **cmd);
-void	exec_exit(char **cmd);
-
-#endif
+	while (list)
+	{
+		envs = (t_envs *)list->content;
+		if (envs->value)
+			printf("%s=%s\n", envs->type, envs->value);
+		list = list->next;
+	}
+}
