@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/03 21:40:00 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/04 13:29:57 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,14 @@ static void	plus_pos_re(t_array *data, size_t *i, size_t *str_len, char c)
 static void	push_element_re(t_array *data, size_t i, size_t len, int type)
 {
 	if (ft_strlen(data->line) > 1 && data->line[i + 1] == '\0')
-		if (is_separator_re(data->line[i - 1], data->line[i]))
+		if (is_ltltgtgt(data->line[i -1], data->line[i]))
 			return ;
+	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	if (type == 2)
 	{
-		if (data->line[i + 1] == '\0')
+		if (data->line[i] == '\0')
+			ft_strlcpy(data->array[data->pos], &(data->line[i - len]), len + 1);
+		else if (data->line[i + 1] == '\0')
 			ft_strlcpy(data->array[data->pos], &(data->line[i - len]), len + 2);
 		else if (i == 0)
 			ft_strlcpy(data->array[data->pos], &(data->line[i]), 3);
@@ -48,7 +51,9 @@ static void	push_element_re(t_array *data, size_t i, size_t len, int type)
 			ft_strlcpy(data->array[data->pos + 1], &(data->line[i]), 3);
 		}
 	}
-	if (data->line[i + 1] == '\0')
+	if (data->line[i] == '\0')
+		data->pos++;
+	else if (data->line[i + 1] == '\0')
 			data->pos++;
 	else if (i == 0)
 		data->pos++;
@@ -66,19 +71,28 @@ void	split_line_re(t_array *data, int type)
 	while (1)
 	{
 		if (data->line[i] == DUBLEQ)
-			plus_pos_re(data, &i, &str_len, DUBLEQ);
+		{
+			plus_pos(data, &i, &str_len, DUBLEQ);
+			// data->pos++;
+		}
 		if (data->line[i] == SINGLEQ)
-			plus_pos_re(data, &i, &str_len, SINGLEQ);
+			plus_pos(data, &i, &str_len, SINGLEQ);
+		// printf("c is %c\n", data->line[i]);
+		if (data->line[i] == '\0')
+			// printf("空白\n");
+		// printf("len is %d\n", str_len);
 		if (type == 1)
 			data->length[data->pos] = str_len + 1;
-		if (is_separator_re(data->line[i], data->line[i + 1]))
+		if (data->line[i] == '\0' || is_separator_re(data->line[i], data->line[i + 1]))
 		{
+			// printf("in\n");
 			push_element_re(data, i, str_len, type);
 			str_len = 0;
 			i++;
 		}
 		else
 			str_len++;
+		// printf("size is %zu\n", data->pos);
 		if (data->line[i + 1] == '\0')
 			break ;
 		i++;
@@ -96,4 +110,28 @@ char	**lexer_re(t_array	*data)
 	return (data->array);
 }
 
+// int	main(void)
+// {
+// 	t_array	data;
+// 	char	**array;
+
+// 	while (true)
+// 	{
+// 		data.line = exec_readline();
+// 		if (data.line == NULL)
+// 			continue ;
+// 		array = lexer_re(&data);
+// 		if (array == NULL)
+// 			continue ;
+// 		size_t i = 0;
+// 		while (array[i] != NULL)
+// 		{
+// 			printf("「%s」\n", array[i]);
+// 			i++;
+// 		}
+// 	}
+// }
+
 //abc<<def<<abcabcabc>>bbbeeebbb>>bbb"eeeggg<<"aaa<<bbbcc<cc
+//echo "" "      " akj<<alkfj << salkdfj
+//<<abc"     " abcd abc "    " "     "'abc'd  abc<<abc<<

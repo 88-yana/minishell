@@ -53,35 +53,35 @@ char	**divide_redirect(char **array)
 
 t_list	*to_parser(char **array);
 
-// int	main(void)
-// {
-// 	t_array	data;
-// 	t_array	*box;
-// 	char	**array;
-// 	size_t	i;
+int	main(void)
+{
+	t_array	data;
+	t_array	*box;
+	char	**array;
+	size_t	i;
 
-// 	while (true)
-// 	{
-// 		data.line = exec_readline();
-// 		if (data.line == NULL)
-// 			continue ;
-// 		box = lexer(&data);
-// 		if (box == NULL)
-// 			continue ;
-// 		i = 0;
-// 		while (box->array[i] != NULL)
-// 		{
-// 			printf("『%s』\n", box->array[i]);
-// 			i++;
-// 		}
-// 		array = divide_redirect(box->array);
-// 		i = 0;
-// 		printf("%s\n", "----------------------");
-// 		while (array[i] != NULL)
-// 		{
-// 			printf("『%s』\n", array[i]);
-// 			i++;
-// 		}
-// 	}
-// 	return (0);
-// }
+	while (true)
+	{
+		data.line = exec_readline();
+		if (data.line == NULL)
+			continue ;
+		box = lexer(&data);
+		if (box == NULL)
+			continue ;
+		i = 0;
+		while (box->array[i] != NULL)
+		{
+			printf("『%s』\n", box->array[i]);
+			i++;
+		}
+		array = divide_redirect(box->array);
+		i = 0;
+		printf("%s\n", "----------------------");
+		while (array[i] != NULL)
+		{
+			printf("『%s』\n", array[i]);
+			i++;
+		}
+	}
+	return (0);
+}
