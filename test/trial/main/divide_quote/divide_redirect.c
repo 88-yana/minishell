@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   divide_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:00:02 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/03 10:29:53 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/04 16:56:03 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "divide_quote.h"
+// #include "divide_quote.h"
 
 // char	**partite(char *str)
 // {

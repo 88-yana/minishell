@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:59:21 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/03 17:59:22 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/04 13:21:55 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ bool	is_separator_re(char c, char d);
 size_t	arraylen(char **array);
 char	**arrayjoin(char **arr1, char**arr2);
 void	free_array(t_array *data);
+bool	is_ltltgtgt(char c, char d);
 #endif
