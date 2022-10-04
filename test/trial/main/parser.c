@@ -52,9 +52,11 @@ bool	is_delimiter(char *str)
 	return (false);
 }
 
-bool	is_bra(char c)
+bool	is_bra(char *str)
 {
-	if (c == '(')
+	if (str == NULL)
+		return (false);
+	if (ft_strcmp(str, "(") == 0)
 		return (true);
 	return (false);
 }
@@ -115,27 +117,22 @@ void	parser(t_node *p, bool *failed_flag)
 		// かっこやデリミターが見つかるまで，エンドポスを進める。
 
 		while (p->line[p->end_pos] != NULL &&
-			!is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos][0]))
+			!is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos]))
 			p->end_pos++;
 		// printf("command line is %s\n", p->line[p->end_pos]);
-// 		if (かっこだったら)
-// 		{
-// 			p->left
-// 				パイプドライン
-// 		}
-// 		if (デリミターだったら，)
-// 		{
-// 			p->left
-// 					デリミター
-
-// 			p->right
-// 			p->type = コマンドライン
-// 		}
-// 		if (NULLだったら，全体がパイプドラインだから，)
-// 		{
-// 			p->left
-// 			p->type = パイプドライン
-// 		}
+		if (is_bra(p->line[p->end_pos]))
+		{
+			p->end_pos = p->start_pos;
+			p->left = talloc(SUBSHELL, p);
+			parser(p->left, failed_flag);
+		}
+		if (is_delimiter(p->line[p->end_pos]))
+		{
+			p->current_pos = p->end_pos;
+			p->end_pos = p->start_pos;
+			p->left = talloc(DELIMITER, p);
+			parser(p->left, failed_flag);
+		}
 		if (p->line[p->end_pos] == NULL)
 		{
 			// printf("before piped line command line is start %s\n", p->line[p->start_pos]);
@@ -145,9 +142,29 @@ void	parser(t_node *p, bool *failed_flag)
 			parser(p->left, failed_flag);
 		}
 	}
+	if (p->type == DELIMITER)
+	{
+		char	**arr;
+
+		arr = p->line;
+		if (ft_strcmp(p->line[p->current_pos], "||") == 0)
+			p->delimiter = 0;
+		if (ft_strcmp(p->line[p->current_pos], "&&") == 0)
+			p->delimiter = 1;
+		p->line[p->current_pos] = NULL;
+		
+		p->left = talloc(COMMAND_LINE, p);
+		parser(p->left, failed_flag);
+		p->line = arr;
+		p->start_pos = p->current_pos + 1;
+		p->end_pos = p->current_pos + 1;
+		p->include_right = true;
+		p->right = talloc(COMMAND_LINE, p);
+		parser(p->right, failed_flag);
+	}
 	if (p->type == PIPED_LINE)
 	{
-		while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos][0]) &&
+		while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos]) &&
 			!is_pipe(p->line[p->end_pos]))
 			p->end_pos++;
 		// printf("piled_line %s\n", p->line[p->end_pos]);
@@ -213,7 +230,7 @@ void	parser(t_node *p, bool *failed_flag)
 		else
 		{
 			while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) &&
-				!is_bra(p->line[p->end_pos][0]) && !is_pipe(p->line[p->end_pos]) && !is_redirection(p->line[p->end_pos]))
+				!is_bra(p->line[p->end_pos]) && !is_pipe(p->line[p->end_pos]) && !is_redirection(p->line[p->end_pos]))
 			p->end_pos++;
 			if (is_redirection(p->line[p->end_pos]))
 			{
@@ -302,6 +319,7 @@ t_node	*talloc(t_type type, t_node *parent)
 	t_node *p;
 	p = malloc(sizeof(t_node));
 	p->type = type;
+	p->delimiter = parent->delimiter;
 	p->line = parent->line;
 	p->ele_is_quoted = parent->ele_is_quoted;
 	p->ele_length = parent->ele_length;
@@ -463,11 +481,23 @@ t_list	**executer(t_node *p, t_list **list)
 {
 	if (p->type == COMMAND_LINE)
 		list = executer(p->left, list);
-/* 	if (p->type == DELIMITER)
+	if (p->type == DELIMITER)
 	{
-		executer(p->left, list);
-		executer(p->right, list);
+		t_list	**latter;
+		t_list	*list_ptr;
+
+		if (p->delimiter == 0)
+			list_ptr = ft_lstnew(make_command(OR, NULL, NULL, NULL));
+		if (p->delimiter == 1)
+			list_ptr = ft_lstnew(make_command(AND, NULL, NULL, NULL));
+		list = executer(p->left, list);
+		list = realloc_list(list, list_ptr);
+		latter = malloc(sizeof(t_list *));
+		latter[0] = NULL;
+		latter = executer(p->right, latter);
+		list = listjoin(list, latter);
 	}
+	/*
 	if (p->type == subshell)
 	{
 		t_list	*shell;
@@ -530,7 +560,7 @@ t_list	**executer(t_node *p, t_list **list)
 		char	**array;
 		size_t	i;
 		t_list	*list_ptr;
-		while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos][0])
+		while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos])
 			&& !is_pipe(p->line[p->end_pos]) && !is_redirection(p->line[p->end_pos]))
 			p->end_pos++;
 		array = malloc(sizeof(char *) * (p->end_pos - p->start_pos + 1));

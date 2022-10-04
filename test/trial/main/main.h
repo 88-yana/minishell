@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:44:40 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/27 21:27:10 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/04 21:06:20 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@
 # include	"../readline/readline.h"
 # include	"../env/env.h"
 # include	"../heredoc/heredoc.h"
-
+char	**divide_redirect(char **array);
+char	**lexer_re(t_array	*data);
 #endif

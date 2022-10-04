@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 18:10:45 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/02 16:26:04 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/04 22:04:30 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	t_list	*command_line;
 	t_array	data;
 	t_array	*array;
+	char	**abc;
 
 	(void)argc;
 	(void)argv;
@@ -34,7 +35,8 @@ int	main(int argc, char **argv, char **envp)
 		array = lexer(&data);
 		if (array == NULL)
 			continue ;
-		command_line = to_parser(array->array);
+		abc = divide_redirect(array->array);
+		command_line = to_parser(abc);
 		if (command_line == NULL)
 			continue ;
 		check_comline(command_line);
