@@ -8,6 +8,7 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/builtin/builtin_pwd.c \
 	mandatory/builtin/builtin_cd.c \
 	mandatory/builtin/builtin_echo.c \
+	mandatory/builtin/builtin_env.c \
 	mandatory/builtin/builtin_export.c \
 	mandatory/builtin/builtin_exit.c \
 	mandatory/envs/convert_types.c \
