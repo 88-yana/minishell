@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:52:25 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/03 20:59:32 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/05 20:39:29 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,16 @@ void	create_envs_from_string(t_list **list, char *str)
 	if (!envs)
 		;
 	create_list(list, envs);
+}
+
+void	free_envs(void *p)
+{
+	t_envs	*envs;
+
+	envs = (t_envs *)p;
+	free(envs->type);
+	free(envs->value);
+	free(envs);
 }
 
 bool	create_envs_list(t_list **list, char *str)

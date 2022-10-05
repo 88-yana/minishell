@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:56:08 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/03 19:29:56 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/05 21:04:03 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	test(t_vars *vars, char *str)
 	char	**cmd;
 
 	cmd = ft_split(str, ' ');
-	exec_builtin(vars->envs, cmd);
+	exec_builtin(vars, cmd);
 	i = 0;
 	while (cmd[i])
 	{
