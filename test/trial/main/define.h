@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:18:11 by yahokari          #+#    #+#             */
-/*   Updated: 2022/09/29 19:18:14 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/04 20:50:46 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_split
 typedef struct s_node
 {
 	t_type			type;
+	int				delimiter;
 	char			**line;
 	int				*ele_is_quoted;
 	size_t			*ele_length;
