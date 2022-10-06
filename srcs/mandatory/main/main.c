@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:56:08 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/06 13:56:01 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/06 15:44:34 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ static void	minishell(char **envp)
 		free(str);
 	}
 	ft_lstclear(&vars.envs, free_envs);
+}
+
+__attribute__((destructor))
+static void	destructor(void)
+{
+	system("leaks -q minishell");
 }
 
 int	main(int argc, char **argv, char **envp)
