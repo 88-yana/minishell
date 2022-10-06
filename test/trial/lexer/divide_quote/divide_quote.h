@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:59:21 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/04 13:21:55 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/06 17:59:21 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ size_t	arraylen(char **array);
 char	**arrayjoin(char **arr1, char**arr2);
 void	free_array(t_array *data);
 bool	is_ltltgtgt(char c, char d);
+bool	is_null(char c);
 #endif

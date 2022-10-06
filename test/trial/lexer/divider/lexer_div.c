@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/04 15:48:45 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/06 19:26:48 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,19 @@ static void	plus_pos_div(t_array *data, size_t *i, size_t *str_len, char c)
 	return ;
 }
 
+static void	copy_to_array(t_array *data, size_t i, size_t len)
+{
+	if (data->line[i] == '\0')
+		ft_strlcpy(data->array[data->pos], &(data->line[i - len]), len + 1);
+	else if (i == 0)
+		ft_strlcpy(data->array[data->pos], &(data->line[i]), 2);
+	else
+	{
+		ft_strlcpy(data->array[data->pos], &(data->line[i - len]), len + 1);
+		ft_strlcpy(data->array[data->pos + 1], &(data->line[i]), 2);
+	}
+}
+
 static void	push_element_div(t_array *data, size_t i, size_t len, int type)
 {
 	if (data->line[i] == '\0' && is_separator_div(data->line[i - 1]))
@@ -44,23 +57,9 @@ static void	push_element_div(t_array *data, size_t i, size_t len, int type)
 		return ;
 	}
 	if (type == 2)
-	{
-		if (data->line[i] == '\0')
-			ft_strlcpy(data->array[data->pos], &(data->line[i - len]), len + 1);
-		else if (i == 0)
-			ft_strlcpy(data->array[data->pos], &(data->line[i]), 2);
-		else
-		{
-			ft_strlcpy(data->array[data->pos], &(data->line[i - len]), len + 1);
-			ft_strlcpy(data->array[data->pos + 1], &(data->line[i]), 2);
-		}
-		printf("%s\n", &(data->line[i - len]));
-		printf("in type 2 return : 『%s』\n", data->array[0]);
-	}
+		copy_to_array(data, i, len);
 	if (data->line[i] == '\0')
-	{
 		data->pos++;
-	}
 	else if (i == 0)
 		data->pos++;
 	else
@@ -103,7 +102,6 @@ char	**lexer_div(t_array	*data)
 		return (NULL);
 	data->pos = 0;
 	split_line_div(data, 2);
-	printf("brefore return : %s\n", data->array[0]);
 	return (data->array);
 }
 
