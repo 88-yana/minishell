@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:59:21 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/06 17:59:21 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:35:36 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,6 @@ char	**arrayjoin(char **arr1, char**arr2);
 void	free_array(t_array *data);
 bool	is_ltltgtgt(char c, char d);
 bool	is_null(char c);
+bool	push_element_quo(t_array *data, size_t i, size_t len, int type);
+bool	push_element_re(t_array *data, size_t *i, size_t *len, int type);
 #endif

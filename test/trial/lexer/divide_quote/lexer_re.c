@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/06 20:14:25 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:31:52 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,43 +33,6 @@ static void	plus_pos_re(t_array *data, size_t *i, size_t *str_len, char c)
 	return ;
 }
 
-//"     "<<"       "
-//hello
-//echo << hello
-static bool	push_element_quo(t_array *data, size_t i, size_t len, int type)
-{
-	if (is_null(data->line[i]) == false)
-		return (false);
-	if (type == 2)
-		if (data->line[i] == '\0')
-			ft_strlcpy(data->array[data->pos], &(data->line[i - len]), len + 1);
-	data->pos++;
-	return (true);
-}
-
-// <<
-// echo << hello <<
-static void	push_element_re(t_array *data, size_t i, size_t len, int type)
-{
-	if (is_ltltgtgt(data->line[i], data->line[i + 1]) && i == 0)
-	{
-		if (type == 2)
-			ft_strlcpy(data->array[data->pos], &(data->line[i - len]), 3);
-		data->pos++;
-		return ;
-	}
-	else
-	{
-		if (type == 2)
-		{
-			ft_strlcpy(data->array[data->pos], &(data->line[i - len]), len + 1);
-			ft_strlcpy(data->array[data->pos + 1], &(data->line[i]), 3);
-		}
-		data->pos += 2;
-	}
-}
-
-
 void	split_line_re(t_array *data, int type)
 {
 	size_t	i;
@@ -87,16 +50,8 @@ void	split_line_re(t_array *data, int type)
 			data->length[data->pos] = str_len + 1;
 		if (push_element_quo(data, i, str_len, type))
 			return ;
-		if (is_ltltgtgt(data->line[i], data->line[i + 1]))
-		{
-			push_element_re(data, i, str_len, type);
-			if (is_null(data->line[i + 2]))
-				break ;
-			str_len = 0;
-			i++; //下でもi++があるから
-		}
-		else
-			str_len++;
+		if (push_element_re(data, &i, &str_len, type))
+			return ;
 		i++;
 	}
 }
