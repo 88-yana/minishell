@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 17:00:24 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/03 21:01:47 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/06 09:27:10 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@ static void	print_export_error(char *str)
 	g_status = 1;
 }
 
-void	exec_export(t_list *list, char **cmd)
+void	exec_export(t_vars *vars, char **cmd)
 {
 	size_t	i;
 	t_envs	*envs;
+	t_list	*list;
 
 	g_status = 0;
+	list = vars->envs;
 	if (cmd[1] == NULL)
 		exec_export_with_no_args(list);
 	i = 1;
