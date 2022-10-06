@@ -6,13 +6,13 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:00:02 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/06 19:36:09 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:05:35 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "divide_quote.h"
 #include "../../lexer/lexer.h"
-#include "../divider/divide.h"
+#include "../divide_one/divide.h"
 
 char	**divide_by_duble(char **array)
 {
@@ -65,40 +65,40 @@ char	**divide_redirect(char **array)
 	return (ret);
 }
 
-#include	"../../main/main.h"
+// #include	"../../main/main.h"
 
-t_list	*to_parser(char **array);
+// t_list	*to_parser(char **array);
 
-int	main(void)
-{
-	t_array	data;
-	t_array	*box;
-	char	**array;
-	size_t	i;
+// int	main(void)
+// {
+// 	t_array	data;
+// 	t_array	*box;
+// 	char	**array;
+// 	size_t	i;
 
-	while (true)
-	{
-		data.line = exec_readline();
-		if (data.line == NULL)
-			continue ;
-		box = lexer(&data);
-		if (box == NULL)
-			continue ;
-		i = 0;
-		while (box->array[i] != NULL)
-		{
-			printf("『%s』\n", box->array[i]);
-			i++;
-		}
-		array = divide_redirect(box->array);
-		i = 0;
-		printf("%s\n", "----------------------");
-		while (array[i] != NULL)
-		{
-			printf("『%s』\n", array[i]);
-			i++;
-		}
-		printf("\n");
-	}
-	return (0);
-}
+// 	while (true)
+// 	{
+// 		data.line = exec_readline();
+// 		if (data.line == NULL)
+// 			continue ;
+// 		box = lexer(&data);
+// 		if (box == NULL)
+// 			continue ;
+// 		i = 0;
+// 		while (box->array[i] != NULL)
+// 		{
+// 			printf("『%s』\n", box->array[i]);
+// 			i++;
+// 		}
+// 		array = divide_redirect(box->array);
+// 		i = 0;
+// 		printf("%s\n", "----------------------");
+// 		while (array[i] != NULL)
+// 		{
+// 			printf("『%s』\n", array[i]);
+// 			i++;
+// 		}
+// 		printf("\n");
+// 	}
+// 	return (0);
+// }
