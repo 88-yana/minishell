@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:56:08 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/03 19:29:56 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/06 15:44:34 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	test(t_vars *vars, char *str)
 	char	**cmd;
 
 	cmd = ft_split(str, ' ');
-	exec_builtin(vars->envs, cmd);
+	exec_builtin(vars, cmd);
 	i = 0;
 	while (cmd[i])
 	{
@@ -43,7 +43,6 @@ static void	minishell(char **envp)
 
 	init_setup();
 	convert_envp_to_list(&vars, envp);
-	// char **tmp = get_envp_from_list(vars.envs);
 	while (true)
 	{
 		str = read_line_from_prompt();
@@ -52,6 +51,13 @@ static void	minishell(char **envp)
 		test(&vars, str);
 		free(str);
 	}
+	ft_lstclear(&vars.envs, free_envs);
+}
+
+__attribute__((destructor))
+static void	destructor(void)
+{
+	system("leaks -q minishell");
 }
 
 int	main(int argc, char **argv, char **envp)

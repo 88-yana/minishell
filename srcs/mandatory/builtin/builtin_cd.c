@@ -6,13 +6,13 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 12:43:42 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/04 21:12:47 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/06 13:23:18 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../include/builtin.h"
 
-char	*get_dir(void)
+static char	*get_dir(void)
 {
 	char	*cwd;
 
@@ -20,7 +20,7 @@ char	*get_dir(void)
 	return (cwd);
 }
 
-void	set_env_oldpwd(t_list *list, char **cmd)
+static void	set_env_oldpwd(t_list *list, char **cmd)
 {
 	static int	initial_flag;
 	t_list		*old_wd;
@@ -45,7 +45,7 @@ void	set_env_oldpwd(t_list *list, char **cmd)
 	((t_envs *)old_wd->content)->value = dir;
 }
 
-void	set_env_pwd(t_list *list, char **cmd)
+static void	set_env_pwd(t_list *list, char **cmd)
 {
 	static int	initial_flag;
 	t_list		*cwd;
@@ -59,11 +59,13 @@ void	set_env_pwd(t_list *list, char **cmd)
 	((t_envs *)cwd->content)->value = dir;
 }
 
-void	exec_cd(t_list *list, char **cmd)
+void	exec_cd(t_vars *vars, char **cmd)
 {
 	t_list	*home;
+	t_list	*list;
 	char	*dir;
 
+	list = vars->envs;
 	if (!cmd[1])
 	{
 		home = find_envs(list, "HOME");

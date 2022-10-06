@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:11:28 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/03 13:09:20 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/06 10:49:46 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ void	exec_env(t_list *envs_list, char **cmd)
 	// printf("hello\n");
 	if (cmd[1] != NULL)
 	{
-		printf("env: %s: No such file or directory\n", 2);
+		ft_putendl_fd("env: %s: No such file or directory\n", 2);
 		return ;
 	}
 	while (envs_list)
@@ -231,17 +231,17 @@ void	exec_env(t_list *envs_list, char **cmd)
 	}
 }
 
-void	exec_unset(t_list *envs_list, char **cmd)
-{
-	t_envs	*envs;
+//void	exec_unset(t_list *envs_list, char **cmd)
+//{
+//	t_envs	*envs;
 
-	while (envs_list)
-	{
-		envs = (t_envs *)envs_list->content;
-		printf("%s=%s\n", envs->type, envs->value);
-		envs_list = envs_list->next;
-	}
-}
+//	while (envs_list)
+//	{
+//		envs = (t_envs *)envs_list->content;
+//		printf("%s=%s\n", envs->type, envs->value);
+//		envs_list = envs_list->next;
+//	}
+//}
 
 void	exec_builtin(t_list *envs_list, char **cmd)
 {
@@ -253,8 +253,8 @@ void	exec_builtin(t_list *envs_list, char **cmd)
 		exec_env(envs_list, cmd);
 	else if (!ft_strcmp(cmd[0], "exit"))
 		exec_exit(cmd);
-	else if (!ft_strcmp(cmd[0], "cd"))
-		exec_cd(envs_list, cmd);
+	//else if (!ft_strcmp(cmd[0], "cd"))
+	//	exec_cd(envs_list, cmd);
 }
 
 bool	is_builtin(char **cmd)

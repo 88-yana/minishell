@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS =
+CFLAGS = -fsanitize=address -g3
 RLFLAGS = -I $(shell brew --prefix readline)/include -L$(shell brew --prefix readline)/lib -lreadline -lhistory
 OPTIONS = -lreadline
 SRCS_NAME = mandatory/main/main.c \
@@ -9,6 +9,7 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/builtin/builtin_cd.c \
 	mandatory/builtin/builtin_echo.c \
 	mandatory/builtin/builtin_env.c \
+	mandatory/builtin/builtin_unset.c \
 	mandatory/builtin/builtin_export.c \
 	mandatory/builtin/builtin_exit.c \
 	mandatory/envs/convert_types.c \
