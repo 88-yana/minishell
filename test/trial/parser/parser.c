@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/07 16:02:11 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/07 16:48:20 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,15 +118,21 @@ void	parser(t_node *p, bool *failed_flag)
 	}
 	if (p->type == PIPED_LINE)
 	{
-		while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos]) &&
-			!is_pipe(p->line[p->end_pos]))
-			p->end_pos++;
-		if (is_bra(p->line[p->end_pos]))
+		while (1)
 		{
-			p->end_pos++;
-			while (!is_bra(p->line[p->end_pos]))
+			while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos])
+				&& !is_bra(p->line[p->end_pos]) && !is_pipe(p->line[p->end_pos]))
 				p->end_pos++;
-			p->end_pos++;
+			// printf("command line is %s\n", p->line[p->end_pos]);
+			if (is_bra(p->line[p->end_pos]))
+			{
+				p->end_pos++;
+				while (!is_bra(p->line[p->end_pos]))
+					p->end_pos++;
+				p->end_pos++;
+			}
+			if (p->line[p->end_pos] == NULL || is_pipe(p->line[p->end_pos]))
+				break ;
 		}
 		// printf("piled_line %s\n", p->line[p->end_pos]);
 		if (is_pipe(p->line[p->end_pos]))
@@ -615,9 +621,10 @@ void	display_command(t_list *command_line)
 		}
 		else if (command->type == SUBSHELL)
 		{
-			printf("type: [ %s ]\n", "shell");
 			printf("---------- inside shell ----------\n");
+			printf("type: [ %s ]\n", "shell");
 			display_command(command->shell);
+			printf("---------- inside shell ----------\n");
 		}
 		else if (command->type == GT)
 		{

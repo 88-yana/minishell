@@ -6,3 +6,5 @@ echo hello
 echo hello world
 cat main.c
 echo -n hello
+
+(ls -a | grep h) && echo hello
