@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 12:43:42 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/04 21:12:47 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/07 21:12:58 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	exec_cd(t_list *list, char **cmd)
 	else
 		dir = cmd[1];
 	if (!dir)
-		ft_putendl_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
+		ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
 	set_env_oldpwd(list, cmd);
 	chdir(dir);
 	set_env_pwd(list, cmd);

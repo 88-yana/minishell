@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_div.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/04 15:48:45 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/07 18:19:10 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static void	push_element_div(t_array *data, size_t i, size_t len, int type)
 			ft_strlcpy(data->array[data->pos], &(data->line[i - len]), len + 1);
 			ft_strlcpy(data->array[data->pos + 1], &(data->line[i]), 2);
 		}
-		printf("%s\n", &(data->line[i - len]));
-		printf("in type 2 return : 『%s』\n", data->array[0]);
+		// printf("%s\n", &(data->line[i - len]));
+		// printf("in type 2 return : 『%s』\n", data->array[0]);
 	}
 	if (data->line[i] == '\0')
 	{
@@ -103,7 +103,7 @@ char	**lexer_div(t_array	*data)
 		return (NULL);
 	data->pos = 0;
 	split_line_div(data, 2);
-	printf("brefore return : %s\n", data->array[0]);
+	// printf("brefore return : %s\n", data->array[0]);
 	return (data->array);
 }
 

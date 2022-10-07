@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*   asterisks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 21:55:08 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/07 21:13:45 by yahokari         ###   ########.fr       */
+/*   Created: 2022/10/07 18:24:12 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/07 18:26:18 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../include/builtin.h"
+#include	"../../../include/asterisks.h"
 
-void	exec_pwd(char **cmd)
+void	expand_asterisk(char *str)
 {
-	char	*cwd;
+	size_t	i;
 
-	cwd = getcwd(NULL, 0);
-	if (cwd == NULL)
-		return ;
-	printf("%s\n", cwd);
-	free(cwd);
-	g_status = 0;
+	i = 0;
+	while (str[i])
+	{
+		;
+	}
 }

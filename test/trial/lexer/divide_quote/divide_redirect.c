@@ -31,7 +31,7 @@ char	**divide_redirect(char **array)
 	{
 		data.line = array[i];
 		redirections = lexer_re(&data);
-		printf("redirections is 「%s」\n", redirections[0]);
+		// printf("redirections is 「%s」\n", redirections[0]);
 		half = arrayjoin(half, redirections);
 		i++;
 	}
@@ -44,7 +44,7 @@ char	**divide_redirect(char **array)
 		data.line = half[i];
 		brackets = lexer_div(&data);
 		// brackets = delete_brank(brackets);
-		printf("brackets is %s\n", brackets[0]);
+		// printf("brackets is %s\n", brackets[0]);
 		ret = arrayjoin(ret, brackets);
 		i++;
 	}

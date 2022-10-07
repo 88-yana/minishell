@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*   asterisks.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 21:55:08 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/07 21:13:45 by yahokari         ###   ########.fr       */
+/*   Created: 2022/10/07 18:24:57 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/07 18:25:58 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../include/builtin.h"
+#ifndef ASTERISKS_H
+# define ASTERISKS_H
 
-void	exec_pwd(char **cmd)
-{
-	char	*cwd;
+# include	"../libft/libft.h"
+# include	"structure.h"
 
-	cwd = getcwd(NULL, 0);
-	if (cwd == NULL)
-		return ;
-	printf("%s\n", cwd);
-	free(cwd);
-	g_status = 0;
-}
+#endif

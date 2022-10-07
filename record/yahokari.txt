@@ -59,3 +59,8 @@ ls -l | grep shell | < minishell.c (wc -l)
 ls -l | grep shell | (wc -l) < minishell.c
 
 ls -l | grep shell | (wc -l < minishell.h) < minishell.c
+
+/bin opendir でやる g_status 126
+/bin/
+
+cat <dir g_status 1 
