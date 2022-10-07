@@ -6,14 +6,14 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:59:21 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/09/29 21:52:09 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/06 15:52:17 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-// # include "structure.h"
+# include "structure.h"
 
 # define DUBLEQ '"'
 # define SINGLEQ '\''

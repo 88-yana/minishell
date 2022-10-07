@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:46:59 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/05 21:11:28 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/06 13:50:28 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ void	exec_builtin(t_vars *vars, char **cmd)
 	if (!ft_strcmp(cmd[0], "echo"))
 		exec_echo(cmd);
 	else if (!ft_strcmp(cmd[0], "cd"))
-		exec_cd(vars->envs, cmd);
+		exec_cd(vars, cmd);
 	else if (!ft_strcmp(cmd[0], "pwd"))
 		exec_pwd(cmd);
 	else if (!ft_strcmp(cmd[0], "export"))
-		exec_export(vars->envs, cmd);
+		exec_export(vars, cmd);
 	else if (!ft_strcmp(cmd[0], "unset"))
 		exec_unset(vars, cmd);
 	else if (!ft_strcmp(cmd[0], "env"))
-		exec_env(vars->envs, cmd);
+		exec_env(vars, cmd);
 	else if (!ft_strcmp(cmd[0], "exit"))
 		exec_exit(cmd);
 }

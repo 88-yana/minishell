@@ -1,16 +1,16 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   parser.c                                           :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-// /*   Updated: 2022/09/26 14:05:35 by hyanagim         ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
+/*   Updated: 2022/10/07 16:48:20 by hyanagim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "main.h"
+#include "../main/main.h"
 #include "parser.h"
 
 #define ARRAY_SIZE 14
@@ -41,58 +41,6 @@ t_order	*make_command(t_type type, char **cmd, char *file, t_list *shell)
 	return (command_line);
 }
 
-bool	is_delimiter(char *str)
-{
-	if (str == NULL)
-		return (false);
-	if (ft_strcmp(str, "&&") == 0)
-		return (true);
-	if (ft_strcmp(str, "||") == 0)
-		return (true);
-	return (false);
-}
-
-bool	is_bra(char *str)
-{
-	if (str == NULL)
-		return (false);
-	if (ft_strcmp(str, "(") == 0)
-		return (true);
-	return (false);
-}
-
-bool	is_pipe(char *str)
-{
-	if (str == NULL)
-		return (false);
-	if (ft_strcmp(str, "|") == 0)
-		return (true);
-	return (false);
-}
-
-bool	is_redirection(char *str)
-{
-	if (str == NULL)
-		return (false);
-	if (ft_strcmp(str, "<") == 0)
-		return (true);
-	if (ft_strcmp(str, ">") == 0)
-		return (true);
-	if (ft_strcmp(str, ">>") == 0)
-		return (true);
-	if (ft_strcmp(str, "<<") == 0)
-		return (true);
-	if (str[0] ==  '<')
-		return (true);
-	if (str[0] ==  '>')
-		return (true);
-	if (ft_strcmp(str, ">>") == 0)
-		return (true);
-	if (ft_strcmp(str, "<<") == 0)
-		return (true);
-	return (false);
-}
-
 void	parser(t_node *p, bool *failed_flag)
 {
 	if (p->type == COMMAND_LINE)
@@ -115,16 +63,21 @@ void	parser(t_node *p, bool *failed_flag)
 			
 // 		}
 		// かっこやデリミターが見つかるまで，エンドポスを進める。
-
-		while (p->line[p->end_pos] != NULL &&
-			!is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos]))
-			p->end_pos++;
-		// printf("command line is %s\n", p->line[p->end_pos]);
-		if (is_bra(p->line[p->end_pos]))
+		while (1)
 		{
-			p->end_pos = p->start_pos;
-			p->left = talloc(SUBSHELL, p);
-			parser(p->left, failed_flag);
+			while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos])
+				&& !is_bra(p->line[p->end_pos]))
+				p->end_pos++;
+			// printf("command line is %s\n", p->line[p->end_pos]);
+			if (is_bra(p->line[p->end_pos]))
+			{
+				p->end_pos++;
+				while (!is_bra(p->line[p->end_pos]))
+					p->end_pos++;
+				p->end_pos++;
+			}
+			if (p->line[p->end_pos] == NULL || is_delimiter(p->line[p->end_pos]))
+				break ;
 		}
 		if (is_delimiter(p->line[p->end_pos]))
 		{
@@ -135,6 +88,7 @@ void	parser(t_node *p, bool *failed_flag)
 		}
 		if (p->line[p->end_pos] == NULL)
 		{
+			
 			// printf("before piped line command line is start %s\n", p->line[p->start_pos]);
 			// printf("before piped line command line is end %s\n", p->line[p->end_pos]);
 			p->end_pos = p->start_pos;
@@ -148,9 +102,9 @@ void	parser(t_node *p, bool *failed_flag)
 
 		arr = p->line;
 		if (ft_strcmp(p->line[p->current_pos], "||") == 0)
-			p->delimiter = 0;
+			p->detail = OR;
 		if (ft_strcmp(p->line[p->current_pos], "&&") == 0)
-			p->delimiter = 1;
+			p->detail = AND;
 		p->line[p->current_pos] = NULL;
 		
 		p->left = talloc(COMMAND_LINE, p);
@@ -164,9 +118,22 @@ void	parser(t_node *p, bool *failed_flag)
 	}
 	if (p->type == PIPED_LINE)
 	{
-		while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos]) &&
-			!is_pipe(p->line[p->end_pos]))
-			p->end_pos++;
+		while (1)
+		{
+			while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos])
+				&& !is_bra(p->line[p->end_pos]) && !is_pipe(p->line[p->end_pos]))
+				p->end_pos++;
+			// printf("command line is %s\n", p->line[p->end_pos]);
+			if (is_bra(p->line[p->end_pos]))
+			{
+				p->end_pos++;
+				while (!is_bra(p->line[p->end_pos]))
+					p->end_pos++;
+				p->end_pos++;
+			}
+			if (p->line[p->end_pos] == NULL || is_pipe(p->line[p->end_pos]))
+				break ;
+		}
 		// printf("piled_line %s\n", p->line[p->end_pos]);
 		if (is_pipe(p->line[p->end_pos]))
 		{
@@ -210,7 +177,26 @@ void	parser(t_node *p, bool *failed_flag)
 		// printf("%s\n", p->line[p->end_pos]);
 		//間違っている
 		// printf("argument is %s\n", p->line[p->end_pos]);
-
+		if (is_bra(p->line[p->end_pos]))
+		{
+			p->end_pos++;
+			while (!is_bra(p->line[p->end_pos]))
+				p->end_pos++;
+			p->line[p->end_pos] = NULL;
+			p->current_pos = p->end_pos;
+			p->end_pos = p->start_pos;
+			p->left = talloc(SUBSHELL, p);
+			parser(p->left, failed_flag);
+			p->end_pos = p->current_pos + 1;
+			p->start_pos = p->current_pos + 1;
+			if (p->line[p->end_pos] != NULL)
+			{
+				p->right = talloc(ARGUMENTS, p);
+				parser(p->right, failed_flag);
+			}
+			else
+				return ;
+		}
 		if (is_redirection(p->line[p->end_pos]))
 		{
 			p->left = talloc(REDIRECTION, p);
@@ -273,7 +259,7 @@ void	parser(t_node *p, bool *failed_flag)
 		p->end_pos++;
 		if (p->line[p->end_pos] == NULL)
 		{
-			printf("%s\n", "error in redirection");
+			printf("%s\n", "error in redirection in parser");
 			return ;
 			//ここで，free
 		}
@@ -307,6 +293,13 @@ void	parser(t_node *p, bool *failed_flag)
 		} */
 		return ;
 	}
+	if (p->type == SUBSHELL)
+	{
+		p->end_pos++;
+		p->start_pos = p->end_pos;
+		p->left = talloc(COMMAND_LINE, p);
+		parser(p->left, failed_flag);
+	}
 	return ;
 }
 
@@ -319,7 +312,7 @@ t_node	*talloc(t_type type, t_node *parent)
 	t_node *p;
 	p = malloc(sizeof(t_node));
 	p->type = type;
-	p->delimiter = parent->delimiter;
+	p->detail = parent->detail;
 	p->line = parent->line;
 	p->ele_is_quoted = parent->ele_is_quoted;
 	p->ele_length = parent->ele_length;
@@ -481,14 +474,33 @@ t_list	**executer(t_node *p, t_list **list)
 {
 	if (p->type == COMMAND_LINE)
 		list = executer(p->left, list);
+	if (p->type == SUBSHELL)
+	{
+		t_list	**subshell;
+		t_list	*shell;
+		t_list	*list_ptr;
+		size_t	i;
+
+		subshell = executer(p->left, list);
+		shell = subshell[0];
+		i = 1;
+		while (subshell[i] != NULL)
+		{
+			ft_lstadd_back(&shell, subshell[i]);
+			i++;
+		}
+		
+		list_ptr = ft_lstnew(make_command(SUBSHELL, NULL, NULL, shell));
+		list = realloc_list(list, list_ptr);
+	}
 	if (p->type == DELIMITER)
 	{
 		t_list	**latter;
 		t_list	*list_ptr;
 
-		if (p->delimiter == 0)
+		if (p->detail == OR)
 			list_ptr = ft_lstnew(make_command(OR, NULL, NULL, NULL));
-		if (p->delimiter == 1)
+		if (p->detail == AND)
 			list_ptr = ft_lstnew(make_command(AND, NULL, NULL, NULL));
 		list = executer(p->left, list);
 		list = realloc_list(list, list_ptr);
@@ -579,6 +591,7 @@ t_list	**executer(t_node *p, t_list **list)
 		list = realloc_list(list, list_ptr);
 		// size_index(list, p, COMMAND);
 	}
+
 	return (list);
 }
 // //stringかなんかで，
@@ -608,9 +621,10 @@ void	display_command(t_list *command_line)
 		}
 		else if (command->type == SUBSHELL)
 		{
-			printf("type: [ %s ]\n", "shell");
 			printf("---------- inside shell ----------\n");
+			printf("type: [ %s ]\n", "shell");
 			display_command(command->shell);
+			printf("---------- inside shell ----------\n");
 		}
 		else if (command->type == GT)
 		{
@@ -658,7 +672,7 @@ void	display_array(char ** arr)
 
 void	cmdjoin(t_list **list)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < listlen(list) - 1)
@@ -770,7 +784,7 @@ t_list	*to_parser(char **array)
 		i++;
 	}
 
-	// display_command(maked_list);
+	display_command(maked_list);
 	return (maked_list);
 }
 
@@ -804,6 +818,8 @@ arguments ::=
 	| redirection arguments
 	| command
 	| command arguments
+	| (subshell)
+	| (subshell) arguments
 
 command ::=
 	| expandable <no_space> command

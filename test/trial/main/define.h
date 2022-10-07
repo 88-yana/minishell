@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:18:11 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/04 20:50:46 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/07 16:53:51 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_split
 typedef struct s_node
 {
 	t_type			type;
-	int				delimiter;
+	t_type			detail;
 	char			**line;
 	int				*ele_is_quoted;
 	size_t			*ele_length;

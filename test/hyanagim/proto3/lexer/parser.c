@@ -867,9 +867,9 @@ delimiter ::=
 	"||"
 
 piped_commands ::=
-	| command "|" piped_commands
+	| arguments "|" piped_commands
 	
-	| command
+	| arguments
 
 arguments ::=
 	| redirection

@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/05 17:10:29 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/07 21:09:29 by yahokari         ###   ########.fr       */
+/*   Created: 2022/10/07 21:26:16 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/07 21:26:36 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../include/builtin.h"
 
-bool	is_str_valid_list(char *str)
+static bool	is_str_valid_list(char *str)
 {
 	size_t	i;
 
@@ -37,18 +37,25 @@ void	delete_envs_single_top(t_vars *vars, char *type)
 
 void	delete_envs_top(t_vars *vars, char *type)
 {
+	t_list	*list;
 	t_list	*buf;
 
-	buf = vars->envs->next;
-	ft_lstdelone(vars->envs, free_envs);
+	list = vars->envs;
+	if (list->next)
+		buf = list->next;
+	else
+		buf = NULL;
+	ft_lstdelone(list, free_envs);
 	vars->envs = buf;
 }
 
-void	delete_envs_not_top(t_list *list, char *type)
+static void	delete_envs_not_top(t_vars *vars, char *type)
 {
 	t_envs	*envs;
+	t_list	*list;
 	t_list	*buf;
 
+	list = vars->envs;
 	while (list->next)
 	{
 		envs = (t_envs *)list->next->content;
@@ -63,7 +70,7 @@ void	delete_envs_not_top(t_list *list, char *type)
 	}
 }
 
-void	delete_envs(t_vars *vars, char *type)
+static void	delete_envs(t_vars *vars, char *type)
 {
 	t_envs	*envs;
 	t_list	*list;
@@ -77,7 +84,7 @@ void	delete_envs(t_vars *vars, char *type)
 	else if (!ft_strcmp(envs->type, type))
 		delete_envs_top(vars, type);
 	else
-		delete_envs_not_top(list, type);
+		delete_envs_not_top(vars, type);
 }
 
 void	exec_unset(t_vars *vars, char **cmd)
