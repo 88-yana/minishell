@@ -1,16 +1,16 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   parser.c                                           :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-// /*   Updated: 2022/09/26 14:05:35 by hyanagim         ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
+/*   Updated: 2022/10/06 22:29:59 by hyanagim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "main.h"
+#include "../main/main.h"
 #include "parser.h"
 
 #define ARRAY_SIZE 14
@@ -41,58 +41,6 @@ t_order	*make_command(t_type type, char **cmd, char *file, t_list *shell)
 	return (command_line);
 }
 
-bool	is_delimiter(char *str)
-{
-	if (str == NULL)
-		return (false);
-	if (ft_strcmp(str, "&&") == 0)
-		return (true);
-	if (ft_strcmp(str, "||") == 0)
-		return (true);
-	return (false);
-}
-
-bool	is_bra(char *str)
-{
-	if (str == NULL)
-		return (false);
-	if (ft_strcmp(str, "(") == 0)
-		return (true);
-	return (false);
-}
-
-bool	is_pipe(char *str)
-{
-	if (str == NULL)
-		return (false);
-	if (ft_strcmp(str, "|") == 0)
-		return (true);
-	return (false);
-}
-
-bool	is_redirection(char *str)
-{
-	if (str == NULL)
-		return (false);
-	if (ft_strcmp(str, "<") == 0)
-		return (true);
-	if (ft_strcmp(str, ">") == 0)
-		return (true);
-	if (ft_strcmp(str, ">>") == 0)
-		return (true);
-	if (ft_strcmp(str, "<<") == 0)
-		return (true);
-	if (str[0] ==  '<')
-		return (true);
-	if (str[0] ==  '>')
-		return (true);
-	if (ft_strcmp(str, ">>") == 0)
-		return (true);
-	if (ft_strcmp(str, "<<") == 0)
-		return (true);
-	return (false);
-}
-
 void	parser(t_node *p, bool *failed_flag)
 {
 	if (p->type == COMMAND_LINE)
@@ -116,8 +64,8 @@ void	parser(t_node *p, bool *failed_flag)
 // 		}
 		// かっこやデリミターが見つかるまで，エンドポスを進める。
 
-		while (p->line[p->end_pos] != NULL &&
-			!is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos]))
+		while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos])
+			&& !is_bra(p->line[p->end_pos]))
 			p->end_pos++;
 		// printf("command line is %s\n", p->line[p->end_pos]);
 		if (is_bra(p->line[p->end_pos]))
@@ -148,9 +96,9 @@ void	parser(t_node *p, bool *failed_flag)
 
 		arr = p->line;
 		if (ft_strcmp(p->line[p->current_pos], "||") == 0)
-			p->delimiter = 0;
+			p->detail = OR;
 		if (ft_strcmp(p->line[p->current_pos], "&&") == 0)
-			p->delimiter = 1;
+			p->detail = AND;
 		p->line[p->current_pos] = NULL;
 		
 		p->left = talloc(COMMAND_LINE, p);
@@ -273,7 +221,7 @@ void	parser(t_node *p, bool *failed_flag)
 		p->end_pos++;
 		if (p->line[p->end_pos] == NULL)
 		{
-			printf("%s\n", "error in redirection");
+			printf("%s\n", "error in redirection in parser");
 			return ;
 			//ここで，free
 		}
@@ -319,7 +267,7 @@ t_node	*talloc(t_type type, t_node *parent)
 	t_node *p;
 	p = malloc(sizeof(t_node));
 	p->type = type;
-	p->delimiter = parent->delimiter;
+	p->detail = parent->detail;
 	p->line = parent->line;
 	p->ele_is_quoted = parent->ele_is_quoted;
 	p->ele_length = parent->ele_length;
@@ -486,9 +434,9 @@ t_list	**executer(t_node *p, t_list **list)
 		t_list	**latter;
 		t_list	*list_ptr;
 
-		if (p->delimiter == 0)
+		if (p->detail == OR)
 			list_ptr = ft_lstnew(make_command(OR, NULL, NULL, NULL));
-		if (p->delimiter == 1)
+		if (p->detail == AND)
 			list_ptr = ft_lstnew(make_command(AND, NULL, NULL, NULL));
 		list = executer(p->left, list);
 		list = realloc_list(list, list_ptr);
@@ -658,7 +606,7 @@ void	display_array(char ** arr)
 
 void	cmdjoin(t_list **list)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < listlen(list) - 1)
