@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 21:15:25 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/06 21:17:55 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/07 15:13:19 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ bool	is_bra(char *str)
 	if (str == NULL)
 		return (false);
 	if (ft_strcmp(str, "(") == 0)
+		return (true);
+	if (ft_strcmp(str, ")") == 0)
 		return (true);
 	return (false);
 }

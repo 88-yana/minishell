@@ -6,11 +6,11 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:49:46 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/02 16:29:29 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/07 14:57:26 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "../parser/parser.h"
 
 static bool	is_angle_bracket(char c)
 {
