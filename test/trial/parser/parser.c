@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/07 15:24:31 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/07 16:02:11 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,22 @@ void	parser(t_node *p, bool *failed_flag)
 			
 // 		}
 		// かっこやデリミターが見つかるまで，エンドポスを進める。
-
-		while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos])
-			&& !is_bra(p->line[p->end_pos]))
-			p->end_pos++;
-		// printf("command line is %s\n", p->line[p->end_pos]);
-		if (is_bra(p->line[p->end_pos]))
+		while (1)
 		{
-			printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
-			p->end_pos++;
-			while (!is_bra(p->line[p->end_pos]))
+			while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos])
+				&& !is_bra(p->line[p->end_pos]))
 				p->end_pos++;
-			p->end_pos++;
-			printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+			// printf("command line is %s\n", p->line[p->end_pos]);
+			if (is_bra(p->line[p->end_pos]))
+			{
+				p->end_pos++;
+				while (!is_bra(p->line[p->end_pos]))
+					p->end_pos++;
+				p->end_pos++;
+			}
+			if (p->line[p->end_pos] == NULL || is_delimiter(p->line[p->end_pos]))
+				break ;
 		}
-		while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos])
-			&& !is_bra(p->line[p->end_pos]))
-			p->end_pos++;
 		if (is_delimiter(p->line[p->end_pos]))
 		{
 			p->current_pos = p->end_pos;
@@ -150,8 +149,6 @@ void	parser(t_node *p, bool *failed_flag)
 	}
 	if (p->type == PIPE)
 	{
-		printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
-		printf("[%s]\n", p->line[p->start_pos]);
 		// printf("pipe is %s\n", p->line[p->current_pos]);
 		// printf("before arguments pipe is start %s\n", p->line[p->start_pos]);
 			// printf("before arguments pipe is end %s\n", p->line[p->end_pos]);
@@ -171,14 +168,11 @@ void	parser(t_node *p, bool *failed_flag)
 	// }
 	if (p->type == ARGUMENTS)
 	{
-		printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
-		printf("[%s]\n", p->line[p->start_pos]);
 		// printf("%s\n", p->line[p->end_pos]);
 		//間違っている
 		// printf("argument is %s\n", p->line[p->end_pos]);
 		if (is_bra(p->line[p->end_pos]))
 		{
-			printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 			p->end_pos++;
 			while (!is_bra(p->line[p->end_pos]))
 				p->end_pos++;
@@ -189,7 +183,6 @@ void	parser(t_node *p, bool *failed_flag)
 			parser(p->left, failed_flag);
 			p->end_pos = p->current_pos + 1;
 			p->start_pos = p->current_pos + 1;
-			printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 			if (p->line[p->end_pos] != NULL)
 			{
 				p->right = talloc(ARGUMENTS, p);
@@ -477,7 +470,6 @@ t_list	**executer(t_node *p, t_list **list)
 		list = executer(p->left, list);
 	if (p->type == SUBSHELL)
 	{
-		printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 		t_list	**subshell;
 		t_list	*shell;
 		t_list	*list_ptr;
@@ -486,12 +478,12 @@ t_list	**executer(t_node *p, t_list **list)
 		subshell = executer(p->left, list);
 		shell = subshell[0];
 		i = 1;
-		while (list[i] != NULL)
+		while (subshell[i] != NULL)
 		{
 			ft_lstadd_back(&shell, subshell[i]);
 			i++;
 		}
-
+		
 		list_ptr = ft_lstnew(make_command(SUBSHELL, NULL, NULL, shell));
 		list = realloc_list(list, list_ptr);
 	}
@@ -785,7 +777,7 @@ t_list	*to_parser(char **array)
 		i++;
 	}
 
-	// display_command(maked_list);
+	display_command(maked_list);
 	return (maked_list);
 }
 
