@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 21:26:16 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/17 21:34:03 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/07 21:26:36 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ void	exec_unset(t_vars *vars, char **cmd)
 
 	g_status = 0;
 	i = 1;
-	if (!vars->envs)
-		return ;
 	while (cmd[i])
 	{
 		delete_envs(vars, cmd[i]);

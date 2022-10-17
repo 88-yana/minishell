@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 20:56:28 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/17 19:09:02 by yahokari         ###   ########.fr       */
+/*   Created: 2022/10/04 21:19:47 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/06 09:08:25 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include	"../../../include/builtin.h"
 
-# include	<signal.h>
-# include	"stdbool.h"
-# include	"structure.h"
-# include	"../libft/libft.h"
-# include	"readline.h"
-# include	"builtin.h"
-# include	"envs.h"
+void	exec_env(t_vars *vars, char **cmd)
+{
+	t_envs	*envs;
+	t_list	*list;
 
-#endif
+	list = vars->envs;
+	while (list)
+	{
+		envs = (t_envs *)list->content;
+		if (envs->value)
+			printf("%s=%s\n", envs->type, envs->value);
+		list = list->next;
+	}
+}

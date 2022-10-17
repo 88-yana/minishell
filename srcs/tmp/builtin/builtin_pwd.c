@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 20:56:28 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/17 19:09:02 by yahokari         ###   ########.fr       */
+/*   Created: 2022/09/29 21:55:08 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/07 21:13:45 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include	"../../../include/builtin.h"
 
-# include	<signal.h>
-# include	"stdbool.h"
-# include	"structure.h"
-# include	"../libft/libft.h"
-# include	"readline.h"
-# include	"builtin.h"
-# include	"envs.h"
+void	exec_pwd(char **cmd)
+{
+	char	*cwd;
 
-#endif
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+		return ;
+	printf("%s\n", cwd);
+	free(cwd);
+	g_status = 0;
+}

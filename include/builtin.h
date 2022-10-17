@@ -6,13 +6,14 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 21:55:22 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/06 13:51:03 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/17 19:25:50 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
+# include	<errno.h>
 # include	"../libft/libft.h"
 # include	"structure.h"
 # include	"envs.h"
