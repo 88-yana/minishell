@@ -137,3 +137,6 @@ cd | ls
 //error
 
 echo >>> text.txt
+
+"echo $PATH"
+"$PATH"

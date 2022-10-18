@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/07 16:48:20 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/09 11:52:28 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ void	parser(t_node *p, bool *failed_flag)
 			else
 				return ;
 		}
-		if (is_redirection(p->line[p->end_pos]))
+		else if (is_redirection(p->line[p->end_pos]))
 		{
 			p->left = talloc(REDIRECTION, p);
 			parser(p->left, failed_flag);
@@ -491,6 +491,7 @@ t_list	**executer(t_node *p, t_list **list)
 		}
 		
 		list_ptr = ft_lstnew(make_command(SUBSHELL, NULL, NULL, shell));
+		////////////ここで，listの中身調べる。
 		list = realloc_list(list, list_ptr);
 	}
 	if (p->type == DELIMITER)
@@ -524,14 +525,12 @@ t_list	**executer(t_node *p, t_list **list)
 	if (p->type == PIPE)
 	{
 		t_list	**latter;
-		latter = malloc(sizeof(t_list *));
-		latter[0] = NULL;
 		t_list	*list_ptr;
 		list_ptr = ft_lstnew(make_command(PIPE, NULL, NULL, NULL));
 		list = executer(p->left, list);
 		list = realloc_list(list, list_ptr);
 	
-		latter = malloc(sizeof(t_list *) * 1);
+		latter = malloc(sizeof(t_list *));
 		latter[0] = NULL;
 		latter = executer(p->right, latter);
 		list = listjoin(list, latter);

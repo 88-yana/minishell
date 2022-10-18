@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 19:54:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/06 21:01:20 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/18 20:47:06 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**delete_brank(char **array)
 	i = 0;
 	while (array[i] != NULL)
 	{
-		if (array[i][0] == '\0')
+		if (array[i][0] == '\0' || ft_strcmp(array[i], "\"\"") == 0 || ft_strcmp(array[i], "\'\'") == 0)
 		{
 			j = i;
 			while (1)
