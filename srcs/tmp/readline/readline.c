@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 21:17:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/17 19:08:55 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/17 18:00:04 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	init_prompt(int signal)
 static void	exit_shell(void)
 {
 	printf("exit\n");
+	// printf("\e[1A\e[11Cexit\n");
 	exit(g_status);
 }
 
@@ -32,7 +33,7 @@ char	*read_line_from_prompt(void)
 {
 	char	*str;
 
-	str = readline(PROMPT);
+	str = readline("minishell$ ");
 	if (!str)
 		exit_shell();
 	else if (ft_strlen(str) == 0)

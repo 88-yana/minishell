@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 17:00:24 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/17 21:19:35 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/06 09:27:10 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	exec_export(t_vars *vars, char **cmd)
 	i = 1;
 	while (cmd[i])
 	{
-		if (!create_envs_list(vars, cmd[i]))
+		if (!create_envs_list(&list, cmd[i]))
 			print_export_error(cmd[i]);
 		i++;
 	}

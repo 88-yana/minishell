@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   asterisks.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 20:56:28 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/17 19:09:02 by yahokari         ###   ########.fr       */
+/*   Created: 2022/10/07 18:24:57 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/07 18:25:58 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef ASTERISKS_H
+# define ASTERISKS_H
 
-# include	<signal.h>
-# include	"stdbool.h"
-# include	"structure.h"
 # include	"../libft/libft.h"
-# include	"readline.h"
-# include	"builtin.h"
-# include	"envs.h"
+# include	"structure.h"
 
 #endif

@@ -28,6 +28,10 @@ char	**divide_by_duble(char **array)
 	{
 		data.line = array[i];
 		redirections = lexer_re(&data);
+<<<<<<< HEAD:test/trial/lexer/divide_quote/divide_redirect.c
+		// printf("redirections is 「%s」\n", redirections[0]);
+=======
+>>>>>>> 8d81291fc0f3c540711157d457315818c07108dd:test/trial/lexer/divide_double/divide_redirect.c
 		half = arrayjoin(half, redirections);
 		i++;
 	}
@@ -48,7 +52,12 @@ char	**divide_by_one(char **half)
 	{
 		data.line = half[i];
 		brackets = lexer_div(&data);
+<<<<<<< HEAD:test/trial/lexer/divide_quote/divide_redirect.c
+		// brackets = delete_brank(brackets);
+		// printf("brackets is %s\n", brackets[0]);
+=======
 		brackets = delete_brank(brackets);
+>>>>>>> 8d81291fc0f3c540711157d457315818c07108dd:test/trial/lexer/divide_double/divide_redirect.c
 		ret = arrayjoin(ret, brackets);
 		i++;
 	}
