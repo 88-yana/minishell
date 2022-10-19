@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   bool.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 20:56:28 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/19 13:16:47 by yahokari         ###   ########.fr       */
+/*   Created: 2022/09/30 17:11:40 by hyanagim          #+#    #+#             */
+/*   Updated: 2022/09/30 17:12:28 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "lexer.h"
 
-# include	<signal.h>
-# include	"stdbool.h"
-# include	"structure.h"
-# include	"../libft/libft.h"
-# include	"readline.h"
-# include	"builtin.h"
-# include	"envs.h"
-# include	"execution.h"
-
-#endif
+bool	is_separator(char c)
+{
+	if (c == ' ' || c == '\0')
+		return (true);
+	return (false);
+}

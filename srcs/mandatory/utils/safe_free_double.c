@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   safe_free_double.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 20:56:28 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/19 13:16:47 by yahokari         ###   ########.fr       */
+/*   Created: 2022/10/19 15:10:10 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/19 15:11:40 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include	"../../../include/utils.h"
 
-# include	<signal.h>
-# include	"stdbool.h"
-# include	"structure.h"
-# include	"../libft/libft.h"
-# include	"readline.h"
-# include	"builtin.h"
-# include	"envs.h"
-# include	"execution.h"
+void	safe_free_double_char(char **str)
+{
+	size_t	i;
 
-#endif
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
