@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 12:43:42 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/17 18:44:23 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/19 10:38:51 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,44 +20,44 @@ static char	*get_dir(void)
 	return (cwd);
 }
 
-static void	set_env_oldpwd(t_list *list, char **cmd)
-{
-	static int	initial_flag;
-	t_list		*old_wd;
-	char		*dir;
-	char		*buf;
+// static void	set_env_oldpwd(t_list *list, char **cmd)
+// {
+// 	static int	initial_flag;
+// 	t_list		*old_wd;
+// 	char		*dir;
+// 	char		*buf;
 
-	old_wd = find_envs(list, "OLDPWD");
-	dir = get_dir();
-	if (!dir)
-		return ;
-	if (initial_flag == 0 && !old_wd)
-	{
-		buf = strjoin_delimiter("OLDPWD", dir, "=");
-		free(dir);
-		create_envs_list(&list, buf);
-		initial_flag = 1;
-		return ;
-	}
-	if (!old_wd)
-		return ;
-	free(((t_envs *)old_wd->content)->value);
-	((t_envs *)old_wd->content)->value = dir;
-}
+// 	old_wd = find_envs(list, "OLDPWD");
+// 	dir = get_dir();
+// 	if (!dir)
+// 		return ;
+// 	if (initial_flag == 0 && !old_wd)
+// 	{
+// 		buf = strjoin_delimiter("OLDPWD", dir, "=");
+// 		free(dir);
+// 		create_envs_list(&list, buf);
+// 		initial_flag = 1;
+// 		return ;
+// 	}
+// 	if (!old_wd)
+// 		return ;
+// 	free(((t_envs *)old_wd->content)->value);
+// 	((t_envs *)old_wd->content)->value = dir;
+// }
 
-static void	set_env_pwd(t_list *list, char **cmd)
-{
-	static int	initial_flag;
-	t_list		*cwd;
-	char		*dir;
+// static void	set_env_pwd(t_list *list, char **cmd)
+// {
+// 	static int	initial_flag;
+// 	t_list		*cwd;
+// 	char		*dir;
 
-	cwd = find_envs(list, "PWD");
-	dir = get_dir();
-	if (!dir || !cwd)
-		return ;
-	free(((t_envs *)cwd->content)->value);
-	((t_envs *)cwd->content)->value = dir;
-}
+// 	cwd = find_envs(list, "PWD");
+// 	dir = get_dir();
+// 	if (!dir || !cwd)
+// 		return ;
+// 	free(((t_envs *)cwd->content)->value);
+// 	((t_envs *)cwd->content)->value = dir;
+// }
 
 static void	print_cd_error(char *str, char *error)
 {

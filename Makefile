@@ -9,6 +9,7 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/envs/find_envs.c \
 	mandatory/envs/envs_utils.c \
 	mandatory/utils/substr_size_t.c \
+	mandatory/utils/count_lstsize.c \
 	mandatory/builtin/builtin.c \
 	mandatory/builtin/builtin_pwd.c \
 	mandatory/builtin/builtin_cd.c \

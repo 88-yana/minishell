@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   divide_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:00:02 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/06 21:10:34 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/19 10:12:56 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ char	**divide_by_duble(char **array)
 	{
 		data.line = array[i];
 		redirections = lexer_re(&data);
-<<<<<<< HEAD:test/trial/lexer/divide_quote/divide_redirect.c
-		// printf("redirections is 「%s」\n", redirections[0]);
-=======
->>>>>>> 8d81291fc0f3c540711157d457315818c07108dd:test/trial/lexer/divide_double/divide_redirect.c
 		half = arrayjoin(half, redirections);
 		i++;
 	}
@@ -52,12 +48,7 @@ char	**divide_by_one(char **half)
 	{
 		data.line = half[i];
 		brackets = lexer_div(&data);
-<<<<<<< HEAD:test/trial/lexer/divide_quote/divide_redirect.c
-		// brackets = delete_brank(brackets);
-		// printf("brackets is %s\n", brackets[0]);
-=======
 		brackets = delete_brank(brackets);
->>>>>>> 8d81291fc0f3c540711157d457315818c07108dd:test/trial/lexer/divide_double/divide_redirect.c
 		ret = arrayjoin(ret, brackets);
 		i++;
 	}

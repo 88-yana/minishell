@@ -6,11 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-<<<<<<< HEAD:test/trial/lexer/divider/lexer_div.c
-/*   Updated: 2022/10/07 18:19:10 by yahokari         ###   ########.fr       */
-=======
-/*   Updated: 2022/10/06 19:26:48 by hyanagim         ###   ########.fr       */
->>>>>>> 8d81291fc0f3c540711157d457315818c07108dd:test/trial/lexer/divide_one/lexer_div.c
+/*   Updated: 2022/10/19 10:13:33 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +57,7 @@ static void	push_element_div(t_array *data, size_t i, size_t len, int type)
 		return ;
 	}
 	if (type == 2)
-<<<<<<< HEAD:test/trial/lexer/divider/lexer_div.c
-	{
-		if (data->line[i] == '\0')
-			ft_strlcpy(data->array[data->pos], &(data->line[i - len]), len + 1);
-		else if (i == 0)
-			ft_strlcpy(data->array[data->pos], &(data->line[i]), 2);
-		else
-		{
-			ft_strlcpy(data->array[data->pos], &(data->line[i - len]), len + 1);
-			ft_strlcpy(data->array[data->pos + 1], &(data->line[i]), 2);
-		}
-		// printf("%s\n", &(data->line[i - len]));
-		// printf("in type 2 return : 『%s』\n", data->array[0]);
-	}
-=======
 		copy_to_array(data, i, len);
->>>>>>> 8d81291fc0f3c540711157d457315818c07108dd:test/trial/lexer/divide_one/lexer_div.c
 	if (data->line[i] == '\0')
 		data->pos++;
 	else if (i == 0)
@@ -122,10 +102,6 @@ char	**lexer_div(t_array	*data)
 		return (NULL);
 	data->pos = 0;
 	split_line_div(data, 2);
-<<<<<<< HEAD:test/trial/lexer/divider/lexer_div.c
-	// printf("brefore return : %s\n", data->array[0]);
-=======
->>>>>>> 8d81291fc0f3c540711157d457315818c07108dd:test/trial/lexer/divide_one/lexer_div.c
 	return (data->array);
 }
 
