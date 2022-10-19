@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:36:05 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/19 14:37:58 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/19 22:57:50 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"comline.h"
+#include	"../../../include/redirection.h"
 
 void	exec_lt(t_list *comline)
 {

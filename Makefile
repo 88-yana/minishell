@@ -43,7 +43,8 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/execution/pid.c \
 	mandatory/execution/piped_commands.c \
 	mandatory/execution/piped_commands_utils.c \
-	mandatory/execution/heredoc.c
+	mandatory/execution/heredoc.c \
+	mandatory/redirection/redirection.c
 
 # mandatory/main/main.c \
 # mandatory/readline/readline.c \

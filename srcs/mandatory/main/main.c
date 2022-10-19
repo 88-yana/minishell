@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:56:08 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/19 15:29:54 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/19 23:33:16 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ static void	minishell(char **envp)
 		command_line = to_parser(buf);
 		if (command_line == NULL)
 			continue ;
-		// test(&vars, data.line);
 		check_comline(command_line);
 		exec_comline(&vars, command_line);
 		free(data.line);

@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/19 12:36:19 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/19 23:33:01 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -782,7 +782,7 @@ t_list	*to_parser(char **array)
 		i++;
 	}
 
-	display_command(maked_list);
+	//display_command(maked_list); //プリント
 	return (maked_list);
 }
 
