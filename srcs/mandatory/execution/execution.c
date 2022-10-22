@@ -6,19 +6,21 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 21:30:01 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/22 21:59:58 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/execution.h"
 
-void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
+static void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 {
 	t_order	*order;
 
 	order = (t_order *)comline->content;
 	set_fd(comline);
-	if (is_builtin(order->cmd) && order->pipe_num == 0
+	if (!order->can_exec)
+		;
+	else if (is_builtin(order->cmd) && order->pipe_num == 0
 		&& !is_next_type(comline, PIPE))
 		exec_builtin(vars, order->cmd);
 	else
@@ -26,7 +28,7 @@ void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 	close_fd_parent(order);
 }
 
-void	exec_redirection(t_list *comline)
+static void	exec_redirection(t_list *comline)
 {
 	t_order	*order;
 
@@ -41,7 +43,7 @@ void	exec_redirection(t_list *comline)
 		exec_lt(comline);
 }
 
-t_list	*exec_delimiters(t_list *comline, t_list **pids)
+static t_list	*exec_delimiters(t_list *comline, t_list **pids)
 {
 	t_order	*order;
 	t_list	*next_delimiters;
@@ -78,4 +80,10 @@ void	exec_comline(t_vars *vars, t_list *comline)
 		comline = comline->next;
 	}
 	wait_pids(&pids);
+}
+
+void	execution(t_vars *vars)
+{
+	check_comline(vars->comline);
+	exec_comline(vars, vars->comline);
 }

@@ -6,11 +6,11 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:49:46 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/22 19:01:24 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/22 19:07:50 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include	"../../../includes/parser.h"
 
 static bool	is_angle_bracket(char c)
 {
@@ -46,7 +46,7 @@ bool	check_arguments(char *str)
 	quote = 0;
 	while (i < ft_strlen(str))
 	{
-		if (str[i] == DUBLEQ)
+		if (str[i] == DOUBLEQ)
 			during_quotes = !during_quotes;
 		if (during_quotes == false && is_angle_bracket(str[i]))
 			quote++;

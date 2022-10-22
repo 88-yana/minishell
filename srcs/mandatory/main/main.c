@@ -5,47 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 20:56:08 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 17:17:52 by hyanagim         ###   ########.fr       */
+/*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
+/*   Updated: 2022/10/22 21:37:32 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/minishell.h"
 
-#include	"../lexer/lexer.h"
-#include	"../parser/parser.h"
-
 g_status = 0;
-
-static void	init_setup(t_vars *vars, char **envp)
-{
-	convert_envp_to_list(vars, envp);
-	setup_signal();
-}
 
 static void	minishell(char **envp)
 {
 	t_vars	vars;
-	t_list	*command_line;
-	char	**array;
 	char	*line;
 
-	init_setup(&vars, envp);
+	convert_envp_to_list(&vars, envp);
 	while (true)
 	{
-		line = read_line_from_prompt();
-		if (!line)
+		vars.line = read_line_from_prompt();
+		if (vars.line == NULL)
 			continue ;
-		array = lexer(line);
-		if (!array)
+		vars.array = lexer(vars.line);
+		if (vars.array == NULL)
 			continue ;
-		command_line = parser(array);
-		if (command_line == NULL)
+		vars.comline = parser(vars.array);
+		if (vars.comline == NULL)
 			continue ;
-		check_comline(command_line);
-		exec_comline(&vars, command_line);
-		free(line);
-		//free(array);
+		execution(&vars);
+		free(vars.line);
 	}
 }
 

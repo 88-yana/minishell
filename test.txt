@@ -1,4 +1,0 @@
-bash: export: `pwd+a': not a valid identifier
-bash: export: `0wc=a': not a valid identifier
-d
-ew
