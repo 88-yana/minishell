@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   redirection.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 20:56:28 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/19 13:16:47 by yahokari         ###   ########.fr       */
+/*   Created: 2022/10/19 22:56:03 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/19 22:59:54 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef REDIRECTION_H
+# define REDIRECTION_H
 
-# include	<signal.h>
-# include	"stdbool.h"
 # include	"structure.h"
-# include	"../libft/libft.h"
-# include	"readline.h"
-# include	"builtin.h"
-# include	"envs.h"
 # include	"execution.h"
+# include	<fcntl.h>
+
+void	exec_lt(t_list *comline);
+void	exec_ltlt(t_list *comline);
+void	exec_gt(t_list *comline);
+void	exec_gtgt(t_list *comline);
 
 #endif

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   comline.c                                          :+:      :+:    :+:   */
+/*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/19 12:14:51 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/19 23:54:05 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"comline.h"
+#include	"../../../include/execution.h"
 
 void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 {
@@ -20,7 +20,7 @@ void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 	set_fd(comline);
 	if (is_builtin(order->cmd) && order->pipe_num == 0
 		&& !is_next_type(comline, PIPE))
-		exec_builtin(vars->envs_list, order->cmd);
+		exec_builtin(vars->envs, order->cmd);
 	else
 		exec_command_child(vars, comline, pids);
 	close_fd_parent(order);
@@ -45,7 +45,6 @@ t_list	*exec_delimiters(t_list *comline, t_list **pids)
 {
 	t_order	*order;
 	t_list	*next_delimiters;
-
 	wait_pids(pids);
 	order = (t_order *)comline->content;
 	if ((order->type == AND && g_status == 0)

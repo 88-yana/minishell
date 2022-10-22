@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:57:18 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/19 10:33:34 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/19 15:40:34 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"comline.h"
+#include	"../../../include/execution.h"
 
 void	check_path(char **path, char **command)
 {
@@ -40,16 +40,18 @@ void	exec_command(t_vars *vars, char **command)
 {
 	char	**path;
 	char	**envp;
+	t_list	*list;
 
 	if (is_builtin(command))
 	{
-		exec_builtin(vars->envs_list, command);
+		exec_builtin(vars, command);
 		exit(g_status);
 	}
-	path = ft_split(find_env(vars->envs_list, "PATH"), ':');
+	list = find_envs(vars->envs, "PATH");
+	path = ft_split(((t_envs *)list->content)->value , ':');
 	check_path(path, command);
-	free(path);
-	envp = get_envp_from_list(vars->envs_list);
+	safe_free_double_char(path);
+	envp = get_envp_from_list(vars->envs);
 	execve(command[0], command, envp);
 	exit(EXIT_FAILURE);
 }
@@ -71,7 +73,7 @@ void	exec_subshell(t_list *comline, t_vars *vars)
 	last_order->write_fd = order->write_fd;
 	last_order->next_read_fd = order->next_read_fd;
 	exec_comline(vars, order->shell);
-	exit(0);
+	exit(g_status);
 }
 
 void	exec_command_child(t_vars *vars, t_list *comline, t_list **pids)
@@ -81,7 +83,7 @@ void	exec_command_child(t_vars *vars, t_list *comline, t_list **pids)
 
 	order = (t_order *)comline->content;
 	pid = fork();
-	if (pid == ERR) //need modified
+	if (pid == ERR)
 		exit (EXIT_FAILURE);
 	else if (pid == CHILD)
 	{

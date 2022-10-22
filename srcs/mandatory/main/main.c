@@ -6,11 +6,14 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:56:08 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/17 21:38:12 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/19 23:33:16 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../include/minishell.h"
+
+#include	"../lexer/lexer.h"
+#include	"../parser/parser.h"
 
 g_status = 0;
 
@@ -19,6 +22,11 @@ static void	test(t_vars *vars, char *str)
 	size_t	i;
 	char	**cmd;
 
+	if (!ft_strcmp("echo $?", str))
+	{
+		printf("%d\n", g_status);
+		return ;
+	}
 	cmd = ft_split(str, ' ');
 	exec_builtin(vars, cmd);
 	i = 0;
@@ -42,19 +50,50 @@ static void	init_setup(t_vars *vars, char **envp)
 	setup_signal();
 }
 
+// static void	minishell(char **envp)
+// {
+// 	t_vars	vars;
+// 	char	*str;
+
+// 	init_setup(&vars, envp);
+// 	while (true)
+// 	{
+// 		setup_signal();
+// 		str = read_line_from_prompt();
+// 		if (!str)
+// 			continue ;
+// 		test(&vars, str);
+// 		free(str);
+// 	}
+// }
+
 static void	minishell(char **envp)
 {
 	t_vars	vars;
-	char	*str;
+	t_array	data;
+	t_array	*array;
+	t_list	*command_line;
+	char	**buf;
 
 	init_setup(&vars, envp);
 	while (true)
 	{
-		str = read_line_from_prompt();
-		if (!str)
+		setup_signal();
+		data.line = read_line_from_prompt();
+		if (!data.line)
 			continue ;
-		test(&vars, str);
-		free(str);
+		if (data.line == NULL)
+			continue ;
+		array = lexer(&data);
+		if (array == NULL)
+			continue ;
+		buf = divide_redirect(array->array);
+		command_line = to_parser(buf);
+		if (command_line == NULL)
+			continue ;
+		check_comline(command_line);
+		exec_comline(&vars, command_line);
+		free(data.line);
 	}
 }
 

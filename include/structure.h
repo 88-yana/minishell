@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/03 16:29:58 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/19 23:01:56 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include	"stdio.h"
 # include	"stdbool.h"
 # include	"../libft/libft.h"
+
+# define TRUE 1
+# define FALSE 0
 
 typedef enum e_type {
 	COMMAND_LINE,
@@ -61,6 +64,7 @@ typedef struct s_split
 typedef struct s_node
 {
 	t_type			type;
+	t_type			detail;
 	char			**line;
 	int				*ele_is_quoted;
 	size_t			*ele_length;

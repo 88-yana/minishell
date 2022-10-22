@@ -6,16 +6,18 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:27:18 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/17 21:25:38 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/19 11:45:50 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../include/envs.h"
 
-static void	return_free(t_envs *envs)
+static void	safe_free_envs(t_envs *envs)
 {
 	free(envs->type);
 	free(envs->value);
+	envs->type = NULL;
+	envs->value = NULL;
 }
 
 void	add_to_envs_list(t_vars *vars, char *str)
@@ -29,7 +31,7 @@ void	add_to_envs_list(t_vars *vars, char *str)
 	input.type = substr_size_t(str, 0, plus - str);
 	input.value = ft_strdup(plus + 2);
 	if (!input.type || !input.value)
-		return (return_free(&input));
+		return (safe_free_envs(&input));
 	list = find_envs(vars->envs, input.type);
 	if (list)
 		add_to_envs(list->content, input.value);
@@ -37,17 +39,15 @@ void	add_to_envs_list(t_vars *vars, char *str)
 	{
 		envs = create_envs(input.type, input.value);
 		if (!envs)
-			return (return_free(&input));
+			return (safe_free_envs(&input));
 		create_list(&vars->envs, envs);
 	}
 }
 
-void	create_new_envs_list(t_vars *vars, char *str)
+static t_envs	check_envs_input(t_vars *vars, char *str)
 {
 	char	*equal;
 	t_envs	input;
-	t_envs	*envs;
-	t_list	*list;
 
 	equal = ft_strchr(str, '=');
 	if (!equal)
@@ -55,23 +55,38 @@ void	create_new_envs_list(t_vars *vars, char *str)
 		input.type = ft_strdup(str);
 		input.value = NULL;
 		if (!input.type || find_envs(vars->envs, input.type))
-			return ;
+			safe_free_envs(&input);
 	}
 	else
 	{
 		input.type = substr_size_t(str, 0, equal - str);
 		input.value = ft_strdup(equal + 1);
 		if (!input.type || !input.value)
-			return (return_free(&input));
+			safe_free_envs(&input);
 	}
+	return (input);
+}
+
+void	create_new_envs_list(t_vars *vars, char *str)
+{
+	t_envs	input;
+	t_envs	*envs;
+	t_list	*list;
+
+	input = check_envs_input(vars, str);
+	if (!input.type && !input.value)
+		return ;
 	list = find_envs(vars->envs, input.type);
 	if (list)
+	{
 		replace_envs(list->content, input.value);
+		free(input.type);
+	}
 	else
 	{
 		envs = create_envs(input.type, input.value);
 		if (!envs)
-			return (return_free(&input));
+			return (safe_free_envs(&input));
 		create_list(&vars->envs, envs);
 	}
 }
