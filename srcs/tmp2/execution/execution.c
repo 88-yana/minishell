@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/19 23:54:05 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/22 16:36:09 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 	set_fd(comline);
 	if (is_builtin(order->cmd) && order->pipe_num == 0
 		&& !is_next_type(comline, PIPE))
-		exec_builtin(vars->envs, order->cmd);
+		exec_builtin(vars, order->cmd);
 	else
 		exec_command_child(vars, comline, pids);
 	close_fd_parent(order);

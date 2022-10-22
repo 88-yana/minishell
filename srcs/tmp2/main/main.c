@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:56:08 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/19 23:33:16 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/22 16:41:18 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,6 @@
 #include	"../parser/parser.h"
 
 g_status = 0;
-
-static void	test(t_vars *vars, char *str)
-{
-	size_t	i;
-	char	**cmd;
-
-	if (!ft_strcmp("echo $?", str))
-	{
-		printf("%d\n", g_status);
-		return ;
-	}
-	cmd = ft_split(str, ' ');
-	exec_builtin(vars, cmd);
-	i = 0;
-	while (cmd[i])
-	{
-		free(cmd[i]);
-		i++;
-	}
-	free(cmd);
-}
 
 static void	setup_signal(void)
 {
@@ -50,50 +29,29 @@ static void	init_setup(t_vars *vars, char **envp)
 	setup_signal();
 }
 
-// static void	minishell(char **envp)
-// {
-// 	t_vars	vars;
-// 	char	*str;
-
-// 	init_setup(&vars, envp);
-// 	while (true)
-// 	{
-// 		setup_signal();
-// 		str = read_line_from_prompt();
-// 		if (!str)
-// 			continue ;
-// 		test(&vars, str);
-// 		free(str);
-// 	}
-// }
-
 static void	minishell(char **envp)
 {
 	t_vars	vars;
-	t_array	data;
-	t_array	*array;
 	t_list	*command_line;
-	char	**buf;
+	char	**array;
+	char	*line;
 
 	init_setup(&vars, envp);
 	while (true)
 	{
-		setup_signal();
-		data.line = read_line_from_prompt();
-		if (!data.line)
+		line = read_line_from_prompt();
+		if (!line)
 			continue ;
-		if (data.line == NULL)
+		array = lexer(line);
+		if (!array)
 			continue ;
-		array = lexer(&data);
-		if (array == NULL)
-			continue ;
-		buf = divide_redirect(array->array);
-		command_line = to_parser(buf);
+		command_line = parser(array);
 		if (command_line == NULL)
 			continue ;
 		check_comline(command_line);
 		exec_comline(&vars, command_line);
-		free(data.line);
+		free(line);
+		//free(array);
 	}
 }
 

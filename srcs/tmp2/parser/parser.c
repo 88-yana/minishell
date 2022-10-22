@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/19 23:33:01 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/22 16:41:15 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_order	*make_command(t_type type, char **cmd, char *file, t_list *shell)
 	return (command_line);
 }
 
-void	parser(t_node *p, bool *failed_flag)
+void	do_parse(t_node *p, bool *failed_flag)
 {
 	if (p->type == COMMAND_LINE)
 	{
@@ -83,7 +83,7 @@ void	parser(t_node *p, bool *failed_flag)
 			p->current_pos = p->end_pos;
 			p->end_pos = p->start_pos;
 			p->left = talloc(DELIMITER, p);
-			parser(p->left, failed_flag);
+			do_parse(p->left, failed_flag);
 		}
 		if (p->line[p->end_pos] == NULL)
 		{
@@ -92,7 +92,7 @@ void	parser(t_node *p, bool *failed_flag)
 			// printf("before piped line command line is end %s\n", p->line[p->end_pos]);
 			p->end_pos = p->start_pos;
 			p->left = talloc(PIPED_LINE, p);
-			parser(p->left, failed_flag);
+			do_parse(p->left, failed_flag);
 		}
 	}
 	if (p->type == DELIMITER)
@@ -107,13 +107,13 @@ void	parser(t_node *p, bool *failed_flag)
 		p->line[p->current_pos] = NULL;
 		
 		p->left = talloc(COMMAND_LINE, p);
-		parser(p->left, failed_flag);
+		do_parse(p->left, failed_flag);
 		p->line = arr;
 		p->start_pos = p->current_pos + 1;
 		p->end_pos = p->current_pos + 1;
 		p->include_right = true;
 		p->right = talloc(COMMAND_LINE, p);
-		parser(p->right, failed_flag);
+		do_parse(p->right, failed_flag);
 	}
 	if (p->type == PIPED_LINE)
 	{
@@ -141,7 +141,7 @@ void	parser(t_node *p, bool *failed_flag)
 			// printf("before piped piped line is start %s\n", p->line[p->start_pos]);
 			// printf("before piped piped line is end %s\n", p->line[p->end_pos]);
 			p->left = talloc(PIPE, p);
-			parser(p->left, failed_flag);
+			do_parse(p->left, failed_flag);
 		}
 		if (p->line[p->end_pos] == NULL)
 		{
@@ -149,7 +149,7 @@ void	parser(t_node *p, bool *failed_flag)
 			// printf("before arguments piped line is start %s\n", p->line[p->start_pos]);
 			// printf("before arguments piped line is end %s\n", p->line[p->end_pos]);
 			p->left = talloc(ARGUMENTS, p);
-			parser(p->left, failed_flag);
+			do_parse(p->left, failed_flag);
 		}
 	}
 	if (p->type == PIPE)
@@ -158,18 +158,18 @@ void	parser(t_node *p, bool *failed_flag)
 		// printf("before arguments pipe is start %s\n", p->line[p->start_pos]);
 			// printf("before arguments pipe is end %s\n", p->line[p->end_pos]);
 		p->left = talloc(ARGUMENTS, p);
-		parser(p->left, failed_flag);
+		do_parse(p->left, failed_flag);
 		p->start_pos = p->current_pos + 1;
 		p->end_pos = p->current_pos + 1;
 		p->include_right = true;
 		p->right = talloc(PIPED_LINE, p);
-		parser(p->right, failed_flag);
+		do_parse(p->right, failed_flag);
 	}
 	// if (p->type == COMMAND)
 	// {
 	// 	// printf("command is %s\n", p->line[p->end_pos]);
 	// 	p->left = talloc(ARGUMENTS, p);
-	// 	parser(p->left, failed_flag);
+	// 	do_parse(p->left, failed_flag);
 	// }
 	if (p->type == ARGUMENTS)
 	{
@@ -185,13 +185,13 @@ void	parser(t_node *p, bool *failed_flag)
 			p->current_pos = p->end_pos;
 			p->end_pos = p->start_pos;
 			p->left = talloc(SUBSHELL, p);
-			parser(p->left, failed_flag);
+			do_parse(p->left, failed_flag);
 			p->end_pos = p->current_pos + 1;
 			p->start_pos = p->current_pos + 1;
 			if (p->line[p->end_pos] != NULL)
 			{
 				p->right = talloc(ARGUMENTS, p);
-				parser(p->right, failed_flag);
+				do_parse(p->right, failed_flag);
 			}
 			else
 				return ;
@@ -199,7 +199,7 @@ void	parser(t_node *p, bool *failed_flag)
 		else if (is_redirection(p->line[p->end_pos]))
 		{
 			p->left = talloc(REDIRECTION, p);
-			parser(p->left, failed_flag);
+			do_parse(p->left, failed_flag);
 			p->end_pos++;
 			if (p->line[p->end_pos] == NULL)
 				return ;
@@ -209,7 +209,7 @@ void	parser(t_node *p, bool *failed_flag)
 				p->start_pos = p->end_pos;
 				p->include_right = true;
 				p->right = talloc(ARGUMENTS, p);
-				parser(p->right, failed_flag);
+				do_parse(p->right, failed_flag);
 			}
 		}
 		else
@@ -225,18 +225,18 @@ void	parser(t_node *p, bool *failed_flag)
 				p->current_pos = p->end_pos;
 				p->end_pos = p->start_pos;
 				p->left = talloc(COMMAND, p);
-				parser(p->left, failed_flag);
+				do_parse(p->left, failed_flag);
 				p->start_pos =	p->current_pos;
 				p->end_pos = p->current_pos;
 				p->include_right = true;
 				p->right = talloc(ARGUMENTS, p);
-				parser(p->right, failed_flag);
+				do_parse(p->right, failed_flag);
 			}
 			else
 			{
 				p->end_pos = p->start_pos;
 				p->left = talloc(COMMAND, p);
-				parser(p->left, failed_flag);
+				do_parse(p->left, failed_flag);
 			}
 		}
 		
@@ -258,7 +258,7 @@ void	parser(t_node *p, bool *failed_flag)
 		p->end_pos++;
 		if (p->line[p->end_pos] == NULL)
 		{
-			printf("%s\n", "error in redirection in parser");
+			printf("%s\n", "error in redirection in do_parse");
 			return ;
 			//ここで，free
 		}
@@ -270,7 +270,7 @@ void	parser(t_node *p, bool *failed_flag)
 		// 	p->end_pos = p->current_pos + 2;
 		// 	// printf("204 %s\n", p->line[p->end_pos]);
 		// 	p->right = talloc(COMMAND, p);
-		// 	parser(p->right, failed_flag);
+		// 	do_parse(p->right, failed_flag);
 		// }
 	}
 	if (p->type == COMMAND)
@@ -279,7 +279,7 @@ void	parser(t_node *p, bool *failed_flag)
 		// printf("string end %s\n", p->line[p->end_pos]);
 		// printf("string is %s\n", p->line[p->end_pos]);
 		/* p->left = talloc(EXPANDABLE, p);
-		parser(p->left, failed_flag);
+		do_parse(p->left, failed_flag);
 		p->end_pos++;
 		if (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos][0])
 			&& !is_pipe(p->line[p->end_pos]) && !is_redirection(p->line[p->end_pos]))
@@ -288,7 +288,7 @@ void	parser(t_node *p, bool *failed_flag)
 			p->start_pos = p->end_pos;
 			p->include_right = true;
 			p->right = talloc(EXPANDABLE, p);
-			parser(p->right, failed_flag);
+			do_parse(p->right, failed_flag);
 		} */
 		return ;
 	}
@@ -297,7 +297,7 @@ void	parser(t_node *p, bool *failed_flag)
 		p->end_pos++;
 		p->start_pos = p->end_pos;
 		p->left = talloc(COMMAND_LINE, p);
-		parser(p->left, failed_flag);
+		do_parse(p->left, failed_flag);
 	}
 	return ;
 }
@@ -716,7 +716,7 @@ bool	check_array_redirect(char **array)
 	return (true);
 }
 
-t_list	*to_parser(char **array)
+t_list	*parser(char **array)
 {
 	t_node	root;
 	// t_node	**wood;
@@ -737,7 +737,7 @@ t_list	*to_parser(char **array)
 	if (check_array_redirect(array) == false)
 		return (NULL);
 	// divide_redirect(array);
-	parser(&root, &failed_flag);
+	do_parse(&root, &failed_flag);
 	if (failed_flag)
 		return (NULL);
 	// wood = malloc(sizeof(t_node *) * 2);
