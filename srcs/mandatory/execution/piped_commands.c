@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piped_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:57:18 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 21:23:17 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/23 15:41:46 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,12 @@ void	exec_command(t_vars *vars, char **command)
 		exit(g_status);
 	}
 	list = find_envs(vars->envs, "PATH");
-	path = ft_split(((t_envs *)list->content)->value , ':');
+	path = ft_split(((t_envs *)list->content)->value, ':');
 	check_path(path, command);
 	safe_free_double_char(path);
 	envp = get_envp_from_list(vars->envs);
 	execve(command[0], command, envp);
+	safe_free_double_char(envp);
 	exit(EXIT_FAILURE);
 }
 

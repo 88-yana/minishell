@@ -1,7 +1,6 @@
 CC = cc
 CFLAGS = #-fsanitize=address -g3
 RLFLAGS = -I $(shell brew --prefix readline)/include -L$(shell brew --prefix readline)/lib -lreadline -lhistory
-OPTIONS = -lreadline
 SRCS_NAME = mandatory/main/main.c \
 	mandatory/readline/readline.c \
 	mandatory/lexer/lexer.c \
@@ -45,6 +44,7 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/envs/create.c \
 	mandatory/envs/envs_utils.c \
 	mandatory/envs/find_envs.c \
+	mandatory/envs/expand.c \
 	mandatory/execution/execution.c \
 	mandatory/execution/find.c \
 	mandatory/execution/heredoc.c \
@@ -66,7 +66,7 @@ $(OBJDIR):
 
 $(NAME): $(OBJS)
 	$(MAKE) -C libft
-	$(CC) $(CFLAGS) $(RLFLAGS) $(OPTIONS) $(OBJS) libft/libft.a -o $(NAME)
+	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) libft/libft.a -o $(NAME)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<

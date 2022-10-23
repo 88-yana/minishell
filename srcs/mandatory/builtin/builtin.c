@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:46:59 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 21:57:43 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/23 18:34:05 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ bool	is_builtin(char **cmd)
 
 void	exec_builtin(t_vars *vars, char **cmd)
 {
+	expand_envs(vars, cmd);
 	if (!ft_strcmp(cmd[0], "echo"))
 		exec_echo(cmd);
 	else if (!ft_strcmp(cmd[0], "cd"))
