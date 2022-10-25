@@ -44,7 +44,7 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/envs/create.c \
 	mandatory/envs/envs_utils.c \
 	mandatory/envs/find_envs.c \
-	mandatory/envs/expand.c \
+	mandatory/envs/lexer_envs.c \
 	mandatory/execution/execution.c \
 	mandatory/execution/find.c \
 	mandatory/execution/heredoc.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:53:00 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/23 18:33:12 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/23 21:47:37 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	create_list(t_list **list, t_envs *envs);
 void	free_envs(void *p);
 void	convert_envp_to_list(t_vars *vars, char **envp);
 char	**get_envp_from_list(t_list *list);
-void	expand_envs(t_vars *vars, char **cmd);
+char	*lexer_envs(t_vars *vars, char *line);
 
 #endif

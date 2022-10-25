@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 21:59:58 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/10/23 21:55:16 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 
 	order = (t_order *)comline->content;
 	set_fd(comline);
+	check_command(vars, order->cmd);
 	if (!order->can_exec)
 		;
 	else if (is_builtin(order->cmd) && order->pipe_num == 0

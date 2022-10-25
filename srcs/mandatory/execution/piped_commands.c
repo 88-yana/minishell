@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   piped_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:57:18 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/23 15:41:46 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/23 21:53:26 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/execution.h"
+
+void	check_command(t_vars *vars, char **command)
+{
+	size_t	i;
+
+	i = 0;
+	while (command[i])
+	{
+		command[i] = lexer_envs(vars, command[i]);
+		i++;
+	}
+}
 
 void	check_path(char **path, char **command)
 {

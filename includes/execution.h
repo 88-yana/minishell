@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:11:55 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/23 18:33:06 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/23 21:51:58 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include	<signal.h>
 # include	<readline/readline.h>
 # include	<errno.h>
+# include	<dirent.h>
 # include	"define.h"
 # include	"builtin.h"
 # include	"envs.h"
@@ -49,5 +50,6 @@ void	exec_ltlt(t_list *comline);
 void	exec_gt(t_list *comline);
 void	exec_gtgt(t_list *comline);
 void	execution(t_vars *vars);
+void	check_command(t_vars *vars, char **command);
 
 #endif
