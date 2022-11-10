@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/10 21:03:20 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/10 21:42:41 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,37 +33,9 @@ void	do_parse(t_node *p, bool *failed_flag)
 	return ;
 }
 
-//""を外した先頭のexpandableコマンドが全部アルファベットだったら，外していい
 // リダイレクションとサブシェルの位置関係はいじれない
 
-
-t_node	*talloc(t_type type, t_node *parent)
-{
-	t_node *p;
-	p = malloc(sizeof(t_node));
-	p->type = type;
-	p->detail = parent->detail;
-	p->line = parent->line;
-	p->ele_is_quoted = parent->ele_is_quoted;
-	p->ele_length = parent->ele_length;
-	p->array_size = parent->array_size;
-	p->start_pos = parent->start_pos;
-	p->current_pos = parent->current_pos; //?????後で見る。
-	p->end_pos = parent->end_pos;
-	p->include_right = parent->include_right;
-	p->index = parent->index + 1;
-	p->parent =  parent;
-	p->left = parent->left;
-	p->right = parent->right;
-	// node自体と，コマンドラインの分のmallocをする。
-	// typeの代入と，コマンドのポインタの代入をする？（ポインタの複製。）
-	// スタートポスとエンドポスの初期化をする。
-	// 最初と最後は最初は一緒。
-	return p;
-}
-// //talloc 失敗した時のエラー処理を後で書く
-
-t_list **realloc_list(t_list **list, t_list *ptr)
+t_list	**realloc_list(t_list **list, t_list *ptr)
 {
 	t_list	**new;
 	size_t	size;
@@ -79,7 +51,6 @@ t_list **realloc_list(t_list **list, t_list *ptr)
 		new[i] = list[i];
 		i++;
 	}
-	
 	new[size] = ptr;
 	new[size + 1] = NULL;
 	// free(list);
@@ -116,8 +87,8 @@ t_list	**listjoin(t_list **list, t_list **latter)
 	size_t	j;
 	t_list	**new;
 
-	length = listlen(list) + listlen(latter) + 1;
-	new = malloc(sizeof(t_list * ) * length);
+	length = listlen(list) + listlen(latter);
+	new = malloc(sizeof(t_list * ) * (length + 1));
 	i = 0;
 	while (list[i] != NULL)
 	{
@@ -166,18 +137,19 @@ t_list	**sort_list(t_list	**list)
 }
 
 
-t_list	**executer(t_node *p, t_list **list)
+t_list	**traverse(t_node *p, t_list **list)
 {
 	if (p->type == COMMAND_LINE)
-		list = executer(p->left, list);
+		list = traverse(p->left, list);
+		printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	if (p->type == SUBSHELL)
 	{
 		t_list	**subshell;
 		t_list	*shell;
 		t_list	*list_ptr;
 		size_t	i;
-
-		subshell = executer(p->left, list);
+	
+		subshell = traverse(p->left, list);
 		shell = subshell[0];
 		i = 1;
 		while (subshell[i] != NULL)
@@ -185,9 +157,7 @@ t_list	**executer(t_node *p, t_list **list)
 			ft_lstadd_back(&shell, subshell[i]);
 			i++;
 		}
-		
 		list_ptr = ft_lstnew(make_command(SUBSHELL, NULL, NULL, shell));
-		////////////ここで，listの中身調べる。
 		list = realloc_list(list, list_ptr);
 	}
 	if (p->type == DELIMITER)
@@ -199,33 +169,33 @@ t_list	**executer(t_node *p, t_list **list)
 			list_ptr = ft_lstnew(make_command(OR, NULL, NULL, NULL));
 		if (p->detail == AND)
 			list_ptr = ft_lstnew(make_command(AND, NULL, NULL, NULL));
-		list = executer(p->left, list);
+		list = traverse(p->left, list);
 		list = realloc_list(list, list_ptr);
 		latter = malloc(sizeof(t_list *));
 		latter[0] = NULL;
-		latter = executer(p->right, latter);
+		latter = traverse(p->right, latter);
 		list = listjoin(list, latter);
 	}
 	if (p->type == PIPED_LINE)
-		list = executer(p->left, list);
+		list = traverse(p->left, list);
 	if (p->type == PIPE)
 	{
 		t_list	**latter;
 		t_list	*list_ptr;
 		list_ptr = ft_lstnew(make_command(PIPE, NULL, NULL, NULL));
-		list = executer(p->left, list);
+		list = traverse(p->left, list);
 		list = realloc_list(list, list_ptr);
 	
 		latter = malloc(sizeof(t_list *));
 		latter[0] = NULL;
-		latter = executer(p->right, latter);
+		latter = traverse(p->right, latter);
 		list = listjoin(list, latter);
 	}
 	if (p->type == ARGUMENTS)
 	{
-		list = executer(p->left, list);
+		list = traverse(p->left, list);
 		if (p->right != NULL)
-			list = executer(p->right, list);
+			list = traverse(p->right, list);
 		if (p->parent->type == PIPE)
 		{
 			list = sort_list(list);
@@ -365,7 +335,7 @@ t_list	*parser(char **array)
 		return (NULL);
 	list = malloc(sizeof(t_list *) * 1);
 	list[0] = NULL;
-	list = executer(&root, list);
+	list = traverse(&root, list);
 	int i = 0;
 	cmdjoin(list);
 	maked_list = list[0];
@@ -375,7 +345,7 @@ t_list	*parser(char **array)
 		ft_lstadd_back(&maked_list, list[i]);
 		i++;
 	}
-
+	printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	display_command(maked_list); //プリント
 	return (maked_list);
 }

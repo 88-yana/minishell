@@ -28,7 +28,9 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/parser/arguments.c \
 	mandatory/parser/redirection.c \
 	mandatory/parser/subshell.c \
+	mandatory/parser/talloc.c \
 	mandatory/parser/test.c \
+	mandatory/parser/make_command.c \
 	mandatory/builtin/builtin_cd.c \
 	mandatory/builtin/builtin_echo.c \
 	mandatory/builtin/builtin_env.c \
