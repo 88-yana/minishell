@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/10 21:42:41 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/10 22:37:55 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,25 +141,8 @@ t_list	**traverse(t_node *p, t_list **list)
 {
 	if (p->type == COMMAND_LINE)
 		list = traverse(p->left, list);
-		printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	if (p->type == SUBSHELL)
-	{
-		t_list	**subshell;
-		t_list	*shell;
-		t_list	*list_ptr;
-		size_t	i;
-	
-		subshell = traverse(p->left, list);
-		shell = subshell[0];
-		i = 1;
-		while (subshell[i] != NULL)
-		{
-			ft_lstadd_back(&shell, subshell[i]);
-			i++;
-		}
-		list_ptr = ft_lstnew(make_command(SUBSHELL, NULL, NULL, shell));
-		list = realloc_list(list, list_ptr);
-	}
+		traverse_subshell(p, &list);
 	if (p->type == DELIMITER)
 	{
 		t_list	**latter;
@@ -345,7 +328,6 @@ t_list	*parser(char **array)
 		ft_lstadd_back(&maked_list, list[i]);
 		i++;
 	}
-	printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	display_command(maked_list); //プリント
 	return (maked_list);
 }
