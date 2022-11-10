@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/10 22:49:54 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/10 22:53:06 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,7 @@ t_list	**realloc_list(t_list **list, t_list *ptr)
 	return (new);
 }
 
-t_type	convert_redirection(char *str)
-{
-	if (ft_strcmp(str, "<") == 0)
-		return (LT);
-	if (ft_strcmp(str, ">") == 0)
-		return (GT);
-	if (ft_strcmp(str, ">>") == 0)
-		return (GTGT);
-	if (ft_strcmp(str, "<<") == 0)
-		return (LTLT);
-	return (COMMAND_LINE);
-}
+
 
 t_list	**traverse(t_node *p, t_list **list)
 {
@@ -86,20 +75,7 @@ t_list	**traverse(t_node *p, t_list **list)
 		traverse_arguments(p, &list);
 	if (p->type == REDIRECTION)
 	{
-		t_list	*list_ptr;
-		t_type	type;
-		type = convert_redirection(p->line[p->current_pos]);
-		list_ptr = ft_lstnew(make_command(type, NULL, p->line[p->current_pos + 1], NULL));
-		list = realloc_list(list, list_ptr);
-		/* int i = 0;
-		while (list[i] != NULL && size  == 2)
-		{
-			printf("list point in comma %p\n", list[i]);
-			printf("list type in comma %u\n", ((t_order *)list[i]->content)->type);
-			if (((t_order *)list[i]->content)->type == COMMAND)
-				printf("list cmd in comma %s\n", ((t_order *)list[i]->content)->cmd[0]);
-			i++;
-		} */
+		traverse_redirectrion(p, &list);
 	}
 	if (p->type == COMMAND)
 	{
