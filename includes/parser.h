@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/10 20:48:44 by hyanagim          #+#    #+#             */
+/*   Updated: 2022/11/10 21:03:25 by hyanagim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSER_H
 # define PARSER_H
 
@@ -27,4 +39,6 @@ void	branch_delimiter(t_node *p, bool *failed_flag);
 void	branch_piped_line(t_node *p, bool *failed_flag);
 void	branch_pipe(t_node *p, bool *failed_flag);
 void	branch_arguments(t_node *p, bool *failed_flag);
+void	branch_redirection(t_node *p, bool *failed_flag);
+void	branch_subshell(t_node *p, bool *failed_flag);
 #endif

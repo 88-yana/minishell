@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/22 21:15:48 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/10 21:03:20 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,9 @@ void	do_parse(t_node *p, bool *failed_flag)
 	if (p->type == ARGUMENTS)
 		branch_arguments(p, failed_flag);
 	if (p->type == REDIRECTION)
-	{
-		p->current_pos = p->end_pos; //redirection
-		p->end_pos++;
-		if (p->line[p->end_pos] == NULL)
-		{
-			printf("%s\n", "error in redirection in do_parse");
-			return ;
-			//ここで，free
-		}
-		// printf("aim is %s\n", p->line[p->end_pos]);
-		// p->end_pos++;
-		// if (p->line[p->end_pos] != NULL)
-		// {
-		// 	p->start_pos = p->current_pos + 2;
-		// 	p->end_pos = p->current_pos + 2;
-		// 	// printf("204 %s\n", p->line[p->end_pos]);
-		// 	p->right = talloc(COMMAND, p);
-		// 	do_parse(p->right, failed_flag);
-		// }
-	}
+		branch_redirection(p, failed_flag);
 	if (p->type == SUBSHELL)
-	{
-		p->end_pos++;
-		p->start_pos = p->end_pos;
-		p->left = talloc(COMMAND_LINE, p);
-		do_parse(p->left, failed_flag);
-	}
+		branch_subshell(p, failed_flag);
 	return ;
 }
 

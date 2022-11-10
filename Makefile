@@ -26,6 +26,8 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/parser/piped_line.c \
 	mandatory/parser/pipe.c \
 	mandatory/parser/arguments.c \
+	mandatory/parser/redirection.c \
+	mandatory/parser/subshell.c \
 	mandatory/parser/test.c \
 	mandatory/builtin/builtin_cd.c \
 	mandatory/builtin/builtin_echo.c \
