@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/10 22:58:51 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/10 23:04:31 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,41 +78,6 @@ t_list	**traverse(t_node *p, t_list **list)
 	return (list);
 }
 
-
-
-void	listlcpy(t_list **dst, t_list **list, size_t dstsize)
-{
-	size_t	i;
-
-	if (dstsize > 0)
-	{
-		i = 0;
-		while (list[i] && i < dstsize - 1)
-		{
-			dst[i] = list[i];
-			i++;
-		}
-		dst[i] = NULL;
-	}
-}
-
-void	cmdjoin(t_list **list)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < listlen(list) - 1)
-	{
-		if (((t_order *)list[i]->content)->type == COMMAND &&
-			((t_order *)list[i + 1]->content)->type == COMMAND)
-		{
-			((t_order *)list[i]->content)->cmd = arrayjoin(((t_order *)list[i]->content)->cmd, ((t_order *)list[i + 1]->content)->cmd);
-			listlcpy(&(list[i + 1]), &(list[i + 2]), listlen(list));
-		}
-		i++;
-	}
-}
-
 void	init_root(t_node *root)
 {
 	root->type = COMMAND_LINE;
@@ -150,11 +115,12 @@ t_list	*parser(char **array)
 	t_list	**list;
 	t_list	*maked_list;
 	bool	failed_flag;
+	size_t	i;
 
 	root.line = array;
 	failed_flag = false;
 	init_root(&root);
-	
+
 	if (check_array_redirect(array) == false)
 		return (NULL);
 	do_parse(&root, &failed_flag);
@@ -163,7 +129,6 @@ t_list	*parser(char **array)
 	list = malloc(sizeof(t_list *) * 1);
 	list[0] = NULL;
 	list = traverse(&root, list);
-	int i = 0;
 	cmdjoin(list);
 	maked_list = list[0];
 	i = 1;
@@ -172,6 +137,6 @@ t_list	*parser(char **array)
 		ft_lstadd_back(&maked_list, list[i]);
 		i++;
 	}
-	display_command(maked_list); //プリント
+	display_command(maked_list);
 	return (maked_list);
 }
