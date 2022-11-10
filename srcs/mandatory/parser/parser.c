@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/10 22:40:23 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/10 22:43:44 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,18 +148,7 @@ t_list	**traverse(t_node *p, t_list **list)
 	if (p->type == PIPED_LINE)
 		list = traverse(p->left, list);
 	if (p->type == PIPE)
-	{
-		t_list	**latter;
-		t_list	*list_ptr;
-		list_ptr = ft_lstnew(make_command(PIPE, NULL, NULL, NULL));
-		list = traverse(p->left, list);
-		list = realloc_list(list, list_ptr);
-	
-		latter = malloc(sizeof(t_list *));
-		latter[0] = NULL;
-		latter = traverse(p->right, latter);
-		list = listjoin(list, latter);
-	}
+		traverse_pipe(p, &list);
 	if (p->type == ARGUMENTS)
 	{
 		list = traverse(p->left, list);
