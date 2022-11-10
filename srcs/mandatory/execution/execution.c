@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/10 21:09:06 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/11 00:16:03 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 
 	order = (t_order *)comline->content;
 	set_fd(comline);
-	check_command(vars, order->cmd);
+	if (order->type == COMMAND)
+		check_command(vars, order->cmd);
 	if (!order->can_exec)
 		;
 	else if (is_builtin(order->cmd) && order->pipe_num == 0
@@ -48,6 +49,7 @@ static t_list	*exec_delimiters(t_list *comline, t_list **pids)
 {
 	t_order	*order;
 	t_list	*next_delimiters;
+
 	wait_pids(pids);
 	order = (t_order *)comline->content;
 	if ((order->type == AND && g_status == 0)
