@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/10 22:53:06 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/10 22:58:51 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ t_list	**realloc_list(t_list **list, t_list *ptr)
 	return (new);
 }
 
-
-
 t_list	**traverse(t_node *p, t_list **list)
 {
 	if (p->type == COMMAND_LINE)
@@ -74,38 +72,12 @@ t_list	**traverse(t_node *p, t_list **list)
 	if (p->type == ARGUMENTS)
 		traverse_arguments(p, &list);
 	if (p->type == REDIRECTION)
-	{
 		traverse_redirectrion(p, &list);
-	}
 	if (p->type == COMMAND)
-	{
-		char	**array;
-		size_t	i;
-		t_list	*list_ptr;
-		while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos]) && !is_bra(p->line[p->end_pos])
-			&& !is_pipe(p->line[p->end_pos]) && !is_redirection(p->line[p->end_pos]))
-			p->end_pos++;
-		array = malloc(sizeof(char *) * (p->end_pos - p->start_pos + 1));
-		if (array == NULL)
-			; //後で書く。
-		i = 0;
-		while (i < p->end_pos - p->start_pos)
-		{
-			array[i] = ft_strdup(p->line[p->start_pos + i]);
-			if (array[i] == NULL)
-				; //後で書く。
-			i++;
-		}
-		array[i] = NULL;
-		list_ptr = ft_lstnew(make_command(COMMAND, array, NULL, NULL));
-		list = realloc_list(list, list_ptr);
-		// size_index(list, p, COMMAND);
-	}
-
+		traverse_command(p, &list);
 	return (list);
 }
-// //stringかなんかで，
-// //p->left が NULL だったら，lstnew して，登りながら，lstadd していく。
+
 
 
 void	listlcpy(t_list **dst, t_list **list, size_t dstsize)

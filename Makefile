@@ -32,6 +32,7 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/parser/test.c \
 	mandatory/parser/sort.c \
 	mandatory/parser/list.c \
+	mandatory/parser/command.c \
 	mandatory/parser/make_command.c \
 	mandatory/builtin/builtin_cd.c \
 	mandatory/builtin/builtin_echo.c \

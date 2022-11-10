@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:48:44 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/10 22:53:13 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/10 22:58:33 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,5 @@ t_list	**listjoin(t_list **list, t_list **latter);
 size_t	listlen(t_list **list);
 t_type	convert_redirection(char *str);
 void	traverse_redirectrion(t_node *p, t_list ***list);
+void	traverse_command(t_node *p, t_list ***list);
 #endif
