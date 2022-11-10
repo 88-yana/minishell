@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 20:52:25 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/22 21:36:41 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/10 22:44:59 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,20 @@ void	branch_arguments(t_node *p, bool *failed_flag)
 			p->left = talloc(COMMAND, p);
 			do_parse(p->left, failed_flag);
 		}
+	}
+}
+
+void	traverse_arguments(t_node *p, t_list ***list)
+{
+	*list = traverse(p->left, *list);
+	if (p->right != NULL)
+		*list = traverse(p->right, *list);
+	if (p->parent->type == PIPE)
+	{
+		*list = sort_list(*list);
+	}
+	if (p->parent->type == PIPED_LINE)
+	{
+		*list = sort_list(*list);
 	}
 }

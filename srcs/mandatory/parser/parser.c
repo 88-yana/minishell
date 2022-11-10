@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/10 22:43:44 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/10 22:47:52 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,71 +70,42 @@ t_type	convert_redirection(char *str)
 	return (COMMAND_LINE);
 }
 
-size_t	listlen(t_list **list)
-{
-	size_t	i;
+// size_t	listlen(t_list **list)
+// {
+// 	size_t	i;
 
-	i = 0;
-	while (list[i] != NULL)
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	while (list[i] != NULL)
+// 		i++;
+// 	return (i);
+// }
 
-t_list	**listjoin(t_list **list, t_list **latter)
-{
-	size_t	length;
-	size_t	i;
-	size_t	j;
-	t_list	**new;
+// t_list	**listjoin(t_list **list, t_list **latter)
+// {
+// 	size_t	length;
+// 	size_t	i;
+// 	size_t	j;
+// 	t_list	**new;
 
-	length = listlen(list) + listlen(latter);
-	new = malloc(sizeof(t_list * ) * (length + 1));
-	i = 0;
-	while (list[i] != NULL)
-	{
-		new[i] = list[i];
-		i++;
-	}
-	j = 0;
-	while (latter[j] != NULL)
-	{
-		new[i + j] = latter[j];
-		j++;
-	}
-	new[length] = NULL;
-	return (new);
-}
+// 	length = listlen(list) + listlen(latter);
+// 	new = malloc(sizeof(t_list * ) * (length + 1));
+// 	i = 0;
+// 	while (list[i] != NULL)
+// 	{
+// 		new[i] = list[i];
+// 		i++;
+// 	}
+// 	j = 0;
+// 	while (latter[j] != NULL)
+// 	{
+// 		new[i + j] = latter[j];
+// 		j++;
+// 	}
+// 	new[length] = NULL;
+// 	return (new);
+// }
 
-static void	comswap(t_list **list, size_t i, size_t j)
-{
-	t_list *temp;
 
-	if (((t_order *)list[i]->content)->type > ((t_order *)list[j]->content)->type)
-	{
-		temp = list[i];
-		list[i] = list[j];
-		list[j] = temp;
-	}
-}
-
-t_list	**sort_list(t_list	**list)
-{
-	size_t	i;
-	size_t	j;
-
-	i = listlen(list);
-	while (i > 1)
-	{	
-		j = 0;
-		while (j < i - 1)
-		{
-			comswap(list, j, j + 1);
-			j++;
-		}
-		i--;
-	}
-	return (list);
-}
 
 
 t_list	**traverse(t_node *p, t_list **list)
@@ -150,19 +121,7 @@ t_list	**traverse(t_node *p, t_list **list)
 	if (p->type == PIPE)
 		traverse_pipe(p, &list);
 	if (p->type == ARGUMENTS)
-	{
-		list = traverse(p->left, list);
-		if (p->right != NULL)
-			list = traverse(p->right, list);
-		if (p->parent->type == PIPE)
-		{
-			list = sort_list(list);
-		}
-		if (p->parent->type == PIPED_LINE)
-		{
-			list = sort_list(list);
-		}
-	}
+		traverse_arguments(p, &list);
 	if (p->type == REDIRECTION)
 	{
 		t_list	*list_ptr;
