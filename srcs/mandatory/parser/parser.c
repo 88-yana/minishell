@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/10 22:37:55 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/10 22:40:23 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,21 +144,7 @@ t_list	**traverse(t_node *p, t_list **list)
 	if (p->type == SUBSHELL)
 		traverse_subshell(p, &list);
 	if (p->type == DELIMITER)
-	{
-		t_list	**latter;
-		t_list	*list_ptr;
-
-		if (p->detail == OR)
-			list_ptr = ft_lstnew(make_command(OR, NULL, NULL, NULL));
-		if (p->detail == AND)
-			list_ptr = ft_lstnew(make_command(AND, NULL, NULL, NULL));
-		list = traverse(p->left, list);
-		list = realloc_list(list, list_ptr);
-		latter = malloc(sizeof(t_list *));
-		latter[0] = NULL;
-		latter = traverse(p->right, latter);
-		list = listjoin(list, latter);
-	}
+		traverse_delimiter(p, &list);
 	if (p->type == PIPED_LINE)
 		list = traverse(p->left, list);
 	if (p->type == PIPE)
