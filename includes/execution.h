@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:11:55 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/11 00:11:15 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/11/11 20:48:29 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void	exec_gtgt(t_list *comline);
 void	execution(t_vars *vars);
 void	check_command(t_vars *vars, char **command);
 void	check_comline(t_list *comline);
+void	check_asterisk(char **cmd);
 
 #endif

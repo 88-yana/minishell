@@ -1,0 +1,14 @@
+Makefile
+a.out
+correct.txt
+includes
+infile.txt
+libft
+minishell
+objs
+old_data
+record
+srcs
+tes2.txt
+test.txt
+test3.txt

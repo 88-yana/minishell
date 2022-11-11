@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:46:59 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/23 21:53:11 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/11 20:56:18 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ bool	is_builtin(char **cmd)
 
 void	exec_builtin(t_vars *vars, char **cmd)
 {
+	
 	if (!ft_strcmp(cmd[0], "echo"))
 		exec_echo(cmd);
 	else if (!ft_strcmp(cmd[0], "cd"))

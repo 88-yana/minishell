@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:48:44 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/11 15:38:57 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/11 20:37:21 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	branch_subshell(t_node *p, bool *failed_flag);
 t_node	*talloc(t_type type, t_node *parent);
 void	traverse_subshell(t_node *p, t_list ***list);
 t_list	**sort_list(t_list	**list);
-t_list	**realloc_list(t_list **list, t_list *ptr);
 t_list	**traverse(t_node *p, t_list **list);
 t_order	*make_command(t_type type, char **cmd, char *file, t_list *shell);
 t_list	**listjoin(t_list **list, t_list **latter);
