@@ -58,7 +58,8 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/execution/pid.c \
 	mandatory/execution/piped_commands.c \
 	mandatory/execution/piped_commands_utils.c \
-	mandatory/execution/redirection.c
+	mandatory/execution/redirection.c \
+	mandatory/execution/asterisk.c
 
 SRCDIR = srcs
 OBJDIR = objs

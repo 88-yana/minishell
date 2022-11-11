@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/11 21:21:42 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/11 22:28:30 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 		exec_builtin(vars, order->cmd);
 		// dup2(STDIN_FILENO, tmp_fd[READ]);
 		// dup2(STDOUT_FILENO, tmp_fd[WRITE]);
-		printf("ge");
 	}
 	else
 		exec_command_child(vars, comline, pids);

@@ -1,4 +1,4 @@
-#include	"../../../includes/execution.h"
+#include "../../../includes/execution.h"
 #include "../../../includes/lexer_two_symbols.h"
 
 // bool	match_asterisk(char *file, char *str)
@@ -93,9 +93,9 @@
 #define CWD 0
 #define ASTERISK 1
 
-bool	check_front(char *file, char *str)
+bool check_front(char *file, char *str)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (str[i] && str[i] != '*')
@@ -107,30 +107,36 @@ bool	check_front(char *file, char *str)
 	return (true);
 }
 
-bool	check_back(char *file, char *str)
+bool check_back(char *file, char *str)
 {
-	size_t	i;
+	size_t i;
+	size_t j;
+	size_t len_str;
+	size_t len_file;
 
-	str = ft_strrchr(str, '*');
-	str++;
-	i = 0;
-	file = ft_strrchr(file, str[i]);
-	while (str[i])
+	len_str = ft_strlen(str);
+	len_file = ft_strlen(file);
+	if (len_str == 0 || len_file == 0 || str[len_str - 1] == '*')
+		return (true);
+	i = len_str - 1;
+	j = len_file - 1;
+	while (i >= 0 && j >= 0 && str[i] != '*')
 	{
-		if (str[i] != file[i])
+		if (str[i] != file[j])
 			return (false);
-		i++;
+		i--;
+		j--;
 	}
 	return (true);
 }
 
-bool	match_asterisk(char *file, char *str)
+bool match_asterisk(char *file, char *str)
 {
-	char	**words;
-	size_t	i;
-	size_t	j;
-	size_t	file_len;
-	size_t	word_len;
+	char **words;
+	size_t i;
+	size_t j;
+	size_t file_len;
+	size_t word_len;
 
 	i = 0;
 	if (!check_front(file, str) || !check_back(file, str))
@@ -158,11 +164,11 @@ bool	match_asterisk(char *file, char *str)
 	return (true);
 }
 
-char	**clip_latter(char **cmd, size_t start)
+char **clip_latter(char **cmd, size_t start)
 {
-	char	**latter;
-	size_t	size;
-	size_t	i;
+	char **latter;
+	size_t size;
+	size_t i;
 
 	size = arraylen(cmd) - start;
 	latter = malloc(sizeof(char *) * (size + 1));
@@ -176,10 +182,10 @@ char	**clip_latter(char **cmd, size_t start)
 	return (latter);
 }
 
-char	**realloc_array(char **cmd, char *str, size_t size)
+char **realloc_array(char **cmd, char *str, size_t size)
 {
-	char	**new;
-	size_t	i;
+	char **new;
+	size_t i;
 
 	new = malloc(sizeof(char *) * (size + 2));
 	i = 0;
@@ -194,13 +200,13 @@ char	**realloc_array(char **cmd, char *str, size_t size)
 	return (new);
 }
 
-char	**expand_asterisk(char ***cmd, size_t pos)
+char **expand_asterisk(char ***cmd, size_t pos)
 {
-	DIR				*dir;
-	size_t			i;
-	struct dirent	*dirent;
-	char			**latter;
-	char			*s[2];
+	DIR *dir;
+	size_t i;
+	struct dirent *dirent;
+	char **latter;
+	char *s[2];
 
 	s[ASTERISK] = (*cmd)[pos];
 	latter = clip_latter(*cmd, pos + 1);
@@ -211,7 +217,7 @@ char	**expand_asterisk(char ***cmd, size_t pos)
 	{
 		dirent = readdir(dir);
 		if (!dirent)
-			break ;
+			break;
 		if (match_asterisk(dirent->d_name, s[ASTERISK]))
 			*cmd = realloc_array(*cmd, dirent->d_name, pos++);
 	}
@@ -220,9 +226,9 @@ char	**expand_asterisk(char ***cmd, size_t pos)
 	return (NULL);
 }
 
-static bool	has_asterisk(char *str)
+static bool has_asterisk(char *str)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (str[i])
@@ -236,26 +242,20 @@ static bool	has_asterisk(char *str)
 
 void	check_asterisk(char **cmd)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (cmd[i])
 	{
 		if (has_asterisk(cmd[i]))
 		{
-			expand_asterisk(&cmd, i);
+			expand_asterisk(cmd, i);
 		}
-		i++;
-	}
-	i = 0;
-	while (cmd[i] != NULL)
-	{
-		printf("%s\n", cmd[i]);
 		i++;
 	}
 }
 
-int	main(void)
-{
-	check_asterisk((char *[]){"hello", "*.", "hello", NULL});
-}
+//int main(void)
+//{
+//	check_asterisk((char *[]){"hello", "*.", "hello", NULL});
+//}

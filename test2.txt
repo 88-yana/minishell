@@ -1,0 +1,10 @@
+Makefile
+includes
+libft
+minishell
+objs
+old_data
+record
+srcs
+test.txt
+test2.txt

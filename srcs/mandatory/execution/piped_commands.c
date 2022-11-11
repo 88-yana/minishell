@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piped_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:57:18 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/11 20:29:26 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/11 22:32:33 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	check_command(t_vars *vars, char **command)
 		command[i] = lexer_envs(vars, command[i]);
 		i++;
 	}
-	// check_asterisk(command);
+	//check_asterisk(command); //check
 }
 
 void	check_path(char **path, char **command)
