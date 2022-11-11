@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/10 23:04:31 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/11 15:36:13 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,27 +35,7 @@ void	do_parse(t_node *p, bool *failed_flag)
 
 // リダイレクションとサブシェルの位置関係はいじれない
 
-t_list	**realloc_list(t_list **list, t_list *ptr)
-{
-	t_list	**new;
-	size_t	size;
-	size_t	i;
 
-	size = 0;
-	while (list[size] != NULL)
-		size++;
-	new = malloc(sizeof(t_list *) * (size + 2));
-	i = 0;
-	while (i < size)
-	{
-		new[i] = list[i];
-		i++;
-	}
-	new[size] = ptr;
-	new[size + 1] = NULL;
-	// free(list);
-	return (new);
-}
 
 t_list	**traverse(t_node *p, t_list **list)
 {
@@ -120,7 +100,6 @@ t_list	*parser(char **array)
 	root.line = array;
 	failed_flag = false;
 	init_root(&root);
-
 	if (check_array_redirect(array) == false)
 		return (NULL);
 	do_parse(&root, &failed_flag);
