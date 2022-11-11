@@ -1,0 +1,75 @@
+minishell$ echo hello
+type: [ command ] command: [ echo hello ]
+hello
+minishell$ (echo hello)
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ echo hello ]
+---------- inside shell ----------
+hello
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ echo hello ]
+---------- inside shell ----------
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ echo hello ]
+---------- inside shell ----------
+minishell$ echo hello | grep h && (ls -a)
+type: [ command ] command: [ echo hello ]
+type: [ command ] command: [ grep h ]
+---------- inside shell ----------
+type: [ shell ]
+---------- inside shell ----------
+hello
+.
+..
+.git
+.gitignore
+.vscode
+Makefile
+a.out
+correct.txt
+includes
+infile.txt
+libft
+minishell
+objs
+old_data
+record
+srcs
+test.txt
+type: [ command ] command: [ echo hello ]
+type: [ pipe ]
+type: [ command ] command: [ grep h ]
+type: [ and ]
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ ls -a ]
+---------- inside shell ----------
+type: [ command ] command: [ echo hello ]
+type: [ pipe ]
+type: [ command ] command: [ grep h ]
+type: [ and ]
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ ls -a ]
+---------- inside shell ----------
+minishell$ echo hello | grep h
+type: [ command ] command: [ echo hello ]
+type: [ command ] command: [ grep h ]
+hello
+type: [ command ] command: [ echo hello ]
+type: [ pipe ]
+type: [ command ] command: [ grep h ]
+minishell$ echo hello && echo world
+type: [ command ] command: [ echo hello ]
+type: [ and ]
+type: [ command ] command: [ echo world ]
+hello
+world
+minishell$ echo hello > test.txt
+type: [ gt ] aim: [ test.txt ]
+type: [ command ] command: [ echo hello ]
+hello
+minishell$ exit
