@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/11 15:36:13 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/11 15:48:20 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void	do_parse(t_node *p, bool *failed_flag)
 }
 
 // リダイレクションとサブシェルの位置関係はいじれない
-
-
 
 t_list	**traverse(t_node *p, t_list **list)
 {
