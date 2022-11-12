@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/11 22:28:30 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/11/12 22:00:33 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 	order = (t_order *)comline->content;
 	set_fd(comline);
 	if (order->type == COMMAND)
-		check_command(vars, order->cmd);
+		check_command(vars, &(order->cmd));
 	if (!order->can_exec)
 		;
 	else if (is_builtin(order->cmd) && order->pipe_num == 0
