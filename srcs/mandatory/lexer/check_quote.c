@@ -6,44 +6,13 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 21:07:06 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/12 14:09:12 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/12 14:27:47 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/lexer.h"
 
-static bool	match_quote(char *str, size_t *i, char quote)
-{
-	(*i)++;
-	while (str[*i] != '\0' && str[*i] != quote)
-		(*i)++;
-	if (str[*i] != quote)
-	{
-		ft_putendl_fd("minishell: syntax error: unexpected end of file", 2);
-		return (false);
-	}
-	return (true);
-}
-
-bool	match_bracket(char *str, size_t *i)
-{
-	(*i)++;
-	while (str[*i] != '\0' && str[*i] != CKET
-		&& str[*i] != SINGLEQ && str[*i] != DOUBLEQ)
-		(*i)++;
-	if (str[*i] == SINGLEQ)
-		match_quote(str, i, SINGLEQ);
-	else if (str[*i] == DOUBLEQ)
-		match_quote(str, i, DOUBLEQ);
-	else if (str[*i] == '\0')
-	{
-		ft_putendl_fd("minishell: syntax error: unexpected end of file", 2);
-		return (false);
-	}
-	return (true);
-}
-
-bool	check_quote(char *line)
+static bool	check_quote(char *line)
 {
 	size_t	i;
 
@@ -61,11 +30,10 @@ bool	check_quote(char *line)
 	return (true);
 }
 
-bool	check_line(char *line)
+static bool	check_bra(char *line)
 {
 	size_t	i;
-	if (check_quote(line) == false)
-		return (false);
+
 	i = 0;
 	while (i < ft_strlen(line))
 	{
@@ -74,5 +42,43 @@ bool	check_line(char *line)
 				return (false);
 		i++;
 	}
+	return (true);
+}
+
+static bool	check_cket(char *line)
+{
+	size_t	i;
+	size_t	cnt_bracket;
+
+	i = 0;
+	cnt_bracket = 0;
+	while (i < ft_strlen(line))
+	{
+		if (line[i] == BRA)
+			cnt_bracket++;
+		if (line[i] == CKET)
+			cnt_bracket--;
+		if (line[i] == SINGLEQ)
+			match_quote(line, &i, SINGLEQ);
+		if (line[i] == DOUBLEQ)
+			match_quote(line, &i, DOUBLEQ);
+		i++;
+	}
+	if (cnt_bracket != 0)
+	{
+		ft_putendl_fd("minishell: syntax error near unexpected token `)'", 2);
+		return (false);
+	}
+	return (true);
+}
+
+bool	check_line(char *line)
+{
+	if (check_quote(line) == false)
+		return (false);
+	if (check_bra(line) == false)
+		return (false);
+	if (check_cket(line) == false)
+		return (false);
 	return (true);
 }

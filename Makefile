@@ -6,6 +6,7 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/lexer/lexer.c \
 	mandatory/lexer/check_quote.c \
 	mandatory/lexer/malloc_free.c \
+	mandatory/lexer/match.c \
 	mandatory/lexer/bool.c \
 	mandatory/lexer_one_symbol/bool_div.c \
 	mandatory/lexer_one_symbol/lexer_div.c \
