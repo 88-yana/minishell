@@ -1,5 +1,7 @@
 Makefile
+a.out
 includes
+leak.sh
 libft
 minishell
 objs
