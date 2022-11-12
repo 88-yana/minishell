@@ -249,7 +249,7 @@ void	check_asterisk(char **cmd)
 	{
 		if (has_asterisk(cmd[i]))
 		{
-			expand_asterisk(&cmd, i);
+			expand_asterisk(cmd, i);
 		}
 		i++;
 	}
