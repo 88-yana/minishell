@@ -93,9 +93,9 @@
 #define CWD 0
 #define ASTERISK 1
 
-bool	check_front(char *file, char *str)
+bool check_front(char *file, char *str)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (str[i] && str[i] != '*')
@@ -107,12 +107,12 @@ bool	check_front(char *file, char *str)
 	return (true);
 }
 
-bool	check_back(char *file, char *str)
+bool check_back(char *file, char *str)
 {
-	size_t	i;
-	size_t	j;
-	size_t	len_str;
-	size_t	len_file;
+	size_t i;
+	size_t j;
+	size_t len_str;
+	size_t len_file;
 
 	len_str = ft_strlen(str);
 	len_file = ft_strlen(file);
@@ -130,13 +130,13 @@ bool	check_back(char *file, char *str)
 	return (true);
 }
 
-bool	match_asterisk(char *file, char *str)
+bool match_asterisk(char *file, char *str)
 {
-	char	**words;
-	size_t	i;
-	size_t	j;
-	size_t	file_len;
-	size_t	word_len;
+	char **words;
+	size_t i;
+	size_t j;
+	size_t file_len;
+	size_t word_len;
 
 	i = 0;
 	if (!check_front(file, str) || !check_back(file, str))
@@ -164,11 +164,11 @@ bool	match_asterisk(char *file, char *str)
 	return (true);
 }
 
-char	**clip_latter(char **cmd, size_t start)
+char **clip_latter(char **cmd, size_t start)
 {
-	char	**latter;
-	size_t	size;
-	size_t	i;
+	char **latter;
+	size_t size;
+	size_t i;
 
 	size = arraylen(cmd) - start;
 	latter = malloc(sizeof(char *) * (size + 1));
@@ -182,10 +182,10 @@ char	**clip_latter(char **cmd, size_t start)
 	return (latter);
 }
 
-char	**realloc_array(char **cmd, char *str, size_t size)
+char **realloc_array(char **cmd, char *str, size_t size)
 {
-	char	**new;
-	size_t	i;
+	char **new;
+	size_t i;
 
 	new = malloc(sizeof(char *) * (size + 2));
 	i = 0;
@@ -200,13 +200,13 @@ char	**realloc_array(char **cmd, char *str, size_t size)
 	return (new);
 }
 
-char	**expand_asterisk(char ***cmd, size_t pos)
+char **expand_asterisk(char ***cmd, size_t pos)
 {
-	DIR				*dir;
-	size_t			i;
-	struct dirent	*dirent;
-	char			**latter;
-	char			*s[2];
+	DIR *dir;
+	size_t i;
+	struct dirent *dirent;
+	char **latter;
+	char *s[2];
 
 	s[ASTERISK] = (*cmd)[pos];
 	latter = clip_latter(*cmd, pos + 1);
@@ -226,9 +226,9 @@ char	**expand_asterisk(char ***cmd, size_t pos)
 	return (NULL);
 }
 
-static bool	has_asterisk(char *str)
+static bool has_asterisk(char *str)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (str[i])
@@ -242,7 +242,7 @@ static bool	has_asterisk(char *str)
 
 void	check_asterisk(char **cmd)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (cmd[i])
