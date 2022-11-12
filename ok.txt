@@ -1,0 +1,45 @@
+minishell$ echo hello | grep h && (ls -a)
+type: [ command ] command: [ echo hello ]
+type: [ command ] command: [ grep h ]
+---------- inside shell ----------
+type: [ shell ]
+---------- inside shell ----------
+hello
+$
+.
+..
+.git
+.gitignore
+.vscode
+Makefile
+a.out
+includes
+infile.txt
+libft
+minishell
+objs
+ok.txt
+old_data
+record
+srcs
+tes2.txt
+test.txt
+test2.txt
+test3.txt
+type: [ command ] command: [ echo hello ]
+type: [ pipe ]
+type: [ command ] command: [ grep h ]
+type: [ and ]
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ ls -a ]
+---------- inside shell ----------
+type: [ command ] command: [ echo hello ]
+type: [ pipe ]
+type: [ command ] command: [ grep h ]
+type: [ and ]
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ ls -a ]
+---------- inside shell ----------
+minishell$ exit

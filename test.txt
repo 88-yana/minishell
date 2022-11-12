@@ -1,0 +1,4 @@
+type: [ gt ] aim: [ test.txt ]
+type: [ command ] command: [ echo hello ]
+hello
+geminishell$ exit

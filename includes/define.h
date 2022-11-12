@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 21:48:17 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/12 14:00:09 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ extern int g_status;
 
 # define DOUBLEQ '"'
 # define SINGLEQ '\''
+# define BRA '('
+# define CKET ')'
 
 # define CNTARRLEN 0
 # define CNTSTRLEN 1

@@ -83,7 +83,7 @@ test:
 	./minishell < infile.txt | diff - correct.txt
 # ./minishell < infile.txt | (diff /dev/fd/3 correct.txt) 3<&0
 ok:
-	./minishell < infile.txt > correct.txt
+	./minishell < infile.txt > ok.txt
 
 clean:
 	rm -rf $(OBJDIR)

@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 20:49:22 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/12 13:17:44 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/12 13:18:29 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	traverse_pipe(t_node *p, t_list ***list)
 	list_ptr = ft_lstnew(make_command(PIPE, NULL, NULL, NULL));
 	*list = traverse(p->left, *list);
 	*list = realloc_list(*list, list_ptr);
-
 	latter = malloc(sizeof(t_list *));
 	latter[0] = NULL;
 	latter = traverse(p->right, latter);
