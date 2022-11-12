@@ -81,7 +81,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
 
 test:
-	./minishell < infile.txt | diff - correct.txt
+	./minishell < infile.txt | diff - ok.txt
 # ./minishell < infile.txt | (diff /dev/fd/3 correct.txt) 3<&0
 ok:
 	./minishell < infile.txt > ok.txt

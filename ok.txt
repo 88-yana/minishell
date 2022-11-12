@@ -15,6 +15,7 @@ Makefile
 a.out
 includes
 infile.txt
+leak.sh
 libft
 minishell
 objs

@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/12 15:13:52 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/12 16:08:16 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static void	minishell(char **envp)
 		vars.array = lexer(vars.line);
 		if (vars.array == NULL)
 			continue ;
-		// vars.comline = parser(vars.array);
+		vars.comline = parser(vars.array);
 		if (vars.comline == NULL)
 			continue ;
-		// execution(&vars);
+		execution(&vars);
 		free(vars.line);
 	}
 }
