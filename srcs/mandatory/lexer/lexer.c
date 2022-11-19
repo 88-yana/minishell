@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/19 21:09:22 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/19 21:51:17 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,6 @@ void	split_line(t_array *data, int type)
 	}
 }
 
-// char	**lexer(char *line)
-// {
-// 	t_array	data;
-// 	char	**array;
-
-// 	data.line = line;
-// 	if (check_line(data.line) == false)
-// 		return (NULL);
-// 	if (malloc_array(&data) == NULL)
-// 		return (NULL);
-// 	// if (malloc_element(&data) == NULL)
-// 	// 	return (NULL);
-// 	// data.pos = 0;
-// 	// split_line(&data, PUSHELEM);
-// 	// array = divide_redirect(data.array);
-// 	return (array);
-// }
-
 char	**lexer(char *line)
 {
 	t_array	data;
@@ -98,21 +80,22 @@ char	**lexer(char *line)
 	split_line(&data, PUSHELEM);
 	free(data.strs_len);
 	array = divide_redirect(data.array);
-	return (data.array);
+	free_doubleptr(data.array);
+	return (array);
 }
 
-int	main(void)
-{
-	char	**array;
-	int		i;
+// int	main(void)
+// {
+// 	char	**array;
+// 	int		i;
 
-	array = lexer("abc def ghi");
-	i = 0;
-	// while (i < 2)
-	// {
-	// 	printf("%s\n", array[i]);
-	// 	i++;
-	// }
+// 	array = lexer("abc def ghi");
+// 	i = 0;
+// 	// while (i < 2)
+// 	// {
+// 	// 	printf("%s\n", array[i]);
+// 	// 	i++;
+// 	// }
 
-	system("leaks -q a.out");
-}
+// 	system("leaks -q a.out");
+// }

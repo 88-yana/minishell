@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   arraylen.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 10:20:32 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/19 21:04:45 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/11/19 21:14:36 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/utils.h"
+
+void	free_doubleptr(char **array)
+{
+	size_t	len;
+	size_t	i;
+
+	len = arraylen(array);
+	i = 0;
+	while (i < len + 1)
+		free(array[i++]);
+	free(array);
+}
 
 size_t	arraylen(char **array)
 {
