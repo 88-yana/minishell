@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/19 20:45:02 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/11/19 21:32:51 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,6 @@ void	split_line(t_array *data, int type)
 	}
 }
 
-// char	**lexer(char *line)
-// {
-// 	t_array	data;
-// 	char	**array;
-
-// 	data.line = line;
-// 	if (check_line(data.line) == false)
-// 		return (NULL);
-// 	if (malloc_array(&data) == NULL)
-// 		return (NULL);
-// 	// if (malloc_element(&data) == NULL)
-// 	// 	return (NULL);
-// 	// data.pos = 0;
-// 	// split_line(&data, PUSHELEM);
-// 	// array = divide_redirect(data.array);
-// 	return (array);
-// }
-
 char	**lexer(char *line)
 {
 	t_array	data;
@@ -96,10 +78,28 @@ char	**lexer(char *line)
 		return (NULL);
 	data.pos = 0;
 	split_line(&data, PUSHELEM);
-	free(data.strs_len);
 	array = divide_redirect(data.array);
-	return (data.array);
+	return (array);
 }
+
+// char	**lexer(char *line)
+// {
+// 	t_array	data;
+// 	char	**array;
+
+// 	data.line = line;
+// 	if (check_line(data.line) == false)
+// 		return (NULL);
+// 	if (malloc_array(&data) == NULL)
+// 		return (NULL);
+// 	if (malloc_element(&data) == NULL)
+// 		return (NULL);
+// 	data.pos = 0;
+// 	split_line(&data, PUSHELEM);
+// 	free(data.strs_len);
+// 	array = divide_redirect(data.array);
+// 	return (data.array);
+// }
 
 // int	main(void)
 // {
