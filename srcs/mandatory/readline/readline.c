@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 21:17:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/19 21:50:17 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/11/19 22:10:31 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,18 @@ static void	exit_shell(void)
 	exit(g_status);
 }
 
+static void	do_nothing(int signal)
+{
+	(void)signal;
+}
+
 char	*read_line_from_prompt(void)
 {
 	char	*str;
 
 	setup_signal();
 	str = readline(PROMPT);
+	signal(SIGINT, do_nothing);
 	if (str == NULL)
 		exit_shell();
 	else if (ft_strlen(str) == 0)
