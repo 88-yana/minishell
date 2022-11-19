@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/19 20:29:09 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/19 20:46:10 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,18 +101,18 @@ char	**lexer(char *line)
 	return (data.array);
 }
 
-// int	main(void)
-// {
-// 	char	**array;
-// 	int		i;
+int	main(void)
+{
+	char	**array;
+	int		i;
 
-// 	array = lexer("abcdaa efghaaa ijkaaa");
-// 	i = 0;
-// 	// while (i < 2)
-// 	// {
-// 	// 	printf("%s\n", array[i]);
-// 	// 	i++;
-// 	// }
+	array = lexer("abcdaa efghaaa ijkaaa");
+	i = 0;
+	// while (i < 2)
+	// {
+	// 	printf("%s\n", array[i]);
+	// 	i++;
+	// }
 
-// 	system("leaks -q a.out");
-// }
+	system("leaks -q a.out");
+}
