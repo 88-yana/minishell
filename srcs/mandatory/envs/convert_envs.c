@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_envs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:35:11 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 19:40:04 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/19 21:39:33 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	**get_envp_from_list(t_list *list)
 	while (i < list_size)
 	{
 		envs = (t_envs *)list->content;
-		envp[i] = strjoin_delimiter(envs->type, "=", envs->value);
+		envp[i] = strjoin_delimiter(envs->type, envs->value, "=");
 		if (envp[i] == NULL)
 			return (NULL);
 		list = list->next;

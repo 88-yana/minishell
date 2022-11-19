@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/19 21:51:17 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/19 21:53:11 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,29 @@ char	**lexer(char *line)
 		return (NULL);
 	data.pos = 0;
 	split_line(&data, PUSHELEM);
-	free(data.strs_len);
 	array = divide_redirect(data.array);
 	free_doubleptr(data.array);
 	return (array);
 }
+
+// char	**lexer(char *line)
+// {
+// 	t_array	data;
+// 	char	**array;
+
+// 	data.line = line;
+// 	if (check_line(data.line) == false)
+// 		return (NULL);
+// 	if (malloc_array(&data) == NULL)
+// 		return (NULL);
+// 	if (malloc_element(&data) == NULL)
+// 		return (NULL);
+// 	data.pos = 0;
+// 	split_line(&data, PUSHELEM);
+// 	free(data.strs_len);
+// 	array = divide_redirect(data.array);
+// 	return (data.array);
+// }
 
 // int	main(void)
 // {
