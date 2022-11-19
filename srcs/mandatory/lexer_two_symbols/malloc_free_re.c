@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 21:41:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/12 22:30:01 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/19 20:34:38 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 t_array	*malloc_array_re(t_array *data)
 {
 	data->pos = 0;
-	// split_line_re(data, 0);
+	split_line_re(data, 0);
 	data->array = malloc(sizeof(char *) * (data->pos + 1));
 	data->strs_len = malloc(sizeof(size_t) * data->pos);
-	// if (data->array == NULL || data->strs_len == NULL)
-	// {
-	// 	free(data->array);
-	// 	free(data->strs_len);
-	// 	perror("malloc failed");
-	// 	return (NULL);
-	// }
+	if (data->array == NULL || data->strs_len == NULL)
+	{
+		free(data->array);
+		free(data->strs_len);
+		perror("malloc failed");
+		return (NULL);
+	}
 	data->array[data->pos] = NULL;
 	return (data);
 }

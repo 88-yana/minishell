@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/12 22:30:49 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/19 20:29:23 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ char	**lexer_re(t_array	*data)
 {
 	if (malloc_array_re(data) == NULL)
 		return (NULL);
-	// if (malloc_element_re(data) == NULL)
-	// 	return (NULL);
-	// data->pos = 0;
-	// split_line_re(data, 2);
+	if (malloc_element_re(data) == NULL)
+		return (NULL);
+	data->pos = 0;
+	split_line_re(data, 2);
 	free(data->strs_len);
 	return (data->array);
 }
