@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/12 22:00:33 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/19 21:06:31 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 {
 	t_order	*order;
-	int		tmp;
+	int		tmp_fd[2];
 
 	order = (t_order *)comline->content;
 	set_fd(comline);
@@ -26,12 +26,15 @@ static void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 	else if (is_builtin(order->cmd) && order->pipe_num == 0
 		&& !is_next_type(comline, PIPE))
 	{
-		// tmp = dup(STDOUT_FILENO);
-		// tmp_fd[READ] = dup(STDIN_FILENO);
-		// duplicate_output(order);
+		tmp_fd[WRITE] = dup(STDOUT_FILENO);
+		printf("%s, %d\n", __FILE__, __LINE__);
+		if (order->write_fd != NONE)
+			dup2(order->write_fd, STDOUT_FILENO);
+		printf("%s, %d\n", __FILE__, __LINE__);
 		exec_builtin(vars, order->cmd);
 		// dup2(STDIN_FILENO, tmp_fd[READ]);
-		// dup2(STDOUT_FILENO, tmp_fd[WRITE]);
+		dup2(STDOUT_FILENO, tmp_fd[WRITE]);
+		close(tmp_fd[WRITE]);
 	}
 	else
 		exec_command_child(vars, comline, pids);

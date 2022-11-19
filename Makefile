@@ -12,7 +12,6 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/lexer_one_symbol/lexer_div.c \
 	mandatory/lexer_one_symbol/delete_brank.c \
 	mandatory/lexer_one_symbol/malloc_free_div.c \
-	mandatory/lexer_two_symbols/arraylen.c \
 	mandatory/lexer_two_symbols/divide_redirect.c \
 	mandatory/lexer_two_symbols/push_element.c \
 	mandatory/lexer_two_symbols/bool_re.c \
@@ -48,6 +47,7 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/utils/strjoin_delimiter.c \
 	mandatory/utils/substr_size_t.c \
 	mandatory/utils/go_advance.c \
+	mandatory/utils/arraylen.c \
 	mandatory/envs/convert_envs.c \
 	mandatory/envs/create.c \
 	mandatory/envs/envs_utils.c \

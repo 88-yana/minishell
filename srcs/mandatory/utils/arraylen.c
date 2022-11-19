@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   arraylen.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 10:20:32 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/12 22:24:58 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/19 21:04:45 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/lexer_two_symbols.h"
+#include	"../../../includes/utils.h"
 
 size_t	arraylen(char **array)
 {
