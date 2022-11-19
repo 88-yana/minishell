@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:42:40 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 19:44:35 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/19 21:05:01 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@ size_t	count_lstsize(t_list *lst);
 char	*substr_size_t(char const *s, size_t start, size_t len);
 void	safe_free_double_char(char **str);
 void	go_advance(size_t *i, size_t *str_len);
+size_t	arraylen(char **array);
+char	**arrayjoin(char **arr1, char**arr2);
 
 #endif

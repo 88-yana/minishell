@@ -1,12 +1,1 @@
-Makefile
-a.out
-includes
-leak.sh
-libft
-minishell
-objs
-old_data
-record
-srcs
-test.txt
-test2.txt
+hello

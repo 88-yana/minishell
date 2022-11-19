@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/11/19 20:46:10 by hyanagim         ###   ########.fr       */
+=======
+/*   Updated: 2022/11/19 20:45:02 by yahokari         ###   ########.fr       */
+>>>>>>> 988a2b31b34fe72cf3a9087123a6bb8838c9d0a6
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +110,7 @@ int	main(void)
 	char	**array;
 	int		i;
 
-	array = lexer("abcdaa efghaaa ijkaaa");
+	array = lexer("abc def ghi");
 	i = 0;
 	// while (i < 2)
 	// {
