@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 20:49:22 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/21 04:07:18 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/21 04:18:43 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ void	traverse_pipe(t_node *p, t_list ***list)
 	latter = traverse(p->right, latter);
 	*list = listjoin(*list, latter);
 	free(latter);
+	// ft_lstclear(&list_ptr, free); // kari
 }

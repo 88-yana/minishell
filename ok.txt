@@ -1,0 +1,95 @@
+minishell$ (echo hello)
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ echo hello ]
+---------- inside shell ----------
+hello
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ echo hello ]
+---------- inside shell ----------
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ echo hello ]
+---------- inside shell ----------
+minishell$ (echo hello) | grep h
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ echo hello ]
+---------- inside shell ----------
+type: [ pipe ]
+type: [ command ] command: [ grep h ]
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ echo hello ]
+---------- inside shell ----------
+type: [ command ] command: [ grep h ]
+hello
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ echo hello ]
+---------- inside shell ----------
+type: [ pipe ]
+type: [ command ] command: [ grep h ]
+minishell$ echo $?
+type: [ command ] command: [ echo $? ]
+0
+minishell$ echo hello|grep h&&ls -a
+type: [ command ] command: [ echo hello ]
+type: [ command ] command: [ grep h ]
+hello
+.
+..
+.git
+.gitignore
+.vscode
+Makefile
+a.out
+includes
+infile.txt
+leak.sh
+libft
+minishell
+objs
+ok.txt
+old_data
+record
+srcs
+test.txt
+test2.txt
+type: [ command ] command: [ echo hello ]
+type: [ pipe ]
+type: [ command ] command: [ grep h ]
+type: [ and ]
+type: [ command ] command: [ ls -a ]
+minishell$ (ls)
+Makefile
+a.out
+includes
+infile.txt
+leak.sh
+libft
+minishell
+objs
+ok.txt
+old_data
+record
+srcs
+test.txt
+test2.txt
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ ls ]
+---------- inside shell ----------
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ ls ]
+---------- inside shell ----------
+minishell$ cat < test.txt
+type: [ lt ] aim: [ test.txt ]
+type: [ command ] command: [ cat ]
+minishell$ echo world>test.txt
+type: [ gt ] aim: [ test.txt ]
+type: [ command ] command: [ echo world ]
+world
+minishell$ exit
