@@ -4,4 +4,4 @@ echo $?
 echo hello|grep h&&ls -a
 (ls)
 cat < test.txt
-echo world>test.txt
+echo world>tes.txt

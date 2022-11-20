@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/21 04:18:57 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/21 04:55:29 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,26 @@ bool	check_array_redirect(char **array)
 
 t_list	*parser(char **array)
 {
-	t_node	root;
+	t_node	*root;
 	t_list	**list;
 	t_list	*maked_list;
 	bool	failed_flag;
 	size_t	i;
 
-	root.line = array;
+	root = malloc(sizeof(t_node));
+	if (root == NULL)
+		exit(1);
+	root->line = array;
 	failed_flag = false;
-	init_root(&root);
+	init_root(root);
 	if (check_array_redirect(array) == false)
 		return (NULL);
-	do_parse(&root, &failed_flag);
+	do_parse(root, &failed_flag);
 	if (failed_flag)
 		return (NULL);
 	list = malloc(sizeof(t_list *) * 1);
 	list[0] = NULL;
-	list = traverse(&root, list);
+	list = traverse(root, list);
 	cmdjoin(list);
 	maked_list = list[0];
 	i = 1;
@@ -115,7 +118,7 @@ t_list	*parser(char **array)
 		i++;
 	}
 	display_command(maked_list);
-	free_tree(&root);
+	free_tree(root);
 	free(list);
 	return (maked_list);
 }

@@ -55,6 +55,7 @@ ok.txt
 old_data
 record
 srcs
+tes.txt
 test.txt
 test2.txt
 type: [ command ] command: [ echo hello ]
@@ -75,6 +76,7 @@ ok.txt
 old_data
 record
 srcs
+tes.txt
 test.txt
 test2.txt
 ---------- inside shell ----------
@@ -86,10 +88,10 @@ type: [ shell ]
 type: [ command ] command: [ ls ]
 ---------- inside shell ----------
 minishell$ cat < test.txt
-type: [ lt ] aim: [ test.txt ]
+worldtype: [ lt ] aim: [ test.txt ]
 type: [ command ] command: [ cat ]
-minishell$ echo world>test.txt
-type: [ gt ] aim: [ test.txt ]
+minishell$ echo world>tes.txt
+type: [ gt ] aim: [ tes.txt ]
 type: [ command ] command: [ echo world ]
 world
 minishell$ exit

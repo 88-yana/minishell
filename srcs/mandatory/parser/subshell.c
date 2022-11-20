@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:51:12 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/10 22:35:58 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/21 04:53:22 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	traverse_subshell(t_node *p, t_list ***list)
 		i++;
 	}
 	list_ptr = ft_lstnew(make_command(SUBSHELL, NULL, NULL, shell));
-	*list = realloc_list(*list, list_ptr);
+	*list = realloc_list_free(*list, list_ptr);
+	// ft_lstclear(&list_ptr, free); // kari
 }
