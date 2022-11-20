@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/21 01:38:42 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/21 03:49:43 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	minishell(char **envp)
 			continue ;
 		execution(&vars);
 		free_doubleptr(vars.array);
+		ft_lstclear(&(vars.comline), free);
 		free(vars.line);
 	}
 }
