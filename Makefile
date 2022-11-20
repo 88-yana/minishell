@@ -34,6 +34,7 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/parser/list.c \
 	mandatory/parser/command.c \
 	mandatory/parser/make_command.c \
+	mandatory/parser/realloc.c \
 	mandatory/builtin/builtin_cd.c \
 	mandatory/builtin/builtin_echo.c \
 	mandatory/builtin/builtin_env.c \
