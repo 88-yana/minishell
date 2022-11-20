@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 10:20:32 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/19 21:14:36 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/20 22:08:34 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ size_t	arraylen(char **array)
 	return (i);
 }
 
-char	**arrayjoin(char **arr1, char**arr2)
+char	**arrayjoin(char **arr1, char **arr2)
 {
 	size_t	length;
 	size_t	i;

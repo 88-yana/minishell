@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/19 21:51:40 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/11/20 22:35:31 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ static void	minishell(char **envp)
 		vars.array = lexer(vars.line);
 		if (vars.array == NULL)
 			continue ;
-		vars.comline = parser(vars.array);
-		if (vars.comline == NULL)
-			continue ;
-		execution(&vars);
+		// vars.comline = parser(vars.array);
+		// if (vars.comline == NULL)
+		// 	continue ;
+		// execution(&vars);
+		free_doubleptr(vars.array);
 		free(vars.line);
 	}
 }

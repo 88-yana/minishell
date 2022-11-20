@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:00:02 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/19 21:33:28 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/20 22:22:54 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**divide_by_duble(char **array)
 		data.line = array[i];
 		redirections = lexer_re(&data);
 		half = arrayjoin(half, redirections);
-		free_doubleptr(redirections);
+		free(redirections);
 		i++;
 	}
 	return (half);
@@ -49,7 +49,7 @@ char	**divide_by_one(char **half)
 		brackets = lexer_div(&data);
 		brackets = delete_brank(brackets);
 		ret = arrayjoin(ret, brackets);
-		free_doubleptr(brackets);
+		free(brackets);
 		i++;
 	}
 	return (ret);
@@ -62,6 +62,6 @@ char	**divide_redirect(char **array)
 
 	half = divide_by_duble(array);
 	ret = divide_by_one(half);
-	free(half);
+	free_doubleptr(half);
 	return (ret);
 }

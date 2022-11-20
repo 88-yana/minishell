@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/19 21:53:11 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/20 22:26:38 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	**lexer(char *line)
 		return (NULL);
 	data.pos = 0;
 	split_line(&data, PUSHELEM);
+	free(data.strs_len);
 	array = divide_redirect(data.array);
 	free_doubleptr(data.array);
 	return (array);
@@ -109,11 +110,10 @@ char	**lexer(char *line)
 
 // 	array = lexer("abc def ghi");
 // 	i = 0;
-// 	// while (i < 2)
-// 	// {
-// 	// 	printf("%s\n", array[i]);
-// 	// 	i++;
-// 	// }
-
+// 	while (i < 3)
+// 	{
+// 		printf("%s\n", array[i]);
+// 		i++;
+// 	}
 // 	system("leaks -q a.out");
 // }

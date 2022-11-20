@@ -86,6 +86,10 @@ test:
 ok:
 	./minishell < infile.txt > ok.txt
 
+lexer:
+	cc srcs/mandatory/lexer/*c srcs/mandatory/lexer_one_symbol/*c srcs/mandatory/lexer_two_symbols/*c srcs/mandatory/utils/*c libft/libft.a
+	./a.out
+
 clean:
 	rm -rf $(OBJDIR)
 	$(MAKE) fclean -C ./libft
