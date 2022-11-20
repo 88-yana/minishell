@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/11 15:48:20 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/21 01:46:06 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,18 @@ t_list	*parser(char **array)
 		i++;
 	}
 	display_command(maked_list);
+	// //ft_lstclear(list, free);
+	// free_tree(&root);
 	return (maked_list);
 }
+
+// int	main(void)
+// {
+// 	t_list	*list;
+// 	// char	*array[16] = {"echo", "hello", "|", "grep", "h", "&&", "echo", "hello", ">", "test.txt", "||", "(", "ls", "-a", ")", NULL};
+// 	char	*array[6] = {"echo", "hello", "|", "grep", "h", NULL};
+
+// 	list = parser(array);
+// 	// ft_lstclear(&list, free);
+// 	system("leaks -q a.out");
+// }

@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:48:44 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/11 20:37:21 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/20 23:07:37 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,5 @@ void	traverse_redirectrion(t_node *p, t_list ***list);
 void	traverse_command(t_node *p, t_list ***list);
 void	cmdjoin(t_list **list);
 t_list	**realloc_list(t_list **list, t_list *ptr);
+void	free_tree(t_node *root);
 #endif

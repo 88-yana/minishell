@@ -90,6 +90,13 @@ lexer:
 	cc srcs/mandatory/lexer/*c srcs/mandatory/lexer_one_symbol/*c srcs/mandatory/lexer_two_symbols/*c srcs/mandatory/utils/*c libft/libft.a
 	./a.out
 
+parser:
+	gcc srcs/mandatory/parser/*c srcs/mandatory/utils/*c libft/libft.a
+	./a.out
+
+sub: $(NAME)
+	./minishell < infile.txt
+
 clean:
 	rm -rf $(OBJDIR)
 	$(MAKE) fclean -C ./libft

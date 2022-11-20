@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 21:13:13 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/10 21:14:59 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/21 00:47:21 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,20 @@ t_node	*talloc(t_type type, t_node *parent)
 	p->include_right = parent->include_right;
 	p->index = parent->index + 1;
 	p->parent = parent;
-	p->left = parent->left;
-	p->right = parent->right;
+	// p->left = parent->left;
+	// p->right = parent->right;
+	p->left = NULL;
+	p->right = NULL;
 	return (p);
 }
 //talloc 失敗した時のエラー処理を後で書く
+
+void	free_tree(t_node *root)
+{
+	if (root->left != NULL)
+		free_tree(root->left);
+	if (root->right != NULL)
+		free_tree(root->right);
+	free(root->left);
+	free(root->right);
+}
