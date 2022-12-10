@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_free_re.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 21:41:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/19 20:46:24 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/11/21 03:30:07 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

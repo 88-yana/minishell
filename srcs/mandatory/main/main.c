@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/19 22:07:16 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/10 16:09:03 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void	minishell(char **envp)
 		if (vars.comline == NULL)
 			continue ;
 		execution(&vars);
+		free_doubleptr(vars.array);
+		ft_lstclear(&(vars.comline), free);
 		free(vars.line);
 	}
 }

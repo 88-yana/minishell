@@ -34,6 +34,7 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/parser/list.c \
 	mandatory/parser/command.c \
 	mandatory/parser/make_command.c \
+	mandatory/parser/realloc.c \
 	mandatory/builtin/builtin_cd.c \
 	mandatory/builtin/builtin_echo.c \
 	mandatory/builtin/builtin_env.c \
@@ -80,11 +81,22 @@ $(NAME): $(OBJS)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
 
-test:
+test: $(NAME)
 	./minishell < infile.txt | diff - ok.txt
 # ./minishell < infile.txt | (diff /dev/fd/3 correct.txt) 3<&0
 ok:
 	./minishell < infile.txt > ok.txt
+
+lexer:
+	cc srcs/mandatory/lexer/*c srcs/mandatory/lexer_one_symbol/*c srcs/mandatory/lexer_two_symbols/*c srcs/mandatory/utils/*c libft/libft.a
+	./a.out
+
+parser:
+	gcc srcs/mandatory/parser/*c srcs/mandatory/utils/*c libft/libft.a
+	./a.out
+
+sub: $(NAME)
+	./minishell < infile.txt
 
 clean:
 	rm -rf $(OBJDIR)

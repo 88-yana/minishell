@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   divide_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:00:02 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/19 20:49:29 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/11/21 03:31:20 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	**divide_by_duble(char **array)
 		data.line = array[i];
 		redirections = lexer_re(&data);
 		half = arrayjoin(half, redirections);
+		free(redirections);
 		i++;
 	}
 	return (half);
@@ -48,6 +49,7 @@ char	**divide_by_one(char **half)
 		brackets = lexer_div(&data);
 		brackets = delete_brank(brackets);
 		ret = arrayjoin(ret, brackets);
+		free(brackets);
 		i++;
 	}
 	return (ret);
@@ -57,9 +59,8 @@ char	**divide_redirect(char **array)
 {
 	char	**half;
 	char	**ret;
-
 	half = divide_by_duble(array);
 	ret = divide_by_one(half);
-	free(half);
+	// free_doubleptr(half);
 	return (ret);
 }

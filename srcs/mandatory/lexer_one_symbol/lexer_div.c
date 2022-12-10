@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/22 18:17:29 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/21 01:37:17 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,25 @@ static void	push_element_div(t_array *data, size_t i, size_t len, int type)
 	if (type == 2)
 		copy_to_array(data, i, len);
 	if (data->line[i] == '\0')
+	{
+		if (type == 1)
+			data->strs_len[data->pos] = len + 1;
 		data->pos++;
+	}
 	else if (i == 0)
+	{
+		if (type == 1)
+			data->strs_len[data->pos] = len + 1;
 		data->pos++;
+	}
 	else
+	{
+		if (type == 1)
+			data->strs_len[data->pos] = len + 1;
+		if (type == 1)
+			data->strs_len[data->pos + 1] = len + 1;
 		data->pos += 2;
+	}
 }
 
 void	split_line_div(t_array *data, int type)
@@ -101,5 +115,6 @@ char	**lexer_div(t_array	*data)
 		return (NULL);
 	data->pos = 0;
 	split_line_div(data, 2);
+	free(data->strs_len);
 	return (data->array);
 }

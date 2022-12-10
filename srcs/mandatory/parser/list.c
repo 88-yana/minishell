@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 21:45:48 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/11 15:45:50 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/21 04:05:41 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_list	**listjoin(t_list **list, t_list **latter)
 		j++;
 	}
 	new[length] = NULL;
+	free(list);
 	return (new);
 }
 
@@ -82,26 +83,4 @@ void	cmdjoin(t_list **list)
 		}
 		i++;
 	}
-}
-
-t_list	**realloc_list(t_list **list, t_list *ptr)
-{
-	t_list	**new;
-	size_t	size;
-	size_t	i;
-
-	size = 0;
-	while (list[size] != NULL)
-		size++;
-	new = malloc(sizeof(t_list *) * (size + 2));
-	i = 0;
-	while (i < size)
-	{
-		new[i] = list[i];
-		i++;
-	}
-	new[size] = ptr;
-	new[size + 1] = NULL;
-	// free(list);
-	return (new);
 }

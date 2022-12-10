@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:42:40 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/19 21:05:01 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/11/19 21:14:29 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ void	safe_free_double_char(char **str);
 void	go_advance(size_t *i, size_t *str_len);
 size_t	arraylen(char **array);
 char	**arrayjoin(char **arr1, char**arr2);
+void	free_doubleptr(char **array);
 
 #endif

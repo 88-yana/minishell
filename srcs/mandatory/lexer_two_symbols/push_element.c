@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 20:30:51 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/22 18:59:39 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/11/21 03:30:19 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ bool	push_element_quo(t_array *data, size_t i, size_t len, int type)
 	if (type == 2)
 		if (data->line[i] == '\0')
 			ft_strlcpy(data->array[data->pos], &(data->line[i - len]), len + 1);
+	if (type == 1)
+		data->strs_len[data->pos] = len + 1;
 	data->pos++;
 	return (true);
 }
@@ -51,6 +53,8 @@ bool	push_element_re(t_array *data, size_t *i, size_t *len, int type)
 	{
 		if (type == 2)
 			copy_redirect(data, i, len);
+		if (type == 1)
+			data->strs_len[data->pos + 1] = 3;
 		data->pos += 2;
 	}
 	if (is_null(data->line[*i + 2]))
