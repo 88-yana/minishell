@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 21:55:08 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 19:26:34 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/11 17:56:45 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/builtin.h"
 
-void	exec_pwd(char **cmd)
+void	exec_pwd(void)
 {
 	char	*cwd;
 

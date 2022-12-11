@@ -6,19 +6,17 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/10 16:09:03 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/11 17:42:00 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/minishell.h"
 
-g_status = 0;
-
 static void	minishell(char **envp)
 {
 	t_vars	vars;
-	char	*line;
 
+	g_status = 0;
 	convert_envp_to_list(&vars, envp);
 	while (true)
 	{

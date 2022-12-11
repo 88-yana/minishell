@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pid.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:34:39 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 21:30:13 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/11 16:55:35 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ void	create_pid_list(t_list **list, pid_t pid)
 		*list = ft_lstnew(buf);
 	else
 		ft_lstadd_back(list, ft_lstnew(buf));
+}
+
+void	free_pids(void *p)
+{
+	pid_t	*buf;
+
+	buf = (pid_t *)p;
+	free(buf);
 }
 
 void	wait_pids(t_list **pids)
@@ -45,5 +53,6 @@ void	wait_pids(t_list **pids)
 		g_status = 128 + WTERMSIG(status);
 	else
 		g_status = WEXITSTATUS(status);
-	*pids = NULL; //need modified
+	ft_lstclear(pids, free_pids);
+	*pids = NULL;
 }

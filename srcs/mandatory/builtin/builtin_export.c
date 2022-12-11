@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 17:00:24 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 19:26:23 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/11 17:56:25 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	print_export_error(char *str)
 void	exec_export(t_vars *vars, char **cmd)
 {
 	size_t	i;
-	t_envs	*envs;
 	t_list	*list;
 
 	g_status = 0;

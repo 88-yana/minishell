@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 21:19:47 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 19:25:58 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/11 17:55:48 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/builtin.h"
 
-void	exec_env(t_vars *vars, char **cmd)
+void	exec_env(t_vars *vars)
 {
 	t_envs	*envs;
 	t_list	*list;

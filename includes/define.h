@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/12 14:00:09 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/11 17:42:15 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include	"stdbool.h"
 # include	"../libft/libft.h"
 
-extern int g_status;
+int	g_status;
 
 # define DOUBLEQ '"'
 # define SINGLEQ '\''

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 21:55:22 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/11 20:56:07 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/11 17:57:05 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ bool	is_builtin(char **cmd);
 void	exec_builtin(t_vars *vars, char **cmd);
 void	exec_echo(char **cmd);
 void	exec_cd(t_vars *vars, char **cmd);
-void	exec_pwd(char **cmd);
+void	exec_pwd(void);
 void	exec_export(t_vars *vars, char **cmd);
 void	exec_unset(t_vars *vars, char **cmd);
-void	exec_env(t_vars *vars, char **cmd);
+void	exec_env(t_vars *vars);
 void	exec_exit(char **cmd);
 
 #endif

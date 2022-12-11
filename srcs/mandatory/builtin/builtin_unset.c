@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 21:26:16 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 19:26:37 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/11 17:57:42 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ static bool	is_str_valid_list(char *str)
 		return (false);
 }
 
-void	delete_envs_single_top(t_vars *vars, char *type)
+void	delete_envs_single_top(t_vars *vars)
 {
 	ft_lstdelone(vars->envs, free_envs);
 	vars->envs = NULL;
 }
 
-void	delete_envs_top(t_vars *vars, char *type)
+void	delete_envs_top(t_vars *vars)
 {
 	t_list	*list;
 	t_list	*buf;
@@ -80,9 +80,9 @@ static void	delete_envs(t_vars *vars, char *type)
 	list = vars->envs;
 	envs = (t_envs *)list->content;
 	if (!list->next && !ft_strcmp(envs->type, type))
-		delete_envs_single_top(vars, type);
+		delete_envs_single_top(vars);
 	else if (!ft_strcmp(envs->type, type))
-		delete_envs_top(vars, type);
+		delete_envs_top(vars);
 	else
 		delete_envs_not_top(vars, type);
 }

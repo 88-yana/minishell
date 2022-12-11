@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 22:06:39 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/12 22:06:40 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/11 17:58:01 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,15 @@
 bool	check_front(char *file, char *str)
 {
 	size_t	i;
+	bool	is_dot;
 
 	i = 0;
+	if (ft_strchr(file, '.'))
+		is_dot = true;
+	else
+		is_dot = false;
+	if (is_dot == true && !ft_strchr(str, '.'))
+		return (false);
 	while (str[i] && str[i] != '*')
 	{
 		if (str[i] != file[i])
@@ -215,7 +222,6 @@ char	**realloc_array(char **cmd, char *str, size_t size)
 char	**expand_asterisk(char ***cmd, size_t pos)
 {
 	DIR				*dir;
-	size_t			i;
 	struct dirent	*dirent;
 	char			**latter;
 	char			*s[2];

@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 12:43:42 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 19:56:21 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/11 17:55:31 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/builtin.h"
 
-static char	*get_dir(void)
-{
-	char	*cwd;
+// static char	*get_dir(void)
+// {
+// 	char	*cwd;
 
-	cwd = getcwd(NULL, 0);
-	return (cwd);
-}
+// 	cwd = getcwd(NULL, 0);
+// 	return (cwd);
+// }
 
 static void	print_cd_error(char *str, char *error)
 {

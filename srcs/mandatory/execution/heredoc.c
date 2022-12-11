@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 10:51:50 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 21:22:03 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/11 17:04:53 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	check_comline(t_list *comline)
 		{
 			order->pipe_num = count;
 			count++;
+			if (order->type == SUBSHELL)
+				check_comline(order->shell);
 		}
 		else if (order->type == AND || order->type == OR)
 			count = 0;

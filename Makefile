@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 RLFLAGS = -I $(shell brew --prefix readline)/include -L$(shell brew --prefix readline)/lib -lreadline -lhistory
 SRCS_NAME = mandatory/main/main.c \
 	mandatory/readline/readline.c \
@@ -78,8 +78,11 @@ $(NAME): $(OBJS)
 	$(MAKE) -C libft
 	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) libft/libft.a -o $(NAME)
 
+$(OBJDIR)/mandatory/readline/readline.o: $(SRCDIR)/mandatory/readline/readline.c
+	$(CC) $(CFLAGS) -I $(shell brew --prefix readline)/include -o $@ -c $<
+
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 test: $(NAME)
 	./minishell < infile.txt | diff - ok.txt

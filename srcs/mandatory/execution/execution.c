@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/19 21:35:56 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/11 17:06:59 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 		exec_builtin(vars, order->cmd);
 		dup2(tmp, STDOUT_FILENO);
 		close(tmp);
+		if (order->file)
+			unlink(order->file);
 		return ;
 	}
 	else

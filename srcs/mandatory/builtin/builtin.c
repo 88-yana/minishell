@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:46:59 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/11 20:56:18 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/11 17:57:13 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,18 @@ bool	is_builtin(char **cmd)
 
 void	exec_builtin(t_vars *vars, char **cmd)
 {
-	
 	if (!ft_strcmp(cmd[0], "echo"))
 		exec_echo(cmd);
 	else if (!ft_strcmp(cmd[0], "cd"))
 		exec_cd(vars, cmd);
 	else if (!ft_strcmp(cmd[0], "pwd"))
-		exec_pwd(cmd);
+		exec_pwd();
 	else if (!ft_strcmp(cmd[0], "export"))
 		exec_export(vars, cmd);
 	else if (!ft_strcmp(cmd[0], "unset"))
 		exec_unset(vars, cmd);
 	else if (!ft_strcmp(cmd[0], "env"))
-		exec_env(vars, cmd);
+		exec_env(vars);
 	else if (!ft_strcmp(cmd[0], "exit"))
 		exec_exit(cmd);
 }
