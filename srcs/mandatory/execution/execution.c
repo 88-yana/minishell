@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/11 19:03:58 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/11 19:24:59 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static t_list	*exec_delimiters(t_list *comline, t_list **pids)
 	else
 	{
 		next_delimiters = find_next_delimiters(comline);
+		if (!next_delimiters)
+			return (comline);
 		while (comline->next != next_delimiters)
 			comline = comline->next;
 	}

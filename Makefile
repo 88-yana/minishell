@@ -90,6 +90,9 @@ test: $(NAME)
 ok:
 	./minishell < infile.txt > ok.txt
 
+tester:
+	bash test.sh
+
 lexer:
 	cc srcs/mandatory/lexer/*c srcs/mandatory/lexer_one_symbol/*c srcs/mandatory/lexer_two_symbols/*c srcs/mandatory/utils/*c libft/libft.a
 	./a.out
