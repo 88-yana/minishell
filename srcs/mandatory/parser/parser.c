@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/17 19:59:52 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/17 20:00:52 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_list	**traverse(t_node *p, t_list **list)
 	if (p->type == SUBSHELL)
 		list = traverse_subshell(p, list);
 	if (p->type == DELIMITER)
-		traverse_delimiter(p, &list);
+		list = traverse_delimiter(p, list);
 	if (p->type == PIPED_LINE)
 		list = traverse(p->left, list);
 	if (p->type == PIPE)
