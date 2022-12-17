@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/11 19:27:31 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/17 19:07:10 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ t_list	*parser(char **array)
 	}
 	// display_command(maked_list);
 	free_tree(root);
+	// free(root);
 	free(list);
 	return (maked_list);
 }
@@ -126,10 +127,17 @@ t_list	*parser(char **array)
 // int	main(void)
 // {
 // 	t_list	*list;
-// 	char	*array[16] = {"echo", "hello", "|", "grep", "h", "&&", "echo", "hello", ">", "test.txt", "||", "(", "ls", "-a", ")", NULL};
-// 	// char	*array[6] = {"echo", "hello", "|", "grep", "h", NULL};
-
+// 	// char	*array[16] = {"echo", "hello", "|", "grep", "h", "&&", "echo", "hello", ">", "test.txt", "||", "(", "ls", "-a", ")", NULL};
+// 	char	*array[9] = {"echo", "hello", "|", "grep", "h", "|", "grep", "h", NULL};
+// 	// char	*array[4] = {"(", "ls", ")", NULL};
+// 	// char	*array[18] = {"(", "echo", "hello", ")", "|", "(", "ls", ")", "&&", "(", "echo", "hello", ")", NULL};
+// 	// char	*array[3] = {"echo", "hello", NULL};
+// 	// char	*array[2] = {"echo", NULL};
+// 	// system("leaks -q a.out");
 // 	list = parser(array);
-// 	ft_lstclear(&list, free);
+// 	// system("leaks -q a.out");
+// 	// ft_lstclear(&list, free);
+
+// 	// free_list(list);
 // 	system("leaks -q a.out");
 // }

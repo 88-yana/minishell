@@ -84,13 +84,14 @@ $(OBJDIR)/mandatory/readline/readline.o: $(SRCDIR)/mandatory/readline/readline.c
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-test: $(NAME)
-	./minishell < infile.txt | diff - ok.txt
+# test: $(NAME)
+# 	./minishell < infile.txt | diff - ok.txt
 # ./minishell < infile.txt | (diff /dev/fd/3 correct.txt) 3<&0
 ok:
 	./minishell < infile.txt > ok.txt
 
-tester:
+test:
+	make
 	bash test.sh
 
 lexer:
