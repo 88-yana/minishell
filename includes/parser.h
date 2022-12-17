@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:48:44 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/17 19:53:14 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/17 19:54:00 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_list	**sort_list(t_list	**list);
 t_list	**traverse(t_node *p, t_list **list);
 t_order	*make_command(t_type type, char **cmd, char *file, t_list *shell);
 t_list	**listjoin(t_list **list, t_list **latter);
-void	traverse_subshell(t_node *p, t_list ***list);
+t_list	**traverse_subshell(t_node *p, t_list **list);
 void	traverse_delimiter(t_node *p, t_list ***list);
 void	traverse_pipe(t_node *p, t_list ***list);
 void	traverse_arguments(t_node *p, t_list ***list);
