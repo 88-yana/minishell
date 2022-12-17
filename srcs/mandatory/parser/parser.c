@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/17 19:55:28 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/17 19:59:52 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ t_list	**traverse(t_node *p, t_list **list)
 	if (p->type == PIPE)
 		traverse_pipe(p, &list);
 	if (p->type == ARGUMENTS)
-		traverse_arguments(p, &list);
+		list = traverse_arguments(p, list);
 	if (p->type == REDIRECTION)
-		traverse_redirectrion(p, &list);
+		list = traverse_redirectrion(p, list);
 	if (p->type == COMMAND)
 		traverse_command(p, &list);
 	return (list);
