@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:51:12 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/17 22:41:47 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/17 23:10:20 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ t_list	**traverse_subshell(t_node *p)
 	size_t	i;
 
 	list = NULL;
+	shell = NULL;
 	subshell = traverse(p->left);
-	shell = subshell[0];
-	i = 1;
+	i = 0;
 	while (subshell[i] != NULL)
 	{
 		ft_lstadd_back(&shell, subshell[i]);
@@ -40,6 +40,10 @@ t_list	**traverse_subshell(t_node *p)
 	}
 	list_ptr = ft_lstnew(make_command(SUBSHELL, NULL, NULL, shell));
 	list = realloc_list_free(list, list_ptr);
+	// free(list_ptr);
+	// while (subshell[i] != NULL)
+	// 	free(subshell[i]);
+	free(subshell);
 	return (list);
 	// ft_lstclear(&list_ptr, free); // kari
 }
