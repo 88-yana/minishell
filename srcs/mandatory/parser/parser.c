@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/17 20:02:15 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/17 22:47:57 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,29 @@ void	do_parse(t_node *p, bool *failed_flag)
 
 // リダイレクションとサブシェルの位置関係はいじれない
 
-t_list	**traverse(t_node *p, t_list **list)
+//traverse の引数にlistはいらない
+
+t_list	**traverse(t_node *p)
 {
+	t_list	**list;
+
+	list = NULL;
 	if (p->type == COMMAND_LINE)
-		list = traverse(p->left, list);
+		list = traverse(p->left);
 	if (p->type == SUBSHELL)
-		list = traverse_subshell(p, list);
+		list = traverse_subshell(p);
 	if (p->type == DELIMITER)
-		list = traverse_delimiter(p, list);
+		list = traverse_delimiter(p);
 	if (p->type == PIPED_LINE)
-		list = traverse(p->left, list);
+		list = traverse(p->left);
 	if (p->type == PIPE)
-		list = traverse_pipe(p, list);
+		list = traverse_pipe(p);
 	if (p->type == ARGUMENTS)
-		list = traverse_arguments(p, list);
+		list = traverse_arguments(p);
 	if (p->type == REDIRECTION)
-		list = traverse_redirectrion(p, list);
+		list = traverse_redirectrion(p);
 	if (p->type == COMMAND)
-		list = traverse_command(p, list);
+		list = traverse_command(p);
 	return (list);
 }
 
@@ -106,9 +111,7 @@ t_list	*parser(char **array)
 	do_parse(root, &failed_flag);
 	if (failed_flag)
 		return (NULL);
-	list = malloc(sizeof(t_list *) * 1);
-	list[0] = NULL;
-	list = traverse(root, list);
+	list = traverse(root);
 	cmdjoin(list);
 	maked_list = list[0];
 	i = 1;

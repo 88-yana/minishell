@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,7 +7,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:48:44 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/17 20:03:03 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/17 20:15:43 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +44,15 @@ void	branch_redirection(t_node *p, bool *failed_flag);
 void	branch_subshell(t_node *p, bool *failed_flag);
 t_node	*talloc(t_type type, t_node *parent);
 t_list	**sort_list(t_list	**list);
-t_list	**traverse(t_node *p, t_list **list);
 t_order	*make_command(t_type type, char **cmd, char *file, t_list *shell);
 t_list	**listjoin(t_list **list, t_list **latter);
-t_list	**traverse_subshell(t_node *p, t_list **list);
-t_list	**traverse_delimiter(t_node *p, t_list **list);
-t_list	**traverse_pipe(t_node *p, t_list **list);
-t_list	**traverse_arguments(t_node *p, t_list **list);
-t_list	**traverse_redirectrion(t_node *p, t_list **list);
-t_list	**traverse_command(t_node *p, t_list **list);
+t_list	**traverse(t_node *p);
+t_list	**traverse_subshell(t_node *p);
+t_list	**traverse_delimiter(t_node *p);
+t_list	**traverse_pipe(t_node *p);
+t_list	**traverse_arguments(t_node *p);
+t_list	**traverse_redirectrion(t_node *p);
+t_list	**traverse_command(t_node *p);
 void	cmdjoin(t_list **list);
 t_list	**listjoin(t_list **list, t_list **latter);
 size_t	listlen(t_list **list);

@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 20:29:15 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/17 20:01:49 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/17 22:31:39 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,21 @@ void	branch_delimiter(t_node *p, bool *failed_flag)
 	do_parse(p->right, failed_flag);
 }
 
-t_list	**traverse_delimiter(t_node *p, t_list **list)
+t_list	**traverse_delimiter(t_node *p)
 {
 	t_list	**latter;
 	t_list	*list_ptr;
+	t_list	**list;
 
 	if (p->detail == OR)
 		list_ptr = ft_lstnew(make_command(OR, NULL, NULL, NULL));
 	if (p->detail == AND)
 		list_ptr = ft_lstnew(make_command(AND, NULL, NULL, NULL));
-	list = traverse(p->left, list);
+	list = traverse(p->left);
 	list = realloc_list_free(list, list_ptr);
 	latter = malloc(sizeof(t_list *));
 	latter[0] = NULL;
-	latter = traverse(p->right, latter);
+	latter = traverse(p->right);
 	list = listjoin(list, latter);
 	free(latter);
 	return (list);
