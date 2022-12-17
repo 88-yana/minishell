@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:42:23 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/17 22:35:07 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/17 23:31:58 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_list	**traverse_redirectrion(t_node *p)
 	temp = make_command(type, NULL, p->line[p->current_pos + 1], NULL);
 	list_ptr = ft_lstnew(temp);
 	list = realloc_list_free(list, list_ptr);
+	// free(list_ptr);
 	return (list);
 	// ft_lstclear(&list_ptr, free); // kari
 }

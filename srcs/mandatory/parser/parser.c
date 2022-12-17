@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/17 23:11:44 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/17 23:45:58 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,9 @@ t_list	*parser(char **array)
 	do_parse(root, &failed_flag);
 	if (failed_flag)
 		return (NULL);
-	system("leaks -q a.out");
+	// system("leaks -q a.out");
 	list = traverse(root);
-	system("leaks -q a.out");
+	// system("leaks -q a.out");
 	cmdjoin(list);
 	maked_list = list[0];
 	i = 1;
@@ -122,7 +122,6 @@ t_list	*parser(char **array)
 		ft_lstadd_back(&maked_list, list[i]);
 		i++;
 	}
-	// display_command(maked_list);ss
 	free_tree(root);
 	free(root);
 	free(list);
@@ -132,9 +131,11 @@ t_list	*parser(char **array)
 // int	main(void)
 // {
 // 	t_list	*list;
-// 	// char	*array[16] = {"echo", "hello", "|", "grep", "h", "&&", "echo", "hello", ">", "test.txt", "||", "(", "ls", "-a", ")", NULL};
+// 	char	*array[16] = {"echo", "hello", "|", "grep", "h", "&&", "echo", "hello", ">", "test.txt", "||", "(", "ls", "-a", ")", NULL};
+// 	// char	*array[5] = {"echo", "hello", ">", "test.txt", NULL};
 // 	// char	*array[9] = {"echo", "hello", "|", "grep", "h", "|", "grep", "h", NULL};
 // 	// char	*array[4] = {"(", "ls", ")", NULL};
+// 	// char	*array[] = {"(", "echo", "hello", ")", ">", "text.txt", NULL};
 // 	// char	*array[18] = {"(", "echo", "hello", ")", "|", "(", "ls", ")", "&&", "(", "echo", "hello", ")", NULL};
 // 	// char	*array[3] = {"echo", "hello", NULL};
 // 	// char	*array[2] = {"echo", NULL};
@@ -144,5 +145,6 @@ t_list	*parser(char **array)
 // 	// ft_lstclear(&list, free);
 
 // 	// free_list(list);
+// 	display_command(list);
 // 	system("leaks -q a.out");
 // }

@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 20:52:25 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/17 22:47:44 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/17 23:37:12 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,15 @@ void	branch_arguments(t_node *p, bool *failed_flag)
 t_list	**traverse_arguments(t_node *p)
 {
 	t_list	**list;
+	t_list	**latter;
 
 	list = traverse(p->left);
+	latter = NULL;
 	if (p->right != NULL)
-		list = traverse(p->right);
+		latter = traverse(p->right);
+	if (p->right != NULL)
+		list = listjoin(list, latter);
+	free(latter);
 	if (p->parent->type == PIPE)
 		list = sort_list(list);
 	if (p->parent->type == PIPED_LINE)
