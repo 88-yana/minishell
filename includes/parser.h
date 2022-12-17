@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:48:44 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/21 04:06:19 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/17 19:53:14 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,20 @@ void	branch_arguments(t_node *p, bool *failed_flag);
 void	branch_redirection(t_node *p, bool *failed_flag);
 void	branch_subshell(t_node *p, bool *failed_flag);
 t_node	*talloc(t_type type, t_node *parent);
-void	traverse_subshell(t_node *p, t_list ***list);
 t_list	**sort_list(t_list	**list);
 t_list	**traverse(t_node *p, t_list **list);
 t_order	*make_command(t_type type, char **cmd, char *file, t_list *shell);
 t_list	**listjoin(t_list **list, t_list **latter);
+void	traverse_subshell(t_node *p, t_list ***list);
 void	traverse_delimiter(t_node *p, t_list ***list);
 void	traverse_pipe(t_node *p, t_list ***list);
 void	traverse_arguments(t_node *p, t_list ***list);
-t_list	**listjoin(t_list **list, t_list **latter);
-size_t	listlen(t_list **list);
-t_type	convert_redirection(char *str);
 void	traverse_redirectrion(t_node *p, t_list ***list);
 void	traverse_command(t_node *p, t_list ***list);
 void	cmdjoin(t_list **list);
+t_list	**listjoin(t_list **list, t_list **latter);
+size_t	listlen(t_list **list);
+t_type	convert_redirection(char *str);
 t_list	**realloc_list(t_list **list, t_list *ptr);
 void	free_tree(t_node *root);
 t_list	**realloc_list_free(t_list **list, t_list *ptr);
