@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/17 23:45:58 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/17 23:59:05 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,8 @@ t_list	*parser(char **array)
 	do_parse(root, &failed_flag);
 	if (failed_flag)
 		return (NULL);
-	// system("leaks -q a.out");
 	list = traverse(root);
-	// system("leaks -q a.out");
+	// system("leaks -q minishell");
 	cmdjoin(list);
 	maked_list = list[0];
 	i = 1;
