@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 20:52:25 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/10 22:44:59 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/17 19:50:20 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,7 @@ void	traverse_arguments(t_node *p, t_list ***list)
 	if (p->right != NULL)
 		*list = traverse(p->right, *list);
 	if (p->parent->type == PIPE)
-	{
 		*list = sort_list(*list);
-	}
 	if (p->parent->type == PIPED_LINE)
-	{
 		*list = sort_list(*list);
-	}
 }
