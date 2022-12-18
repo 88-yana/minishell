@@ -5,52 +5,44 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 18:49:50 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/18 15:34:28 by hyanagim         ###   ########.fr       */
+/*   Created: 2022/12/18 15:36:18 by hyanagim          #+#    #+#             */
+/*   Updated: 2022/12/18 15:40:19 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "../../../includes/execution.h"
 
-static void	delete_quote(char *str)
+void	delete_quote(char *str)
 {
 	size_t	i;
 
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == DUBLEQ)
+		if (str[i] == DOUBLEQ)
 		{
+			free(str[i]);
 			ft_strlcpy(&str[i], &str[i + 1], ft_strlen(&str[i]));
-			while (str[i] != '\0' && str[i] != DUBLEQ)
+			while (str[i] != '\0' && str[i] != DOUBLEQ)
 				i++;
 			if (str[i] == '\0')
 				break ;
+			free(str[i]);
 			ft_strlcpy(&str[i], &str[i + 1], ft_strlen(&str[i]));
 			continue ;
 		}
 		if (str[i] == SINGLEQ)
 		{
+			free(str[i]);
 			ft_strlcpy(&str[i], &str[i + 1], ft_strlen(&str[i]));
 			while (str[i] != '\0' && str[i] != SINGLEQ)
 				i++;
 			if (str[i] == '\0')
 				break ;
+			free(str[i]);
 			ft_strlcpy(&str[i], &str[i + 1], ft_strlen(&str[i]));
 			continue ;
 		}
-		i++;
-	}
-}
-
-static void	shape_array(t_array *data)
-{
-	size_t	i;
-
-	i = 0;
-	while (data->array[i] != NULL)
-	{
-		delete_quote(data->array[i]);
 		i++;
 	}
 }

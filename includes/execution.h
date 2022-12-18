@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:11:55 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/12 22:00:46 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/18 15:40:44 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void	execution(t_vars *vars);
 void	check_command(t_vars *vars, char ***command);
 void	check_comline(t_list *comline);
 char	**check_asterisk(char **cmd);
+void	delete_quote(char *str);
 
 #endif
