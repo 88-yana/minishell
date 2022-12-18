@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/17 23:58:34 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/18 13:31:39 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,19 @@ static void	minishell(char **envp)
 		if (vars.line == NULL)
 			continue ;
 		// system("leaks -q minishell");
+		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+		// system("leaks -q minishell");
 		vars.array = lexer(vars.line);
+		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 		// system("leaks -q minishell");
 		if (vars.array == NULL)
 			continue ;
+		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+		// system("leaks -q minishell");
 		vars.comline = parser(vars.array);
 		if (vars.comline == NULL)
 			continue ;
+		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 		// system("leaks -q minishell");
 		execution(&vars);
 		free_doubleptr(vars.array);

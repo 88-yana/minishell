@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 20:52:25 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/17 23:37:12 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/18 13:27:54 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	branch_bra(t_node *p, bool *failed_flag)
 	p->end_pos++;
 	while (!is_bra(p->line[p->end_pos]))
 		p->end_pos++;
+	free(p->line[p->end_pos]);
 	p->line[p->end_pos] = NULL;
 	start_left(p);
 	p->left = talloc(SUBSHELL, p);

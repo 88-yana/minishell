@@ -94,11 +94,11 @@ test:
 	make
 	bash test.sh
 
-lexer:
+lex:
 	cc srcs/mandatory/lexer/*c srcs/mandatory/lexer_one_symbol/*c srcs/mandatory/lexer_two_symbols/*c srcs/mandatory/utils/*c libft/libft.a
 	./a.out
 
-parser:
+par:
 	gcc srcs/mandatory/parser/*c srcs/mandatory/utils/*c libft/libft.a
 	./a.out
 
