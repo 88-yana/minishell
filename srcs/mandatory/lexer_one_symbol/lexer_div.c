@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/21 01:37:17 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:34:11 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,11 @@ void	split_line_div(t_array *data, int type)
 			data->strs_len[data->pos] = str_len + 1;
 		if (is_separator_div(data->line[i]))
 		{
+			// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+			// system("leaks -q minishell");
 			push_element_div(data, i, str_len, type);
+			// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+			// system("leaks -q minishell");
 			str_len = 0;
 		}
 		else
@@ -113,8 +117,12 @@ char	**lexer_div(t_array	*data)
 		return (NULL);
 	if (malloc_element_div(data) == NULL)
 		return (NULL);
+	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+	// system("leaks -q minishell");
 	data->pos = 0;
 	split_line_div(data, 2);
+	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+	// system("leaks -q minishell");
 	free(data->strs_len);
 	return (data->array);
 }
