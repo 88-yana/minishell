@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 11:29:40 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 19:56:50 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/18 20:39:12 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	exec_echo(char **cmd)
 
 	newline_flag = true;
 	i = 1;
+	g_status = 0;
 	while (cmd[i])
 	{
 		if (!is_option_n(cmd[i]))

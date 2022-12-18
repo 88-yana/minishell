@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/11 19:24:59 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/18 20:29:45 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static t_list	*exec_delimiters(t_list *comline, t_list **pids)
 	{
 		next_delimiters = find_next_delimiters(comline);
 		if (!next_delimiters)
-			return (comline);
+			return (NULL);
 		while (comline->next != next_delimiters)
 			comline = comline->next;
 	}
@@ -96,6 +96,8 @@ void	exec_comline(t_vars *vars, t_list *comline)
 		else if (order->type == GTGT || order->type == GT
 			|| order->type == LT || order->type == LTLT)
 			exec_redirection(comline);
+		if (!comline)
+			break ;
 		comline = comline->next;
 	}
 	wait_pids(&pids);

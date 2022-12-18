@@ -47,10 +47,18 @@ mkdir diff
 
 # test case
 echo '<------------ starting testcase ------------>'
+
+# builtin echo
 echo ''
+echo '[echo testcase]'
+test_dx 'echo'
+test_dx 'echo hello'
+test_dx 'echo -n hello'
+
 # builtin pwd
+echo ''
 echo '[pwd testcase]'
-test 'pwd'
+test_dx 'pwd'
 
 # basic testcase
 echo ''
@@ -65,6 +73,7 @@ test_dx 'echo hello'
 test_dx 'echo hello world'
 test_dx 'cat main.c'
 test_dx 'echo -n hello'
+test_dx 'echo "hello"'
 
 # pipe case
 echo ''
@@ -76,7 +85,7 @@ test 'cat | cat | ls'
 test 'ls | ls | cat'
 test 'cat | ls | cat'
 test 'echo "'\$PATH'"'
-test 'echo '"\$PATH"''
+test "echo '\"\$PATH\"'"
 
 echo ''
 echo '<------------ finished testcase ------------>'

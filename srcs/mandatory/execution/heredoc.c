@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 10:51:50 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/11 17:04:53 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/18 21:48:13 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	exit_heredoc(void)
 void	interrupt_heredoc(int signal)
 {
 	(void)signal;
-	exit(1);
+	printf("\n");
+	exit(0);
 }
 
 char	*read_heredoc(char *end, int fd)
@@ -33,7 +34,10 @@ char	*read_heredoc(char *end, int fd)
 		signal(SIGQUIT, SIG_IGN);
 		str = readline("> ");
 		if (!str || !ft_strcmp(str, end))
+		{
+			ft_putstr("\"", fd);
 			exit_heredoc();
+		}
 		ft_putendl_fd(str, fd);
 		free(str);
 	}

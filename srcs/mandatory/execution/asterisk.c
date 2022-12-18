@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 22:06:39 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/11 17:58:01 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/18 21:23:56 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ char	**expand_asterisk(char ***cmd, size_t pos)
 	{
 		dirent = readdir(dir);
 		if (!dirent)
-			break;
+			break ;
 		if (match_asterisk(dirent->d_name, s[ASTERISK]))
 			*cmd = realloc_array(*cmd, dirent->d_name, pos++);
 	}
