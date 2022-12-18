@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 21:53:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/21 03:32:01 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:37:05 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,16 @@ char	**lexer(char *line)
 	if (malloc_element(&data) == NULL)
 		return (NULL);
 	data.pos = 0;
+	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+	// system("leaks -q minishell");
 	split_line(&data, PUSHELEM);
 	free(data.strs_len);
+	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+	// system("leaks -q minishell");
 	array = divide_redirect(data.array);
 	free_doubleptr(data.array);
+	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+	// system("leaks -q minishell");
 	return (array);
 }
 
@@ -94,7 +100,7 @@ char	**lexer(char *line)
 // 	i = 0;
 // 	while (array[i] != NULL)
 // 	{
-// 		printf("%s\n", array[i]);
+// 		printf("%s ", array[i]);
 // 		i++;
 // 	}
 // 	system("leaks -q a.out");

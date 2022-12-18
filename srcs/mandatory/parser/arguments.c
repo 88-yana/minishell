@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 20:52:25 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/10 22:44:59 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/18 13:27:54 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	branch_bra(t_node *p, bool *failed_flag)
 	p->end_pos++;
 	while (!is_bra(p->line[p->end_pos]))
 		p->end_pos++;
+	free(p->line[p->end_pos]);
 	p->line[p->end_pos] = NULL;
 	start_left(p);
 	p->left = talloc(SUBSHELL, p);
@@ -86,17 +87,21 @@ void	branch_arguments(t_node *p, bool *failed_flag)
 	}
 }
 
-void	traverse_arguments(t_node *p, t_list ***list)
+t_list	**traverse_arguments(t_node *p)
 {
-	*list = traverse(p->left, *list);
+	t_list	**list;
+	t_list	**latter;
+
+	list = traverse(p->left);
+	latter = NULL;
 	if (p->right != NULL)
-		*list = traverse(p->right, *list);
+		latter = traverse(p->right);
+	if (p->right != NULL)
+		list = listjoin(list, latter);
+	free(latter);
 	if (p->parent->type == PIPE)
-	{
-		*list = sort_list(*list);
-	}
+		list = sort_list(list);
 	if (p->parent->type == PIPED_LINE)
-	{
-		*list = sort_list(*list);
-	}
+		list = sort_list(list);
+	return (list);
 }

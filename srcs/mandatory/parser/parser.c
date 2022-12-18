@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 11:00:40 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/11 19:27:31 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:37:26 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,29 @@ void	do_parse(t_node *p, bool *failed_flag)
 
 // リダイレクションとサブシェルの位置関係はいじれない
 
-t_list	**traverse(t_node *p, t_list **list)
+//traverse の引数にlistはいらない
+
+t_list	**traverse(t_node *p)
 {
+	t_list	**list;
+
+	list = NULL;
 	if (p->type == COMMAND_LINE)
-		list = traverse(p->left, list);
+		list = traverse(p->left);
 	if (p->type == SUBSHELL)
-		traverse_subshell(p, &list);
+		list = traverse_subshell(p);
 	if (p->type == DELIMITER)
-		traverse_delimiter(p, &list);
+		list = traverse_delimiter(p);
 	if (p->type == PIPED_LINE)
-		list = traverse(p->left, list);
+		list = traverse(p->left);
 	if (p->type == PIPE)
-		traverse_pipe(p, &list);
+		list = traverse_pipe(p);
 	if (p->type == ARGUMENTS)
-		traverse_arguments(p, &list);
+		list = traverse_arguments(p);
 	if (p->type == REDIRECTION)
-		traverse_redirectrion(p, &list);
+		list = traverse_redirectrion(p);
 	if (p->type == COMMAND)
-		traverse_command(p, &list);
+		list = traverse_command(p);
 	return (list);
 }
 
@@ -106,9 +111,8 @@ t_list	*parser(char **array)
 	do_parse(root, &failed_flag);
 	if (failed_flag)
 		return (NULL);
-	list = malloc(sizeof(t_list *) * 1);
-	list[0] = NULL;
-	list = traverse(root, list);
+	list = traverse(root);
+	// system("leaks -q minishell");
 	cmdjoin(list);
 	maked_list = list[0];
 	i = 1;
@@ -119,6 +123,7 @@ t_list	*parser(char **array)
 	}
 	// display_command(maked_list);
 	free_tree(root);
+	free(root);
 	free(list);
 	return (maked_list);
 }
@@ -127,9 +132,19 @@ t_list	*parser(char **array)
 // {
 // 	t_list	*list;
 // 	char	*array[16] = {"echo", "hello", "|", "grep", "h", "&&", "echo", "hello", ">", "test.txt", "||", "(", "ls", "-a", ")", NULL};
-// 	// char	*array[6] = {"echo", "hello", "|", "grep", "h", NULL};
-
+// 	// char	*array[5] = {"echo", "hello", ">", "test.txt", NULL};
+// 	// char	*array[9] = {"echo", "hello", "|", "grep", "h", "|", "grep", "h", NULL};
+// 	// char	*array[4] = {"(", "ls", ")", NULL};
+// 	// char	*array[] = {"(", "echo", "hello", ")", ">", "text.txt", NULL};
+// 	// char	*array[18] = {"(", "echo", "hello", ")", "|", "(", "ls", ")", "&&", "(", "echo", "hello", ")", NULL};
+// 	// char	*array[3] = {"echo", "hello", NULL};
+// 	// char	*array[2] = {"echo", NULL};
+// 	// system("leaks -q a.out");
 // 	list = parser(array);
-// 	ft_lstclear(&list, free);
+// 	// system("leaks -q a.out");
+// 	// ft_lstclear(&list, free);
+
+// 	// free_list(list);
+// 	display_command(list);
 // 	system("leaks -q a.out");
 // }

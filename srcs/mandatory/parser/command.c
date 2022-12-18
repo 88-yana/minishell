@@ -6,18 +6,20 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:54:41 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/21 04:52:59 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/17 22:47:17 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/parser.h"
 
-void	traverse_command(t_node *p, t_list ***list)
+t_list	**traverse_command(t_node *p)
 {
 	char	**array;
 	size_t	i;
 	t_list	*list_ptr;
+	t_list	**list;
 
+	list = NULL;
 	while (p->line[p->end_pos] != NULL && !is_delimiter(p->line[p->end_pos])
 		&& !is_bra(p->line[p->end_pos]) && !is_pipe(p->line[p->end_pos])
 		&& !is_redirection(p->line[p->end_pos]))
@@ -35,7 +37,8 @@ void	traverse_command(t_node *p, t_list ***list)
 	}
 	array[i] = NULL;
 	list_ptr = ft_lstnew(make_command(COMMAND, array, NULL, NULL));
-	*list = realloc_list(*list, list_ptr);
+	list = realloc_list(list, list_ptr);
+	return (list);
 	// ft_lstclear(&list_ptr, free); // kari
 	// free(array);
 }

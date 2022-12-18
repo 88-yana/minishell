@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 20:40:17 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/10/22 20:48:21 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/18 13:28:04 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	branch_piped_line(t_node *p, bool *failed_flag)
 	}
 	if (is_pipe(p->line[p->end_pos]))
 	{
+		free(p->line[p->end_pos]);
 		p->line[p->end_pos] = NULL;
 		start_left(p);
 		p->left = talloc(PIPE, p);

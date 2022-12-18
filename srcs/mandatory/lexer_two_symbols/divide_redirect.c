@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:00:02 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/21 03:31:20 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:36:55 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	**divide_by_duble(char **array)
 		redirections = lexer_re(&data);
 		half = arrayjoin(half, redirections);
 		free(redirections);
+		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+		// system("leaks -q minishell");
 		i++;
 	}
 	return (half);
@@ -47,9 +49,13 @@ char	**divide_by_one(char **half)
 	{
 		data.line = half[i];
 		brackets = lexer_div(&data);
+		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+		// system("leaks -q minishell");
 		brackets = delete_brank(brackets);
 		ret = arrayjoin(ret, brackets);
 		free(brackets);
+		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+		// system("leaks -q minishell");
 		i++;
 	}
 	return (ret);
@@ -61,6 +67,8 @@ char	**divide_redirect(char **array)
 	char	**ret;
 	half = divide_by_duble(array);
 	ret = divide_by_one(half);
-	// free_doubleptr(half);
+	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+	// system("leaks -q minishell");
+	free_doubleptr(half); //ここ一番最後に適当に変えた，だめかも
 	return (ret);
 }

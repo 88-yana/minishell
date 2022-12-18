@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/11 19:26:17 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:37:20 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,28 @@ static void	minishell(char **envp)
 		vars.line = read_line_from_prompt();
 		if (vars.line == NULL)
 			continue ;
+		// system("leaks -q minishell");
+		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+		// system("leaks -q minishell");
 		vars.array = lexer(vars.line);
+		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+		// system("leaks -q minishell");
 		if (vars.array == NULL)
 			continue ;
+		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+		// system("leaks -q minishell");
 		vars.comline = parser(vars.array);
 		if (vars.comline == NULL)
 			continue ;
+		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+		// system("leaks -q minishell");
 		execution(&vars);
 		free_doubleptr(vars.array);
+		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+		// system("leaks -q minishell");
 		ft_lstclear(&(vars.comline), free);
 		free(vars.line);
+		// system("leaks -q minishell");
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/11 17:42:15 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/17 23:49:27 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ typedef enum e_type {
 	EXPANDABLE,
 	NOT_EXPANDABLE,
 	EXPANDABLE_QUOTED,
-	SUBSHELL,
 	LT,
 	GT,
 	GTGT,
 	LTLT,
+	SUBSHELL,
 	COMMAND,
 	AND,
 	OR
