@@ -55,6 +55,15 @@ test_dx 'echo'
 test_dx 'echo hello'
 test_dx 'echo -n hello'
 
+# builtin cd
+echo ''
+echo '[cd testcase]'
+test_dx 'cd . && pwd'
+test_dx 'cd test && pwd'
+test_dx 'cd /bin && pwd'
+test_dx 'cd Makefile'
+test_dx 'cd srcs && pwd'
+
 # builtin pwd
 echo ''
 echo '[pwd testcase]'

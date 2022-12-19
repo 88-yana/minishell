@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:11:55 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/18 19:48:35 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/19 14:47:41 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ void	check_command(t_vars *vars, char ***command);
 void	check_comline(t_list *comline);
 char	**check_asterisk(char **cmd);
 void	delete_quote(char *str);
+void	make_tmp_file(t_order *order);
 
 #endif
