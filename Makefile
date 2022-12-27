@@ -87,6 +87,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 # test: $(NAME)
 # 	./minishell < infile.txt | diff - ok.txt
 # ./minishell < infile.txt | (diff /dev/fd/3 correct.txt) 3<&0
+#https://yulii.github.io/diff-command-tips-20150627.html
 ok:
 	./minishell < infile.txt > ok.txt
 
