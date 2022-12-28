@@ -1,0 +1,11 @@
+echo hello world 
+echo    hello    world
+abc    abc"    abc"
+echo     "hello   "abc     
+echo     "hello   "abc   abc 
+abc"   abc"
+"abc"  abc  abc
+echo     hello   abc     abc ab
+echo     "hello   "abc
+echo     "hello   "abc     abc
+echo     "hello   "abc     abc abc
