@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/29 19:28:02 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/29 22:05:57 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,20 @@ static t_str	*make_strlist(char *line, int *i, int *str_len)
 	list->str = ft_substr(line, *i - *str_len, *str_len);
 	if (list->str == NULL)
 		return (NULL);
+	list->next = NULL;
+	list->prev = NULL;
+	return (list);
+}
+
+static t_str	*make_strlistcmd(char **cmd)
+{
+	t_str	*list;
+
+	list = malloc(sizeof(t_str));
+	if (list == NULL)
+		return (NULL);
+	list->type = CMD;
+	list->cmd = cmd;
 	list->next = NULL;
 	list->prev = NULL;
 	return (list);
@@ -243,36 +257,88 @@ static bool	str_to_aim(t_str *lexical_line)
 	return (true);
 }
 
-// static char	**make_cmd(t_str *start, t_str *end, int cnt)
-// {
-	
-// }
+static char	**make_cmd(t_str *start, t_str *last, int cnt)
+{
+	t_str	*list;
+	char	**cmd;
+	int		i;
 
-// static bool	conv_str_to_cmd(t_str *lexical_line)
-// {
-// 	t_str	*start;
-// 	int		cnt;
-// 	char	**cmd;
+	cmd = malloc(sizeof(char *) * (cnt + 1));
+	list = start;
+	i = 0;
+	while (1)
+	{
+		cmd[i] = list->str;
+		if (list == last)
+			break ;
+		list = list->next;
+		i++;
+	}
+	cmd[i] = NULL;
+	return (cmd);
+}
 
-// 	while (lexical_line->type != STR && lexical_line != NULL)
-// 		lexical_line = lexical_line->next;
-// 	start = lexical_line;
-// 	cnt = 0;
-// 	while (lexical_line->type == STR)
+// static void	free_strliststr(t_str *start, t_str *last)
+// {
+// 	t_str	*temp;
+
+// 	while (1)
 // 	{
-// 		cnt++;
-// 		lexical_line = lexical_line->next;
+// 		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+// 		temp = start->next;
+// 		free(start);
+// 		if (start == last)
+// 			break ;
+// 		start = temp;
 // 	}
-// 	if (cnt == 0)
-// 		return (false);
-// 	cmd = make_cmd(start, lexical_line, cnt);
-// 	make_strlistcmd();
 // }
 
-// static void	str_to_cmd(t_str *lexical_line)
-// {
-	
-// }
+static void
+
+static bool	conv_str_to_cmd(t_str *head)
+{
+	t_str	*start;
+	t_str	*current;
+	t_str	*cmdlist;
+	int		cnt;
+	char	**cmd;
+
+	current = head;
+	while (current->type != STR && current->next != NULL)
+		current = current->next;
+	if (current->type != STR)
+		return (false);
+	// start = current;
+	// cnt = 1;
+	// while (current->next != NULL && current->next->type == STR)
+	// {
+	// 	cnt++;
+	// 	current = current->next;
+	// }
+	// cmd = make_cmd(start, current, cnt);
+	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+	// cmdlist = make_strlistcmd(cmd);
+	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+	// // free_strliststr(start, current);
+	// if (start->prev != NULL)
+	// 	start->prev->next = cmdlist;
+	// else
+	// 	start = cmdlist;
+	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+	// if (current->prev != NULL)
+	// 	current->prev = cmdlist;
+	// else
+	// 	current->prev = cmdlist;
+	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+	return (true);
+}
+
+static void	str_to_cmd(t_str *lexical_line)
+{
+	while (conv_str_to_cmd(lexical_line))
+		;
+	printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+}
 
 static /* t_list **/void	reader(char *line)
 {
@@ -284,13 +350,23 @@ static /* t_list **/void	reader(char *line)
 		free_strlist(&lexical_line);
 		exit (1);
 	}
-	// str_to_cmd(lexical_line);
+	str_to_cmd(lexical_line);
+	printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	while (lexical_line != NULL)
 	{
 		if (lexical_line->type == STR)
 			printf("str is 「%s」\n", lexical_line->str);
 		else if (lexical_line->type == AIM)
 			printf("aim is 「%s」\n", lexical_line->str);
+		else if (lexical_line->type == CMD)
+		{
+			int i = 0;
+			while (lexical_line->cmd[i] != NULL)
+			{
+				printf("%s\n", lexical_line->cmd[i]);
+				i++;
+			}
+		}
 		else
 			printf("%d\n", lexical_line->type);
 		lexical_line = lexical_line->next;
