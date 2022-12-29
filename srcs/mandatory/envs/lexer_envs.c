@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 18:55:12 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/11 20:11:23 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/29 15:10:19 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 // int g_status = 0;
 
-# define DQ 0
-# define SQ 1
+// # define DQ 0
+// # define SQ 1
 
 // char	**split(char **array, char *line)
 // {

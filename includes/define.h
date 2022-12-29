@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/17 23:49:27 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/29 16:02:16 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ int	g_status;
 
 # define DOUBLEQ '"'
 # define SINGLEQ '\''
-# define BRA '('
-# define CKET ')'
+// # define BRA '('
+// # define CKET ')'
+
+# define DQ 0
+# define SQ 1
 
 # define CNTARRLEN 0
 # define CNTSTRLEN 1
@@ -46,7 +49,12 @@ typedef enum e_type {
 	SUBSHELL,
 	COMMAND,
 	AND,
-	OR
+	OR,
+	STR,
+	CMD,
+	AIM,
+	BRA,
+	CKET
 }	t_type;
 
 typedef struct s_order {
