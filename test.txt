@@ -1,1 +1,6 @@
-hello
+ha
+hi
+leak.sh
+minishell
+test.sh
+test.txh
