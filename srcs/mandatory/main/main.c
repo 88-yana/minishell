@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/29 22:05:57 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/30 14:57:02 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,22 +259,22 @@ static bool	str_to_aim(t_str *lexical_line)
 
 static char	**make_cmd(t_str *start, t_str *last, int cnt)
 {
-	t_str	*list;
+	t_str	*current;
 	char	**cmd;
 	int		i;
 
 	cmd = malloc(sizeof(char *) * (cnt + 1));
-	list = start;
+	current = start;
 	i = 0;
 	while (1)
 	{
-		cmd[i] = list->str;
-		if (list == last)
+		cmd[i] = current->str;
+		if (current == last)
 			break ;
-		list = list->next;
+		current = current->next;
 		i++;
 	}
-	cmd[i] = NULL;
+	cmd[i + 1] = NULL;
 	return (cmd);
 }
 
@@ -293,21 +293,47 @@ static char	**make_cmd(t_str *start, t_str *last, int cnt)
 // 	}
 // }
 
-static void
+static t_str	*find_start(t_str *head)
+{
+	while (head->type != STR && head->next != NULL)
+		head = head->next;
+	return (head);
+}
+
+static t_str	*find_last(t_str *head, int *cnt)
+{
+	while (head->next != NULL && head->next->type == STR)
+	{
+		head = head->next;
+		(*cnt)++;
+	}
+	return (head);
+}
 
 static bool	conv_str_to_cmd(t_str *head)
 {
 	t_str	*start;
+	t_str	*last;
 	t_str	*current;
 	t_str	*cmdlist;
 	int		cnt;
 	char	**cmd;
 
-	current = head;
-	while (current->type != STR && current->next != NULL)
-		current = current->next;
-	if (current->type != STR)
+	start = find_start(head);
+	if (start->type != STR)
 		return (false);
+	current = start;
+	cnt = 1;
+	last = find_last(head, &cnt);
+	cmd = make_cmd(start, last, cnt);
+	cmdlist = make_strlistcmd(cmd);
+
+	int i = 0;
+	while (cmdlist->cmd[i] != NULL)
+	{
+		printf("cmd %s\n", cmdlist->cmd[i]);
+		i++;
+	}
 	// start = current;
 	// cnt = 1;
 	// while (current->next != NULL && current->next->type == STR)
@@ -315,9 +341,7 @@ static bool	conv_str_to_cmd(t_str *head)
 	// 	cnt++;
 	// 	current = current->next;
 	// }
-	// cmd = make_cmd(start, current, cnt);
 	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
-	// cmdlist = make_strlistcmd(cmd);
 	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	// // free_strliststr(start, current);
 	// if (start->prev != NULL)
@@ -335,8 +359,7 @@ static bool	conv_str_to_cmd(t_str *head)
 
 static void	str_to_cmd(t_str *lexical_line)
 {
-	while (conv_str_to_cmd(lexical_line))
-		;
+	conv_str_to_cmd(lexical_line);
 	printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 }
 
