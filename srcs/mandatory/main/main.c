@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/30 21:16:25 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/30 21:19:23 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,14 +303,14 @@ static void	free_sliststr(t_str *start, t_str *last)
 	}
 }
 
-static t_str	*find_start(t_str *head)
+static t_str	*find_startstr(t_str *head)
 {
 	while (head->type != STR && head->next != NULL)
 		head = head->next;
 	return (head);
 }
 
-static t_str	*find_last(t_str *head, int *cnt)
+static t_str	*find_laststr(t_str *head, int *cnt)
 {
 	while (head->next != NULL && head->next->type == STR)
 	{
@@ -350,12 +350,12 @@ static bool	conv_str_to_cmd(t_str **head)
 	t_str	*cmdlist;
 	int		cnt;
 
-	start = find_start(*head);
+	start = find_startstr(*head);
 	if (start->type != STR)
 		return (false);
 	current = start;
 	cnt = 1;
-	last = find_last(current, &cnt);
+	last = find_laststr(current, &cnt);
 	cmdlist = make_slistcmd(make_cmd(start, last, cnt));
 	connect_cmd(head, start, last, cmdlist);
 	return (true);
@@ -369,55 +369,6 @@ static void	str_to_cmd(t_str **lexical_line)
 			break ;
 	}
 }
-
-// static void	print_list(t_str *current)
-// {
-// 	while (current != NULL)
-// 	{
-// 		if (current->type == STR)
-// 			printf("str is 「%s」\n", current->str);
-// 		else if (current->type == AIM)
-// 			printf("aim is 「%s」\n", current->str);
-// 		else if (current->type == CMD)
-// 		{
-// 			printf("%d\n", current->type);
-// 			int i = 0;
-// 			while (current->cmd[i] != NULL)
-// 			{
-// 				printf("cmd is %s\n", current->cmd[i]);
-// 				i++;
-// 			}
-// 		}
-// 		else
-// 			printf("%d\n", current->type);
-// 		current = current->next;
-// 	}
-// }
-
-// static void	print_listr(t_str *current)
-// {
-// 	current = slistlast(current);
-// 	while (current != NULL)
-// 	{
-// 		if (current->type == STR)
-// 			printf("str is 「%s」\n", current->str);
-// 		else if (current->type == AIM)
-// 			printf("aim is 「%s」\n", current->str);
-// 		else if (current->type == CMD)
-// 		{
-// 			printf("%d\n", current->type);
-// 			int i = 0;
-// 			while (current->cmd[i] != NULL)
-// 			{
-// 				printf("cmd is %s\n", current->cmd[i]);
-// 				i++;
-// 			}
-// 		}
-// 		else
-// 			printf("%d\n", current->type);
-// 		current = current->prev;
-// 	}
-// }
 
 static t_order	*make_order(t_str	*current)
 {
@@ -495,9 +446,6 @@ static t_list	*reader(char *line)
 	free_slist(lexical_line);
 	display_command(list);
 	// list_to_subshell(&list);
-
-	// print_list(lexical_line);
-	// print_listr(lexical_line);
 
 	// system("leaks -q minishell");
 	return (list);
