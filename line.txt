@@ -9,7 +9,7 @@ echo     hello   abc     abc ab
 echo     "hello   "abc
 echo     "hello   "abc     abc
 echo     "hello   "abc     abc abc
-echo hello| echo world
+echo hello| grep world
 echo hello  |  world
 echo hello&&echo hello
 echo hello && echo world

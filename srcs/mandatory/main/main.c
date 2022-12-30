@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/30 14:57:02 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/30 15:54:21 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,7 @@ static char	**make_cmd(t_str *start, t_str *last, int cnt)
 	cmd = malloc(sizeof(char *) * (cnt + 1));
 	current = start;
 	i = 0;
-	while (1)
+	while (i < cnt)
 	{
 		cmd[i] = current->str;
 		if (current == last)
@@ -274,24 +274,25 @@ static char	**make_cmd(t_str *start, t_str *last, int cnt)
 		current = current->next;
 		i++;
 	}
-	cmd[i + 1] = NULL;
+	cmd[cnt] = NULL;
 	return (cmd);
 }
 
-// static void	free_strliststr(t_str *start, t_str *last)
-// {
-// 	t_str	*temp;
+static void	free_strliststr(t_str *start, t_str *last)
+{
+	t_str	*temp;
+	t_str	*current;
 
-// 	while (1)
-// 	{
-// 		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
-// 		temp = start->next;
-// 		free(start);
-// 		if (start == last)
-// 			break ;
-// 		start = temp;
-// 	}
-// }
+	current = start;
+	while (1)
+	{
+		temp = current->next;
+		free(current);
+		if (current == last)
+			break ;
+		current = temp;
+	}
+}
 
 static t_str	*find_start(t_str *head)
 {
@@ -310,57 +311,103 @@ static t_str	*find_last(t_str *head, int *cnt)
 	return (head);
 }
 
-static bool	conv_str_to_cmd(t_str *head)
+static void	connect_cmd(t_str **head, t_str *start, t_str *last, t_str *cmdlist)
+{
+	if (start->prev)
+	{
+		start->prev->next = cmdlist;
+		cmdlist->prev = start->prev;
+		cmdlist->next = last->next;
+	}
+	else
+	{
+		*head = cmdlist;
+		cmdlist->next = last->next;
+	}
+	if (last->next)
+	{
+		last->next->prev = cmdlist;
+		cmdlist->prev = start->prev;
+		cmdlist->next = last->next;
+	}
+	free_strliststr(start, last);
+}
+
+static bool	conv_str_to_cmd(t_str **head)
 {
 	t_str	*start;
 	t_str	*last;
 	t_str	*current;
 	t_str	*cmdlist;
 	int		cnt;
-	char	**cmd;
 
-	start = find_start(head);
+	start = find_start(*head);
 	if (start->type != STR)
 		return (false);
 	current = start;
 	cnt = 1;
-	last = find_last(head, &cnt);
-	cmd = make_cmd(start, last, cnt);
-	cmdlist = make_strlistcmd(cmd);
-
-	int i = 0;
-	while (cmdlist->cmd[i] != NULL)
-	{
-		printf("cmd %s\n", cmdlist->cmd[i]);
-		i++;
-	}
-	// start = current;
-	// cnt = 1;
-	// while (current->next != NULL && current->next->type == STR)
-	// {
-	// 	cnt++;
-	// 	current = current->next;
-	// }
-	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
-	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
-	// // free_strliststr(start, current);
-	// if (start->prev != NULL)
-	// 	start->prev->next = cmdlist;
-	// else
-	// 	start = cmdlist;
-	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
-	// if (current->prev != NULL)
-	// 	current->prev = cmdlist;
-	// else
-	// 	current->prev = cmdlist;
-	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+	last = find_last(current, &cnt);
+	cmdlist = make_strlistcmd(make_cmd(start, last, cnt));
+	connect_cmd(head, start, last, cmdlist);
 	return (true);
 }
 
-static void	str_to_cmd(t_str *lexical_line)
+static void	str_to_cmd(t_str **lexical_line)
 {
-	conv_str_to_cmd(lexical_line);
-	printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+	while (1)
+	{
+		if (conv_str_to_cmd(lexical_line) == false)
+			break ;
+	}
+}
+
+static void	print_list(t_str *current)
+{
+	while (current != NULL)
+	{
+		if (current->type == STR)
+			printf("str is 「%s」\n", current->str);
+		else if (current->type == AIM)
+			printf("aim is 「%s」\n", current->str);
+		else if (current->type == CMD)
+		{
+			printf("%d\n", current->type);
+			int i = 0;
+			while (current->cmd[i] != NULL)
+			{
+				printf("cmd is %s\n", current->cmd[i]);
+				i++;
+			}
+		}
+		else
+			printf("%d\n", current->type);
+		current = current->next;
+	}
+}
+
+static void	print_listr(t_str *current)
+{
+	current = strlistlast(current);
+	while (current != NULL)
+	{
+		if (current->type == STR)
+			printf("str is 「%s」\n", current->str);
+		else if (current->type == AIM)
+			printf("aim is 「%s」\n", current->str);
+		else if (current->type == CMD)
+		{
+			printf("%d\n", current->type);
+			int i = 0;
+			while (current->cmd[i] != NULL)
+			{
+				printf("cmd is %s\n", current->cmd[i]);
+				i++;
+			}
+		}
+		else
+			printf("%d\n", current->type);
+		current = current->prev;
+	}
 }
 
 static /* t_list **/void	reader(char *line)
@@ -373,27 +420,14 @@ static /* t_list **/void	reader(char *line)
 		free_strlist(&lexical_line);
 		exit (1);
 	}
-	str_to_cmd(lexical_line);
-	printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
-	while (lexical_line != NULL)
-	{
-		if (lexical_line->type == STR)
-			printf("str is 「%s」\n", lexical_line->str);
-		else if (lexical_line->type == AIM)
-			printf("aim is 「%s」\n", lexical_line->str);
-		else if (lexical_line->type == CMD)
-		{
-			int i = 0;
-			while (lexical_line->cmd[i] != NULL)
-			{
-				printf("%s\n", lexical_line->cmd[i]);
-				i++;
-			}
-		}
-		else
-			printf("%d\n", lexical_line->type);
-		lexical_line = lexical_line->next;
-	}
+	str_to_cmd(&lexical_line);
+	str_to_order(lexical_line);
+	// system("leaks -q minishell");
+
+	print_list(lexical_line);
+	print_listr(lexical_line);
+
+	// system("leaks -q minishell");
 	return ;
 }
 
@@ -433,23 +467,18 @@ int	main(int argc, char **argv, char **envp)
 // 		if (vars.line == NULL)
 // 			continue ;
 // 		// system("leaks -q minishell");
-// 		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 // 		// system("leaks -q minishell");
 // 		vars.array = lexer(vars.line);
-// 		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 // 		// system("leaks -q minishell");
 // 		if (vars.array == NULL)
 // 			continue ;
-// 		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 // 		// system("leaks -q minishell");
 // 		vars.comline = parser(vars.array);
 // 		if (vars.comline == NULL)
 // 			continue ;
-// 		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 // 		// system("leaks -q minishell");
 // 		execution(&vars);
 // 		free_doubleptr(vars.array);
-// 		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 // 		// system("leaks -q minishell");
 // 		ft_lstclear(&(vars.comline), free);
 // 		free(vars.line);
