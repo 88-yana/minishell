@@ -91,7 +91,10 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 
 a:$(NAME)
 	./minishell < line.txt
-
+ans:$(NAME)
+	./minishell < line.txt > ans.txt
+b:$(NAME)
+	./minishell < line.txt | diff - ans.txt
 ok:
 	./minishell < infile.txt > ok.txt
 

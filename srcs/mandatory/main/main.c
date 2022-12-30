@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/30 20:50:35 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/30 21:16:25 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_str
 	struct s_str	*prev;
 }	t_str;
 
-static void	free_strlist(t_str *head)
+static void	free_slist(t_str *head)
 {
 	t_str	*temp;
 	t_str	*current;
@@ -37,7 +37,7 @@ static void	free_strlist(t_str *head)
 	}
 }
 
-static t_str	*strlistlast(t_str *list)
+static t_str	*slistlast(t_str *list)
 {
 	if (list == NULL)
 		return (NULL);
@@ -46,19 +46,19 @@ static t_str	*strlistlast(t_str *list)
 	return (list);
 }
 
-static void	strlistadd(t_str **lexical_line, t_str *new)
+static void	slistadd(t_str **head, t_str *new)
 {
 	if (new == NULL)
 	{
-		free_strlist(*lexical_line);
+		free_slist(*head);
 		exit(1);
 	}
-	if (*lexical_line == NULL)
-		*lexical_line = new;
+	if (*head == NULL)
+		*head = new;
 	else
 	{
-		new->prev = strlistlast(*lexical_line);
-		strlistlast(*lexical_line)->next = new;
+		new->prev = slistlast(*head);
+		slistlast(*head)->next = new;
 	}
 }
 
@@ -96,7 +96,7 @@ static bool	is_dse(char c)
 	return (false);
 }
 
-static t_str	*make_strlist(char *line, int *i, int *str_len)
+static t_str	*make_slist(char *line, int *i, int *str_len)
 {
 	t_str	*list;
 
@@ -112,7 +112,7 @@ static t_str	*make_strlist(char *line, int *i, int *str_len)
 	return (list);
 }
 
-static t_str	*make_strlistcmd(char **cmd)
+static t_str	*make_slistcmd(char **cmd)
 {
 	t_str	*list;
 
@@ -164,7 +164,7 @@ static bool	is_bracket(const char c)
 	return (false);
 }
 
-static t_str	*make_strlistsep(t_type type)
+static t_str	*make_slistsep(t_type type)
 {
 	t_str	*list;
 
@@ -180,25 +180,25 @@ static t_str	*make_strlistsep(t_type type)
 static void cutline(t_str **lexical_line, char *line, int *i, int *str_len)
 {
 	if (*str_len > 0)
-		strlistadd(lexical_line, make_strlist(line, i, str_len)); //2文字系1文字系関わらず
+		slistadd(lexical_line, make_slist(line, i, str_len)); //2文字系1文字系関わらず
 	if (is_dse(line[*i])) //2文字系
 	{
 		if (line[*i] == line[*i + 1]) //2文字の場合
 		{
-			strlistadd(lexical_line, make_strlistsep(ctotype(line[*i], 2)));
+			slistadd(lexical_line, make_slistsep(ctotype(line[*i], 2)));
 			(*i)++;
 		}
 		else if (line[*i] != '&') //1文字の場合
-			strlistadd(lexical_line, make_strlistsep(ctotype(line[*i], 1)));
+			slistadd(lexical_line, make_slistsep(ctotype(line[*i], 1)));
 		else
 		{
 			(*i)++;
 			*str_len = 1;
-			strlistadd(lexical_line, make_strlist(line, i, str_len));
+			slistadd(lexical_line, make_slist(line, i, str_len));
 		}
 	}
 	else if (is_bracket(line[*i])) //2文字解釈はしないブラケット
-		strlistadd(lexical_line, make_strlistsep(ctotype(line[*i], 1)));
+		slistadd(lexical_line, make_slistsep(ctotype(line[*i], 1)));
 	*str_len = -1;
 }
 
@@ -287,7 +287,7 @@ static char	**make_cmd(t_str *start, t_str *last, int cnt)
 	return (cmd);
 }
 
-static void	free_strliststr(t_str *start, t_str *last)
+static void	free_sliststr(t_str *start, t_str *last)
 {
 	t_str	*temp;
 	t_str	*current;
@@ -339,7 +339,7 @@ static void	connect_cmd(t_str **head, t_str *start, t_str *last, t_str *cmdlist)
 		cmdlist->prev = start->prev;
 		cmdlist->next = last->next;
 	}
-	free_strliststr(start, last);
+	free_sliststr(start, last);
 }
 
 static bool	conv_str_to_cmd(t_str **head)
@@ -356,7 +356,7 @@ static bool	conv_str_to_cmd(t_str **head)
 	current = start;
 	cnt = 1;
 	last = find_last(current, &cnt);
-	cmdlist = make_strlistcmd(make_cmd(start, last, cnt));
+	cmdlist = make_slistcmd(make_cmd(start, last, cnt));
 	connect_cmd(head, start, last, cmdlist);
 	return (true);
 }
@@ -396,7 +396,7 @@ static void	str_to_cmd(t_str **lexical_line)
 
 // static void	print_listr(t_str *current)
 // {
-// 	current = strlistlast(current);
+// 	current = slistlast(current);
 // 	while (current != NULL)
 // 	{
 // 		if (current->type == STR)
@@ -451,19 +451,6 @@ static t_list	*str_to_list(t_str *head)
 	return (list);
 }
 
-static bool	is_redtype(t_type type)
-{
-	if (type == LT)
-		return (true);
-	if (type == LTLT)
-		return (true);
-	if (type == GT)
-		return (true);
-	if (type == GTGT)
-		return (true);
-	return (false);
-}
-
 static void	swap_list(t_list *list, t_list *next)
 {
 	t_order	*temp;
@@ -485,7 +472,7 @@ static void	sort_red_cmd(t_list *list)
 		current = (t_order *)list->content;
 		next = (t_order *)list->next->content;
 		if (current->type == COMMAND)
-			if (is_redtype(next->type))
+			if (is_redirect(next->type))
 				swap_list(list, list->next);
 		list = list->next;
 	}
@@ -499,15 +486,15 @@ static t_list	*reader(char *line)
 	lexical_line = new_lexer(line);
 	if (!str_to_aim(lexical_line)) //aimがない場合
 	{
-		free_strlist(lexical_line);
+		free_slist(lexical_line);
 		exit (1);
 	}
 	str_to_cmd(&lexical_line);
 	list = str_to_list(lexical_line);
 	sort_red_cmd(list);
+	free_slist(lexical_line);
 	display_command(list);
-	free_strlist(lexical_line);
-	system("leaks -q minishell");
+	// list_to_subshell(&list);
 
 	// print_list(lexical_line);
 	// print_listr(lexical_line);
@@ -528,7 +515,7 @@ static void	minishell(char **envp)
 		if (line == NULL)
 			continue ;
 		list = reader(line);
-		system("leaks -q minishell");
+		// system("leaks -q minishell");
 	}
 }
 
