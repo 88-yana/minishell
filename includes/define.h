@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/29 16:02:16 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/30 20:04:14 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef enum e_type {
 	AND,
 	OR,
 	STR,
-	CMD,
 	AIM,
 	BRA,
 	CKET

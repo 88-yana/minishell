@@ -14,7 +14,7 @@ echo hello  |  world
 echo hello&&echo hello
 echo hello && echo world
 (echo hello) && echo world
-"echo hello && abc"||echo hello| (ls)&&grep h
+echo "echo hello && abc" > test&& <MAKEFILE cat|| echo hello > test1| (ls) > test &&grep h
 echo hello>test.txt
 echo hello>>test.txt
 echo hello&world

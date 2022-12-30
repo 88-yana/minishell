@@ -60,4 +60,5 @@ t_type	convert_redirection(char *str);
 t_list	**realloc_list(t_list **list, t_list *ptr);
 void	free_tree(t_node *root);
 t_list	**realloc_list_free(t_list **list, t_list *ptr);
+void	display_command(t_list *command_line);
 #endif

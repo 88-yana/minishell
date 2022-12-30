@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/30 15:59:22 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/30 20:50:35 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,20 @@ typedef struct s_str
 	struct s_str	*prev;
 }	t_str;
 
-//TODO:
-static void	free_strlist(t_str **lexical_line)
+static void	free_strlist(t_str *head)
 {
-	(void) lexical_line;
-	return ;
+	t_str	*temp;
+	t_str	*current;
+
+	current = head;
+	while (1)
+	{
+		temp = current->next;
+		free(current);
+		current = temp;
+		if (current == NULL)
+			break ;
+	}
 }
 
 static t_str	*strlistlast(t_str *list)
@@ -41,7 +50,7 @@ static void	strlistadd(t_str **lexical_line, t_str *new)
 {
 	if (new == NULL)
 	{
-		free_strlist(lexical_line);
+		free_strlist(*lexical_line);
 		exit(1);
 	}
 	if (*lexical_line == NULL)
@@ -110,7 +119,7 @@ static t_str	*make_strlistcmd(char **cmd)
 	list = malloc(sizeof(t_str));
 	if (list == NULL)
 		return (NULL);
-	list->type = CMD;
+	list->type = COMMAND;
 	list->cmd = cmd;
 	list->next = NULL;
 	list->prev = NULL;
@@ -361,82 +370,156 @@ static void	str_to_cmd(t_str **lexical_line)
 	}
 }
 
-static void	print_list(t_str *current)
+// static void	print_list(t_str *current)
+// {
+// 	while (current != NULL)
+// 	{
+// 		if (current->type == STR)
+// 			printf("str is 「%s」\n", current->str);
+// 		else if (current->type == AIM)
+// 			printf("aim is 「%s」\n", current->str);
+// 		else if (current->type == CMD)
+// 		{
+// 			printf("%d\n", current->type);
+// 			int i = 0;
+// 			while (current->cmd[i] != NULL)
+// 			{
+// 				printf("cmd is %s\n", current->cmd[i]);
+// 				i++;
+// 			}
+// 		}
+// 		else
+// 			printf("%d\n", current->type);
+// 		current = current->next;
+// 	}
+// }
+
+// static void	print_listr(t_str *current)
+// {
+// 	current = strlistlast(current);
+// 	while (current != NULL)
+// 	{
+// 		if (current->type == STR)
+// 			printf("str is 「%s」\n", current->str);
+// 		else if (current->type == AIM)
+// 			printf("aim is 「%s」\n", current->str);
+// 		else if (current->type == CMD)
+// 		{
+// 			printf("%d\n", current->type);
+// 			int i = 0;
+// 			while (current->cmd[i] != NULL)
+// 			{
+// 				printf("cmd is %s\n", current->cmd[i]);
+// 				i++;
+// 			}
+// 		}
+// 		else
+// 			printf("%d\n", current->type);
+// 		current = current->prev;
+// 	}
+// }
+
+static t_order	*make_order(t_str	*current)
 {
+	t_order	*order;
+	t_type	type;
+
+	type = current->type;
+	if (type == COMMAND)
+		order = make_command(current->type, current->cmd, NULL, NULL);
+	else if (type == GTGT || type == GT || type == LTLT || type == LT)
+		order = make_command(current->type, NULL, current->next->str, NULL);
+	else
+		order = make_command(current->type, NULL, NULL, NULL);
+	return (order);
+}
+
+static t_list	*str_to_list(t_str *head)
+{
+	t_str	*current;
+	t_list	*list;
+
+	list = NULL;
+	current = head;
 	while (current != NULL)
 	{
-		if (current->type == STR)
-			printf("str is 「%s」\n", current->str);
-		else if (current->type == AIM)
-			printf("aim is 「%s」\n", current->str);
-		else if (current->type == CMD)
-		{
-			printf("%d\n", current->type);
-			int i = 0;
-			while (current->cmd[i] != NULL)
-			{
-				printf("cmd is %s\n", current->cmd[i]);
-				i++;
-			}
-		}
-		else
-			printf("%d\n", current->type);
+		ft_lstadd_back(&list, ft_lstnew(make_order(current))); //FIXME:
 		current = current->next;
+		if (current != NULL && current->type == AIM)
+			current = current->next;
 	}
+	return (list);
 }
 
-static void	print_listr(t_str *current)
+static bool	is_redtype(t_type type)
 {
-	current = strlistlast(current);
-	while (current != NULL)
+	if (type == LT)
+		return (true);
+	if (type == LTLT)
+		return (true);
+	if (type == GT)
+		return (true);
+	if (type == GTGT)
+		return (true);
+	return (false);
+}
+
+static void	swap_list(t_list *list, t_list *next)
+{
+	t_order	*temp;
+
+	temp = (t_order *)list->content;
+	// printf("temp cmd is %s\n", temp->cmd[0]);
+	// printf("next is %s\n", ((t_order *)next->content)->file);
+	list->content = (t_order *)next->content;
+	next->content = temp;
+}
+
+static void	sort_red_cmd(t_list *list)
+{
+	t_order	*current;
+	t_order	*next;
+
+	while (list && list->next)
 	{
-		if (current->type == STR)
-			printf("str is 「%s」\n", current->str);
-		else if (current->type == AIM)
-			printf("aim is 「%s」\n", current->str);
-		else if (current->type == CMD)
-		{
-			printf("%d\n", current->type);
-			int i = 0;
-			while (current->cmd[i] != NULL)
-			{
-				printf("cmd is %s\n", current->cmd[i]);
-				i++;
-			}
-		}
-		else
-			printf("%d\n", current->type);
-		current = current->prev;
+		current = (t_order *)list->content;
+		next = (t_order *)list->next->content;
+		if (current->type == COMMAND)
+			if (is_redtype(next->type))
+				swap_list(list, list->next);
+		list = list->next;
 	}
 }
 
-static 
-
-static /* t_list **/void	reader(char *line)
+static t_list	*reader(char *line)
 {
 	t_str	*lexical_line;
-	t_list	*head;
+	t_list	*list;
 
 	lexical_line = new_lexer(line);
-	if (!str_to_aim(lexical_line))
+	if (!str_to_aim(lexical_line)) //aimがない場合
 	{
-		free_strlist(&lexical_line);
+		free_strlist(lexical_line);
 		exit (1);
 	}
 	str_to_cmd(&lexical_line);
-	str_to_order(lexical_line);
-	// system("leaks -q minishell");
+	list = str_to_list(lexical_line);
+	sort_red_cmd(list);
+	display_command(list);
+	free_strlist(lexical_line);
+	system("leaks -q minishell");
 
-	print_list(lexical_line);
-	print_listr(lexical_line);
+	// print_list(lexical_line);
+	// print_listr(lexical_line);
 
 	// system("leaks -q minishell");
-	return ;
+	return (list);
 }
 
 static void	minishell(char **envp)
 {
 	char	*line;
+	t_list	*list;
 
 	(void)envp;
 	while (true)
@@ -444,7 +527,8 @@ static void	minishell(char **envp)
 		line = read_line_from_prompt();
 		if (line == NULL)
 			continue ;
-		reader(line);
+		list = reader(line);
+		system("leaks -q minishell");
 	}
 }
 

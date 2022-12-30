@@ -74,6 +74,10 @@ void	display_command(t_list *command_line)
 			printf("type: [ %s ]\n", "and");
 		else if (command->type == OR)
 			printf("type: [ %s ]\n", "or");
+		else if (command->type == BRA)
+			printf("type: [ %s ]\n", "bra");
+		else if (command->type == CKET)
+			printf("type: [ %s ]\n", "cket");
 		buf = buf->next;
 	}
 }
