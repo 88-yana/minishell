@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/30 21:19:53 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/30 21:25:30 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -407,8 +407,6 @@ static void	swap_list(t_list *list, t_list *next)
 	t_order	*temp;
 
 	temp = (t_order *)list->content;
-	// printf("temp cmd is %s\n", temp->cmd[0]);
-	// printf("next is %s\n", ((t_order *)next->content)->file);
 	list->content = (t_order *)next->content;
 	next->content = temp;
 }
@@ -428,6 +426,11 @@ static void	sort_red_cmd(t_list *list)
 		list = list->next;
 	}
 }
+
+// static void	list_to_subshell(t_list **list)
+// {
+	
+// }
 
 static t_list	*reader(char *line)
 {
