@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/30 15:54:21 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/30 15:59:22 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -410,9 +410,12 @@ static void	print_listr(t_str *current)
 	}
 }
 
+static 
+
 static /* t_list **/void	reader(char *line)
 {
 	t_str	*lexical_line;
+	t_list	*head;
 
 	lexical_line = new_lexer(line);
 	if (!str_to_aim(lexical_line))
