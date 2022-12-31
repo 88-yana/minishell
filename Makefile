@@ -3,38 +3,6 @@ CFLAGS = -Wall -Wextra -Werror -I ./includes/ #-fsanitize=address -g3
 RLFLAGS = -I $(shell brew --prefix readline)/include -L$(shell brew --prefix readline)/lib -lreadline -lhistory
 SRCS_NAME = mandatory/main/main.c \
 	mandatory/readline/readline.c \
-	mandatory/lexer/lexer.c \
-	mandatory/lexer/check_quote.c \
-	mandatory/lexer/malloc_free.c \
-	mandatory/lexer/match.c \
-	mandatory/lexer/bool.c \
-	mandatory/lexer_one_symbol/bool_div.c \
-	mandatory/lexer_one_symbol/lexer_div.c \
-	mandatory/lexer_one_symbol/delete_brank.c \
-	mandatory/lexer_one_symbol/malloc_free_div.c \
-	mandatory/lexer_two_symbols/divide_redirect.c \
-	mandatory/lexer_two_symbols/push_element.c \
-	mandatory/lexer_two_symbols/bool_re.c \
-	mandatory/lexer_two_symbols/lexer_re.c \
-	mandatory/lexer_two_symbols/malloc_free_re.c \
-	mandatory/parser/parser.c \
-	mandatory/parser/check_arg.c \
-	mandatory/parser/bool_pa.c \
-	mandatory/parser/utils.c \
-	mandatory/parser/command_line.c \
-	mandatory/parser/delimiter.c \
-	mandatory/parser/piped_line.c \
-	mandatory/parser/pipe.c \
-	mandatory/parser/arguments.c \
-	mandatory/parser/redirection.c \
-	mandatory/parser/subshell.c \
-	mandatory/parser/talloc.c \
-	mandatory/parser/test.c \
-	mandatory/parser/sort.c \
-	mandatory/parser/list.c \
-	mandatory/parser/command.c \
-	mandatory/parser/make_command.c \
-	mandatory/parser/realloc.c \
 	mandatory/builtin/builtin_cd.c \
 	mandatory/builtin/builtin_echo.c \
 	mandatory/builtin/builtin_env.c \
@@ -62,7 +30,21 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/execution/piped_commands_utils.c \
 	mandatory/execution/redirection.c \
 	mandatory/execution/asterisk.c \
-	mandatory/execution/delete_quote.c
+	mandatory/execution/delete_quote.c \
+	mandatory/reader/bool.c \
+	mandatory/reader/cutline.c \
+	mandatory/reader/list_to_subshell.c \
+	mandatory/reader/list.c \
+	mandatory/reader/make_cmd.c \
+	mandatory/reader/reader.c \
+	mandatory/reader/slist.c \
+	mandatory/reader/sort.c \
+	mandatory/reader/str_to_aim.c \
+	mandatory/reader/str_to_cmd.c \
+	mandatory/reader/str_to_list.c \
+	mandatory/reader/match.c \
+	mandatory/reader/check_quote.c \
+	mandatory/reader/make_command.c
 
 SRCDIR = srcs
 OBJDIR = objs
@@ -117,3 +99,5 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+.PHONY: test

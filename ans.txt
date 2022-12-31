@@ -1,98 +1,69 @@
 minishell$ echo hello world 
-type: [ command ] command: [ echo hello world ]
+hello world
 minishell$ echo    hello    world
-type: [ command ] command: [ echo hello world ]
-minishell$ abc    abc"    abc"
-type: [ command ] command: [ abc abc"    abc" ]
+hello world
 minishell$ echo     "hello   "abc     
-type: [ command ] command: [ echo "hello   "abc ]
+hello   abc
 minishell$ echo     "hello   "abc   abc 
-type: [ command ] command: [ echo "hello   "abc abc ]
-minishell$ abc"   abc"
-type: [ command ] command: [ abc"   abc" ]
-minishell$ "abc"  abc  abc
-type: [ command ] command: [ "abc" abc abc ]
+hello   abc abc
 minishell$ echo     hello   abc     abc ab
-type: [ command ] command: [ echo hello abc abc ab ]
+hello abc abc ab
 minishell$ echo     "hello   "abc
-type: [ command ] command: [ echo "hello   "abc ]
+hello   abc
 minishell$ echo     "hello   "abc     abc
-type: [ command ] command: [ echo "hello   "abc abc ]
+hello   abc abc
 minishell$ echo     "hello   "abc     abc abc
-type: [ command ] command: [ echo "hello   "abc abc abc ]
+hello   abc abc abc
 minishell$ echo hello| grep world
-type: [ command ] command: [ echo hello ]
-type: [ pipe ]
-type: [ command ] command: [ grep world ]
-minishell$ echo hello  |  world
-type: [ command ] command: [ echo hello ]
-type: [ pipe ]
-type: [ command ] command: [ world ]
+minishell$ echo hello  | grep w
 minishell$ echo hello&&echo hello
-type: [ command ] command: [ echo hello ]
-type: [ and ]
-type: [ command ] command: [ echo hello ]
+hello
+hello
 minishell$ echo hello && echo world
-type: [ command ] command: [ echo hello ]
-type: [ and ]
-type: [ command ] command: [ echo world ]
+hello
+world
 minishell$ (echo hello) && echo world
----------- inside shell ----------
-type: [ shell ]
-type: [ command ] command: [ echo hello ]
----------- inside shell ----------
-type: [ and ]
-type: [ command ] command: [ echo world ]
-minishell$ echo "echo hello && abc" > test&& <MAKELE cat|| echo hello > test1| (ls > test) > test &&grep h
-type: [ gt ] aim: [ test ]
-type: [ command ] command: [ echo "echo hello && abc" ]
-type: [ and ]
-type: [ lt ] aim: [ MAKELE ]
-type: [ command ] command: [ cat ]
-type: [ or ]
-type: [ gt ] aim: [ test1 ]
-type: [ command ] command: [ echo hello ]
-type: [ pipe ]
----------- inside shell ----------
-type: [ shell ]
-type: [ gt ] aim: [ test ]
-type: [ command ] command: [ ls ]
----------- inside shell ----------
-type: [ gt ] aim: [ test ]
-type: [ and ]
-type: [ command ] command: [ grep h ]
+hello
+world
 minishell$ (echo hello)
----------- inside shell ----------
-type: [ shell ]
-type: [ command ] command: [ echo hello ]
----------- inside shell ----------
+hello
 minishell$ (echo hello)|grep h
----------- inside shell ----------
-type: [ shell ]
-type: [ command ] command: [ echo hello ]
----------- inside shell ----------
-type: [ pipe ]
-type: [ command ] command: [ grep h ]
-minishell$ echo hello>test.txt
-type: [ gt ] aim: [ test.txt ]
-type: [ command ] command: [ echo hello ]
-minishell$ echo hello>>test.txt
-type: [ gtgt ] aim: [ test.txt ]
-type: [ command ] command: [ echo hello ]
-minishell$ echo hello&world
-type: [ command ] command: [ echo hello & orld ]
-minishell$ echo hello &world
-type: [ command ] command: [ echo hello & orld ]
-minishell$ echo hello & world
-type: [ command ] command: [ echo hello & world ]
+hello
 minishell$ (echo hello | (echo helo))
----------- inside shell ----------
-type: [ shell ]
-type: [ command ] command: [ echo hello ]
-type: [ pipe ]
----------- inside shell ----------
-type: [ shell ]
-type: [ command ] command: [ echo helo ]
----------- inside shell ----------
----------- inside shell ----------
+helo
+minishell$ echo "echo hello && grep abc" && <line.txt cat&& echo hello > test1| (ls) &&grep h
+echo hello world 
+echo    hello    world
+echo     "hello   "abc     
+echo     "hello   "abc   abc 
+echo     hello   abc     abc ab
+echo     "hello   "abc
+echo     "hello   "abc     abc
+echo     "hello   "abc     abc abc
+echo hello| grep world
+echo hello  | grep w
+echo hello&&echo hello
+echo hello && echo world
+(echo hello) && echo world
+(echo hello)
+(echo hello)|grep h
+(echo hello | (echo helo))
+echo "echo hello && grep abc" && <line.txt cat&& echo hello > test1| (ls) &&grep h
+cat <Makefile
+abc
+ans.txt
+includes
+infile.txt
+leak.sh
+libft
+line.txt
+minishell
+objs
+old_data
+record
+srcs
+test
+test1
+echo hello && grep abc
+echo hello && grep abc
 minishell$ exit

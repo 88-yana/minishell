@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 12:17:55 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 16:15:52 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,15 @@ typedef enum e_type {
 	BRA,
 	CKET
 }	t_type;
+
+typedef struct s_str
+{
+	t_type			type;
+	char			*str;
+	char			**cmd;
+	struct s_str	*next;
+	struct s_str	*prev;
+}	t_str;
 
 typedef struct s_order {
 	t_type	type;
