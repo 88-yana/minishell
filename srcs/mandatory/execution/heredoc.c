@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 10:51:50 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/19 15:12:39 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 11:42:10 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ void	get_heredoc(t_list *comline)
 	pid_t	pid;
 
 	order = (t_order *)comline->content;
+	if (!ft_strchr(order->file, SINGLEQ) && !ft_strchr(order->file, DOUBLEQ))
+		order->is_quote = false;
+	else
+		order->is_quote = true;
 	end = ft_strdup(order->file);
 	if (!end)
 		return ;
