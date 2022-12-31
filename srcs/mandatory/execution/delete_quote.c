@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   delete_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:36:18 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 17:43:34 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:58:42 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+// void	del(char *str, char quote, size_t i)
+// {
+// 	ft_strlcpy(&str[i], &str[i + 1], ft_strlen(&str[i]));
+// 	while (str[i] != '\0' && str[i] != quote)
+// 		i++;
+// 	if (str[i] == '\0')
+// 		return ;
+// 	ft_strlcpy(&str[i], &str[i + 1], ft_strlen(&str[i]));
+// }
 
 void	delete_quote(char *str)
 {
@@ -25,7 +35,7 @@ void	delete_quote(char *str)
 			while (str[i] != '\0' && str[i] != DOUBLEQ)
 				i++;
 			if (str[i] == '\0')
-				break ;
+				return ;
 			ft_strlcpy(&str[i], &str[i + 1], ft_strlen(&str[i]));
 			continue ;
 		}

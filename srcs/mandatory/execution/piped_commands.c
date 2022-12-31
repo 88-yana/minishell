@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piped_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:57:18 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:43:24 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 18:16:57 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

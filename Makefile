@@ -79,7 +79,7 @@ ok:
 duplicate:
 	echo $(shell find $(SRCDIR) -type d)
 
-test:
+test:$(NAME)
 	bash test.sh
 
 lex:

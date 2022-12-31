@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_envs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 18:55:12 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 17:50:16 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 18:27:10 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ char	*check_env_value(t_vars *vars, char *env)
 
 	list = find_envs(vars->envs, env);
 	if (!list)
-		return ("");
+	{
+		free(env);
+		return (ft_strdup(""));
+	}
 	envs = (t_envs *)list->content;
 	value = ft_strdup(envs->value);
 	free(env);
@@ -110,8 +113,8 @@ char	*lexer_envs(t_vars *vars, char *line)
 		temp[1] = divided_line;
 		divided_line = ft_strjoin(divided_line, temp[0]);
 		free(temp[1]);
+		free (temp[0]);
 	}
-	free (temp[0]);
 	free(line);
 	return (divided_line);
 }
