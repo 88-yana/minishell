@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 22:06:39 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 12:01:21 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:37:02 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,8 +184,3 @@ char	**check_asterisk(char **cmd)
 	}
 	return (cmd);
 }
-
-//int main(void)
-//{
-//	check_asterisk((char *[]){"hello", "*.", "hello", NULL});
-//}
