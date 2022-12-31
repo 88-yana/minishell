@@ -1,1 +1,8 @@
-echo hello && abc
+(echo hello)
+(echo hello)|grep h
+echo hello>test.txt
+echo hello>>test.txt
+echo hello&world
+echo hello &world
+echo hello & world
+(echo hello | (echo helo))

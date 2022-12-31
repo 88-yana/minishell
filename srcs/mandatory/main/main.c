@@ -6,11 +6,11 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 12:28:25 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:36:45 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/minishell.h"
+#include	"minishell.h"
 
 typedef struct s_str
 {
@@ -579,7 +579,7 @@ static void	minishell(char **envp)
 		if (vars.line == NULL)
 			continue ;
 		vars.comline = reader(vars.line);
-		execution(&vars);
+		// execution(&vars);
 		free (vars.line);
 		free_list(vars.comline);
 		// system("leaks -q minishell");

@@ -14,9 +14,12 @@ echo hello  |  world
 echo hello&&echo hello
 echo hello && echo world
 (echo hello) && echo world
-echo "echo hello && abc" > test&& <MAKELE cat|| echo hello > test1| (ls) > test &&grep h
+echo "echo hello && abc" > test&& <MAKELE cat|| echo hello > test1| (ls > test) > test &&grep h
+(echo hello)
+(echo hello)|grep h
 echo hello>test.txt
 echo hello>>test.txt
 echo hello&world
 echo hello &world
 echo hello & world
+(echo hello | (echo helo))

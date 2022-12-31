@@ -37,26 +37,41 @@ type: [ command ] command: [ echo hello ]
 type: [ and ]
 type: [ command ] command: [ echo world ]
 minishell$ (echo hello) && echo world
-type: [ bra ]
+---------- inside shell ----------
+type: [ shell ]
 type: [ command ] command: [ echo hello ]
-type: [ cket ]
+---------- inside shell ----------
 type: [ and ]
 type: [ command ] command: [ echo world ]
-minishell$ echo "echo hello && abc" > test&& <MAKEFILE cat|| echo hello > test1| (ls) > test &&grep h
+minishell$ echo "echo hello && abc" > test&& <MAKELE cat|| echo hello > test1| (ls > test) > test &&grep h
 type: [ gt ] aim: [ test ]
 type: [ command ] command: [ echo "echo hello && abc" ]
 type: [ and ]
-type: [ lt ] aim: [ MAKEFILE ]
+type: [ lt ] aim: [ MAKELE ]
 type: [ command ] command: [ cat ]
 type: [ or ]
 type: [ gt ] aim: [ test1 ]
 type: [ command ] command: [ echo hello ]
 type: [ pipe ]
-type: [ bra ]
+---------- inside shell ----------
+type: [ shell ]
+type: [ gt ] aim: [ test ]
 type: [ command ] command: [ ls ]
-type: [ cket ]
+---------- inside shell ----------
 type: [ gt ] aim: [ test ]
 type: [ and ]
+type: [ command ] command: [ grep h ]
+minishell$ (echo hello)
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ echo hello ]
+---------- inside shell ----------
+minishell$ (echo hello)|grep h
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ echo hello ]
+---------- inside shell ----------
+type: [ pipe ]
 type: [ command ] command: [ grep h ]
 minishell$ echo hello>test.txt
 type: [ gt ] aim: [ test.txt ]
@@ -70,4 +85,14 @@ minishell$ echo hello &world
 type: [ command ] command: [ echo hello & orld ]
 minishell$ echo hello & world
 type: [ command ] command: [ echo hello & world ]
+minishell$ (echo hello | (echo helo))
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ echo hello ]
+type: [ pipe ]
+---------- inside shell ----------
+type: [ shell ]
+type: [ command ] command: [ echo helo ]
+---------- inside shell ----------
+---------- inside shell ----------
 minishell$ exit
