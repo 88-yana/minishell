@@ -1,7 +1,0 @@
-(echo hello)
-(echo hello) | grep h
-echo $?
-echo hello|grep h&&ls -a
-(ls)
-cat < test.txt
-echo world>tes.txt
