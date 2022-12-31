@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 18:55:12 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 17:47:57 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:50:16 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,7 @@ char	*lexer_envs(t_vars *vars, char *line)
 		start = pos;
 		temp[0] = divide(vars, line, &pos, during);
 		if (temp[0] == NULL)
-		{
-			free(temp);
-			return (NULL);
-		}
+			exit(1);
 		temp[1] = divided_line;
 		divided_line = ft_strjoin(divided_line, temp[0]);
 		free(temp[1]);

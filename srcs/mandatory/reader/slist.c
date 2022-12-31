@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:46:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 16:56:07 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:49:38 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,21 @@ void	free_slist(t_str *head)
 		current = temp;
 		if (current == NULL)
 			break ;
+	}
+}
+
+void	free_sliststr(t_str *start, t_str *last)
+{
+	t_str	*temp;
+	t_str	*current;
+
+	current = start;
+	while (1)
+	{
+		temp = current->next;
+		free(current);
+		if (current == last)
+			break ;
+		current = temp;
 	}
 }
