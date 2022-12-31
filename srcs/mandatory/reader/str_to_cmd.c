@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:36:03 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 17:03:29 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:49:25 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,6 @@ static t_str	*find_laststr(t_str *head, int *cnt)
 		(*cnt)++;
 	}
 	return (head);
-}
-
-static void	free_sliststr(t_str *start, t_str *last)
-{
-	t_str	*temp;
-	t_str	*current;
-
-	current = start;
-	while (1)
-	{
-		temp = current->next;
-		free(current);
-		if (current == last)
-			break ;
-		current = temp;
-	}
 }
 
 static void	connect_cmd(t_str **head, t_str *start, t_str *last, t_str *cmdlist)
