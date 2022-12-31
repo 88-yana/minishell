@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 12:36:45 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:40:35 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -579,8 +579,8 @@ static void	minishell(char **envp)
 		if (vars.line == NULL)
 			continue ;
 		vars.comline = reader(vars.line);
-		// execution(&vars);
-		free (vars.line);
+		execution(&vars);
+		free(vars.line);
 		free_list(vars.comline);
 		// system("leaks -q minishell");
 	}
