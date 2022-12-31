@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 12:13:01 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:28:25 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -509,36 +509,13 @@ static void	list_to_subshell(t_list **list)
 	}
 }
 
-// static void	print_list(t_list *list)
-// {
-// 	t_list	*current;
-
-// 	current = list;
-// 	while (current != NULL)
-// 	{
-// 		printf("%d\n", ((t_order *)current->content)->type);
-// 		current = current->next;
-// 	}
-// }
-
-
-// static void	print_list_r(t_list *list)
-// {
-// 	t_list	*current;
-
-// 	current = ft_lstlast(list);
-// 	while (current != NULL)
-// 	{
-// 		printf("%d\n", ((t_order *)current->content)->type);
-// 		current = current->prev;
-// 	}
-// }
-
 static t_list	*reader(char *line)
 {
 	t_str	*lexical_line;
 	t_list	*list;
 
+	if (check_line(line) == false)
+		exit(1);
 	lexical_line = new_lexer(line);
 	if (!str_to_aim(lexical_line)) //aimがない場合
 	{
@@ -549,12 +526,8 @@ static t_list	*reader(char *line)
 	list = str_to_list(lexical_line);
 	sort_red_cmd(list);
 	free_slist(lexical_line);
-	// print_list(list);
-	// print_list_r(list);
 	list_to_subshell(&list);
 	display_command(list);
-
-	// system("leaks -q minishell");
 	return (list);
 }
 
@@ -609,7 +582,7 @@ static void	minishell(char **envp)
 		execution(&vars);
 		free (vars.line);
 		free_list(vars.comline);
-		system("leaks -q minishell");
+		// system("leaks -q minishell");
 	}
 }
 
@@ -620,44 +593,3 @@ int	main(int argc, char **argv, char **envp)
 	minishell(envp);
 	return (0);
 }
-
-// #include	"../../../includes/minishell.h"
-
-// static void	minishell(char **envp)
-// {
-// 	t_vars	vars;
-
-// 	g_status = 0;
-// 	convert_envp_to_list(&vars, envp);
-// 	while (true)
-// 	{
-// 		vars.line = read_line_from_prompt();
-// 		if (vars.line == NULL)
-// 			continue ;
-// 		// system("leaks -q minishell");
-// 		// system("leaks -q minishell");
-// 		vars.array = lexer(vars.line);
-// 		// system("leaks -q minishell");
-// 		if (vars.array == NULL)
-// 			continue ;
-// 		// system("leaks -q minishell");
-// 		vars.comline = parser(vars.array);
-// 		if (vars.comline == NULL)
-// 			continue ;
-// 		// system("leaks -q minishell");
-// 		execution(&vars);
-// 		free_doubleptr(vars.array);
-// 		// system("leaks -q minishell");
-// 		ft_lstclear(&(vars.comline), free);
-// 		free(vars.line);
-// 		// system("leaks -q minishell");
-// 	}
-// }
-
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	(void)argc;
-// 	(void)argv;
-// 	minishell(envp);
-// 	return (0);
-// }

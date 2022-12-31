@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 12:10:41 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:17:55 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ typedef struct s_envs {
 
 typedef struct s_vars {
 	char	*line;
-	char	**array;
 	t_list	*comline;
 	t_list	*envs;
 }	t_vars;
