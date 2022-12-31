@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 10:20:32 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/20 22:08:34 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 13:46:29 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ char	**arrayjoin(char **arr1, char **arr2)
 	new[length] = NULL;
 	i = 0;
 	free(arr1);
+	arr1 = NULL;
 	return (new);
 }

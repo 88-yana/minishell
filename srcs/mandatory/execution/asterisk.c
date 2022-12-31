@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asterisk.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 22:06:39 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 13:12:09 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 14:03:52 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,23 +112,23 @@ char	**clip_latter(char **cmd, size_t start)
 	return (latter);
 }
 
-char	**realloc_array(char **cmd, char *str, size_t size)
-{
-	char	**new;
-	size_t	i;
+// char	**realloc_array(char **cmd, char *str, size_t size)
+// {
+// 	char	**new;
+// 	size_t	i;
 
-	new = malloc(sizeof(char *) * (size + 2));
-	i = 0;
-	while (i < size)
-	{
-		new[i] = cmd[i];
-		i++;
-	}
-	new[size] = str;
-	new[size + 1] = NULL;
-	free(cmd);
-	return (new);
-}
+// 	new = malloc(sizeof(char *) * (size + 2));
+// 	i = 0;
+// 	while (i < size)
+// 	{
+// 		new[i] = cmd[i];
+// 		i++;
+// 	}
+// 	new[size] = str;
+// 	new[size + 1] = NULL;
+// 	free(cmd);
+// 	return (new);
+// }
 
 // char	**expand_asterisk(char ***cmd, size_t pos)
 // {
@@ -155,27 +155,53 @@ char	**realloc_array(char **cmd, char *str, size_t size)
 // 	return (NULL);
 // }
 
-char	**expand_asterisk(char ***cmd, size_t pos)
+static char	**realloc_array(char **cmd, char *str)
+{
+	char	**new;
+	int		i;
+
+	new = malloc(sizeof(char *) * (arraylen(cmd) + 2));
+	i = 0;
+	while (cmd[i])
+	{
+		new[i] = cmd[i];
+		i++;
+	}
+	new[i] = ft_strdup(str);
+	if (new[i] == NULL)
+		exit(1);
+	new[i + 1] = NULL;
+	free(cmd);
+	cmd = NULL;
+	return (new);
+}
+
+void	expand_asterisk(char ***cmd, size_t pos)
 {
 	DIR				*dir;
 	struct dirent	*dirent;
 	char			*cwd;
 	char			*str;
+	char			**latter;
 
-	str = (*cmd)[pos];
 	cwd = getcwd(NULL, 0);
 	dir = opendir(cwd);
 	free(cwd);
+	str = (*cmd)[pos];
+	latter = clip_latter(*cmd, pos + 1);
+	(*cmd)[pos] = NULL;
 	while (true)
 	{
 		dirent = readdir(dir);
 		if (!dirent)
 			break ;
 		if (match_asterisk(dirent->d_name, str))
-			printf("%s\n", dirent->d_name);
+			*cmd = realloc_array(*cmd, dirent->d_name);
 	}
+	free(str);
 	closedir(dir);
-	return (NULL);
+	*cmd = arrayjoin(*cmd, latter);
+	free(latter);
 }
 
 static bool	has_asterisk(char *str)
