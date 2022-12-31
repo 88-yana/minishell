@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:08:14 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 17:05:29 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:32:20 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,17 @@ t_list	*reader(char *line)
 	{
 		printf("syntax error near unexpected token\n");
 		free_slist(lexical_line);
-		exit (1);
+		return (NULL);
 	}
 	str_to_cmd(&lexical_line);
 	list = str_to_list(lexical_line);
 	sort_red_cmd(list);
 	free_slist(lexical_line);
 	list_to_subshell(&list);
+	if (!sort_shell_cmd(list))
+	{
+		free(list);
+		return (NULL);
+	}
 	return (list);
 }

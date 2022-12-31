@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 16:42:23 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:33:21 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void	minishell(char **envp)
 		if (vars.line == NULL)
 			continue ;
 		vars.comline = reader(vars.line);
+		if (vars.comline == NULL)
+			continue ;
 		execution(&vars);
 		free(vars.line);
 		free_list(vars.comline);
