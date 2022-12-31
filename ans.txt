@@ -25,7 +25,13 @@ world
 minishell$ (echo hello) && echo world
 hello
 world
-minishell$ echo "echo hello && abc" > test&& <line.txt cat&& echo hello > test1| (ls) &&grep h
+minishell$ (echo hello)
+hello
+minishell$ (echo hello)|grep h
+hello
+minishell$ (echo hello | (echo helo))
+helo
+minishell$ echo "echo hello && grep abc" && <line.txt cat&& echo hello > test1| (ls) &&grep h
 echo hello world 
 echo    hello    world
 echo     "hello   "abc     
@@ -39,15 +45,11 @@ echo hello  | grep w
 echo hello&&echo hello
 echo hello && echo world
 (echo hello) && echo world
-echo "echo hello && abc" > test&& <line.txt cat&& echo hello > test1| (ls) &&grep h
 (echo hello)
 (echo hello)|grep h
-echo hello>test.txt
-echo hello>>test.txt
-echo hello&world
-echo hello &world
-echo hello & world
-(echo hello | (echo helo))Makefile
+(echo hello | (echo helo))
+echo "echo hello && grep abc" && <line.txt cat&& echo hello > test1| (ls) &&grep h
+cat <Makefile
 abc
 ans.txt
 includes
@@ -61,16 +63,7 @@ old_data
 record
 srcs
 test
-test.sh
 test1
-echo hello && abc
-(echo hello)
-(echo hello)|grep h
-echo hello>test.txt
-echo hello>>test.txt
-echo hello&world
-echo hello &world
-echo hello & world
-(echo hello | (echo helo))
-echo hello && abc
+echo hello && grep abc
+echo hello && grep abc
 minishell$ exit

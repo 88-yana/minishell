@@ -11,12 +11,8 @@ echo hello  | grep w
 echo hello&&echo hello
 echo hello && echo world
 (echo hello) && echo world
-echo "echo hello && abc" > test&& <line.txt cat&& echo hello > test1| (ls) &&grep h
 (echo hello)
 (echo hello)|grep h
-echo hello>test.txt
-echo hello>>test.txt
-echo hello&world
-echo hello &world
-echo hello & world
 (echo hello | (echo helo))
+echo "echo hello && grep abc" && <line.txt cat&& echo hello > test1| (ls) &&grep h
+cat <
