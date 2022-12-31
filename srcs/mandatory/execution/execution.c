@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:43:38 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:55:25 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 {
 	t_order	*order;
-	int		tmp;
 
 	order = (t_order *)comline->content;
 	set_fd(comline);
@@ -26,17 +25,7 @@ static void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 	else if (is_builtin(order->cmd) && order->pipe_num == 0
 		&& !is_next_type(comline, PIPE))
 	{
-		tmp = dup(STDOUT_FILENO);
-		if (order->write_fd != NONE)
-		{
-			dup2(order->write_fd, STDOUT_FILENO);
-			close(order->write_fd);
-		}
-		exec_builtin(vars, order->cmd);
-		dup2(tmp, STDOUT_FILENO);
-		close(tmp);
-		if (order->file)
-			unlink(order->file);
+		exec_single_builtin(vars, order);
 		return ;
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:57:18 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:43:24 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 18:06:17 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,28 +60,14 @@ bool	check_path(char **path, char **command)
 
 void	exec_command(t_vars *vars, char **command)
 {
-	char	**path;
 	char	**envp;
-	t_list	*list;
 
 	if (is_builtin(command))
 	{
 		exec_builtin(vars, command);
 		exit(g_status);
 	}
-	list = find_envs(vars->envs, "PATH");
-	if (!list)
-		path = NULL;
-	else
-		path = ft_split(((t_envs *)list->content)->value, ':');
-	if (!check_path(path, command))
-	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(command[0], STDERR_FILENO);
-		ft_putendl_fd(": command not found", STDERR_FILENO);
-		exit(127);
-	}
-	safe_free_double_char(path);
+	check_envs_from_path(vars, command);
 	envp = get_envp_from_list(vars->envs);
 	execve(command[0], command, envp);
 	ft_putstr_fd("minishell: ", STDERR_FILENO);

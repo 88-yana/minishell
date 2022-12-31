@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:11:55 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:41:12 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 18:28:32 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,6 @@
 # include	"define.h"
 # include	"builtin.h"
 # include	"envs.h"
-
-# define ERR -1
-# define NONE -1
-
-# define READ 0
-# define WRITE 1
-
-# define CHILD 0
 
 bool	is_next_type(t_list *comline, t_type type);
 t_list	*find_next_delimiters(t_list *comline);
@@ -56,5 +48,13 @@ char	**check_asterisk(char **cmd);
 void	delete_quote(char *str);
 void	make_tmp_file(t_order *order);
 void	change_file(t_vars *vars, t_list *comline);
+void	check_envs_from_path(t_vars *vars, char **command);
+bool	check_front(char *file, char *str);
+bool	check_back(char *file, char *str);
+bool	move_asterisk(char **file, size_t i, char **words);
+bool	match_asterisk(char *file, char *str);
+char	**clip_latter(char **cmd, size_t start);
+char	**realloc_array(char **cmd, char *str);
+DIR		*calldir(void);
 
 #endif
