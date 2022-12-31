@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   arraylen.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 10:20:32 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 13:46:29 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:47:13 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/utils.h"
+#include	"utils.h"
 
 void	free_doubleptr(char **array)
 {

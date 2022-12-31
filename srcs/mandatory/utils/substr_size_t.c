@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   substr_size_t.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 21:14:38 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 19:24:25 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:47:31 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/utils.h"
+#include	"utils.h"
 
 static size_t	ft_calloc_size(char const *s, size_t start, size_t len)
 {

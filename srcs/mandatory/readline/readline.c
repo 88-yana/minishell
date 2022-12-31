@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 21:17:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/19 22:10:31 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:47:07 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/readline.h"
+#include	"readline.h"
 
 static void	init_prompt(int signal)
 {

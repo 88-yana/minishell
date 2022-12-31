@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   safe_free_double.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:10:10 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 19:24:17 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:47:19 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/utils.h"
+#include	"utils.h"
 
 void	safe_free_double_char(char **str)
 {
