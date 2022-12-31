@@ -6,12 +6,11 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 22:06:39 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 14:10:41 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:21:52 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/execution.h"
-#include "../../../includes/lexer_two_symbols.h"
 
 #define CWD 0
 #define ASTERISK 1

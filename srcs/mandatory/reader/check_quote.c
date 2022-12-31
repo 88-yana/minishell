@@ -6,11 +6,11 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 21:07:06 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/11/12 14:27:47 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:22:43 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/lexer.h"
+#include "reader.h"
 
 static bool	check_quote(char *line)
 {

@@ -6,11 +6,11 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 14:26:33 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 17:07:56 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:22:19 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/lexer.h"
+#include "reader.h"
 
 bool	match_quote(char *str, size_t *i, char quote)
 {

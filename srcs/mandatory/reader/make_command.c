@@ -6,11 +6,11 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 21:36:15 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/28 18:16:22 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:22:48 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/parser.h"
+#include	"reader.h"
 
 t_order	*make_command(t_type type, char **cmd, char *file, t_list *shell)
 {

@@ -15,7 +15,6 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/utils/safe_free_double.c \
 	mandatory/utils/strjoin_delimiter.c \
 	mandatory/utils/substr_size_t.c \
-	mandatory/utils/go_advance.c \
 	mandatory/utils/arraylen.c \
 	mandatory/envs/convert_envs.c \
 	mandatory/envs/create.c \
