@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:48:35 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 17:01:33 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 19:07:26 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_str	*make_slistcmd(char **cmd)
 	if (list == NULL)
 		return (NULL);
 	list->type = COMMAND;
+	list->str = NULL;
 	list->cmd = cmd;
 	list->next = NULL;
 	list->prev = NULL;

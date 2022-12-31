@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:27:39 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 17:49:41 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 18:50:06 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ bool	match_bracket(char *str, size_t *i);
 t_order	*make_command(t_type type, char **cmd, char *file, t_list *shell);
 bool	sort_shell_cmd(t_list *list);
 void	free_sliststr(t_str *start, t_str *last);
+void	free_slistall(t_str *head);
 #endif

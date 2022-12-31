@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:39:21 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 17:35:59 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 19:10:58 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static t_str	*make_slistsep(t_type type)
 	if (list == NULL)
 		return (NULL);
 	list->type = type;
+	list->str = NULL;
+	list->cmd = NULL;
 	list->next = NULL;
 	list->prev = NULL;
 	return (list);
