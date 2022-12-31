@@ -6,19 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 12:43:42 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/11 17:55:31 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:52:11 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/builtin.h"
-
-// static char	*get_dir(void)
-// {
-// 	char	*cwd;
-
-// 	cwd = getcwd(NULL, 0);
-// 	return (cwd);
-// }
 
 static void	print_cd_error(char *str, char *error)
 {

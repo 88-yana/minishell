@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:57:18 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/18 15:30:44 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/19 14:59:52 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,24 @@ void	check_command(t_vars *vars, char ***command)
 		i++;
 	}
 	*command = check_asterisk(*command);
+	i = 0;
+	while ((*command)[i])
+	{
+		delete_quote((*command)[i]);
+		i++;
+	}
 }
 
-void	check_path(char **path, char **command)
+bool	check_path(char **path, char **command)
 {
 	size_t	i;
 	char	*tmp;
 	char	*buf;
 
-	if (!path || !access(command[0], F_OK))
-		return ;
+	if (!path)
+		return (false);
+	else if (!access(command[0], F_OK))
+		return (true);
 	i = 0;
 	while (path[i])
 	{
@@ -42,11 +50,12 @@ void	check_path(char **path, char **command)
 		if (!access(buf, F_OK))
 		{
 			command[0] = buf;
-			break ;
+			return (true);
 		}
 		free(buf);
 		i++;
 	}
+	return (false);
 }
 
 void	exec_command(t_vars *vars, char **command)
@@ -62,14 +71,16 @@ void	exec_command(t_vars *vars, char **command)
 	}
 	list = find_envs(vars->envs, "PATH");
 	path = ft_split(((t_envs *)list->content)->value, ':');
-	check_path(path, command);
+	if (!check_path(path, command))
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(command[0], STDERR_FILENO);
+		ft_putendl_fd(": command not found", STDERR_FILENO);
+		exit(127);
+	}
 	safe_free_double_char(path);
 	envp = get_envp_from_list(vars->envs);
 	execve(command[0], command, envp);
-	// ft_putstr_fd("minishell: ", STDERR_FILENO);
-	// ft_putstr_fd(command[0], STDERR_FILENO);
-	// ft_putstr_fd(": ", STDERR_FILENO);
-	// ft_putendl_fd(strerror(errno), STDERR_FILENO);
 	safe_free_double_char(envp);
 	exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:36:05 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/11 19:10:48 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 11:43:06 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,45 @@ void	exec_lt(t_list *comline)
 		unlink(next_order->file);
 }
 
-void	exec_ltlt(t_list *comline)
+void	chenage_file_with_env(t_vars *vars, int fd_from, int fd_to)
+{
+	char	*line;
+
+	while (true)
+	{
+		line = get_next_line(fd_from);
+		if (!line)
+			break ;
+		line = lexer_envs(vars, line);
+		ft_putstr_fd(line, fd_to);
+		free(line);
+	}
+}
+
+void	change_file(t_vars *vars, t_list *comline)
+{
+	int		fd_from;
+	int		fd_to;
+	char	*tmp;
+	t_order	*order;
+
+	order = (t_order *)comline->content;
+	fd_from = open(order->file, O_RDONLY);
+	if (fd_from == ERR)
+		exit (EXIT_FAILURE);
+	tmp = order->file;
+	make_tmp_file(order);
+	fd_to = open(order->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd_to == ERR)
+		exit (EXIT_FAILURE);
+	chenage_file_with_env(vars, fd_from, fd_to);
+	close(fd_from);
+	close(fd_to);
+	unlink(tmp);
+	free(tmp);
+}
+
+void	exec_ltlt(t_vars *vars, t_list *comline)
 {
 	int		fd;
 	t_order	*order;
@@ -49,6 +87,8 @@ void	exec_ltlt(t_list *comline)
 	t_list	*next_piped_commands;
 
 	order = (t_order *)comline->content;
+	if (!order->is_quote)
+		change_file(vars, comline);
 	fd = open(order->file, O_RDONLY);
 	if (fd == ERR)
 		exit (EXIT_FAILURE);

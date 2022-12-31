@@ -6,21 +6,17 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 10:51:50 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/11 17:04:53 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 11:42:10 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/execution.h"
 
-void	exit_heredoc(void)
-{
-	exit(0);
-}
-
 void	interrupt_heredoc(int signal)
 {
 	(void)signal;
-	exit(1);
+	printf("\n");
+	exit(EXIT_SUCCESS);
 }
 
 char	*read_heredoc(char *end, int fd)
@@ -33,7 +29,7 @@ char	*read_heredoc(char *end, int fd)
 		signal(SIGQUIT, SIG_IGN);
 		str = readline("> ");
 		if (!str || !ft_strcmp(str, end))
-			exit_heredoc();
+			exit(EXIT_SUCCESS);
 		ft_putendl_fd(str, fd);
 		free(str);
 	}
@@ -62,16 +58,24 @@ void	get_heredoc(t_list *comline)
 	pid_t	pid;
 
 	order = (t_order *)comline->content;
-	end = order->file;
+	if (!ft_strchr(order->file, SINGLEQ) && !ft_strchr(order->file, DOUBLEQ))
+		order->is_quote = false;
+	else
+		order->is_quote = true;
+	end = ft_strdup(order->file);
+	if (!end)
+		return ;
+	delete_quote(end);
 	make_tmp_file(order);
 	fd = open(order->file, O_WRONLY | O_CREAT);
 	pid = fork();
 	if (pid < 0)
-		exit (1);
+		exit(EXIT_FAILURE);
 	else if (pid == 0)
 		read_heredoc(end, fd);
 	wait(NULL);
 	close(fd);
+	free(end);
 }
 
 void	check_comline(t_list *comline)

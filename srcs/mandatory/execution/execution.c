@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/11 19:24:59 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 11:31:04 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 	close_fd_parent(order);
 }
 
-static void	exec_redirection(t_list *comline)
+static void	exec_redirection(t_vars *vars, t_list *comline)
 {
 	t_order	*order;
 
@@ -54,7 +54,7 @@ static void	exec_redirection(t_list *comline)
 	else if (order->type == GT)
 		exec_gt(comline);
 	else if (order->type == LTLT)
-		exec_ltlt(comline);
+		exec_ltlt(vars, comline);
 	else if (order->type == LT)
 		exec_lt(comline);
 }
@@ -73,7 +73,7 @@ static t_list	*exec_delimiters(t_list *comline, t_list **pids)
 	{
 		next_delimiters = find_next_delimiters(comline);
 		if (!next_delimiters)
-			return (comline);
+			return (NULL);
 		while (comline->next != next_delimiters)
 			comline = comline->next;
 	}
@@ -95,7 +95,9 @@ void	exec_comline(t_vars *vars, t_list *comline)
 			comline = exec_delimiters(comline, &pids);
 		else if (order->type == GTGT || order->type == GT
 			|| order->type == LT || order->type == LTLT)
-			exec_redirection(comline);
+			exec_redirection(vars, comline);
+		if (!comline)
+			break ;
 		comline = comline->next;
 	}
 	wait_pids(&pids);

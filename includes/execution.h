@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:11:55 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/18 15:40:44 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 11:31:23 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	set_fd(t_list *comline);
 void	duplicate_output(t_order *order);
 void	close_fd_child(t_order *order);
 void	close_fd_parent(t_order *order);
-void	check_path(char **path, char **command);
+bool	check_path(char **path, char **command);
 void	exec_command(t_vars *vars, char **command);
 void	exec_command_child(t_vars *vars, t_list *comline, t_list **pids);
 void	exec_comline(t_vars *vars, t_list *comline);
 void	exec_lt(t_list *comline);
-void	exec_ltlt(t_list *comline);
+void	exec_ltlt(t_vars *vars, t_list *comline);
 void	exec_gt(t_list *comline);
 void	exec_gtgt(t_list *comline);
 void	execution(t_vars *vars);
@@ -54,5 +54,6 @@ void	check_command(t_vars *vars, char ***command);
 void	check_comline(t_list *comline);
 char	**check_asterisk(char **cmd);
 void	delete_quote(char *str);
+void	make_tmp_file(t_order *order);
 
 #endif

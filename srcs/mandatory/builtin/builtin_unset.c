@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 21:26:16 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/11 17:57:42 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:52:56 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,6 @@ static bool	is_str_valid_list(char *str)
 		return (true);
 	else
 		return (false);
-}
-
-void	delete_envs_single_top(t_vars *vars)
-{
-	ft_lstdelone(vars->envs, free_envs);
-	vars->envs = NULL;
 }
 
 void	delete_envs_top(t_vars *vars)
@@ -80,7 +74,10 @@ static void	delete_envs(t_vars *vars, char *type)
 	list = vars->envs;
 	envs = (t_envs *)list->content;
 	if (!list->next && !ft_strcmp(envs->type, type))
-		delete_envs_single_top(vars);
+	{
+		ft_lstdelone(vars->envs, free_envs);
+		vars->envs = NULL;
+	}
 	else if (!ft_strcmp(envs->type, type))
 		delete_envs_top(vars);
 	else

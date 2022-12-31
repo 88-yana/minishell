@@ -61,7 +61,8 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/execution/piped_commands.c \
 	mandatory/execution/piped_commands_utils.c \
 	mandatory/execution/redirection.c \
-	mandatory/execution/asterisk.c
+	mandatory/execution/asterisk.c \
+	mandatory/execution/delete_quote.c
 
 SRCDIR = srcs
 OBJDIR = objs
@@ -84,14 +85,10 @@ $(OBJDIR)/mandatory/readline/readline.o: $(SRCDIR)/mandatory/readline/readline.c
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-# test: $(NAME)
-# 	./minishell < infile.txt | diff - ok.txt
-# ./minishell < infile.txt | (diff /dev/fd/3 correct.txt) 3<&0
 ok:
 	./minishell < infile.txt > ok.txt
 
 test:
-	make
 	bash test.sh
 
 lex:
