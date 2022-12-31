@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 18:55:12 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 17:43:58 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:46:40 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void	init_lexenv(char **line, bool during[2], size_t *pos)
 char	*lexer_envs(t_vars *vars, char *line)
 {
 	char	*divided_line;
-	char	*temp;
+	char	*temp[2];
 	size_t	pos;
 	size_t	start;
 	bool	during[2];
@@ -104,13 +104,17 @@ char	*lexer_envs(t_vars *vars, char *line)
 		if (line[pos] == DOUBLEQ)
 			during[DQ] = !during[DQ];
 		start = pos;
-		temp = divide(vars, line, &pos, during);
-		if (temp == NULL)
+		temp[0] = divide(vars, line, &pos, during);
+		if (temp[0] == NULL)
 		{
 			free(temp);
 			return (NULL);
 		}
-		divided_line = ft_strjoin(divided_line, temp);
+		temp[1] = divided_line;
+		divided_line = ft_strjoin(divided_line, temp[0]);
+		free(temp[1]);
 	}
+	free (temp[0]);
+	free(line);
 	return (divided_line);
 }
