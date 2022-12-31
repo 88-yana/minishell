@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:08:14 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 19:13:13 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 19:15:09 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ static t_str	*new_lexer(char *line)
 	return (lexical_line);
 }
 
+static t_list	*free_all(char *line, t_str *lexical)
+{
+	printf("syntax error near unexpected token\n");
+	free(line);
+	free_slistall(lexical);
+	return (NULL);
+}
+
 t_list	*reader(char *line)
 {
 	t_str	*lexical_line;
@@ -59,12 +67,7 @@ t_list	*reader(char *line)
 	}
 	lexical_line = new_lexer(line);
 	if (!str_to_aim(lexical_line))
-	{
-		printf("syntax error near unexpected token\n");
-		free(line);
-		free_slistall(lexical_line);
-		return (NULL);
-	}
+		return (free_all(line, lexical_line));
 	str_to_cmd(&lexical_line);
 	list = str_to_list(lexical_line);
 	sort_red_cmd(list);
