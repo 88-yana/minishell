@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:53:00 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/23 21:47:37 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:04:10 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include	"../libft/libft.h"
 # include	"define.h"
 # include	"utils.h"
+
+#define DQ 0
+#define SQ 1
 
 t_list	*find_envs(t_list *list, char *to_find);
 bool	create_envs_list(t_vars *vars, char *str);
