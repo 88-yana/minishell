@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 22:06:39 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 12:37:02 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 13:12:09 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,31 +126,54 @@ char	**realloc_array(char **cmd, char *str, size_t size)
 	}
 	new[size] = str;
 	new[size + 1] = NULL;
-	// free(cmd);
+	free(cmd);
 	return (new);
 }
+
+// char	**expand_asterisk(char ***cmd, size_t pos)
+// {
+// 	DIR				*dir;
+// 	struct dirent	*dirent;
+// 	char			**latter;
+// 	char			*s[2];
+
+// 	s[ASTERISK] = (*cmd)[pos];
+// 	latter = clip_latter(*cmd, pos + 1);
+// 	s[CWD] = getcwd(NULL, 0);
+// 	dir = opendir(s[CWD]);
+// 	free(s[CWD]);
+// 	while (true)
+// 	{
+// 		dirent = readdir(dir);
+// 		if (!dirent)
+// 			break ;
+// 		if (match_asterisk(dirent->d_name, s[ASTERISK]))
+// 			*cmd = realloc_array(*cmd, dirent->d_name, pos++);
+// 	}
+// 	*cmd = arrayjoin(*cmd, latter);
+// 	closedir(dir);
+// 	return (NULL);
+// }
 
 char	**expand_asterisk(char ***cmd, size_t pos)
 {
 	DIR				*dir;
 	struct dirent	*dirent;
-	char			**latter;
-	char			*s[2];
+	char			*cwd;
+	char			*str;
 
-	s[ASTERISK] = (*cmd)[pos];
-	latter = clip_latter(*cmd, pos + 1);
-	s[CWD] = getcwd(NULL, 0);
-	dir = opendir(s[CWD]);
-	free(s[CWD]);
+	str = (*cmd)[pos];
+	cwd = getcwd(NULL, 0);
+	dir = opendir(cwd);
+	free(cwd);
 	while (true)
 	{
 		dirent = readdir(dir);
 		if (!dirent)
 			break ;
-		if (match_asterisk(dirent->d_name, s[ASTERISK]))
-			*cmd = realloc_array(*cmd, dirent->d_name, pos++);
+		if (match_asterisk(dirent->d_name, str))
+			printf("%s\n", dirent->d_name);
 	}
-	*cmd = arrayjoin(*cmd, latter);
 	closedir(dir);
 	return (NULL);
 }
@@ -177,9 +200,7 @@ char	**check_asterisk(char **cmd)
 	while (cmd[i])
 	{
 		if (has_asterisk(cmd[i]))
-		{
 			expand_asterisk(&cmd, i);
-		}
 		i++;
 	}
 	return (cmd);

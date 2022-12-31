@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I ./includes/ -fsanitize=address -g3#-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -I ./includes/ #-fsanitize=address -g3
 RLFLAGS = -I $(shell brew --prefix readline)/include -L$(shell brew --prefix readline)/lib -lreadline -lhistory
 SRCS_NAME = mandatory/main/main.c \
 	mandatory/readline/readline.c \
