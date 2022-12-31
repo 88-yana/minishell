@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:38:08 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 17:23:42 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:38:26 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static t_list	*ft_lstnewprev(void	*content)
 {
 	t_list	*list;
 
+	if (content == NULL)
+		exit (1);
 	list = malloc(sizeof(t_list));
 	if (list == NULL)
 		exit(1);
@@ -27,10 +29,10 @@ static t_list	*ft_lstnewprev(void	*content)
 
 static void	ft_lstadd_backprev(t_list **list, t_list *new)
 {
-		t_list	*last;
+	t_list	*last;
 
 	if (new == NULL || list == NULL)
-		return ;
+		exit (1);
 	if (*list == NULL)
 		*list = new;
 	else
@@ -65,7 +67,7 @@ t_list	*str_to_list(t_str *head)
 	current = head;
 	while (current != NULL)
 	{
-		ft_lstadd_backprev(&list, ft_lstnewprev(make_order(current))); //FIXME:
+		ft_lstadd_backprev(&list, ft_lstnewprev(make_order(current)));
 		current = current->next;
 		if (current != NULL && current->type == AIM)
 			current = current->next;

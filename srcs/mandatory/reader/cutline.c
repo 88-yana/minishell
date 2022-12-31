@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:39:21 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 17:05:23 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:35:59 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ static t_str	*make_slist(char *line, int *i, int *str_len)
 void	cutline(t_str **lexical_line, char *line, int *i, int *str_len)
 {
 	if (*str_len > 0)
-		slistadd(lexical_line, make_slist(line, i, str_len)); //2文字系1文字系関わらず
-	if (is_dse(line[*i])) //2文字系
+		slistadd(lexical_line, make_slist(line, i, str_len));
+	if (is_dse(line[*i]))
 	{
-		if (line[*i] == line[*i + 1]) //2文字の場合
+		if (line[*i] == line[*i + 1])
 		{
 			slistadd(lexical_line, make_slistsep(ctotype(line[*i], 2)));
 			(*i)++;
 		}
-		else if (line[*i] != '&' && line[*i] != ';') //1文字の場合
+		else if (line[*i] != '&' && line[*i] != ';')
 			slistadd(lexical_line, make_slistsep(ctotype(line[*i], 1)));
 		else
 		{
@@ -90,7 +90,7 @@ void	cutline(t_str **lexical_line, char *line, int *i, int *str_len)
 			slistadd(lexical_line, make_slist(line, i, str_len));
 		}
 	}
-	else if (is_bracket(line[*i])) //2文字解釈はしないブラケット
+	else if (is_bracket(line[*i]))
 		slistadd(lexical_line, make_slistsep(ctotype(line[*i], 1)));
 	*str_len = -1;
 }

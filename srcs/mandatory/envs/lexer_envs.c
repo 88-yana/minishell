@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_envs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 18:55:12 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 15:11:21 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:43:58 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	*check_env_value(t_vars *vars, char *env)
 		return ("");
 	envs = (t_envs *)list->content;
 	value = ft_strdup(envs->value);
+	free(env);
 	return (value);
 }
 
@@ -77,6 +78,16 @@ static char	*divide(t_vars *vars, char *line, size_t *pos, bool during[2])
 	return (substr_size_t(line, start, (*pos) - start));
 }
 
+static void	init_lexenv(char **line, bool during[2], size_t *pos)
+{
+	*pos = 0;
+	*line = ft_strdup("");
+	if (line == NULL)
+		exit (1);
+	during[SQ] = false;
+	during[DQ] = false;
+}
+
 char	*lexer_envs(t_vars *vars, char *line)
 {
 	char	*divided_line;
@@ -85,12 +96,7 @@ char	*lexer_envs(t_vars *vars, char *line)
 	size_t	start;
 	bool	during[2];
 
-	pos = 0;
-	divided_line = ft_strdup("");
-	if (divided_line == NULL)
-		return (NULL);
-	during[SQ] = false;
-	during[DQ] = false;
+	init_lexenv(&divided_line, during, &pos);
 	while (line[pos] != '\0')
 	{
 		if (line[pos] == SINGLEQ)
