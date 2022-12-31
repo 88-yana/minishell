@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:57:18 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 15:50:37 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 16:43:13 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,12 @@ void	exec_command(t_vars *vars, char **command)
 	safe_free_double_char(path);
 	envp = get_envp_from_list(vars->envs);
 	execve(command[0], command, envp);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(command[0], STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putendl_fd(strerror(errno), STDERR_FILENO);
 	safe_free_double_char(envp);
-	exit(EXIT_FAILURE);
+	exit(126);
 }
 
 void	exec_subshell(t_list *comline, t_vars *vars)
