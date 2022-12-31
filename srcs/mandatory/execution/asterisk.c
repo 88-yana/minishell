@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 22:06:39 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 14:03:52 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 14:10:41 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,17 +176,26 @@ static char	**realloc_array(char **cmd, char *str)
 	return (new);
 }
 
-void	expand_asterisk(char ***cmd, size_t pos)
+static DIR	*calldir(void)
 {
-	DIR				*dir;
-	struct dirent	*dirent;
-	char			*cwd;
-	char			*str;
-	char			**latter;
+	DIR		*dir;
+	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
 	dir = opendir(cwd);
 	free(cwd);
+	return (dir);
+}
+
+void	expand_asterisk(char ***cmd, size_t pos)
+{
+	DIR				*dir;
+	struct dirent	*dirent;
+	char			*str;
+	char			**latter;
+	bool			flag = false;
+
+	dir = calldir();
 	str = (*cmd)[pos];
 	latter = clip_latter(*cmd, pos + 1);
 	(*cmd)[pos] = NULL;
@@ -196,11 +205,19 @@ void	expand_asterisk(char ***cmd, size_t pos)
 		if (!dirent)
 			break ;
 		if (match_asterisk(dirent->d_name, str))
+		{
+			flag = true;
 			*cmd = realloc_array(*cmd, dirent->d_name);
+		}
 	}
-	free(str);
 	closedir(dir);
-	*cmd = arrayjoin(*cmd, latter);
+	if (!flag)
+		(*cmd)[pos] = str;
+	else
+	{
+		free(str);
+		*cmd = arrayjoin(*cmd, latter);
+	}
 	free(latter);
 }
 
