@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 10:51:50 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 11:42:10 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:27:49 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	get_heredoc(t_list *comline)
 		return ;
 	delete_quote(end);
 	make_tmp_file(order);
-	fd = open(order->file, O_WRONLY | O_CREAT);
+	fd = open(order->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	pid = fork();
 	if (pid < 0)
 		exit(EXIT_FAILURE);

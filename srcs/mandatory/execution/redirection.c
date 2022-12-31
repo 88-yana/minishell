@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:36:05 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 11:43:06 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:28:49 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	change_file(t_vars *vars, t_list *comline)
 	t_order	*order;
 
 	order = (t_order *)comline->content;
+	printf("%s\n", order->file);
 	fd_from = open(order->file, O_RDONLY);
 	if (fd_from == ERR)
 		exit (EXIT_FAILURE);

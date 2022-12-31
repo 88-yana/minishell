@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 12:13:01 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:17:07 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -607,9 +607,9 @@ static void	minishell(char **envp)
 			continue ;
 		vars.comline = reader(vars.line);
 		execution(&vars);
-		free (vars.line);
+		free(vars.line);
 		free_list(vars.comline);
-		system("leaks -q minishell");
+		// system("leaks -q minishell");
 	}
 }
 
