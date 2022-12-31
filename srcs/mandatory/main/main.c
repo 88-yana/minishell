@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/30 21:25:30 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:04:55 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ static bool	is_se(char c)
 		return (true);
 	if (c == ')')
 		return (true);
+	if (c == ';')
+		return (true);
 	return (false);
 }
 
@@ -92,6 +94,8 @@ static bool	is_dse(char c)
 	if (c == '&')
 		return (true);
 	if (c == '|')
+		return (true);
+	if (c == ';')
 		return (true);
 	return (false);
 }
@@ -188,7 +192,7 @@ static void cutline(t_str **lexical_line, char *line, int *i, int *str_len)
 			slistadd(lexical_line, make_slistsep(ctotype(line[*i], 2)));
 			(*i)++;
 		}
-		else if (line[*i] != '&') //1文字の場合
+		else if (line[*i] != '&' && line[*i] != ';') //1文字の場合
 			slistadd(lexical_line, make_slistsep(ctotype(line[*i], 1)));
 		else
 		{
@@ -385,6 +389,35 @@ static t_order	*make_order(t_str	*current)
 	return (order);
 }
 
+static t_list	*ft_lstnewprev(void	*content)
+{
+	t_list	*list;
+
+	list = malloc(sizeof(t_list));
+	if (list == NULL)
+		exit(1);
+	list->content = content;
+	list->next = NULL;
+	list->prev = NULL;
+	return (list);
+}
+
+static void	ft_lstadd_backprev(t_list **list, t_list *new)
+{
+		t_list	*last;
+
+	if (new == NULL || list == NULL)
+		return ;
+	if (*list == NULL)
+		*list = new;
+	else
+	{
+		last = ft_lstlast(*list);
+		last->next = new;
+		new->prev = last;
+	}
+}
+
 static t_list	*str_to_list(t_str *head)
 {
 	t_str	*current;
@@ -394,7 +427,7 @@ static t_list	*str_to_list(t_str *head)
 	current = head;
 	while (current != NULL)
 	{
-		ft_lstadd_back(&list, ft_lstnew(make_order(current))); //FIXME:
+		ft_lstadd_backprev(&list, ft_lstnewprev(make_order(current))); //FIXME:
 		current = current->next;
 		if (current != NULL && current->type == AIM)
 			current = current->next;
@@ -427,9 +460,78 @@ static void	sort_red_cmd(t_list *list)
 	}
 }
 
-// static void	list_to_subshell(t_list **list)
+static t_list	*find_bra(t_list *head)
+{
+	t_list	*current;
+
+	current = ft_lstlast(head);
+	while (((t_order *)current->content)->type != BRA && current->prev != NULL)
+		current = current->prev;
+	return (current);
+}
+
+static t_list	*find_cket(t_list *current)
+{
+	while (((t_order *)current->content)->type != CKET)
+		current = current->next;
+	return (current);
+}
+
+static bool	conv_list_to_subshell(t_list **list)
+{
+	t_list	*bra;
+	t_list	*cket;
+	t_list	*current;
+
+	bra = find_bra(*list);
+	if (((t_order *)bra->content)->type != BRA)
+		return (false);
+	current = bra;
+	cket = find_cket(current);
+	bra->next->prev = NULL;
+	cket->prev->next = NULL;
+	((t_order *)bra->content)->type = SUBSHELL;
+	((t_order *)bra->content)->shell = bra->next;
+	bra->next = cket->next;
+	if (cket->next)
+		cket->next->prev = bra;
+	free(cket->content);
+	free(cket);
+	return (true);
+}
+
+static void	list_to_subshell(t_list **list)
+{
+	while (1)
+	{
+		if (conv_list_to_subshell(list) == false)
+			break ;
+	}
+}
+
+// static void	print_list(t_list *list)
 // {
-	
+// 	t_list	*current;
+
+// 	current = list;
+// 	while (current != NULL)
+// 	{
+// 		printf("%d\n", ((t_order *)current->content)->type);
+// 		current = current->next;
+// 	}
+// }
+
+
+// static void	print_list_r(t_list *list)
+// {
+// 	t_list	*current;
+
+// 	current = ft_lstlast(list);
+// 	while (current != NULL)
+// 	{
+// 		printf("%d\n", ((t_order *)current->content)->type);
+// 		current = current->prev;
+// 	}
 // }
 
 static t_list	*reader(char *line)
@@ -447,26 +549,67 @@ static t_list	*reader(char *line)
 	list = str_to_list(lexical_line);
 	sort_red_cmd(list);
 	free_slist(lexical_line);
+	// print_list(list);
+	// print_list_r(list);
+	list_to_subshell(&list);
 	display_command(list);
-	// list_to_subshell(&list);
 
 	// system("leaks -q minishell");
 	return (list);
 }
 
+static void	free_doublechar(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i] != NULL)
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+
+static void	free_list(t_list *head)
+{
+	t_list	*temp;
+	t_list	*current;
+
+	current = head;
+	while (1)
+	{
+		temp = current->next;
+		if (((t_order *)current->content)->type == COMMAND)
+			free_doublechar(((t_order *)current->content)->cmd);
+		if (is_redirect(((t_order *)current->content)->type))
+			free(((t_order *)current->content)->file);
+		if (((t_order *)current->content)->type == SUBSHELL)
+			free_list(((t_order *)current->content)->shell);
+		free(current->content);
+		free(current);
+		current = temp;
+		if (current == NULL)
+			break ;
+	}
+}
+
 static void	minishell(char **envp)
 {
-	char	*line;
-	t_list	*list;
+	t_vars	vars;
 
-	(void)envp;
+	g_status = 0;
+	convert_envp_to_list(&vars, envp);
 	while (true)
 	{
-		line = read_line_from_prompt();
-		if (line == NULL)
+		vars.line = read_line_from_prompt();
+		if (vars.line == NULL)
 			continue ;
-		list = reader(line);
-		// system("leaks -q minishell");
+		vars.comline = reader(vars.line);
+		// execution(&vars);
+		free (vars.line);
+		free_list(vars.comline);
+		system("leaks -q minishell");
 	}
 }
 
