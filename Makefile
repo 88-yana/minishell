@@ -94,8 +94,10 @@ b:$(NAME)
 ok:
 	./minishell < infile.txt > ok.txt
 
+duplicate:
+	echo $(shell find $(SRCDIR) -type d)
+
 test:
-	echo hello
 	bash test.sh
 
 lex:

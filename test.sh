@@ -96,6 +96,11 @@ echo ''
 echo '[unset testcase]'
 test_dx 'unset PATH && ls'
 
+# builtin env
+echo ''
+echo '[env testcase]'
+test_dx 'env | grep PATH'
+
 # basic testcase
 echo ''
 echo '[basic testcase]'
@@ -103,6 +108,7 @@ test_dx 'ls'
 test_dx 'echo'
 test_dx '/bin/ls'
 test_dx '/bin/ls -a'
+test_dx 'wc -l'
 test_dx 'lsc'
 test ' '
 test_dx 'echo hello'
@@ -110,18 +116,38 @@ test_dx 'echo hello world'
 test_dx 'cat main.c'
 test_dx 'echo -n hello'
 test_dx 'echo "hello"'
+test_dx 'cat Makefile Makefile'
+test_dx 'cat Makefile nofile'
 
 # pipe case
 echo ''
 echo '[pipe testcase]'
-test 'ls | cat'
-test 'ls | cat | ls'
-test 'ls | cat | ls | cat'
-test 'cat | cat | ls'
-test 'ls | ls | cat'
-test 'cat | ls | cat'
-test 'echo "'\$PATH'"'
-test "echo '\"\$PATH\"'"
+test_dx 'ls | cat'
+test_dx 'ls | cat | ls'
+test_dx 'ls | cat | ls | cat'
+test_dx 'cat | cat | ls'
+test_dx 'ls | ls | cat'
+test_dx 'cat | ls | cat'
+test_dx 'echo "'\$PATH'"'
+test_dx "echo '\"\$PATH\"'"
+
+# asterisk case
+echo ''
+echo '[asterisk testcase]'
+test_dx "echo *"
+test_dx "echo .*"
+test_dx "echo *.c"
+test_dx "echo *Makefile"
+test_dx "echo *Makefile*"
+test_dx "echo *Make*file**"
+test_dx "echo *Makeafile"
+
+# redirection case
+echo ''
+echo '[redirection testcase]'
+test_dx 'cat < Makefile'
+test_dx 'cat < Makefile < Makefile'
+test_dx 'cat < Makefil'
 
 echo ''
 echo '<------------ finished testcase ------------>'
