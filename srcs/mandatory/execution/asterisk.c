@@ -6,208 +6,43 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 22:06:39 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:43:30 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 18:27:10 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-#define CWD 0
-#define ASTERISK 1
-
-bool	check_front(char *file, char *str)
+bool	expand_each_asterisk(DIR *dir, char *str, bool *flag, char ***cmd)
 {
-	size_t	i;
-	bool	is_dot;
+	struct dirent	*dirent;
 
-	i = 0;
-	if (ft_strchr(file, '.'))
-		is_dot = true;
-	else
-		is_dot = false;
-	if (is_dot == true && !ft_strchr(str, '.'))
+	dirent = readdir(dir);
+	if (!dirent)
 		return (false);
-	while (str[i] && str[i] != '*')
+	if (match_asterisk(dirent->d_name, str))
 	{
-		if (str[i] != file[i])
-			return (false);
-		i++;
+		*flag = true;
+		*cmd = realloc_array(*cmd, dirent->d_name);
 	}
 	return (true);
-}
-
-bool	check_back(char *file, char *str)
-{
-	size_t	i;
-	size_t	j;
-	size_t	len_str;
-	size_t	len_file;
-
-	len_str = ft_strlen(str);
-	len_file = ft_strlen(file);
-	if (len_str == 0 || len_file == 0 || str[len_str - 1] == '*')
-		return (true);
-	i = len_str - 1;
-	j = len_file - 1;
-	while (i >= 0 && j >= 0 && str[i] != '*')
-	{
-		if (str[i] != file[j])
-			return (false);
-		i--;
-		j--;
-	}
-	return (true);
-}
-
-bool	match_asterisk(char *file, char *str)
-{
-	char	**words;
-	size_t	i;
-	size_t	j;
-	size_t	file_len;
-	size_t	word_len;
-
-	i = 0;
-	if (!check_front(file, str) || !check_back(file, str))
-		return (false);
-	words = ft_split(str, '*');
-	while (words[i])
-	{
-		file_len = ft_strlen(file);
-		word_len = ft_strlen(words[i]);
-		file = ft_strnstr(file, words[i], file_len);
-		if (!file)
-		{
-			safe_free_double_char(words);
-			return (false);
-		}
-		j = 0;
-		while (j < word_len)
-		{
-			file++;
-			j++;
-		}
-		i++;
-	}
-	safe_free_double_char(words);
-	return (true);
-}
-
-char	**clip_latter(char **cmd, size_t start)
-{
-	char	**latter;
-	size_t	size;
-	size_t	i;
-
-	size = arraylen(cmd) - start;
-	latter = malloc(sizeof(char *) * (size + 1));
-	i = 0;
-	while (cmd[start + i] != NULL)
-	{
-		latter[i] = cmd[start + i];
-		i++;
-	}
-	latter[i] = NULL;
-	return (latter);
-}
-
-// char	**realloc_array(char **cmd, char *str, size_t size)
-// {
-// 	char	**new;
-// 	size_t	i;
-
-// 	new = malloc(sizeof(char *) * (size + 2));
-// 	i = 0;
-// 	while (i < size)
-// 	{
-// 		new[i] = cmd[i];
-// 		i++;
-// 	}
-// 	new[size] = str;
-// 	new[size + 1] = NULL;
-// 	free(cmd);
-// 	return (new);
-// }
-
-// char	**expand_asterisk(char ***cmd, size_t pos)
-// {
-// 	DIR				*dir;
-// 	struct dirent	*dirent;
-// 	char			**latter;
-// 	char			*s[2];
-
-// 	s[ASTERISK] = (*cmd)[pos];
-// 	latter = clip_latter(*cmd, pos + 1);
-// 	s[CWD] = getcwd(NULL, 0);
-// 	dir = opendir(s[CWD]);
-// 	free(s[CWD]);
-// 	while (true)
-// 	{
-// 		dirent = readdir(dir);
-// 		if (!dirent)
-// 			break ;
-// 		if (match_asterisk(dirent->d_name, s[ASTERISK]))
-// 			*cmd = realloc_array(*cmd, dirent->d_name, pos++);
-// 	}
-// 	*cmd = arrayjoin(*cmd, latter);
-// 	closedir(dir);
-// 	return (NULL);
-// }
-
-static char	**realloc_array(char **cmd, char *str)
-{
-	char	**new;
-	int		i;
-
-	new = malloc(sizeof(char *) * (arraylen(cmd) + 2));
-	i = 0;
-	while (cmd[i])
-	{
-		new[i] = cmd[i];
-		i++;
-	}
-	new[i] = ft_strdup(str);
-	if (new[i] == NULL)
-		exit(1);
-	new[i + 1] = NULL;
-	free(cmd);
-	cmd = NULL;
-	return (new);
-}
-
-static DIR	*calldir(void)
-{
-	DIR		*dir;
-	char	*cwd;
-
-	cwd = getcwd(NULL, 0);
-	dir = opendir(cwd);
-	free(cwd);
-	return (dir);
 }
 
 void	expand_asterisk(char ***cmd, size_t pos)
 {
 	DIR				*dir;
-	struct dirent	*dirent;
 	char			*str;
 	char			**latter;
-	bool			flag = false;
+	bool			flag;
 
+	flag = false;
 	dir = calldir();
 	str = (*cmd)[pos];
 	latter = clip_latter(*cmd, pos + 1);
 	(*cmd)[pos] = NULL;
 	while (true)
 	{
-		dirent = readdir(dir);
-		if (!dirent)
+		if (!expand_each_asterisk(dir, str, &flag, cmd))
 			break ;
-		if (match_asterisk(dirent->d_name, str))
-		{
-			flag = true;
-			*cmd = realloc_array(*cmd, dirent->d_name);
-		}
 	}
 	closedir(dir);
 	if (!flag)

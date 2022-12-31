@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:19:17 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 18:24:40 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@ int	g_status;
 # define CNTARRLEN 0
 # define CNTSTRLEN 1
 # define PUSHELEM 2
+
+# define ERR -1
+# define NONE -1
+
+# define READ 0
+# define WRITE 1
+
+# define CHILD 0
+
+# define CWD 0
+# define ASTERISK 1
 
 typedef enum e_type {
 	COMMAND_LINE,

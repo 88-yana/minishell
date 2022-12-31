@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:46:59 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:45:01 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:55:32 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,21 @@ void	exec_builtin(t_vars *vars, char **cmd)
 		exec_env(vars);
 	else if (!ft_strcmp(cmd[0], "exit"))
 		exec_exit(cmd);
+}
+
+void	exec_single_builtin(t_vars *vars, t_order *order)
+{
+	int		tmp;
+
+	tmp = dup(STDOUT_FILENO);
+	if (order->write_fd != NONE)
+	{
+		dup2(order->write_fd, STDOUT_FILENO);
+		close(order->write_fd);
+	}
+	exec_builtin(vars, order->cmd);
+	dup2(tmp, STDOUT_FILENO);
+	close(tmp);
+	if (order->file)
+		unlink(order->file);
 }

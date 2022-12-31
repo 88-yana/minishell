@@ -30,6 +30,8 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/execution/redirection.c \
 	mandatory/execution/redirection_utils.c \
 	mandatory/execution/asterisk.c \
+	mandatory/execution/asterisk_check.c \
+	mandatory/execution/asterisk_utils.c \
 	mandatory/execution/delete_quote.c \
 	mandatory/reader/bool.c \
 	mandatory/reader/cutline.c \
