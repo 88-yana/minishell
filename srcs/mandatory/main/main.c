@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 14:49:31 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 15:04:58 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -581,7 +581,6 @@ static void	minishell(char **envp)
 		execution(&vars);
 		free(vars.line);
 		free_list(vars.comline);
-		// system("leaks -q minishell");
 	}
 }
 

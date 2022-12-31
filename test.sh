@@ -18,6 +18,7 @@ function test() {
 	else
 		echo -e "${RED}KO${NC}: $input"
 		diff ./expected/output ./actual/output > ./diff/diff
+		cat ./diff/diff
 	fi
 }
 
@@ -38,6 +39,7 @@ function test_dx() {
 	else
 		echo -e "${RED}KO${NC}: $input"
 		diff ./expected/output ./actual/output > ./diff/diff
+		cat ./diff/diff
 	fi
 }
 
@@ -54,6 +56,13 @@ echo '[echo testcase]'
 test_dx 'echo'
 test_dx 'echo hello'
 test_dx 'echo -n hello'
+test_dx 'echo -n $PATH'
+test_dx 'echo $PATH'
+test_dx 'echo $?'
+test_dx 'echo $? + $?'
+test_dx 'echo $A'
+test_dx 'echo -nnnnn hello'
+test_dx 'echo -n -n hello'
 
 # builtin cd
 echo ''
@@ -63,11 +72,29 @@ test_dx 'cd test && pwd'
 test_dx 'cd /bin && pwd'
 test_dx 'cd Makefile'
 test_dx 'cd srcs && pwd'
+test_dx 'cd srcs && pwd'
+test_dx 'cd srcs/mandatory && pwd'
+test_dx 'cd srcs/man && pwd'
 
 # builtin pwd
 echo ''
 echo '[pwd testcase]'
 test_dx 'pwd'
+
+# builtin export
+echo ''
+echo '[export testcase]'
+test_dx 'export A=a'
+test_dx 'export TEST+=a && export | grep TEST'
+test_dx 'export TEST=a && export | grep TEST'
+test_dx 'export TEST=a && export TEST+=a && export | grep TEST'
+test_dx 'export | grep PATH'
+test_dx 'export | grep AAAAA'
+
+# builtin unset
+echo ''
+echo '[unset testcase]'
+test_dx 'unset PATH && ls'
 
 # basic testcase
 echo ''

@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:57:18 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/19 14:59:52 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 15:50:37 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ void	exec_command(t_vars *vars, char **command)
 		exit(g_status);
 	}
 	list = find_envs(vars->envs, "PATH");
-	path = ft_split(((t_envs *)list->content)->value, ':');
+	if (!list)
+		path = NULL;
+	else
+		path = ft_split(((t_envs *)list->content)->value, ':');
 	if (!check_path(path, command))
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
