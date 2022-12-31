@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 18:55:12 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 15:11:21 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:44:28 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/envs.h"
+#include	"envs.h"
 
 char	*check_env_value(t_vars *vars, char *env)
 {

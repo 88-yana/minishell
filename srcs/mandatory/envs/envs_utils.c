@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   envs_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 20:29:46 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 19:32:15 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:44:21 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/envs.h"
+#include	"envs.h"
 
 t_envs	*create_envs(char *type, char *value)
 {

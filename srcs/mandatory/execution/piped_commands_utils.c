@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   piped_commands_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:22:39 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 21:23:21 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:43:57 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/execution.h"
+#include	"execution.h"
 
 void	set_fd(t_list *comline)
 {

@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 17:00:24 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/11 17:56:25 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:44:50 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/builtin.h"
+#include	"builtin.h"
 
 static void	exec_export_with_no_args(t_list *list)
 {

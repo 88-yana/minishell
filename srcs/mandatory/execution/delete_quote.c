@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:36:18 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/18 15:47:51 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:43:34 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/execution.h"
+#include "execution.h"
 
 void	delete_quote(char *str)
 {

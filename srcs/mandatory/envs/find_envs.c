@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   find_envs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:32:06 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 19:32:17 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:44:24 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/envs.h"
+#include	"envs.h"
 
 t_list	*find_envs(t_list *list, char *to_find)
 {

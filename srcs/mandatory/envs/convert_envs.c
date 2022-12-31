@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:35:11 by yahokari          #+#    #+#             */
-/*   Updated: 2022/11/19 21:39:33 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:44:13 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/envs.h"
+#include	"envs.h"
 
 void	convert_envp_to_list(t_vars *vars, char **envp)
 {

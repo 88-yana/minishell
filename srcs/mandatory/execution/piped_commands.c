@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:57:18 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 16:43:13 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:43:24 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/execution.h"
+#include	"execution.h"
 
 void	check_command(t_vars *vars, char ***command)
 {

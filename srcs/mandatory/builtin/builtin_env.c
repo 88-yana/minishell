@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 21:19:47 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/11 17:55:48 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:44:41 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/builtin.h"
+#include	"builtin.h"
 
 void	exec_env(t_vars *vars)
 {

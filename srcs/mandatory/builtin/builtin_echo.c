@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 11:29:40 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/18 20:39:12 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:44:38 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/builtin.h"
+#include	"builtin.h"
 
 static bool	is_option_n(char *str)
 {

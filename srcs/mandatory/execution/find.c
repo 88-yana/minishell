@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   find.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:31:32 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 21:21:46 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:45:19 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/execution.h"
+#include	"execution.h"
 
 bool	is_next_type(t_list *comline, t_type type)
 {

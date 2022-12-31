@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:46:59 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/11 17:57:13 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:45:01 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/builtin.h"
+#include	"builtin.h"
 
 bool	is_builtin(char **cmd)
 {

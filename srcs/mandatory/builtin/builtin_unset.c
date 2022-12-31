@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 21:26:16 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/19 16:52:56 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:44:58 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/builtin.h"
+#include	"builtin.h"
 
 static bool	is_str_valid_list(char *str)
 {

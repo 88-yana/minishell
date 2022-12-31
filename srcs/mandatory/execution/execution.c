@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 15:44:17 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:43:38 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/execution.h"
+#include	"execution.h"
 
 static void	exec_piped_commands(t_vars *vars, t_list *comline, t_list **pids)
 {

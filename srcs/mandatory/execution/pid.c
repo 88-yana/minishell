@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:34:39 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/11 16:55:35 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:43:51 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/execution.h"
+#include	"execution.h"
 
 void	create_pid_list(t_list **list, pid_t pid)
 {

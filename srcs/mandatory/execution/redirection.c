@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:36:05 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 14:49:00 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:44:02 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/execution.h"
+#include	"execution.h"
 
 void	exec_lt(t_list *comline)
 {
@@ -39,44 +39,6 @@ void	exec_lt(t_list *comline)
 	next_order->read_fd = fd;
 	if (next_order->file)
 		unlink(next_order->file);
-}
-
-void	chenage_file_with_env(t_vars *vars, int fd_from, int fd_to)
-{
-	char	*line;
-
-	while (true)
-	{
-		line = get_next_line(fd_from);
-		if (!line)
-			break ;
-		line = lexer_envs(vars, line);
-		ft_putstr_fd(line, fd_to);
-		free(line);
-	}
-}
-
-void	change_file(t_vars *vars, t_list *comline)
-{
-	int		fd_from;
-	int		fd_to;
-	char	*tmp;
-	t_order	*order;
-
-	order = (t_order *)comline->content;
-	fd_from = open(order->file, O_RDONLY);
-	if (fd_from == ERR)
-		exit (EXIT_FAILURE);
-	tmp = order->file;
-	make_tmp_file(order);
-	fd_to = open(order->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd_to == ERR)
-		exit (EXIT_FAILURE);
-	chenage_file_with_env(vars, fd_from, fd_to);
-	close(fd_from);
-	close(fd_to);
-	unlink(tmp);
-	free(tmp);
 }
 
 void	exec_ltlt(t_vars *vars, t_list *comline)

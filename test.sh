@@ -149,6 +149,13 @@ test_dx 'cat < Makefile'
 test_dx 'cat < Makefile < Makefile'
 test_dx 'cat < Makefil'
 
+# subshell case
+echo ''
+echo '[redirection testcase]'
+test_dx '(ls)'
+test_dx '(ls) | wc -l'
+test_dx '(ls) < Makefile'
+
 echo ''
 echo '<------------ finished testcase ------------>'
 

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:27:18 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/22 19:32:11 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:44:18 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/envs.h"
+#include	"envs.h"
 
 static void	safe_free_envs(t_envs *envs)
 {
