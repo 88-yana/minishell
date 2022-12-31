@@ -1,0 +1,73 @@
+minishell$ echo hello world 
+type: [ command ] command: [ echo hello world ]
+minishell$ echo    hello    world
+type: [ command ] command: [ echo hello world ]
+minishell$ abc    abc"    abc"
+type: [ command ] command: [ abc abc"    abc" ]
+minishell$ echo     "hello   "abc     
+type: [ command ] command: [ echo "hello   "abc ]
+minishell$ echo     "hello   "abc   abc 
+type: [ command ] command: [ echo "hello   "abc abc ]
+minishell$ abc"   abc"
+type: [ command ] command: [ abc"   abc" ]
+minishell$ "abc"  abc  abc
+type: [ command ] command: [ "abc" abc abc ]
+minishell$ echo     hello   abc     abc ab
+type: [ command ] command: [ echo hello abc abc ab ]
+minishell$ echo     "hello   "abc
+type: [ command ] command: [ echo "hello   "abc ]
+minishell$ echo     "hello   "abc     abc
+type: [ command ] command: [ echo "hello   "abc abc ]
+minishell$ echo     "hello   "abc     abc abc
+type: [ command ] command: [ echo "hello   "abc abc abc ]
+minishell$ echo hello| grep world
+type: [ command ] command: [ echo hello ]
+type: [ pipe ]
+type: [ command ] command: [ grep world ]
+minishell$ echo hello  |  world
+type: [ command ] command: [ echo hello ]
+type: [ pipe ]
+type: [ command ] command: [ world ]
+minishell$ echo hello&&echo hello
+type: [ command ] command: [ echo hello ]
+type: [ and ]
+type: [ command ] command: [ echo hello ]
+minishell$ echo hello && echo world
+type: [ command ] command: [ echo hello ]
+type: [ and ]
+type: [ command ] command: [ echo world ]
+minishell$ (echo hello) && echo world
+type: [ bra ]
+type: [ command ] command: [ echo hello ]
+type: [ cket ]
+type: [ and ]
+type: [ command ] command: [ echo world ]
+minishell$ echo "echo hello && abc" > test&& <MAKEFILE cat|| echo hello > test1| (ls) > test &&grep h
+type: [ gt ] aim: [ test ]
+type: [ command ] command: [ echo "echo hello && abc" ]
+type: [ and ]
+type: [ lt ] aim: [ MAKEFILE ]
+type: [ command ] command: [ cat ]
+type: [ or ]
+type: [ gt ] aim: [ test1 ]
+type: [ command ] command: [ echo hello ]
+type: [ pipe ]
+type: [ bra ]
+type: [ command ] command: [ ls ]
+type: [ cket ]
+type: [ gt ] aim: [ test ]
+type: [ and ]
+type: [ command ] command: [ grep h ]
+minishell$ echo hello>test.txt
+type: [ gt ] aim: [ test.txt ]
+type: [ command ] command: [ echo hello ]
+minishell$ echo hello>>test.txt
+type: [ gtgt ] aim: [ test.txt ]
+type: [ command ] command: [ echo hello ]
+minishell$ echo hello&world
+type: [ command ] command: [ echo hello & orld ]
+minishell$ echo hello &world
+type: [ command ] command: [ echo hello & orld ]
+minishell$ echo hello & world
+type: [ command ] command: [ echo hello & world ]
+minishell$ exit

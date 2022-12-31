@@ -85,6 +85,17 @@ $(OBJDIR)/mandatory/readline/readline.o: $(SRCDIR)/mandatory/readline/readline.c
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
+# test: $(NAME)
+# 	./minishell < infile.txt | diff - ok.txt
+# ./minishell < infile.txt | (diff /dev/fd/3 correct.txt) 3<&0
+#https://yulii.github.io/diff-command-tips-20150627.html
+
+a:$(NAME)
+	./minishell < line.txt
+ans:$(NAME)
+	./minishell < line.txt > ans.txt
+b:$(NAME)
+	./minishell < line.txt | diff - ans.txt
 ok:
 	./minishell < infile.txt > ok.txt
 
