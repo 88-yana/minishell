@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 16:15:52 by hyanagim         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:19:17 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	g_status;
 
 # define DOUBLEQ '"'
 # define SINGLEQ '\''
-// # define BRA '('
-// # define CKET ')'
 
 # define DQ 0
 # define SQ 1
