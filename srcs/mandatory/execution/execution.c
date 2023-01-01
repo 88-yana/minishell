@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/01 20:06:07 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/01 20:14:00 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,9 @@ void	exec_comline(t_vars *vars, t_list *comline)
 void	execution(t_vars *vars)
 {
 	check_comline(vars->comline);
+	system("leaks -q minishell");
+	printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	exec_comline(vars, vars->comline);
+	system("leaks -q minishell");
+	printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 }

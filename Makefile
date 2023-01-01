@@ -118,6 +118,10 @@ $(OBJDIR)/mandatory/readline/readline.o: $(SRCDIR)/mandatory/readline/readline.c
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
+a:
+	$(MAKE)
+	./minishell < infile.txt
+
 duplicate:
 	echo $(shell find $(SRCDIR) -type d)
 
