@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:27:39 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 18:50:06 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/01 14:45:03 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	free_list(t_list *head);
 char	**make_cmd(t_str *start, t_str *last, int cnt);
 t_str	*make_slistcmd(char **cmd);
 t_list	*reader(char *line);
-void	slistadd(t_str **head, t_str *new);
 void	free_slist(t_str *head);
 void	sort_red_cmd(t_list *list);
 bool	str_to_aim(t_str *lexical_line);
@@ -38,4 +37,5 @@ t_order	*make_command(t_type type, char **cmd, char *file, t_list *shell);
 bool	sort_shell_cmd(t_list *list);
 void	free_sliststr(t_str *start, t_str *last);
 void	free_slistall(t_str *head);
+void	slistadd(t_str **head, t_str *new);
 #endif

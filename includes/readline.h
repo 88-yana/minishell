@@ -6,10 +6,9 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 17:20:29 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 17:20:31 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/01 14:43:46 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef READLINE_H
 # define READLINE_H
