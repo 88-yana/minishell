@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:08:14 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/01 19:30:33 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/01 19:59:53 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ t_list	*reader(char *line)
 		return (NULL);
 	}
 	lexical_line = new_lexer(line);
+	if (check_lex(lexical_line) == false)
+		return (free_all(line, lexical_line));
 	if (!str_to_aim(lexical_line))
 		return (free_all(line, lexical_line));
 	str_to_cmd(&lexical_line);

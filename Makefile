@@ -35,6 +35,7 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/execution/delete_quote.c \
 	mandatory/reader/bool.c \
 	mandatory/reader/cutline.c \
+	mandatory/reader/check_lex.c \
 	mandatory/reader/list_to_subshell.c \
 	mandatory/reader/list.c \
 	mandatory/reader/make_cmd.c \
