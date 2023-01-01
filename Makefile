@@ -48,11 +48,59 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/reader/check_quote.c \
 	mandatory/reader/make_command.c
 
+SRCS_NAME_BONUS = bonus/main/main.c \
+	bonus/readline/readline.c \
+	bonus/builtin/builtin_cd.c \
+	bonus/builtin/builtin_echo.c \
+	bonus/builtin/builtin_env.c \
+	bonus/builtin/builtin_exit.c \
+	bonus/builtin/builtin_export.c \
+	bonus/builtin/builtin_pwd.c \
+	bonus/builtin/builtin_unset.c \
+	bonus/builtin/builtin.c \
+	bonus/utils/count_lstsize.c \
+	bonus/utils/safe_free_double.c \
+	bonus/utils/strjoin_delimiter.c \
+	bonus/utils/substr_size_t.c \
+	bonus/utils/arraylen.c \
+	bonus/envs/convert_envs.c \
+	bonus/envs/create.c \
+	bonus/envs/envs_utils.c \
+	bonus/envs/find_envs.c \
+	bonus/envs/lexer_envs.c \
+	bonus/execution/execution.c \
+	bonus/execution/find.c \
+	bonus/execution/heredoc.c \
+	bonus/execution/pid.c \
+	bonus/execution/piped_commands.c \
+	bonus/execution/piped_commands_utils.c \
+	bonus/execution/redirection.c \
+	bonus/execution/redirection_utils.c \
+	bonus/execution/asterisk.c \
+	bonus/execution/asterisk_check.c \
+	bonus/execution/asterisk_utils.c \
+	bonus/execution/delete_quote.c \
+	bonus/reader/bool.c \
+	bonus/reader/cutline.c \
+	bonus/reader/list_to_subshell.c \
+	bonus/reader/list.c \
+	bonus/reader/make_cmd.c \
+	bonus/reader/reader.c \
+	bonus/reader/slist.c \
+	bonus/reader/sort.c \
+	bonus/reader/str_to_aim.c \
+	bonus/reader/str_to_cmd.c \
+	bonus/reader/str_to_list.c \
+	bonus/reader/match.c \
+	bonus/reader/check_quote.c \
+	bonus/reader/make_command.c
+
 SRCDIR = srcs
 OBJDIR = objs
 SRCS = $(addprefix $(SRCDIR)/, $(SRCS_NAME))
 OBJS = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 NAME = minishell
+NAME_BONUS = minishell_bonus
 
 all: $(OBJDIR) $(NAME)
 
@@ -69,31 +117,11 @@ $(OBJDIR)/mandatory/readline/readline.o: $(SRCDIR)/mandatory/readline/readline.c
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-a:$(NAME)
-	./minishell < line.txt
-ans:$(NAME)
-	./minishell < line.txt > ans.txt
-b:$(NAME)
-	./minishell < line.txt | diff - ans.txt
-ok:
-	./minishell < infile.txt > ok.txt
-
 duplicate:
 	echo $(shell find $(SRCDIR) -type d)
 
 test:$(NAME)
 	bash test.sh
-
-lex:
-	cc srcs/mandatory/lexer/*c srcs/mandatory/lexer_one_symbol/*c srcs/mandatory/lexer_two_symbols/*c srcs/mandatory/utils/*c libft/libft.a
-	./a.out
-
-par:
-	gcc srcs/mandatory/parser/*c srcs/mandatory/utils/*c libft/libft.a
-	./a.out
-
-sub: $(NAME)
-	./minishell < infile.txt
 
 clean:
 	rm -rf $(OBJDIR)
@@ -104,4 +132,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: test
+.PHONY: all clean fclean re
