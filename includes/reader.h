@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:27:39 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/01 14:46:44 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/01 14:50:23 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ t_order	*make_command(t_type type, char **cmd, char *file, t_list *shell);
 bool	sort_shell_cmd(t_list *list);
 void	free_sliststr(t_str *start, t_str *last);
 void	free_slistall(t_str *head);
-void	slistadd(t_list **head, t_str *new);
+void	slistadd(t_str **head, t_str *add);
+
 #endif

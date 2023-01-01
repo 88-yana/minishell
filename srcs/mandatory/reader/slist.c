@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:46:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 18:49:44 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/01 14:50:15 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ static t_str	*slistlast(t_str *list)
 	return (list);
 }
 
-void	slistadd(t_str **head, t_str *new)
+void	slistadd(t_str **head, t_str *add)
 {
-	if (new == NULL)
+	if (add == NULL)
 	{
 		free_slist(*head);
 		exit(1);
 	}
 	if (*head == NULL)
-		*head = new;
+		*head = add;
 	else
 	{
-		new->prev = slistlast(*head);
-		slistlast(*head)->next = new;
+		add->prev = slistlast(*head);
+		slistlast(*head)->next = add;
 	}
 }
 
