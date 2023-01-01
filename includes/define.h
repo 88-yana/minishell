@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 18:24:40 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/01 14:55:09 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,7 @@ int	g_status;
 # define ASTERISK 1
 
 typedef enum e_type {
-	COMMAND_LINE,
-	PIPED_LINE,
 	PIPE,
-	DELIMITER,
-	ARGUMENTS,
-	REDIRECTION,
-	STRING,
-	EXPANDABLE,
-	NOT_EXPANDABLE,
-	EXPANDABLE_QUOTED,
 	LT,
 	GT,
 	GTGT,
@@ -86,32 +77,6 @@ typedef struct s_order {
 	char	*file;
 	t_list	*shell;
 }	t_order;
-
-typedef struct s_array
-{
-	char	*line;
-	size_t	pos;
-	size_t	*strs_len;
-	char	**array;
-}	t_array;
-
-typedef struct s_node
-{
-	t_type			type;
-	t_type			detail;
-	char			**line;
-	int				*ele_is_quoted;
-	size_t			*ele_length;
-	size_t			array_size;
-	size_t			start_pos;
-	size_t			current_pos;
-	size_t			end_pos;
-	bool			include_right;
-	size_t			index;
-	struct s_node	*parent;
-	struct s_node	*left;
-	struct s_node	*right;
-}	t_node;
 
 typedef struct s_envs {
 	char	*type;
