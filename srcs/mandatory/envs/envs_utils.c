@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 20:29:46 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:44:21 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/02 09:34:30 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	add_to_envs(t_envs *envs, char *value)
 	{
 		envs->value = ft_strjoin(buf, value);
 		free(buf);
+		free(value);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 21:07:06 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 17:22:43 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/01 19:57:34 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,44 +30,46 @@ static bool	check_quote(char *line)
 	return (true);
 }
 
-static bool	check_bra(char *line)
+static void	init_ckeck_bracket(int *i, int *str_len, bool during_[2], int *pra)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < ft_strlen(line))
-	{
-		if (line[i] == BRA)
-			if (match_bracket(line, &i) == false)
-				return (false);
-		i++;
-	}
-	return (true);
+	*i = -1;
+	*str_len = -1;
+	during_[DQ] = false;
+	during_[SQ] = false;
+	*pra = 0;
 }
 
-static bool	check_cket(char *line)
+static void	change_pra(char c, int *pra)
 {
-	size_t	i;
-	size_t	cnt_bracket;
+	if (c == '(')
+		(*pra)++;
+	if (c == ')')
+		(*pra)--;
+}
 
-	i = 0;
-	cnt_bracket = 0;
-	while (i < ft_strlen(line))
+static bool	ckeck_bracket(char *line)
+{
+	int		i;
+	int		str_len;
+	bool	during_[2];
+	int		pra;
+
+	init_ckeck_bracket(&i, &str_len, during_, &pra);
+	while (1)
 	{
-		if (line[i] == BRA)
-			cnt_bracket++;
-		if (line[i] == CKET)
-			cnt_bracket--;
-		if (line[i] == SINGLEQ)
-			match_quote(line, &i, SINGLEQ);
-		if (line[i] == DOUBLEQ)
-			match_quote(line, &i, DOUBLEQ);
 		i++;
-	}
-	if (cnt_bracket != 0)
-	{
-		ft_putendl_fd("minishell: syntax error near unexpected token `)'", 2);
-		return (false);
+		str_len++;
+		if (line[i] == DOUBLEQ)
+			during_[DQ] = !during_[DQ];
+		if (line[i] == SINGLEQ)
+			during_[SQ] = !during_[SQ];
+		if (during_[DQ] || during_[SQ])
+			continue ;
+		change_pra(line[i], &pra);
+		if (pra < 0)
+			return (false);
+		if (line[i] == '\0')
+			break ;
 	}
 	return (true);
 }
@@ -76,9 +78,10 @@ bool	check_line(char *line)
 {
 	if (check_quote(line) == false)
 		return (false);
-	if (check_bra(line) == false)
+	if (ckeck_bracket(line) == false)
+	{
+		printf("syntax error near unexpected token\n");
 		return (false);
-	if (check_cket(line) == false)
-		return (false);
+	}
 	return (true);
 }

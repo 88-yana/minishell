@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:27:18 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:44:18 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/02 09:30:06 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	add_to_envs_list(t_vars *vars, char *str)
 		return (safe_free_envs(&input));
 	list = find_envs(vars->envs, input.type);
 	if (list)
+	{
 		add_to_envs(list->content, input.value);
+		free(input.type);
+	}
 	else
 	{
 		envs = create_envs(input.type, input.value);
@@ -93,11 +96,9 @@ void	create_new_envs_list(t_vars *vars, char *str)
 
 bool	create_envs_list(t_vars *vars, char *str)
 {
-	t_list	*list;
 	size_t	i;
 
 	i = 0;
-	list = vars->envs;
 	if (!str)
 		return (false);
 	if (!(ft_isalpha(str[i]) || str[i] == '_'))

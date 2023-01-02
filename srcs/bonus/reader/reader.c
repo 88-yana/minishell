@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:08:14 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 19:15:09 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/01 19:59:53 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ static t_list	*free_all(char *line, t_str *lexical)
 	return (NULL);
 }
 
+static t_list	*free_line_list(char *line, t_list *list)
+{
+	free(line);
+	free_list(list);
+	return (NULL);
+}
+
 t_list	*reader(char *line)
 {
 	t_str	*lexical_line;
@@ -66,6 +73,8 @@ t_list	*reader(char *line)
 		return (NULL);
 	}
 	lexical_line = new_lexer(line);
+	if (check_lex(lexical_line) == false)
+		return (free_all(line, lexical_line));
 	if (!str_to_aim(lexical_line))
 		return (free_all(line, lexical_line));
 	str_to_cmd(&lexical_line);
@@ -74,11 +83,7 @@ t_list	*reader(char *line)
 	free_slist(lexical_line);
 	list_to_subshell(&list);
 	if (!sort_shell_cmd(list))
-	{
-		free(line);
-		free_list(list);
-		return (NULL);
-	}
+		return (free_line_list(line, list));
 	free(line);
 	return (list);
 }

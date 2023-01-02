@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_envs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 18:55:12 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 18:33:18 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/02 08:13:00 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ char	*lexer_envs(t_vars *vars, char *line)
 	char	*divided_line;
 	char	*temp[2];
 	size_t	pos;
-	size_t	start;
 	bool	during[2];
 
 	init_lexenv(&divided_line, during, &pos);
@@ -106,7 +105,6 @@ char	*lexer_envs(t_vars *vars, char *line)
 			during[SQ] = !during[SQ];
 		if (line[pos] == DOUBLEQ)
 			during[DQ] = !during[DQ];
-		start = pos;
 		temp[0] = divide(vars, line, &pos, during);
 		if (temp[0] == NULL)
 			exit(1);
