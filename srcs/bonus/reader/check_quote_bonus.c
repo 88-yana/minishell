@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_quote.c                                      :+:      :+:    :+:   */
+/*   check_quote_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 21:07:06 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/01 19:57:34 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/03 17:00:12 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ static bool	ckeck_bracket(char *line)
 		if (line[i] == '\0')
 			break ;
 	}
+	if (pra != 0)
+		return (false);
 	return (true);
 }
 
