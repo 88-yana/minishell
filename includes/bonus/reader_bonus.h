@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reader.h                                           :+:      :+:    :+:   */
+/*   reader_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:27:39 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/01 20:00:06 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:33:46 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ void	free_sliststr(t_str *start, t_str *last);
 void	free_slistall(t_str *head);
 void	slistadd(t_str **head, t_str *add);
 bool	check_lex(t_str	*current);
+t_str	*slistlast(t_str *list);
 
 #endif
