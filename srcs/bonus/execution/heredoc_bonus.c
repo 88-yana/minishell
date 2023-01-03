@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   heredoc_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 10:51:50 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:45:27 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:28:25 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"execution_bonus.h"
 
-void	interrupt_heredoc(int signal)
+static void	interrupt_heredoc(int signal)
 {
 	(void)signal;
 	printf("\n");
-	exit(EXIT_SUCCESS);
+	exit(EXIT_FAILURE);
 }
 
-char	*read_heredoc(char *end, int fd)
+static char	*read_heredoc(char *end, int fd)
 {
 	char	*str;
 
+	signal(SIGINT, interrupt_heredoc);
+	signal(SIGQUIT, SIG_IGN);
 	while (true)
 	{
-		signal(SIGINT, interrupt_heredoc);
-		signal(SIGQUIT, SIG_IGN);
 		str = readline("> ");
 		if (!str || !ft_strcmp(str, end))
 			exit(EXIT_SUCCESS);
@@ -50,12 +50,33 @@ void	make_tmp_file(t_order *order)
 	order->file = file_name;
 }
 
-void	get_heredoc(t_list *comline)
+static int	read_heredoc_with_status(t_order *order, char *end)
+{
+	int		fd;
+	pid_t	pid;
+	int		status;
+
+	fd = open(order->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	pid = fork();
+	if (fd == ERR || pid < 0)
+		exit(EXIT_FAILURE);
+	else if (pid == 0)
+		read_heredoc(end, fd);
+	wait(&status);
+	close(fd);
+	free(end);
+	if (status == 256)
+	{
+		unlink(order->file);
+		return (1);
+	}
+	return (0);
+}
+
+int	get_heredoc(t_list *comline)
 {
 	t_order	*order;
 	char	*end;
-	int		fd;
-	pid_t	pid;
 
 	order = (t_order *)comline->content;
 	if (!ft_strchr(order->file, SINGLEQ) && !ft_strchr(order->file, DOUBLEQ))
@@ -63,43 +84,12 @@ void	get_heredoc(t_list *comline)
 	else
 		order->is_quote = true;
 	end = ft_strdup(order->file);
+	free(order->file);
 	if (!end)
-		return ;
+		return (1);
 	delete_quote(end);
 	make_tmp_file(order);
-	fd = open(order->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	pid = fork();
-	if (pid < 0)
-		exit(EXIT_FAILURE);
-	else if (pid == 0)
-		read_heredoc(end, fd);
-	wait(NULL);
-	close(fd);
-	free(end);
-}
-
-void	check_comline(t_list *comline)
-{
-	t_list	*buf;
-	size_t	count;
-	t_order	*order;
-
-	count = 0;
-	buf = comline;
-	while (buf)
-	{
-		order = (t_order *)buf->content;
-		if (order->type == COMMAND || order->type == SUBSHELL)
-		{
-			order->pipe_num = count;
-			count++;
-			if (order->type == SUBSHELL)
-				check_comline(order->shell);
-		}
-		else if (order->type == AND || order->type == OR)
-			count = 0;
-		else if (order->type == LTLT)
-			get_heredoc(buf);
-		buf = buf->next;
-	}
+	if (read_heredoc_with_status(order, end))
+		return (1);
+	return (0);
 }

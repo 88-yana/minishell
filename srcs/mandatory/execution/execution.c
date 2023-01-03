@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/02 09:35:41 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:14:56 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,29 @@ void	exec_comline(t_vars *vars, t_list *comline)
 	wait_pids(&pids);
 }
 
-void	execution(t_vars *vars)
+int	check_comline(t_list *comline)
 {
-	check_comline(vars->comline);
-	exec_comline(vars, vars->comline);
+	t_list	*buf;
+	size_t	count;
+	t_order	*order;
+
+	count = 0;
+	buf = comline;
+	while (buf)
+	{
+		order = (t_order *)buf->content;
+		if (order->type == COMMAND || order->type == SUBSHELL)
+		{
+			order->pipe_num = count;
+			count++;
+			if (order->type == SUBSHELL && check_comline(order->shell))
+				return (1);
+		}
+		else if (order->type == AND || order->type == OR)
+			count = 0;
+		else if (order->type == LTLT && get_heredoc(buf))
+			return (1);
+		buf = buf->next;
+	}
+	return (0);
 }

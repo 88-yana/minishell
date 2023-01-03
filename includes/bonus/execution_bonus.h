@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
+/*   execution_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:11:55 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 18:28:32 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:21:47 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ void	exec_lt(t_list *comline);
 void	exec_ltlt(t_vars *vars, t_list *comline);
 void	exec_gt(t_list *comline);
 void	exec_gtgt(t_list *comline);
-void	execution(t_vars *vars);
 void	check_command(t_vars *vars, char ***command);
-void	check_comline(t_list *comline);
+int		check_comline(t_list *comline);
 char	**check_asterisk(char **cmd);
 void	delete_quote(char *str);
 void	make_tmp_file(t_order *order);
@@ -56,5 +55,7 @@ bool	match_asterisk(char *file, char *str);
 char	**clip_latter(char **cmd, size_t start);
 char	**realloc_array(char **cmd, char *str);
 DIR		*calldir(void);
+int		check_file_and_open(t_order *order);
+int		get_heredoc(t_list *comline);
 
 #endif

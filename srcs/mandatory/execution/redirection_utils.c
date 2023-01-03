@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 17:40:37 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:44:07 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/03 18:43:15 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,19 @@ void	change_file(t_vars *vars, t_list *comline)
 	close(fd_to);
 	unlink(tmp);
 	free(tmp);
+}
+
+int	check_file_and_open(t_order *order)
+{
+	int	fd;
+
+	fd = open(order->file, O_RDONLY);
+	if (fd == ERR)
+	{
+		ft_putstr_fd("bash: ", STDERR_FILENO);
+		ft_putstr_fd(order->file, STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+		g_status = 1;
+	}
+	return (fd);
 }
