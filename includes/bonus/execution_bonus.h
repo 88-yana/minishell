@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:11:55 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/03 19:21:47 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:58:35 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ char	**realloc_array(char **cmd, char *str);
 DIR		*calldir(void);
 int		check_file_and_open(t_order *order);
 int		get_heredoc(t_list *comline);
+void	heredoc_unlink(t_list *comline, t_list *end);
 
 #endif

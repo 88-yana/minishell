@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/03 19:20:20 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:58:52 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	minishell(char **envp)
 {
 	t_vars	vars;
+	t_list	*list;
 
 	g_status = 0;
 	convert_envp_to_list(&vars, envp);
@@ -26,8 +27,11 @@ static void	minishell(char **envp)
 		vars.comline = reader(vars.line);
 		if (vars.comline == NULL)
 			continue ;
-		if (!check_comline(vars.comline))
+		list = check_comline(vars.comline);
+		if (!list)
 			exec_comline(&vars, vars.comline);
+		else
+			heredoc_unlink(vars.comline, list);
 		free_list(vars.comline);
 	}
 }

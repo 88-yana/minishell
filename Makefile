@@ -25,6 +25,7 @@ SRCS_NAME_MANDATORY = mandatory/main/main.c \
 	mandatory/execution/execution.c \
 	mandatory/execution/find.c \
 	mandatory/execution/heredoc.c \
+	mandatory/execution/heredoc_unlink.c \
 	mandatory/execution/pid.c \
 	mandatory/execution/piped_commands.c \
 	mandatory/execution/piped_commands_utils.c \
@@ -73,6 +74,7 @@ SRCS_NAME_BONUS = bonus/main/main_bonus.c \
 	bonus/execution/execution_bonus.c \
 	bonus/execution/find_bonus.c \
 	bonus/execution/heredoc_bonus.c \
+	bonus/execution/heredoc_unlink_bonus.c \
 	bonus/execution/pid_bonus.c \
 	bonus/execution/piped_commands_bonus.c \
 	bonus/execution/piped_commands_utils_bonus.c \
