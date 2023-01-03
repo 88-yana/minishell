@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   slist.c                                            :+:      :+:    :+:   */
+/*   slist_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:46:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/01 14:50:15 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:59:34 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "reader_bonus.h"
 
-static t_str	*slistlast(t_str *list)
+t_str	*slistlast(t_str *list)
 {
 	if (list == NULL)
 		return (NULL);
