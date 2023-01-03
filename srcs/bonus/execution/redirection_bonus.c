@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirection.c                                      :+:      :+:    :+:   */
+/*   redirection_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:36:05 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:44:02 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/03 18:44:52 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exec_lt(t_list *comline)
 	t_list	*next_piped_commands;
 
 	order = (t_order *)comline->content;
-	fd = open(order->file, O_RDONLY);
+	fd = check_file_and_open(order);
 	next_piped_commands = find_nth_piped_commands(comline, 1);
 	if (!next_piped_commands)
 		return ;
@@ -28,10 +28,6 @@ void	exec_lt(t_list *comline)
 	if (fd == ERR)
 	{
 		next_order->can_exec = false;
-		ft_putstr_fd("bash: ", STDERR_FILENO);
-		ft_putstr_fd(order->file, STDERR_FILENO);
-		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-		g_status = 1;
 		return ;
 	}
 	if (next_order->read_fd != NONE)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:02:52 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/02 09:34:34 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:20:20 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void	minishell(char **envp)
 		vars.comline = reader(vars.line);
 		if (vars.comline == NULL)
 			continue ;
-		execution(&vars);
+		if (!check_comline(vars.comline))
+			exec_comline(&vars, vars.comline);
 		free_list(vars.comline);
 	}
 }
