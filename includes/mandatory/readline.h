@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 17:20:29 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/01 14:43:46 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/03 09:23:15 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include	<stdbool.h>
 # include	<readline/readline.h>
 # include	<readline/history.h>
-# include	"../libft/libft.h"
+# include	"../../libft/libft.h"
 # include	"define.h"
 
 # define PROMPT "minishell$ "

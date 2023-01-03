@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:57:37 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/01 14:55:09 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/03 09:23:06 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include	"stdio.h"
 # include	"stdbool.h"
-# include	"../libft/libft.h"
+# include	"../../libft/libft.h"
 
 int	g_status;
 

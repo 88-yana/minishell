@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   utils_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:42:40 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:18:51 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/03 09:24:26 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef UTILS_BONUS_H
+# define UTILS_BONUS_H
 
-# include	"../libft/libft.h"
+# include	"../../libft/libft.h"
 # include	"define.h"
 
 char	*strjoin_delimiter(char *s1, char *s2, char *delimiter);

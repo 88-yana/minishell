@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   builtin_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 21:55:22 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:55:50 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/03 09:23:48 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define BUILTIN_BONUS_H
 
 # include	<errno.h>
-# include	"../libft/libft.h"
+# include	"../../libft/libft.h"
 # include	"define.h"
 # include	"envs.h"
 

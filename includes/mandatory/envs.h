@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   envs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:53:00 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/01 14:47:14 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/03 09:23:21 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENVS_H
 # define ENVS_H
 
-# include	"../libft/libft.h"
+# include	"../../libft/libft.h"
 # include	"define.h"
 # include	"utils.h"
 

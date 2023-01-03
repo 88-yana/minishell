@@ -1,1 +1,0 @@
-export TEST=a && export TEST+=a && export | grep TEST

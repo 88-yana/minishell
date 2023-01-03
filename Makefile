@@ -1,7 +1,8 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I ./includes/ #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror
+INCLUDES = -I ./includes/mandatory/ -I ./includes/bonus/
 RLFLAGS = -I $(shell brew --prefix readline)/include -L$(shell brew --prefix readline)/lib -lreadline -lhistory
-SRCS_NAME = mandatory/main/main.c \
+SRCS_NAME_MANDATORY = mandatory/main/main.c \
 	mandatory/readline/readline.c \
 	mandatory/builtin/builtin_cd.c \
 	mandatory/builtin/builtin_echo.c \
@@ -49,59 +50,67 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/reader/check_quote.c \
 	mandatory/reader/make_command.c
 
-SRCS_NAME_BONUS = bonus/main/main.c \
-	bonus/readline/readline.c \
-	bonus/builtin/builtin_cd.c \
-	bonus/builtin/builtin_echo.c \
-	bonus/builtin/builtin_env.c \
-	bonus/builtin/builtin_exit.c \
-	bonus/builtin/builtin_export.c \
-	bonus/builtin/builtin_pwd.c \
-	bonus/builtin/builtin_unset.c \
-	bonus/builtin/builtin.c \
-	bonus/utils/count_lstsize.c \
-	bonus/utils/safe_free_double.c \
-	bonus/utils/strjoin_delimiter.c \
-	bonus/utils/substr_size_t.c \
-	bonus/utils/arraylen.c \
-	bonus/envs/convert_envs.c \
-	bonus/envs/create.c \
-	bonus/envs/envs_utils.c \
-	bonus/envs/find_envs.c \
-	bonus/envs/lexer_envs.c \
-	bonus/execution/execution.c \
-	bonus/execution/find.c \
-	bonus/execution/heredoc.c \
-	bonus/execution/pid.c \
-	bonus/execution/piped_commands.c \
-	bonus/execution/piped_commands_utils.c \
-	bonus/execution/redirection.c \
-	bonus/execution/redirection_utils.c \
-	bonus/execution/asterisk.c \
-	bonus/execution/asterisk_check.c \
-	bonus/execution/asterisk_utils.c \
-	bonus/execution/delete_quote.c \
-	bonus/reader/bool.c \
-	bonus/reader/cutline.c \
-	bonus/reader/list_to_subshell.c \
-	bonus/reader/list.c \
-	bonus/reader/make_cmd.c \
-	bonus/reader/reader.c \
-	bonus/reader/slist.c \
-	bonus/reader/sort.c \
-	bonus/reader/str_to_aim.c \
-	bonus/reader/str_to_cmd.c \
-	bonus/reader/str_to_list.c \
-	bonus/reader/match.c \
-	bonus/reader/check_quote.c \
-	bonus/reader/make_command.c
+SRCS_NAME_BONUS = bonus/main/main_bonus.c \
+	bonus/readline/readline_bonus.c \
+	bonus/builtin/builtin_cd_bonus.c \
+	bonus/builtin/builtin_echo_bonus.c \
+	bonus/builtin/builtin_env_bonus.c \
+	bonus/builtin/builtin_exit_bonus.c \
+	bonus/builtin/builtin_export_bonus.c \
+	bonus/builtin/builtin_pwd_bonus.c \
+	bonus/builtin/builtin_unset_bonus.c \
+	bonus/builtin/builtin_bonus.c \
+	bonus/utils/count_lstsize_bonus.c \
+	bonus/utils/safe_free_double_bonus.c \
+	bonus/utils/strjoin_delimiter_bonus.c \
+	bonus/utils/substr_size_t_bonus.c \
+	bonus/utils/arraylen_bonus.c \
+	bonus/envs/convert_envs_bonus.c \
+	bonus/envs/create_bonus.c \
+	bonus/envs/envs_utils_bonus.c \
+	bonus/envs/find_envs_bonus.c \
+	bonus/envs/lexer_envs_bonus.c \
+	bonus/execution/execution_bonus.c \
+	bonus/execution/find_bonus.c \
+	bonus/execution/heredoc_bonus.c \
+	bonus/execution/pid_bonus.c \
+	bonus/execution/piped_commands_bonus.c \
+	bonus/execution/piped_commands_utils_bonus.c \
+	bonus/execution/redirection_bonus.c \
+	bonus/execution/redirection_utils_bonus.c \
+	bonus/execution/asterisk_bonus.c \
+	bonus/execution/asterisk_check_bonus.c \
+	bonus/execution/asterisk_utils_bonus.c \
+	bonus/execution/delete_quote_bonus.c \
+	bonus/reader/bool_bonus.c \
+	bonus/reader/cutline_bonus.c \
+	bonus/reader/check_lex_bonus.c \
+	bonus/reader/list_to_subshell_bonus.c \
+	bonus/reader/list_bonus.c \
+	bonus/reader/make_cmd_bonus.c \
+	bonus/reader/reader_bonus.c \
+	bonus/reader/slist_bonus.c \
+	bonus/reader/sort_bonus.c \
+	bonus/reader/str_to_aim_bonus.c \
+	bonus/reader/str_to_cmd_bonus.c \
+	bonus/reader/str_to_list_bonus.c \
+	bonus/reader/match_bonus.c \
+	bonus/reader/check_quote_bonus.c \
+	bonus/reader/make_command_bonus.c
 
 SRCDIR = srcs
 OBJDIR = objs
-SRCS = $(addprefix $(SRCDIR)/, $(SRCS_NAME))
-OBJS = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+SRCS_MANDATORY = $(addprefix $(SRCDIR)/, $(SRCS_NAME_MANDATORY))
+SRCS_BONUS = $(addprefix $(SRCDIR)/, $(SRCS_NAME_BONUS))
+OBJS_MANDATORY = $(SRCS_MANDATORY:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+OBJS_BONUS = $(SRCS_BONUS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 NAME = minishell
-NAME_BONUS = minishell_bonus
+
+ifdef BONUS
+	OBJS = $(OBJS_BONUS)
+else
+	OBJS = $(OBJS_MANDATORY)
+endif
 
 all: $(OBJDIR) $(NAME)
 
@@ -110,23 +119,16 @@ $(OBJDIR):
 
 $(NAME): $(OBJS)
 	$(MAKE) -C libft
-	$(CC) $(CFLAGS) $(RLFLAGS) $(OBJS) libft/libft.a -o $(NAME)
+	$(CC) $(CFLAGS) $(RLFLAGS) $(INCLUDES) $(OBJS) libft/libft.a -o $(NAME)
 
 $(OBJDIR)/mandatory/readline/readline.o: $(SRCDIR)/mandatory/readline/readline.c
-	$(CC) $(CFLAGS) -I $(shell brew --prefix readline)/include -o $@ -c $<
+	$(CC) $(CFLAGS) $(INCLUDES) -I $(shell brew --prefix readline)/include -o $@ -c $<
+
+$(OBJDIR)/bonus/readline/readline_bonus.o: $(SRCDIR)/bonus/readline/readline_bonus.c
+	$(CC) $(CFLAGS) $(INCLUDES) -I $(shell brew --prefix readline)/include -o $@ -c $<
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	$(CC) $(CFLAGS) -o $@ -c $<
-
-a:
-	$(MAKE)
-	./minishell < infile.txt
-
-duplicate:
-	echo $(shell find $(SRCDIR) -type d)
-
-test:$(NAME)
-	bash test.sh
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean:
 	rm -rf $(OBJDIR)
@@ -137,4 +139,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+bonus:
+	make BONUS=1 all
+
+.PHONY: all clean fclean re bonus
