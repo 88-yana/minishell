@@ -36,20 +36,22 @@ SRCS_NAME_MANDATORY = mandatory/main/main.c \
 	mandatory/execution/asterisk_utils.c \
 	mandatory/execution/delete_quote.c \
 	mandatory/reader/bool.c \
-	mandatory/reader/cutline.c \
 	mandatory/reader/check_lex.c \
+	mandatory/reader/check_quote.c \
+	mandatory/reader/cutline.c \
+	mandatory/reader/free.c \
 	mandatory/reader/list_to_subshell.c \
 	mandatory/reader/list.c \
 	mandatory/reader/make_cmd.c \
+	mandatory/reader/make_command.c \
+	mandatory/reader/match.c \
 	mandatory/reader/reader.c \
 	mandatory/reader/slist.c \
 	mandatory/reader/sort.c \
+	mandatory/reader/sort_red_str.c \
 	mandatory/reader/str_to_aim.c \
 	mandatory/reader/str_to_cmd.c \
-	mandatory/reader/str_to_list.c \
-	mandatory/reader/match.c \
-	mandatory/reader/check_quote.c \
-	mandatory/reader/make_command.c
+	mandatory/reader/str_to_list.c
 
 SRCS_NAME_BONUS = bonus/main/main_bonus.c \
 	bonus/readline/readline_bonus.c \
@@ -98,6 +100,7 @@ SRCS_NAME_BONUS = bonus/main/main_bonus.c \
 	bonus/reader/str_to_list_bonus.c \
 	bonus/reader/match_bonus.c \
 	bonus/reader/check_quote_bonus.c \
+	bonus/reader/free_bonus.c \
 	bonus/reader/make_command_bonus.c
 
 SRCDIR = srcs
