@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reader_bonus.c                                     :+:      :+:    :+:   */
+/*   reader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:08:14 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/03 22:12:54 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/04 21:29:42 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_list	*reader(char *line)
 		return (free_all(line, lexical_line));
 	if (!str_to_aim(lexical_line))
 		return (free_all(line, lexical_line));
+	sort_red_str(lexical_line);
 	str_to_cmd(&lexical_line);
 	list = str_to_list(lexical_line);
 	sort_red_cmd(list);

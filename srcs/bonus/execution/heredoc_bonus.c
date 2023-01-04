@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_bonus.c                                    :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 10:51:50 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/03 19:28:25 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:52:46 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	get_heredoc(t_list *comline)
 	end = ft_strdup(order->file);
 	free(order->file);
 	if (!end)
-		return (1);
+		exit(EXIT_FAILURE);
 	delete_quote(end);
 	make_tmp_file(order);
 	if (read_heredoc_with_status(order, end))

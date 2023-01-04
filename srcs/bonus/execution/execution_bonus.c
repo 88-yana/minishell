@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution_bonus.c                                  :+:      :+:    :+:   */
+/*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/03 19:23:09 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:53:09 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	exec_comline(t_vars *vars, t_list *comline)
 	wait_pids(&pids);
 }
 
-int	check_comline(t_list *comline)
+t_list	*check_comline(t_list *comline)
 {
 	t_list	*buf;
 	size_t	count;
@@ -108,13 +108,13 @@ int	check_comline(t_list *comline)
 			order->pipe_num = count;
 			count++;
 			if (order->type == SUBSHELL && check_comline(order->shell))
-				return (1);
+				return (comline);
 		}
 		else if (order->type == AND || order->type == OR)
 			count = 0;
 		else if (order->type == LTLT && get_heredoc(buf))
-			return (1);
+			return (comline);
 		buf = buf->next;
 	}
-	return (0);
+	return (NULL);
 }

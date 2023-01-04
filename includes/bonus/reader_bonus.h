@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:27:39 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/03 22:06:22 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/04 21:35:12 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	free_sliststr(t_str *start, t_str *last);
 void	free_slistall(t_str *head);
 void	slistadd(t_str **head, t_str *add);
 bool	check_lex(t_str	*current);
+void	sort_red_str(t_str *list);
 t_str	*slistlast(t_str *list);
 t_list	*free_line(char *line);
 #endif

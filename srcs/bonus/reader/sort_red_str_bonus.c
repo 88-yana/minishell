@@ -1,40 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_to_aim.c                                       :+:      :+:    :+:   */
+/*   sort_red_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/31 16:54:43 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/03 23:51:34 by hyanagim         ###   ########.fr       */
+/*   Created: 2023/01/03 22:39:32 by hyanagim          #+#    #+#             */
+/*   Updated: 2023/01/03 23:47:12 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "reader_bonus.h"
 
-bool	str_to_aim(t_str *current)
+static void	swap_list(t_str *list, t_str *prev)
 {
-	t_str	*temp;
+	t_str	temp;
 
-	while (current != NULL)
+	temp.type = list->type;
+	temp.str = list->str;
+	list->type = prev->type;
+	list->str = prev->str;
+	prev->type = temp.type;
+	prev->str = temp.str;
+}
+
+void	sort_red_str(t_str *list)
+{
+	t_str	*current;
+	t_str	*prev;
+
+	current = slistlast(list);
+	while (current && current->prev)
 	{
+		prev = current->prev;
 		if (is_redirect(current->type))
 		{
-			if (current->next && current->next->type == STR)
-			{
-				current->next->type = AIM;
-				current->str = current->next->str;
-				temp = current->next;
-				if (temp->next)
-					temp->next->prev = current;
-				if (temp)
-					current->next = temp->next;
-			}
-			else
-				return (false);
+			if (prev->type == STR)
+				swap_list(current, current->prev);
 		}
-		current = current->next;
+		current = current->prev;
 	}
-	free(temp);
-	return (true);
 }

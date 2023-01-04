@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:38:08 by hyanagim          #+#    #+#             */
-/*   Updated: 2022/12/31 17:38:26 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/03 23:04:54 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static t_order	*make_order(t_str	*current)
 	if (type == COMMAND)
 		order = make_command(current->type, current->cmd, NULL, NULL);
 	else if (type == GTGT || type == GT || type == LTLT || type == LT)
-		order = make_command(current->type, NULL, current->next->str, NULL);
+		order = make_command(current->type, NULL, current->str, NULL);
 	else
 		order = make_command(current->type, NULL, NULL, NULL);
 	return (order);
