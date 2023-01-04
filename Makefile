@@ -95,6 +95,7 @@ SRCS_NAME_BONUS = bonus/main/main_bonus.c \
 	bonus/reader/reader_bonus.c \
 	bonus/reader/slist_bonus.c \
 	bonus/reader/sort_bonus.c \
+	bonus/reader/sort_red_str_bonus.c \
 	bonus/reader/str_to_aim_bonus.c \
 	bonus/reader/str_to_cmd_bonus.c \
 	bonus/reader/str_to_list_bonus.c \

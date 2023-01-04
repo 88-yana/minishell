@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:11:55 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/03 19:58:35 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/04 23:57:36 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	exec_ltlt(t_vars *vars, t_list *comline);
 void	exec_gt(t_list *comline);
 void	exec_gtgt(t_list *comline);
 void	check_command(t_vars *vars, char ***command);
-int		check_comline(t_list *comline);
+t_list	*check_comline(t_list *comline);
 char	**check_asterisk(char **cmd);
 void	delete_quote(char *str);
 void	make_tmp_file(t_order *order);
