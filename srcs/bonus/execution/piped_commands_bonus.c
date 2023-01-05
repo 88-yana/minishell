@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:57:18 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/05 15:35:37 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/05 17:12:09 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool	check_path(char **path, char **command)
 		tmp = ft_strjoin(path[i], "/");
 		buf = ft_strjoin(tmp, command[0]);
 		free(tmp);
-		if (!access(buf, F_OK))
+		if (!access(buf, F_OK) && ft_strcmp(command[0], ""))
 		{
 			command[0] = buf;
 			return (true);
