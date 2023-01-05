@@ -35,6 +35,7 @@ SRCS_NAME_MANDATORY = mandatory/main/main.c \
 	mandatory/execution/asterisk_check.c \
 	mandatory/execution/asterisk_utils.c \
 	mandatory/execution/delete_quote.c \
+	mandatory/execution/signal.c \
 	mandatory/reader/bool.c \
 	mandatory/reader/check_lex.c \
 	mandatory/reader/check_quote.c \
@@ -86,6 +87,7 @@ SRCS_NAME_BONUS = bonus/main/main_bonus.c \
 	bonus/execution/asterisk_check_bonus.c \
 	bonus/execution/asterisk_utils_bonus.c \
 	bonus/execution/delete_quote_bonus.c \
+	bonus/execution/signal_bonus.c \
 	bonus/reader/bool_bonus.c \
 	bonus/reader/cutline_bonus.c \
 	bonus/reader/check_lex_bonus.c \

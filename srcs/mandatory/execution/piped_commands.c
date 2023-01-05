@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piped_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:57:18 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 18:33:26 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/05 15:29:08 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ bool	check_path(char **path, char **command)
 	char	*tmp;
 	char	*buf;
 
-	if (!path)
-		return (false);
-	else if (!access(command[0], F_OK))
+	if (!access(command[0], F_OK))
 		return (true);
+	else if (!path)
+		return (false);
 	i = 0;
 	while (path[i])
 	{

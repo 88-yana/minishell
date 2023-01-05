@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:11:55 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/04 23:57:36 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/05 16:11:19 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ DIR		*calldir(void);
 int		check_file_and_open(t_order *order);
 int		get_heredoc(t_list *comline);
 void	heredoc_unlink(t_list *comline, t_list *end);
+void	setup_signal_comline(void);
 
 #endif
