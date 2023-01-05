@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 17:40:37 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/05 16:46:46 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/05 18:18:12 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,24 @@ int	check_file_and_open(t_vars *vars, t_order *order)
 		ft_putstr_fd("bash: ", STDERR_FILENO);
 		ft_putstr_fd(order->file, STDERR_FILENO);
 		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+		g_status = 1;
+	}
+	return (fd);
+}
+
+int	check_file_and_open_gt_gtgt(t_vars *vars, t_order *order)
+{
+	int	fd;
+
+	order->file = lexer_envs(vars, order->file);
+	delete_quote(order->file);
+	fd = open(order->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd == ERR)
+	{
+		ft_putstr_fd("bash: ", STDERR_FILENO);
+		ft_putstr_fd(order->file, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		g_status = 1;
 	}
 	return (fd);
