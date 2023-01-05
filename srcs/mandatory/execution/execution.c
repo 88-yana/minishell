@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:02:17 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/05 16:09:39 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/05 16:43:42 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ static void	exec_redirection(t_vars *vars, t_list *comline)
 
 	order = (t_order *)comline->content;
 	if (order->type == GTGT)
-		exec_gtgt(comline);
+		exec_gtgt(vars, comline);
 	else if (order->type == GT)
-		exec_gt(comline);
+		exec_gt(vars, comline);
 	else if (order->type == LTLT)
 		exec_ltlt(vars, comline);
 	else if (order->type == LT)
-		exec_lt(comline);
+		exec_lt(vars, comline);
 }
 
 static t_list	*exec_delimiters(t_list *comline, t_list **pids)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirection_utils.c                                :+:      :+:    :+:   */
+/*   redirection_utils_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 17:40:37 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/03 18:43:15 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/05 16:46:46 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ void	change_file(t_vars *vars, t_list *comline)
 	free(tmp);
 }
 
-int	check_file_and_open(t_order *order)
+int	check_file_and_open(t_vars *vars, t_order *order)
 {
 	int	fd;
 
+	order->file = lexer_envs(vars, order->file);
+	delete_quote(order->file);
 	fd = open(order->file, O_RDONLY);
 	if (fd == ERR)
 	{
