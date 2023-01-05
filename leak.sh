@@ -1,5 +1,5 @@
 while true
 do
-	leaks -q 74790
+	leaks -q minishell
 	sleep 2
 done
