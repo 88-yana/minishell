@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_lex_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 19:10:46 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/05 17:07:15 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/05 17:29:36 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
