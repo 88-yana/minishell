@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:11:55 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/05 16:11:19 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/05 16:47:34 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ bool	check_path(char **path, char **command);
 void	exec_command(t_vars *vars, char **command);
 void	exec_command_child(t_vars *vars, t_list *comline, t_list **pids);
 void	exec_comline(t_vars *vars, t_list *comline);
-void	exec_lt(t_list *comline);
+void	exec_lt(t_vars *vars, t_list *comline);
 void	exec_ltlt(t_vars *vars, t_list *comline);
-void	exec_gt(t_list *comline);
-void	exec_gtgt(t_list *comline);
+void	exec_gt(t_vars *vars, t_list *comline);
+void	exec_gtgt(t_vars *vars, t_list *comline);
 void	check_command(t_vars *vars, char ***command);
 t_list	*check_comline(t_list *comline);
 char	**check_asterisk(char **cmd);
@@ -55,7 +55,7 @@ bool	match_asterisk(char *file, char *str);
 char	**clip_latter(char **cmd, size_t start);
 char	**realloc_array(char **cmd, char *str);
 DIR		*calldir(void);
-int		check_file_and_open(t_order *order);
+int		check_file_and_open(t_vars *vars, t_order *order);
 int		get_heredoc(t_list *comline);
 void	heredoc_unlink(t_list *comline, t_list *end);
 void	setup_signal_comline(void);
