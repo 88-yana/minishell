@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_to_aim.c                                       :+:      :+:    :+:   */
+/*   str_to_aim_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:54:43 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/03 23:51:34 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/05 16:43:14 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ bool	str_to_aim(t_str *current)
 			}
 			else
 				return (false);
+			free(temp);
 		}
 		current = current->next;
 	}
-	free(temp);
 	return (true);
 }
