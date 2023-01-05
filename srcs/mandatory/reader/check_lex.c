@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 19:10:46 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/03 19:34:49 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/05 17:04:31 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,20 @@ bool	check_bt(t_str *head)
 	return (true);
 }
 
+static bool	check_zengo(t_type type, t_str *next, t_str *prev)
+{
+	if (prev == NULL || next == NULL)
+	{
+		if (type == PIPE)
+			return (false);
+		if (type == OR)
+			return (false);
+		if (type == AND)
+			return (false);
+	}
+	return (true);
+}
+
 bool	check_lex(t_str	*head)
 {
 	t_str	*current;
@@ -49,9 +63,7 @@ bool	check_lex(t_str	*head)
 	current = head;
 	while (current)
 	{
-		if (current->type == PIPE && current->next == NULL)
-			return (false);
-		if (current->type == PIPE && current->prev == NULL)
+		if (!check_zengo(current->type, current->next, current->prev))
 			return (false);
 		current = current->next;
 	}
