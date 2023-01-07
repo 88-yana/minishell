@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 19:10:46 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/07 21:15:55 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/07 22:10:33 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static bool	zengo(t_type type)
 	if (type == BRA)
 		return (true);
 	if (type == CKET)
+		return (true);
+	if (is_redirect(type))
 		return (true);
 	return (false);
 }

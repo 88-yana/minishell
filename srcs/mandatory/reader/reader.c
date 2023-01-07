@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:08:14 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/05 16:41:11 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/07 22:14:40 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,68 @@ static t_list	*free_line_list(char *line, t_list *list)
 	free(line);
 	free_list(list);
 	return (NULL);
+}
+
+void	display_command(t_list *command_line)
+{
+	size_t	i;
+	t_list	*buf;
+	t_order	*command;
+
+	buf = command_line;
+	while (buf)
+	{
+		command = (t_order *)buf->content;
+		if (command->type == COMMAND)
+		{
+			printf("type: [ %s ] command: [", "command");
+			i = 0;
+			while (command->cmd[i])
+			{
+				printf(" %s", command->cmd[i]);
+				i++;
+			}
+			printf(" ]\n");
+		}
+		else if (command->type == SUBSHELL)
+		{
+			printf("---------- inside shell ----------\n");
+			printf("type: [ %s ]\n", "shell");
+			display_command(command->shell);
+			printf("---------- inside shell ----------\n");
+		}
+		else if (command->type == GT)
+		{
+			printf("type: [ %s ]", "gt");
+			printf(" aim: [ %s ]\n", command->file);
+		}
+		else if (command->type == LT)
+		{
+			printf("type: [ %s ]", "lt");
+			printf(" aim: [ %s ]\n", command->file);
+		}
+		else if (command->type == GTGT)
+		{
+			printf("type: [ %s ]", "gtgt");
+			printf(" aim: [ %s ]\n", command->file);
+		}
+		else if (command->type == LTLT)
+		{
+			printf("type: [ %s ]", "ltlt");
+			printf(" aim: [ %s ]\n", command->file);
+		}
+		else if (command->type == PIPE)
+			printf("type: [ %s ]\n", "pipe");
+		else if (command->type == AND)
+			printf("type: [ %s ]\n", "and");
+		else if (command->type == OR)
+			printf("type: [ %s ]\n", "or");
+		else if (command->type == BRA)
+			printf("type: [ %s ]\n", "bra");
+		else if (command->type == CKET)
+			printf("type: [ %s ]\n", "cket");
+		buf = buf->next;
+	}
 }
 
 t_list	*reader(char *line)
