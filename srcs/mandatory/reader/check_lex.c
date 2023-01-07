@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 19:10:46 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/05 17:04:31 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/07 21:15:55 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@ bool	check_bt(t_str *head)
 	return (true);
 }
 
+static bool	zengo(t_type type)
+{
+	if (type == STR)
+		return (true);
+	if (type == BRA)
+		return (true);
+	if (type == CKET)
+		return (true);
+	return (false);
+}
+
 static bool	check_zengo(t_type type, t_str *next, t_str *prev)
 {
 	if (prev == NULL || next == NULL)
@@ -42,6 +53,13 @@ static bool	check_zengo(t_type type, t_str *next, t_str *prev)
 		if (type == OR)
 			return (false);
 		if (type == AND)
+			return (false);
+	}
+	if (type == PIPE || type == AND || type == OR)
+	{
+		if (!zengo(next->type))
+			return (false);
+		if (!zengo(prev->type))
 			return (false);
 	}
 	return (true);
