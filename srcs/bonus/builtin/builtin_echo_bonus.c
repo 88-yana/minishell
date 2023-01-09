@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   builtin_echo_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 11:29:40 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:44:38 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/09 10:25:55 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ static void	print_strs(char **cmd)
 		return ;
 	while (true)
 	{
-		printf("%s", cmd[i]);
+		ft_putstr_fd(cmd[i], STDOUT_FILENO);
 		i++;
 		if (cmd[i] == NULL)
 			break ;
-		printf(" ");
+		ft_putstr_fd(" ", STDOUT_FILENO);
 	}
 }
 
