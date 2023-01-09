@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:22:39 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/05 17:06:26 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/07 23:14:05 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	set_fd(t_list *comline)
 		pipe(buf);
 		order->next_read_fd = buf[0];
 		next_command = find_nth_piped_commands(comline, 2);
-		((t_order *)next_command->content)->read_fd = buf[0];
+		if (next_command)
+			((t_order *)next_command->content)->read_fd = buf[0];
 		if (order->write_fd != NONE)
 			close(buf[1]);
 		else

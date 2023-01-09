@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:36:05 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/05 18:18:01 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/07 23:30:18 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,10 @@ void	exec_gtgt(t_vars *vars, t_list *comline)
 	fd = check_file_and_open_gt_gtgt(vars, order);
 	next_piped_commands = find_nth_piped_commands(comline, 1);
 	if (!next_piped_commands)
+	{
+		unlink(order->file);
 		return ;
+	}
 	next_order = (t_order *)next_piped_commands->content;
 	if (fd == ERR)
 	{

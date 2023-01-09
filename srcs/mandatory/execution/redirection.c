@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:36:05 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/05 18:16:42 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/07 23:25:19 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ void	exec_ltlt(t_vars *vars, t_list *comline)
 		exit (EXIT_FAILURE);
 	next_piped_commands = find_nth_piped_commands(comline, 1);
 	if (!next_piped_commands)
+	{
+		unlink(order->file);
 		return ;
+	}
 	next_order = (t_order *)next_piped_commands->content;
 	if (next_order->read_fd != NONE)
 		close(next_order->read_fd);

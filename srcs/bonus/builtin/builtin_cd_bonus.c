@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_cd.c                                       :+:      :+:    :+:   */
+/*   builtin_cd_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 12:43:42 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:44:34 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/07 22:53:39 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ void	exec_cd(t_vars *vars, char **cmd)
 	if (cmd[1] == NULL)
 	{
 		home = find_envs(list, "HOME");
+		if (!home)
+		{
+			ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
+			return ;
+		}
 		dir = ((t_envs *)home->content)->value;
 	}
 	else
