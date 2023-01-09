@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 16:55:28 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/07 23:32:01 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/09 10:51:20 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,10 @@ static void	exec_exit_with_not_numeric_args(char **cmd)
 	g_status = 255;
 }
 
-void	exec_exit(char **cmd)
+void	exec_exit(char **cmd, bool is_pipe)
 {
-	ft_putendl_fd("exit", STDERR_FILENO);
+	if (!is_pipe)
+		ft_putendl_fd("exit", STDERR_FILENO);
 	if (!cmd[1])
 		g_status = 0;
 	else

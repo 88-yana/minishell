@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
+/*   builtin_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:46:59 by yahokari          #+#    #+#             */
-/*   Updated: 2022/12/31 17:55:32 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/09 10:56:38 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	is_builtin(char **cmd)
 		return (false);
 }
 
-void	exec_builtin(t_vars *vars, char **cmd)
+void	exec_builtin(t_vars *vars, char **cmd, bool is_pipe)
 {
 	if (!ft_strcmp(cmd[0], "echo"))
 		exec_echo(cmd);
@@ -49,7 +49,7 @@ void	exec_builtin(t_vars *vars, char **cmd)
 	else if (!ft_strcmp(cmd[0], "env"))
 		exec_env(vars);
 	else if (!ft_strcmp(cmd[0], "exit"))
-		exec_exit(cmd);
+		exec_exit(cmd, is_pipe);
 }
 
 void	exec_single_builtin(t_vars *vars, t_order *order)
@@ -62,7 +62,7 @@ void	exec_single_builtin(t_vars *vars, t_order *order)
 		dup2(order->write_fd, STDOUT_FILENO);
 		close(order->write_fd);
 	}
-	exec_builtin(vars, order->cmd);
+	exec_builtin(vars, order->cmd, false);
 	dup2(tmp, STDOUT_FILENO);
 	close(tmp);
 	if (order->file)
