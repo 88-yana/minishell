@@ -36,6 +36,7 @@ SRCS_NAME_MANDATORY = mandatory/main/main.c \
 	mandatory/execution/asterisk_utils.c \
 	mandatory/execution/delete_quote.c \
 	mandatory/execution/signal.c \
+	mandatory/execution/split_env.c \
 	mandatory/reader/bool.c \
 	mandatory/reader/check_lex.c \
 	mandatory/reader/check_quote.c \

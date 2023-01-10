@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piped_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:57:18 by yahokari          #+#    #+#             */
-/*   Updated: 2023/01/09 10:54:48 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/10 22:12:33 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	check_command(t_vars *vars, char ***command)
 		i++;
 	}
 	*command = check_asterisk(*command);
+	split_env(command);
 	i = 0;
 	while ((*command)[i])
 	{
