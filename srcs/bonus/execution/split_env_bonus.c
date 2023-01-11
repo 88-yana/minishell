@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_env_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 21:34:15 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/11 15:44:57 by yahokari         ###   ########.fr       */
+/*   Updated: 2023/01/11 21:33:37 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	split_env(char ***cmd)
 	char	*str;
 
 	i = 0;
-	while ((*cmd)[i])
+	while ((*cmd)[i] && (*cmd)[i][0])
 	{
 		latter = clip_latter(*cmd, i + 1);
 		str = (*cmd)[i];

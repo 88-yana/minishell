@@ -6,7 +6,7 @@
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 21:34:15 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/10 23:11:54 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/11 21:33:13 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	split_env(char ***cmd)
 	char	*str;
 
 	i = 0;
-	while ((*cmd)[i])
+	while ((*cmd)[i] && (*cmd)[i][0])
 	{
 		latter = clip_latter(*cmd, i + 1);
 		str = (*cmd)[i];
