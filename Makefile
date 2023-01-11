@@ -89,6 +89,7 @@ SRCS_NAME_BONUS = bonus/main/main_bonus.c \
 	bonus/execution/asterisk_utils_bonus.c \
 	bonus/execution/delete_quote_bonus.c \
 	bonus/execution/signal_bonus.c \
+	bonus/execution/split_env_bonus.c \
 	bonus/reader/bool_bonus.c \
 	bonus/reader/cutline_bonus.c \
 	bonus/reader/check_lex_bonus.c \
