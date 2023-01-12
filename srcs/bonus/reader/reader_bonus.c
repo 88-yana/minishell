@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reader.c                                           :+:      :+:    :+:   */
+/*   reader_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyanagim <hyanagim@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 16:08:14 by hyanagim          #+#    #+#             */
-/*   Updated: 2023/01/04 21:29:42 by hyanagim         ###   ########.fr       */
+/*   Updated: 2023/01/13 08:54:10 by hyanagim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static t_str	*new_lexer(char *line)
 	{
 		i++;
 		str_len++;
-		if (line[i] == DOUBLEQ)
+		if (line[i] == DOUBLEQ && !during_[SQ])
 			during_[DQ] = !during_[DQ];
-		if (line[i] == SINGLEQ)
+		if (line[i] == SINGLEQ && !during_[DQ])
 			during_[SQ] = !during_[SQ];
 		if (during_[DQ] || during_[SQ])
 			continue ;
